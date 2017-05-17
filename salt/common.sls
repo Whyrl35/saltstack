@@ -1,5 +1,6 @@
-common_packages:
+common:
   pkg.installed:
     - pkgs:
-      - {{ pillar['editor'] }}
-      - zsh
+      - w3m
+      - curl
+      - sudo

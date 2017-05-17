@@ -1,5 +1,7 @@
 base:
   '*':
     - common
-  'ks001*':
-    - nettools
+    - zsh
+    - vim
+    - git
+    - users
