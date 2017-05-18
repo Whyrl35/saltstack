@@ -1,0 +1,33 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Allow ssh
+#
+*filter
+
+-N SSH
+-A INPUT -p tcp -m tcp --dport 22 -j SSH
+
+#
+# OVH monitoring host, allowed
+#
+-A SSH -s 92.222.184.0/24 -j ACCEPT -m comment --comment "OVH-Monitoring"
+-A SSH -s 92.222.185.0/24 -j ACCEPT -m comment --comment "OVH-Monitoring"
+-A SSH -s 92.222.186.0/24 -j ACCEPT -m comment --comment "OVH-Monitoring"
+-A SSH -s 167.114.37.0/24 -j ACCEPT -m comment --comment "OVH-Monitoring"
+-A SSH -s 151.80.118.108/32 -j ACCEPT -m comment --comment "OVH-Monitoring"
+
+# My host are allowed
+-A SSH -s 109.190.254.5/26 -j ACCEPT -m comment --comment 'OVH-proxies'
+-A SSH -s 91.121.156.77 -j ACCEPT -m comment --comment 'ks001'
+-A SSH -s 78.232.192.141 -j ACCEPT -m comment --comment 'srv001'
+-A SSH -s 217.182.169.71 -j ACCEPT -m comment --comment 'vps'
+# Only needed by srv001, may have to add this rule in dynamic file
+-A SSH -s 192.168.0.1/24 -j ACCEPT -m comment --comment 'home'
+
+# And drop
+-A SSH -j DROP
+
+COMMIT

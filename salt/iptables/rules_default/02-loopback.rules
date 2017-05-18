@@ -1,0 +1,15 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+#   Filter table
+#
+*filter
+
+#
+#   Allow localhost
+#
+-A OUTPUT -o lo -j ACCEPT -m comment --comment "Allow loopback traffic"
+-A INPUT -i lo -j ACCEPT -m comment --comment "Allow loopback traffic"
+COMMIT

@@ -1,0 +1,113 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          ovh-iptables
+# Required-Start:    networking
+# Required-Stop:     networking
+# Default-Start:     S
+# Default-Stop:
+# X-Interactive:     false
+# Short-Description: Run iptables rules
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=firewall
+DESC=firewall
+
+# Colors
+COLOROFF="\033[1;0m"
+REDCOLOR="\033[1;31m"
+
+IPTABLES_CONFIG_DIR={{ pillar['iptables']['conf_directory'] }}
+IPTABLES_GENERATED_CONFIG_DIR={{ pillar['iptables']['conf_directory_generated'] }}
+
+is_ipv6_enabled()
+{
+    if  ! sysctl -a | grep -q 'disable_ipv6' || sysctl -a | grep 'all.disable_ipv6 = 1' ; then
+        echo "Ipv6 is disabled, not applying firewall rules"
+        return 1
+    fi
+    return 0
+}
+
+iptables_start()
+{
+    echo "IPv4 rules : "
+    # Flush rules and delete user-defined chains, if any
+    for TABLE in raw nat mangle filter
+    do
+        iptables -t $TABLE -F
+        iptables -t $TABLE -X
+    done
+
+    # 0 = success, 1 = failure
+    RESULT=0
+
+    # Add rules
+    for i in `ls $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
+              ls $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
+              2> /dev/null` ; do
+        echo $i
+        echo -ne $REDCOLOR
+        iptables-restore -n < $i || RESULT=1 ;
+        echo -ne $COLOROFF
+    done
+    echo
+
+    return $RESULT ;
+}
+
+ip6tables_start()
+{
+    echo "IPv6 rule : "
+
+    # Check if ipv6 is enabled before going further
+    is_ipv6_enabled || return 0;
+
+    # Flush rules and delete user-defined chains, if any
+    for TABLE in raw mangle filter
+    do
+        ip6tables -t $TABLE -F
+        ip6tables -t $TABLE -X
+    done
+
+    # 0 = success, 1 = failure
+    RESULT=0
+
+    # Add rules
+    for i in `ls $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules.ipv6 \
+                 $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules.ipv6 \
+             2> /dev/null` ; do
+        echo $i
+        echo -ne $REDCOLOR
+        ip6tables-restore -n < $i || RESULT=1 ;
+        echo -ne $COLOROFF
+    done
+    echo
+
+    return $RESULT ;
+}
+
+case "$1" in
+  start)
+        echo "Starting $DESC: "
+        iptables_start && ip6tables_start && echo "$NAME." && exit 0 ;
+        echo -e "${REDCOLOR}failed${COLOROFF}"
+        ;;
+  stop)
+        echo "Stopping $DESC: "
+        # Never stop this
+        echo "$NAME."
+        ;;
+  restart)
+        echo "Restarting $DESC: "
+        iptables_start && ip6tables_start && echo "$NAME." && exit 0 ;
+        echo -e "${REDCOLOR}failed${COLOROFF}"
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
+

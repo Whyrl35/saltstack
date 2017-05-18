@@ -1,0 +1,22 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Adding unwanted countries
+#
+
+*filter
+
+:GEOIP - [0:0]
+
+-A INPUT -j GEOIP
+
+-A GEOIP -m geoip --source-country CN,IN,TH,VN,ID,SG  -m comment --comment ASIA -j DROP
+-A GEOIP -m geoip --source-country BR,CO,EC,MX,PE  -m comment --comment SOUTH-AMERICA -j DROP
+-A GEOIP -m geoip --source-country CZ,GE,KZ,MD,RU,UA  -m comment --comment RUSSIA -j DROP
+-A GEOIP -m geoip --source-country IL,IR  -m comment --comment MIDDLE-EAST -j DROP
+-A GEOIP -m geoip --source-country KE,ZA  -m comment --comment AFRICA -j DROP
+-A GEOIP -j RETURN
+
+COMMIT

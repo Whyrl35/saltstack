@@ -1,0 +1,12 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+#	Allow everyone to ping
+#
+*filter
+
+-A INPUT -p icmpv6 -j ACCEPT -m comment --comment "ping"
+COMMIT
+

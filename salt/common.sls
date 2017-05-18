@@ -4,3 +4,4 @@ common:
       - w3m
       - curl
       - sudo
+      - htop

@@ -1,0 +1,36 @@
+#
+# MANAGED BY SALTSTACK - do not edit manually
+#
+
+Port {{ pillar['sshd']['Port'] }}
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+UsePrivilegeSeparation yes
+KeyRegenerationInterval 3600
+ServerKeyBits 2048
+SyslogFacility AUTH
+LogLevel INFO
+LoginGraceTime 120
+PermitRootLogin without-password
+StrictModes yes
+RSAAuthentication yes
+PubkeyAuthentication yes
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+PrintLastLog no
+PrintMotd no
+DebianBanner no
+GatewayPorts no
+UseDNS no
+X11Forwarding no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+UsePAM yes
+
+Ciphers {{ pillar['sshd']['Ciphers'] }}
+MACs {{ pillar['sshd']['MACs'] }}
+KexAlgorithms {{ pillar['sshd']['KexAlgorithms'] }}
