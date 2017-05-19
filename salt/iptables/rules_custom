@@ -1,0 +1,50 @@
+#
+# MANAGED BY SALT - don't edit it manually
+#
+
+* {{ pillar['iptables_custom']['table'] }}
+
+:{{ pillar['iptables_custom']['chain'] }} - [0:0]
+
+#
+# Adding {{ pillar['iptables_custom']['chain'] }} into INPUT
+#
+
+-A INPUT -j {{ pillar['iptables_custom']['chain'] }}
+
+#
+# Adding rules to {{ pillar['iptables_custom']['chain'] }}
+#
+
+{% for rule in pillar['iptables_custom']['rules'] %}
+{%- with str = "" -%}
+{%- if rule['method'] == 'append'  -%}
+	{%- set str = str ~ "-A " -%}
+{%- else -%}
+	{%- set str = str ~ "-I " -%}
+{%- endif -%}
+{%- set str = str ~ pillar['iptables_custom']['chain'] ~ " " -%}
+{%- if 'proto' in rule -%}
+	{%- set str = str ~ "-p " ~ rule['proto'] ~ " " -%}
+{%- endif -%}
+{%- if 'source' in rule -%}
+	{%- set str = str ~ "--source " ~ rule['source'] ~ " " -%}
+{%- endif -%}
+{%- if 'destination' in rule -%}
+	{%- set str = str ~ "--destination " ~ rule['destination'] ~ " " -%}
+{%- endif -%}
+{%- if 'dport' in rule -%}
+	{%- set str = str ~ "--dport " ~ rule['dport'] ~ " " -%}
+{%- endif -%}
+{%- if 'sport' in rule -%}
+	{%- set str = str ~ "--sport " ~ rule['sport'] ~ " " -%}
+{%- endif -%}
+{%- if 'comment' in rule -%}
+	{%- set str = str ~ "-m comment --comment  " ~ rule['comment'] ~ " "  -%}
+{%- endif -%}
+{%- set str = str ~ "-j " ~ rule['jump'] -%}
+{{ str }}
+{%- endwith %}
+{% endfor %}
+
+COMMIT

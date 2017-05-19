@@ -49,3 +49,21 @@ iptables_rules_default:
     - name: /etc/iptables.d
     - source: salt://iptables/rules_default
     - include_empty: True
+    - user: root
+    - group: root
+    - watch_in:
+      - service : iptables
+
+# ------------------------------------------------------------
+# - Install Dynamic custom rules
+# -
+iptables_rules_custom:
+  file.managed:
+    - name: /etc/iptables.d/{{ pillar['iptables_custom']['chain_id'] }}-{{ pillar['iptables_custom']['chain']|lower }}.rules.{{ pillar['iptables_custom']['chain_type'] }}
+    - source: salt://iptables/rules_custom
+    - user: root
+    - group: root
+    - mode: 600
+    - template: jinja
+    - watch_in:
+      - service : iptables

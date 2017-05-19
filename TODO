@@ -2,7 +2,4 @@
 	- per proxypass
 	- per website
 	- template
-- Iptables
-	- common
-	- per host
 - Docker

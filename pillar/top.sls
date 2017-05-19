@@ -4,3 +4,4 @@ base:
     - account
     - sshd
     - iptables
+    - iptables_custom
