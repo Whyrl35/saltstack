@@ -19,33 +19,6 @@ create_account_name:
       - pkg : zsh
 
 # ------------------------------------------------------------
-# - SSH authorized_keys for user
-# -
-ssh_key_vps:
-  ssh_auth.present:
-    - user: {{ pillar['account_name'] }}
-    - source: salt://ssh/keys/id_rsa_vps001.pub
-    - config: '%h/.ssh/authorized_keys'
-
-ssh_key_ks001:
-  ssh_auth.present:
-    - user: {{ pillar['account_name'] }}
-    - source: salt://ssh/keys/id_rsa_ks001.pub
-    - config: '%h/.ssh/authorized_keys'
-
-ssh_key_srv001:
-  ssh_auth.present:
-    - user: {{ pillar['account_name'] }}
-    - source: salt://ssh/keys/id_rsa_srv001.pub
-    - config: '%h/.ssh/authorized_keys'
-
-ssh_key_ovhdesk:
-  ssh_auth.present:
-    - user: {{ pillar['account_name'] }}
-    - source: salt://ssh/keys/id_rsa_ovhdesk.pub
-    - config: '%h/.ssh/authorized_keys'
-
-# ------------------------------------------------------------
 # - SSH generate a ssh key for user if needed
 # -
 ssh_key_generate:

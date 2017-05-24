@@ -1,7 +1,7 @@
 base:
   '*':
     - default
+    - openssh
     - account
-    - sshd
     - iptables
     - iptables_custom

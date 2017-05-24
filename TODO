@@ -2,4 +2,8 @@
 	- per proxypass
 	- per website
 	- template
+
 - Docker
+	- Configuration des container sur ks
+
+- OSSEC (server sur ks? et autre en client?)

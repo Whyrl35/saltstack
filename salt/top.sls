@@ -1,12 +1,11 @@
 base:
   '*':
     - common
-    - ssh
+    - motd
     - zsh
-    - vim
-    - git
+    - openssh
+    - openssh.client
+    - openssh.config
+    - openssh.banner
     - iptables
-    - users
-
-  'ks001*':
-    - apache2
+    - account
