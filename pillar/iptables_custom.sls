@@ -72,6 +72,20 @@ iptables_custom:
       proto: tcp
       dport: 443
       comment: HTTPS
+    - _03:
+      source: 192.168.0.1/24
+      method: append
+      jump: ACCEPT
+      proto: udp
+      dport: 53
+      comment: DNS
+    - _03:
+      source: 192.168.0.1/24
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 53
+      comment: DNS
     - _99:
       method: append
       jump: DROP

@@ -1,0 +1,15 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Adding Chain for OSSEC to block attackers
+#
+
+*filter
+
+:OSSEC - [0:0]
+
+-A INPUT -j OSSEC
+
+COMMIT
