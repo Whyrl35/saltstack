@@ -1,0 +1,17 @@
+#
+# MANAGED BY SALT - don't edit it manually
+#
+
+#
+# Creating set {{ pillar['ipset_custom'][ipset_name]['name'] }}
+#
+
+create {{ pillar['ipset_custom'][ipset_name]['name'] }} hash:net family inet hashsize 1024 maxelem 65536
+
+#
+# Adding ip to {{ pillar['ipset_custom'][ipset_name]['name'] }}
+#
+
+{% for ip in pillar['ipset_custom'][ipset_name]['ips'] -%}
+add {{ pillar['ipset_custom'][ipset_name]['name'] }} {{ ip }}
+{% endfor -%}

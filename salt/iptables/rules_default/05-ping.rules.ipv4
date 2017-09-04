@@ -14,27 +14,9 @@
 #
 -A INPUT -p icmp -j MONITO
 
--A MONITO -s 92.222.184.0/24 -m comment --comment OVH-MONITO -j ACCEPT
--A MONITO -s 92.222.185.0/24 -m comment --comment OVH-MONITO -j ACCEPT
--A MONITO -s 92.222.186.0/24 -m comment --comment OVH-MONITO -j ACCEPT
--A MONITO -s 167.114.37.0/24 -m comment --comment OVH-MONITO -j ACCEPT
--A MONITO -s 151.80.118.108/32 -m comment --comment OVH-MONITO -j ACCEPT
--A MONITO -s 78.232.192.141 -m comment --comment HOME -j ACCEPT
--A MONITO -s 91.121.156.77 -m comment --comment KS -j ACCEPT
--A MONITO -s 109.190.254.5/26 -m comment --comment OVH-OFFICE -j ACCEPT
--A MONITO -s 69.162.124.226/28 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 63.143.42.242/28 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 46.137.190.132 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 122.248.234.23 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 188.226.183.141 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 178.62.52.237 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 54.79.28.129 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 54.94.142.218 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 104.131.107.63 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 54.67.10.127 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 54.64.67.106 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 159.203.30.41 -m comment --comment UPTIMEROBOT -j ACCEPT
--A MONITO -s 46.101.250.135 -m comment --comment UPTIMEROBOT -j ACCEPT
+-A MONITO -m set --match-set monitoring_ping src -j ACCEPT -m comment --comment "OVH / uptimerobot"
+-A MONITO -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH desk and VPN"
+-A MONITO -m set --match-set myhosts src -j ACCEPT -m comment --comment "All my own hosts"
 -A MONITO -j DROP
 
 COMMIT

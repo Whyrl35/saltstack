@@ -17,6 +17,5 @@
 -A GEOIP -m geoip --source-country CZ,GE,KZ,MD,RU,UA  -m comment --comment RUSSIA -j DROP
 -A GEOIP -m geoip --source-country IL,IR  -m comment --comment MIDDLE-EAST -j DROP
 -A GEOIP -m geoip --source-country KE,ZA  -m comment --comment AFRICA -j DROP
--A GEOIP -j RETURN
 
 COMMIT

@@ -7,6 +7,8 @@ iptables:
       - iptables
       - xtables-addons-common
       - xtables-addons-dkms
+    - require:
+      - pkg : ipset
   service.running:
     - name: firewall
     - enable: True
@@ -29,17 +31,6 @@ iptables_init:
     - require:
       - pkg : iptables
 
-# ------------------------------------------------------------
-# - Directory to put the configuration files
-# -
-iptables_directory:
-  file.directory:
-    - name: {{ pillar['iptables']['conf_directory'] }}
-    - user: root
-    - group: root
-    - mode: 700
-    - require:
-      - pkg : iptables
 
 # ------------------------------------------------------------
 # - Install Default rules
@@ -48,11 +39,16 @@ iptables_rules_default:
   file.recurse:
     - name: /etc/iptables.d
     - source: salt://iptables/rules_default
+    - clean: True
     - include_empty: True
     - user: root
     - group: root
+    - dir_mode : 700
+    - file_mode : 600
+    - maxdepth: 0
     - watch_in:
       - service : iptables
+
 
 # ------------------------------------------------------------
 # - Install Dynamic custom rules
@@ -65,5 +61,7 @@ iptables_rules_custom:
     - group: root
     - mode: 600
     - template: jinja
+    - require:
+      - file : /etc/iptables.d
     - watch_in:
       - service : iptables

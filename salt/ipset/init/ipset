@@ -1,0 +1,91 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          ipset
+# Required-Start:    networking
+# Required-Stop:     networking
+# Default-Start:     S
+# Default-Stop:
+# X-Interactive:     false
+# Short-Description: Run ipset rules
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=ipset
+DESC=ipset
+
+# Colors
+COLOROFF="\033[1;0m"
+REDCOLOR="\033[1;31m"
+
+IPSET_CONFIG_DIR={{ pillar['ipset']['conf_directory'] }}
+
+ipset_status()
+{
+	num=$(ipset list | wc -l)
+	if [ $num -le 0 ]
+	then
+		echo "No ipset defined"
+		exit 1
+	fi
+	exit 0
+}
+
+ipset_stop()
+{
+	ipset -F
+	ipset -X
+}
+
+ipset_start()
+{
+	echo "IPset rules : "
+	# Flush rules and delete user-defined sets, if any
+	ipset -F
+	ipset -X
+
+	# 0 = success, 1 = failure
+	RESULT=0
+
+	# Add rules
+	for i in `ls $IPSET_CONFIG_DIR/[0-9][0-9]*.rules 2> /dev/null` ; do
+		echo $i
+		echo -ne $REDCOLOR
+		ipset -! restore  < $i || RESULT=1 ;
+		echo -ne $COLOROFF
+	done
+	echo
+
+	return $RESULT ;
+}
+
+case "$1" in
+	start)
+		echo "Starting $DESC: "
+		ipset_start && echo "$NAME." && exit 0 ;
+		echo -e "${REDCOLOR}failed${COLOROFF}"
+		;;
+	stop)
+		echo "Stopping $DESC: "
+		ipset_stop
+		echo "$NAME."
+		;;
+	restart)
+		echo "Restarting $DESC: "
+		echo "Stopping..."
+		ipset_stop
+		echo "Starting..."
+		ipset_start && echo "$NAME." && exit 0 ;
+		echo -e "${REDCOLOR}failed${COLOROFF}"
+		;;
+	status)
+		echo "Status of $DESC: "
+		ipset_status
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}" >&2
+		exit 1
+		;;
+esac
+
+exit 0
+

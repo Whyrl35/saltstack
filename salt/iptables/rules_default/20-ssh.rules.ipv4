@@ -1,0 +1,34 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Allow ssh
+#
+*filter
+
+-N SSH
+-A INPUT -p tcp -m tcp --dport 22 -j SSH
+
+#
+# OVH monitoring host, allowed
+#
+-A SSH -m set --match-set monitoring_ssh src -j ACCEPT -m comment --comment "OVH"
+
+#
+# My host are allowed
+#
+-A SSH -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH office and vpn"
+-A SSH -m set --match-set myhosts src -j ACCEPT -m comment --comment "My own hosts"
+
+#
+# Logging other connection
+#
+-A SSH -m state --state NEW -j LOG --log-prefix "SSH connection: "
+
+#
+# And accept all other, let ossec act on bruteforce, ssh conf hardened.
+#
+-A SSH -j ACCEPT
+
+COMMIT

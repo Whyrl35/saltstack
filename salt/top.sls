@@ -7,5 +7,6 @@ base:
     - openssh.client
     - openssh.config
     - openssh.banner
+    - ipset
     - iptables
     - account
