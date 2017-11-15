@@ -1,4 +1,4 @@
-{{ grains['lsb_distrib_description'] }}
+{{ grains['lsb_distrib_codename'] }}
 
 kernel    : {{ grains['kernelrelease'] }}
 ip        : {{ grains['ip4_interfaces']['eth0']|join(', ') }}
