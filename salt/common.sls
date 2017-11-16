@@ -5,3 +5,4 @@ common:
       - curl
       - sudo
       - htop
+      - git
