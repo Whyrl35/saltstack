@@ -1,0 +1,18 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Allow ssh
+#
+*filter
+
+-N SALT
+-A INPUT -p tcp -m tcp -m multiport --dports 4505,4506 -j SALT
+
+#
+# My host are allowed
+#
+-A SALT -m set --match-set myhosts src -m state --state new -j ACCEPT -m comment --comment "My own hosts"
+
+COMMIT

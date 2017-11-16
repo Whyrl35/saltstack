@@ -98,7 +98,7 @@ return $RESULT ;
 case "$1" in
 	start)
 		echo "Starting $DESC: "
-		iptables_start && ip6tables_start && echo "$NAME." && exit 0 ;
+		(iptables_start ; ip6tables_start) && echo "$NAME." && exit 0 ;
 		echo -e "${REDCOLOR}failed${COLOROFF}"
 		;;
 	stop)
@@ -108,7 +108,7 @@ case "$1" in
 		;;
 	restart)
 		echo "Restarting $DESC: "
-		iptables_start && ip6tables_start && echo "$NAME." && exit 0 ;
+		(iptables_start ; ip6tables_start) && echo "$NAME." && exit 0 ;
 		echo -e "${REDCOLOR}failed${COLOROFF}"
 		;;
 	*)
