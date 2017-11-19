@@ -1,0 +1,26 @@
+##
+## Don't edit manually - Managed by Saltstack
+##
+## Find details at https://github.com/runabove/noderig
+##
+
+##
+## Internal Collectors
+
+cpu:    {{ pillar['noderig']['cpu'] }}
+mem:    {{ pillar['noderig']['mem'] }}
+load:   {{ pillar['noderig']['load'] }}
+disk:   {{ pillar['noderig']['disk'] }}
+net:    {{ pillar['noderig']['net'] }}
+
+
+##
+## External Collectors
+
+collectors: {{ pillar['noderig']['collectors'] }}
+
+##
+## Parameters
+## Duration within all the sources should be scraped
+
+period: {{ pillar['noderig']['period'] }}

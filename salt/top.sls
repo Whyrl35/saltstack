@@ -1,5 +1,8 @@
 base:
   '*':
+    - apt.transports.https
+    - apt.repositories
+    - apt.update
     - common
     - motd
     - zsh
@@ -11,3 +14,5 @@ base:
     - ipset
     - iptables
     - account
+    - beamium
+    - noderig

@@ -39,21 +39,21 @@ iptables_stop()
 
 iptables_start()
 {
-	echo "IPv4 rules : "
-	# Flush rules and delete user-defined chains, if any
-	for TABLE in raw nat mangle filter
-	do
-		iptables -t $TABLE -F
-		iptables -t $TABLE -X
-	done
+echo "IPv4 rules : "
+# Flush rules and delete user-defined chains, if any
+for TABLE in raw nat mangle filter
+do
+	iptables -t $TABLE -F
+	iptables -t $TABLE -X
+done
 
-	# 0 = success, 1 = failure
-	RESULT=0
+# 0 = success, 1 = failure
+RESULT=0
 
-	# Add rules
-	for i in `ls $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
-		ls $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
-		2> /dev/null` ; do
+# Add rules
+for i in `ls $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
+	ls $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules $IPTABLES_GENERATED_CONFIG_DIR/[0-9][0-9]*.rules.ipv4 \
+	2> /dev/null` ; do
 	echo $i
 	echo -ne $REDCOLOR
 	iptables-restore -n < $i || RESULT=1 ;
