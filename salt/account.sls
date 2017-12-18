@@ -58,7 +58,7 @@ clone_zshrc_repo:
     - pkg : zsh
     - file : development_directory
   git.latest:
-    - name : ssh://git@gitlab.ks.whyrl.fr:2222/Whyrl/zshrc.git
+    - name : git@github.com:Whyrl35/zshrc.git
     - target : /home/{{ pillar['account_name'] }}/development/zshrc
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
@@ -72,7 +72,7 @@ clone_zsh_powerline_repo:
     - pkg : zsh
     - file : development_directory
   git.latest:
-    - name : ssh://git@gitlab.ks.whyrl.fr:2222/Whyrl/zsh-powerline.git
+    - name : git@github.com:Whyrl35/zsh-powerline.git
     - target : /home/{{ pillar['account_name'] }}/development/zsh-powerline
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
@@ -86,7 +86,7 @@ clone_vim_repo:
     - pkg : vim
     - file : development_directory
   git.latest:
-    - name : ssh://git@gitlab.ks.whyrl.fr:2222/Whyrl/vimrc.git
+    - name : git@github.com:Whyrl35/vimrc.git
     - target : /home/{{ pillar['account_name'] }}/development/vimrc
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
