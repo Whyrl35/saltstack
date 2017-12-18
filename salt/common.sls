@@ -6,3 +6,4 @@ common:
       - sudo
       - htop
       - git
+      - vim
