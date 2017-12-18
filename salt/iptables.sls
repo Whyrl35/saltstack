@@ -30,6 +30,10 @@ iptables_init:
     - template: jinja
     - require:
       - pkg : iptables
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges_in:
+        - file: /etc/init.d/firewall
 
 
 # ------------------------------------------------------------

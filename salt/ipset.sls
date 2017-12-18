@@ -27,6 +27,10 @@ ipset_init:
     - template: jinja
     - require:
       - pkg : ipset
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges_in:
+      - file: /etc/init.d/ipset
 
 # ------------------------------------------------------------
 # - Directory to put the configuration files
