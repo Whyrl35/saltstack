@@ -29,7 +29,7 @@ ipset_init:
       - pkg : ipset
   cmd.run:
     - name: systemctl daemon-reload
-    - onchanges_in:
+    - onchanges:
       - file: /etc/init.d/ipset
 
 # ------------------------------------------------------------

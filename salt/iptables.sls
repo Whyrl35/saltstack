@@ -32,7 +32,7 @@ iptables_init:
       - pkg : iptables
   cmd.run:
     - name: systemctl daemon-reload
-    - onchanges_in:
+    - onchanges:
         - file: /etc/init.d/firewall
 
 

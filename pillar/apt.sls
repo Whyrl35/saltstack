@@ -14,12 +14,3 @@ apt:
       arch: [amd64, i386]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
-    {% if 'container' in grains['roles'] %}
-    docker:
-      distro: debain-stretch
-      url: https://apt.dockerproject.org/repo
-      comps: [main]
-      arch: [amd64, i386]
-      keyid: F76221572C52609D
-      keyserver: hkp://pgp.mit.edu:80
-    {% endif %}

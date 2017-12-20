@@ -39,6 +39,12 @@
 {%- if 'sport' in rule -%}
 	{%- set str = str ~ "--sport " ~ rule['sport'] ~ " " -%}
 {%- endif -%}
+{%- if 'set' in rule -%}
+	{%- set str = str ~ "-m set --match-set " ~ rule['set']['name'] ~ " " ~ rule['set']['direction'] ~ " " -%}
+{%- endif -%}
+{%- if 'state' in rule -%}
+	{%- set str = str ~ "-m state --state " ~ rule['state'] ~ " " -%}
+{%- endif -%}
 {%- if 'comment' in rule -%}
 	{%- set str = str ~ "-m comment --comment  " ~ rule['comment'] ~ " "  -%}
 {%- endif -%}
