@@ -1,7 +1,9 @@
 {{ grains['lsb_distrib_codename'] }}
 
 kernel    : {{ grains['kernelrelease'] }}
-ip        : {{ grains['ip4_interfaces']['eth0']|join(', ') }}
+{% for eth in grains['ip4_interfaces'] -%}
+ip        : {{ "%-15s"|format(grains['ip4_interfaces'][eth]|join(',')) }} [{{ eth }}]
+{% endfor -%}
 hostname  : {{ grains['fqdn'] }}
 salt_id   : {{ grains['id'] }}
 CPU	  : {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
