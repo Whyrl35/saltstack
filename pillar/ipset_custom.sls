@@ -20,6 +20,7 @@ ipset_custom:
       - 92.222.186.0/24       # OVH monito
       - 167.114.37.0/24       # OVH monito
       - 151.80.118.108/32     # OVH monito
+      - 213.186.33.0/24       # OVH monito
   monitoring_ping:
     name : monitoring_ping
     id : '03'
@@ -29,6 +30,7 @@ ipset_custom:
       - 92.222.186.0/24       # OVH monito
       - 167.114.37.0/24       # OVH monito
       - 151.80.118.108/32     # OVH monito
+      - 213.186.33.0/24       # OVH monito
       - 69.162.124.224/28     # UPTIMEROBOT #
       - 63.143.42.240/28      # UPTIMEROBOT #
       - 46.137.190.132/32     # UPTIMEROBOT #
