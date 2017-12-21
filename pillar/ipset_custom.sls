@@ -1,3 +1,4 @@
+#!jinja|yaml|gpg
 ipset_custom:
   myhosts:
     name : myhosts
@@ -48,8 +49,44 @@ ipset_custom:
     name : ovh_office
     id : '04'
     ips:
-      - 109.190.254.0/26      # OVH office
-      - 213.186.33.64/32      # OVH vpn-out
+      # OVH office
+      - |
+        -----BEGIN PGP MESSAGE-----
+
+        hQIMA85QH7s0WVo+ARAAozLDIW83z4qkER/Z0MJTqZBAzhO/9kCvZRDUMKe64gw6
+        G5ORw1Q5HlkXizJTeU17iqmvtqmuwTLRzBNU6h/STdz9T3P2gbOVqTnwlUrB356y
+        /OI0RPo1OIG3iQEpylw8MTl8+2HA9PV85tDA9o30xZNquduBkkMU0RRzHlowHA40
+        Gn44LDLO8xcgdclS7hMgKzd3SKAjWw5z/hJfqng+OoGQ1y/zQugTsvfP32LRNXDi
+        W7zLdqMzG8U66XcpEbpVw+rqGD7me6NxE6RSOOGVrcdeGQAWbCfbRri3VxkSJV7F
+        w59QbdYPhgfxA54GZq37BMt4ZtsQ3xVdEz4MJ5IgwQXFb5TMOmqnTdNBvNEwdgxY
+        cYbSvG3NUaxHKFC/4V9bU2FgRXtsMNzwyKbCYBs9o4mfX/r70Twdi11I0Lh5D4zu
+        R3uyVcj4TPQJkeZxtCiWU97TVFKUA7qAqwQLzkDawyli9NXF1KapmaNJYkiiZkq2
+        rOPDlIMkjkR1Un59Ftz8nErrKf+ih7kaxArazUv1Uxlh4eXNPDBjX5Q+h5ekQg2n
+        QOHCPBwmyOh3gZqhol05Wb4jRScDSDx4noH7oFvECO5wClKQzjg8Bg7BqI4GkwxX
+        WPR4zVINW6IYcTnzoqHkocN+VlTQ6z0FgZUX3QDAhg6zxb8BX6EZanCzWbYC63DS
+        SwGthJ1UYLYZ7M3AefsqKozNozDHhdtn9/UE/l/V3AeQ44Qv1PLxnHN3cb8PVKln
+        13zoT+RldNXK4g6bYm/ZKDEPrfwu0wlj5mBYdA==
+        =SBJE
+        -----END PGP MESSAGE----
+      # OVH vpn-out
+      - |
+        -----BEGIN PGP MESSAGE-----
+
+        hQIMA85QH7s0WVo+AQ/8C4JcJ8NFKZHeEE/FyrTS782SMUpoHUlPEPgH8/ObATAj
+        3lVbXaiwjCOf394t/6PneTIkkysAECtwfW2s2gDBR6WrVQ67pOxfN5oBj704i3FU
+        tfBDnZkECDOx1GAeRJqxy9S29jpmTyln98W8ObX+7Mr5rAsTvBwE32Bfc00ZM748
+        wRCEqP4ZQp+CyPwIZvtR1Uj98Rx3ARtzRx0OWYDBeevspx0GEZcAq1PMi+V4xOO4
+        EBK4eMym2uuuyLgPPRWUJUvaCTyQIBU4ba38FeWPpyzcNeAHkFb1rpltsH8xNLQf
+        rhZPz70TOrkIPD4wup3rX4DRaXH5QeHhOcyHFZ8xQuMQESjDLwIcloNrZ99O7tZj
+        A2ZoDgDkgSsaDdacK8tlySXoaePe8jBAPyWj1G5NRNfAIB1vMbLfE+wXpPuDMjc3
+        gzWF+836eamurqOHUiTL3BYcOYZ2t182H86EDRM3n33ie3PWoqcGE2T5/mqcCDCQ
+        MNbzhNQ3MgUPn3PhiDtehN8nxN6/EfU4RgLVFpWBFa5Cocmm+Glk0WM4/zW7O8cZ
+        wfk7C8fmrsCBOrAKMTi59Q34n3k7/BSAt1gk+sEXVqivG+Fhh48qv4H0f4XBljAh
+        gCitkUhD8Awhoi/2vHDMQCQuoDRvl0n6b7WspO5AyDikgtzGG6xyk5J+qvJeh9nS
+        SwElyQ9eoA24NOc0zc2sGfCzDCRHpd2Sj/c4Hds4lpSwmJIDxVnovXbtClAzSJWe
+        Dxa6aJsKfepTPjGHlV7VKYnnROssBYGJH3Jpqg==
+        =cuy3
+        -----END PGP MESSAGE-----
   blacklist:
     name: blacklist
     id : '05'
