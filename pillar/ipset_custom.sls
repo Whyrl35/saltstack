@@ -48,5 +48,6 @@ ipset_custom:
     ips:
       - 109.190.254.0/26      # OVH office
       - 213.186.33.64/32      # OVH vpn-out
-
-
+  blacklist:
+    name: blacklist
+    id : '05'

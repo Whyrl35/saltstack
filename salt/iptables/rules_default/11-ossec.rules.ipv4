@@ -12,4 +12,6 @@
 
 -A INPUT -j OSSEC
 
+-A OSSEC -m set --match-set blacklist src -m comment --comment "blacklisted ip set" -j DROP
+
 COMMIT

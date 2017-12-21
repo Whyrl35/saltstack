@@ -12,6 +12,8 @@ create {{ pillar['ipset_custom'][ipset_name]['name'] }} hash:net family inet has
 # Adding ip to {{ pillar['ipset_custom'][ipset_name]['name'] }}
 #
 
+{% if 'ips' in pillar['ipset_custom'][ipset_name] -%}
 {% for ip in pillar['ipset_custom'][ipset_name]['ips'] -%}
 add {{ pillar['ipset_custom'][ipset_name]['name'] }} {{ ip }}
 {% endfor -%}
+{% endif -%}

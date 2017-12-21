@@ -86,7 +86,7 @@ iptables_custom:
 
   # For the wazuh host, need some port to be opened
   # work on host name, and not on role
-  {% if grains['id'] == 'wazuh.whyrl.fr' %}
+  {% if 'wazuh_server' in grains['roles'] %}
     - _11:
       set:
         name: myhosts
