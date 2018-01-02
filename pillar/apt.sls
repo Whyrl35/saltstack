@@ -27,8 +27,8 @@ apt:
     #
     # WAZUH repository
     #
-    {% if 'wazuh_server' in grains['roles'] %}
-    wazuh-server:
+    {% if 'wazuh_server' in grains['roles'] or 'wazuh_agent' in grains['roles'] %}
+    wazuh:
       distro: stable
       url: https://packages.wazuh.com/3.x/apt/
       comps: [main]

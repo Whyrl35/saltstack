@@ -64,6 +64,7 @@ base:
   # Wazuh client, should be all hosts, that run the wazuh stack
   # include the wazuh state
   #
-  # Match again the roles 'wazuh_server'
-  #'roles:wazuh_client':
-  #    - match: grain
+  # Match again the roles 'wazuh_agent'
+  'roles:wazuh_agent':
+    - match: grain
+    - wazuh.agent
