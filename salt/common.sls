@@ -7,3 +7,5 @@ common:
       - htop
       - git
       - vim
+      - apt-transport-https
+      - lsb-release

@@ -1,4 +1,4 @@
-- Apache
+- Apache / Nginx
 	- per proxypass
 	- per website
 	- template
@@ -6,4 +6,9 @@
 - Docker
 	- Configuration des container sur ks
 
-- OSSEC (server sur ks? et autre en client?)
+- Wazuh (https://documentation.wazuh.com/current/installation-guide/installing-wazuh-server/wazuh_server_deb.html#wazuh-server-deb)
+	- Ajouter les repositories dans apt.sls
+	- Creer des modules pour wazuh/elk/logstash/etc...
+	- tester que tout ce passe bien
+	- Mettre en place les A.R. avec un script gerant les ipset blacklist
+	- Check que l'ipset a bien un TTL

@@ -10,3 +10,7 @@ base:
     - iptables_custom
     - beamium
     - noderig
+
+  'roles:wazuh_server':
+    - match: grain
+    - kibana

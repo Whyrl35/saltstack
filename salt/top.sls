@@ -4,25 +4,31 @@
 base:
   # All minions get the following state files applied
   '*':
+    #
     # may filter on debian hosts (grain os)
     - apt.transports.https
     - apt.repositories
     - apt.update
     - common
+    #
     # everythin in common :
     - motd
     - zsh
+    #
     # my account and tools
     - account
+    #
     # openssh specific configuration
     - openssh
     - openssh.client
     - openssh.config
     - openssh.banner
     - openssh.auth
+    #
     # ipset and iptables protection
     - ipset
     - iptables
+    #
     # monitoring
     - beamium
     - noderig
@@ -46,16 +52,18 @@ base:
   # Match again the roles 'wazuh_server'
   'roles:wazuh_server':
     - match: grain
-    #- elastic
-    #- logstash
-    #- kibana
-    #- wazuh
-    #- wazuh.server
-    #- wazuh.api
+    - wazuh.manager
+    - wazuh.api
+    - oracle.jre8
+    - elk.filebeat
+    - elk.elasticsearch
+    - elk.logstash
+    - elk.kibana
+
 
   # Wazuh client, should be all hosts, that run the wazuh stack
   # include the wazuh state
   #
   # Match again the roles 'wazuh_server'
-  'roles:wazuh_client':
-    - match: grain
+  #'roles:wazuh_client':
+  #    - match: grain
