@@ -89,4 +89,5 @@ ipset_custom:
         -----END PGP MESSAGE-----
   blacklist:
     name: blacklist
+    timeout: 1800
     id : '05'

@@ -36,3 +36,10 @@ agent:
     - group: ossec
     - mode: 640
 
+agent_ar_ipset:
+  file.managed:
+    - name: /var/ossec/active-response/bin/ipset.sh
+    - source: salt://wazuh/active-response/ipset.sh
+    - user: root
+    - group: ossec
+    - mode: 750

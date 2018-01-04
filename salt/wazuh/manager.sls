@@ -36,4 +36,25 @@ manager:
     - name: wazuh-manager
     - enable: True
     - require:
-      - pkg : manager
+      - pkg: manager
+      - file: manager_ossec_conf
+    - watch:
+      - file: manager_ossec_conf
+
+manager_ossec_conf:
+  file.managed:
+    - name: /var/ossec/etc/ossec.conf
+    - source: salt://wazuh/ossec.conf
+    - template: jinja
+    - user: root
+    - group: ossec
+    - mode: 640
+
+manager_ar_ipset:
+  file.managed:
+    - name: /var/ossec/active-response/bin/ipset.sh
+    - source: salt://wazuh/active-response/ipset.sh
+    - user: root
+    - group: ossec
+    - mode: 750
+

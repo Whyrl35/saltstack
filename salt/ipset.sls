@@ -51,7 +51,7 @@ ipset_directory:
 {{ ipset_name }}:
   file.managed:
     - name: {{ pillar['ipset']['conf_directory'] }}/{{ pillar['ipset_custom'][ipset_name]['id'] }}-{{ pillar['ipset_custom'][ipset_name]['name']|lower }}.rules
-    - source: salt://ipset/custom
+    - source: salt://ipset/ipset.jinja
     - user: root
     - group: root
     - mode: 600
