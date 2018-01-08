@@ -1,3 +1,7 @@
+- iptable - ipset
+	- creer le fichier /etc/systemd/system/firewall.service.d/ipset.override.conf
+	- ajouter le contenu qui va bien dedans
+
 - Apache / Nginx
 	- per proxypass
 	- per website

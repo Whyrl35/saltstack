@@ -4,6 +4,7 @@
 sshd_config:
   Port: 22
   Protocol: 2
+  LoginGraceTime: 30
   Banner: none
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
@@ -14,10 +15,10 @@ sshd_config:
   LogLevel: INFO
   ClientAliveInterval: 0
   ClientAliveCountMax: 3
-  PermitRootLogin: 'without-password'
+  PermitRootLogin: no
   # PasswordAuthentication: 'yes'
   StrictModes: 'yes'
-  MaxAuthTries: 6
+  MaxAuthTries: 3
   MaxSessions: 10
   RSAAuthentication: 'yes'
   PubkeyAuthentication: 'yes'
