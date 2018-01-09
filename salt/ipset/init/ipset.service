@@ -1,0 +1,19 @@
+[Unit]
+SourcePath=/etc/ipset.d/ipset
+Description=Run ipset rules
+After=networking.service
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=yes
+SuccessExitStatus=5 6
+ExecStart=/etc/ipset.d/ipset start
+ExecStop=/etc/ipset.d/ipset stop
+
+[Install]
+WantedBy=multi-user.target

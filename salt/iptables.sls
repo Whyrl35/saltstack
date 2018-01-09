@@ -14,26 +14,8 @@ iptables:
     - enable: True
     - require:
       - pkg : iptables
-      - file : /etc/init.d/firewall
-
-
-# ------------------------------------------------------------
-# - Create an init script to start/load iptables
-# -
-iptables_init:
-  file.managed:
-    - name: /etc/init.d/firewall
-    - source: salt://iptables/init/firewall
-    - user: root
-    - group: root
-    - mode: 755
-    - template: jinja
-    - require:
-      - pkg : iptables
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-        - file: /etc/init.d/firewall
+      - file : /etc/iptables.d
+      - file : /etc/iptables.d/firewall
 
 
 # ------------------------------------------------------------
@@ -52,6 +34,43 @@ iptables_rules_default:
     - maxdepth: 0
     - watch_in:
       - service : iptables
+
+
+# ------------------------------------------------------------
+# - Create an init script to start/load iptables
+# -
+iptables_init:
+  file.managed:
+    - name: /etc/iptables.d/firewall
+    - source: salt://iptables/init/firewall
+    - user: root
+    - group: root
+    - mode: 700
+    - template: jinja
+    - require:
+      - pkg : iptables
+      - file : /etc/iptables.d
+
+
+# ------------------------------------------------------------
+# - Create a systemd service
+# -
+iptables_service:
+  file.managed:
+    - name: /etc/systemd/system/firewall.service
+    - source: salt://iptables/init/firewall.service
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - require:
+      - pkg : iptables
+      - file : /etc/iptables.d/firewall
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/firewall.service
+      - file: /etc/iptables.d/firewall
 
 
 # ------------------------------------------------------------

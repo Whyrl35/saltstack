@@ -11,26 +11,9 @@ ipset:
     - enable: True
     - require:
       - pkg : ipset
-      - file : /etc/init.d/ipset
       - file : {{ pillar['ipset']['conf_directory'] }}
-
-# ------------------------------------------------------------
-# - Create an init script to start/load ipset
-# -
-ipset_init:
-  file.managed:
-    - name: /etc/init.d/ipset
-    - source: salt://ipset/init/ipset
-    - user: root
-    - group: root
-    - mode: 755
-    - template: jinja
-    - require:
-      - pkg : ipset
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/init.d/ipset
+      - file : {{ pillar['ipset']['conf_directory'] }}/ipset
+      - file : /etc/systemd/system/ipset.service
 
 # ------------------------------------------------------------
 # - Directory to put the configuration files
@@ -43,6 +26,41 @@ ipset_directory:
     - mode: 700
     - require:
       - pkg : ipset
+
+# ------------------------------------------------------------
+# - Create an init script to start/load ipset
+# -
+ipset_init:
+  file.managed:
+    - name: {{ pillar['ipset']['conf_directory'] }}/ipset
+    - source: salt://ipset/init/ipset
+    - user: root
+    - group: root
+    - mode: 700
+    - template: jinja
+    - require:
+      - pkg : ipset
+      - file : {{ pillar['ipset']['conf_directory'] }}
+
+# ------------------------------------------------------------
+# - Create a systemd service
+# -
+ipset_service:
+  file.managed:
+    - name: /etc/systemd/system/ipset.service
+    - source: salt://ipset/init/ipset.service
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - require:
+      - pkg : ipset
+      - file : {{ pillar['ipset']['conf_directory'] }}/ipset
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/ipset.service
+      - file: {{ pillar['ipset']['conf_directory'] }}/ipset
 
 # ------------------------------------------------------------
 # - Install Dynamic custom rules
