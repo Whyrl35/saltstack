@@ -71,6 +71,8 @@ iptables_service:
     - onchanges:
       - file: /etc/systemd/system/firewall.service
       - file: /etc/iptables.d/firewall
+    - require:
+      - file: /etc/systemd/system/firewall.service
 
 
 # ------------------------------------------------------------

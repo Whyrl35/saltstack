@@ -61,6 +61,8 @@ ipset_service:
     - onchanges:
       - file: /etc/systemd/system/ipset.service
       - file: {{ pillar['ipset']['conf_directory'] }}/ipset
+    - require:
+      - file : /etc/systemd/system/ipset.service
 
 # ------------------------------------------------------------
 # - Install Dynamic custom rules
