@@ -7,7 +7,6 @@ ipset_custom:
       - 91.121.156.77/32      # ks001
       - 78.232.192.141/32     # srv001
       - 217.182.169.71/32     # vps001
-      - 193.70.35.79/32       # sd001
       - 217.182.85.34/32      # wazuh
       {% if grains['id'] == 'srv001.whyrl.fr' %}
       - 192.168.0.1/24        # home network (pc, laptop, tablet, tv, ....)
