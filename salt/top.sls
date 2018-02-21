@@ -32,6 +32,7 @@ base:
     # monitoring
     - beamium
     - noderig
+    - wigo
 
 
   # Minions that have a grain set indicating that they are running

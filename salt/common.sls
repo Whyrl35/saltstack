@@ -9,3 +9,5 @@ common:
       - vim
       - apt-transport-https
       - lsb-release
+      - unattended-upgrades
+      - apt-listchanges

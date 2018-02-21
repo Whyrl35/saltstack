@@ -1,0 +1,126 @@
+#
+## What Is Going On
+#
+
+# General parameters
+#
+# ListenAddress             -> Address on which wigo will listen
+# ListenPort                -> Port on which wigo will listen
+# Group                     -> Group of current machine (webserver, loadbalancer,...).
+# AliveTimeout              -> Number of seconds before setting remote wigo in error
+#                           If provided, a tag group will be added on OpenTSDB puts
+#
+[Global]
+Hostname                    = ""
+Group                       = ""
+LogFile                     = "/var/log/wigo.log"
+ProbesDirectory             = "/usr/local/wigo/probes"
+ProbesConfigDirectory       = "/etc/wigo/conf.d"
+UuidFile                    = "/var/lib/wigo/uuid"
+Database                    = "/var/lib/wigo/wigo.db"
+AliveTimeout                = 60
+Debug                       = false
+
+[Http]
+Enabled                     = true
+Address                     = "0.0.0.0"
+Port                        = 4000
+SslEnabled                  = false
+SslCert                     = "/etc/wigo/ssl/http.crt"
+SslKey                      = "/etc/wigo/ssl/http.key"
+Login                       = ""
+Password                    = ""
+
+[PushServer]
+Enabled                     = false
+Address                     = "0.0.0.0"
+Port                        = 4001
+SslEnabled                  = true
+SslCert                     = "/etc/wigo/ssl/wigo.crt"
+SslKey                      = "/etc/wigo/ssl/wigo.key"
+AllowedClientsFile          = "/var/lib/wigo/allowed_clients"
+AutoAcceptClients           = false
+
+[PushClient]
+Enabled                     = false
+Address                     = ""
+Port                        = 4001
+SslEnabled                  = true
+SslCert                     = "/var/lib/wigo/master.crt"
+UuidSig                     = "/var/lib/wigo/uuid.sig"
+PushInterval                = 10
+
+# OpenTSDB
+#
+# You can specify an OpenTSDB instance to graph all probes metrics
+#
+# Params :
+#   OpenTSDBEnabled         -> Wether or not OpenTSDB graphing is enabled (true/false)
+#   OpenTSDBAddress         -> Ip of OpenTSDB instance
+#   OpenTSDBPort            -> Port of OpenTSDB instance
+#   OpenTSDBMetricPrefix    -> Prefix added before metric name (a dot will be added between prefix and probe name)
+#
+[OpenTSDB]
+Enabled                     = false
+Address                     = ["localhost"]
+SslEnabled                  = false
+MetricPrefix                = "wigo"
+Deduplication               = 600
+BufferSize                  = 10000
+
+# RemoteWigos
+#
+# You can configure remoteWigos to monitore them from that instance of Wigo
+#
+# CheckInterval      -> Number of seconds between remote wigo checks (do not set a value lower than AliveTimeout/2)
+#
+
+[RemoteWigos]
+CheckInterval               = 10
+SslEnabled                    = false
+Login                        = ""
+Password                    = ""
+
+# Simple mode (you just define hostname and port, which is optional)
+# List                        = [
+#     "ip",                        -> IP (mandatory)  : Hostname of remoteWigo to check
+#     "ip:port",                   -> port (optional) : Port to connect to on remote host (default is local ListenPort)
+# ]
+#
+List                        = []
+
+# Full mode (every configuration parameter is customizable by remote wigo)
+# [[AdvancedList]]
+#    Hostname          = "ip"      -> mandatory: Hostname of remoteWigo to check
+#    Port              = 4000      -> optional : Port of remoteWigo to check (default is local ListenPort)
+#    CheckInterval     = 10        -> optional : Number of seconds between remote wigo checks (default is RemoteWigosCheckInterval)
+#    CheckRemotesDepth = 0         -> optional : Depth level for remoteWigos of remoteWigo checking (default is 0 -> all levels)
+#
+#[[AdvancedList]]
+#    Hostname        = "ip2"
+#    CheckRemotes    = 1
+#
+
+
+# Notifications
+#
+# You can configure notifications (http,email) when a probe/host status changes
+#
+[Notifications]
+
+# General
+MinLevelToSend              = 250
+RescueOnly                  = false
+OnWigoChange                = false
+OnProbeChange               = false
+
+# HTTP
+HttpEnabled                 = 0                     # -> 0: disabled, 1: enabled
+HttpUrl                     = ""
+
+# EMAIL
+EmailEnabled                = 0                     # -> 0: disabled, 1: enabled, 2: only if http failed
+EmailSmtpServer             = "smtp.domain.tld:25"
+EmailRecipients             = ["user@domain.tld","user2@domain.tld"]
+EmailFromName               = "Wigo"
+EmailFromAddress            = "wigo@domain.tld"

@@ -24,6 +24,15 @@ apt:
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
 
+    # Wigo is a local monitoring client (like OVH oco)
+    # Can be centralized in a master
+    wigo:
+      distro: stretch
+      url: http://deb.carsso.com
+      comps: [main]
+      arch: [amd64]
+      key_url: http://deb.carsso.com/deb.carsso.com.key
+
     #
     # WAZUH repository
     #
