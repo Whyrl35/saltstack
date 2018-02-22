@@ -9,6 +9,7 @@ base:
     - apt.transports.https
     - apt.repositories
     - apt.update
+    - apt.unattended
     - common
     #
     # everythin in common :
