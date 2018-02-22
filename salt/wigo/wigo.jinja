@@ -21,6 +21,7 @@ Database                    = "/var/lib/wigo/wigo.db"
 AliveTimeout                = 60
 Debug                       = false
 
+
 [Http]
 Enabled                     = true
 Address                     = "0.0.0.0"
@@ -31,8 +32,9 @@ SslKey                      = "/etc/wigo/ssl/http.key"
 Login                       = ""
 Password                    = ""
 
+{% if 'wigo_server' in grains['roles'] -%}
 [PushServer]
-Enabled                     = false
+Enabled                     = true
 Address                     = "0.0.0.0"
 Port                        = 4001
 SslEnabled                  = true
@@ -49,6 +51,27 @@ SslEnabled                  = true
 SslCert                     = "/var/lib/wigo/master.crt"
 UuidSig                     = "/var/lib/wigo/uuid.sig"
 PushInterval                = 10
+
+{% else  -%}
+[PushServer]
+Enabled                     = false
+Address                     = "0.0.0.0"
+Port                        = 4001
+SslEnabled                  = true
+SslCert                     = "/etc/wigo/ssl/wigo.crt"
+SslKey                      = "/etc/wigo/ssl/wigo.key"
+AllowedClientsFile          = "/var/lib/wigo/allowed_clients"
+AutoAcceptClients           = false
+
+[PushClient]
+Enabled                     = true
+Address                     = "{{ pillar['wigo']['server']['ip'] }}"
+Port                        = 4001
+SslEnabled                  = true
+SslCert                     = "/var/lib/wigo/master.crt"
+UuidSig                     = "/var/lib/wigo/uuid.sig"
+PushInterval                = 10
+{%- endif %}
 
 # OpenTSDB
 #
@@ -77,8 +100,8 @@ BufferSize                  = 10000
 
 [RemoteWigos]
 CheckInterval               = 10
-SslEnabled                    = false
-Login                        = ""
+SslEnabled                  = false
+Login                       = ""
 Password                    = ""
 
 # Simple mode (you just define hostname and port, which is optional)

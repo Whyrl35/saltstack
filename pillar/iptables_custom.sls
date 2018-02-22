@@ -58,45 +58,44 @@ iptables_custom:
       comment: DNS
   {% endif %}
 
-  # For proxmox server, allow managament on port 8006
-  # Use the role 'proxmox' for this
-  {% if 'proxmox' in  grains['roles'] %}
-    - _09:
-      source: 109.190.254.0/26
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 8006
-      comment: "\"proxmox from ovh-desk\""
-    - _10:
-      source: 213.186.33.64/32
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 8006
-      comment: "\"proxmox from ovh-vpn\""
-    - _11:
-      source: 78.232.192.141/32
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 8006
-      comment: "\"proxmox from home\""
-  {% endif %}
-
-  # For the wazuh host, need some port to be opened
-  # work on host name, and not on role
-  {% if 'wazuh_server' in grains['roles'] %}
-    - _11:
+  # For the wigo server, need a port to push data on it.
+  # work on role wigo_server
+  {% if 'wigo_server' in grains['roles'] %}
+    - _08:
       set:
         name: myhosts
         direction: src
       state: NEW
       method: append
       jump: ACCEPT
-      proto: udp
-      dport: 1514
-      comment: "\"ossec-remoted for my own hosts\""
+      proto: tcp
+      dport: 4001
+      comment: "\"wigo push-server for my hosts\""
+    - _09:
+      set:
+        name: myhosts
+        direction: src
+      state: NEW
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 4000
+      comment: "\"wigo http from myhosts\""
+    - _09:
+      set:
+        name: ovh_office
+        direction: src
+      state: NEW
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 4000
+      comment: "\"wigo http from ovh_office\""
+  {% endif %}
+
+  # For the wazuh host, need some port to be opened
+  # work on host name, and not on role
+  {% if 'wazuh_server' in grains['roles'] %}
     - _12:
       set:
         name: myhosts
@@ -104,7 +103,7 @@ iptables_custom:
       state: NEW
       method: append
       jump: ACCEPT
-      proto: tcp
+      proto: udp
       dport: 1514
       comment: "\"ossec-remoted for my own hosts\""
     - _13:
@@ -115,9 +114,19 @@ iptables_custom:
       method: append
       jump: ACCEPT
       proto: tcp
+      dport: 1514
+      comment: "\"ossec-remoted for my own hosts\""
+    - _14:
+      set:
+        name: myhosts
+        direction: src
+      state: NEW
+      method: append
+      jump: ACCEPT
+      proto: tcp
       dport: 5601
       comment: "\"kibana for my own hosts\""
-    - _14:
+    - _15:
       set:
         name: ovh_office
         direction: src

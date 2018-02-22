@@ -10,6 +10,7 @@ base:
     - iptables_custom
     - beamium
     - noderig
+    - wigo
 
   'roles:wazuh_server':
     - match: grain

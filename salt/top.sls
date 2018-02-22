@@ -29,9 +29,14 @@ base:
     - ipset
     - iptables
     #
-    # monitoring
+    # metrics
     - beamium
     - noderig
+
+  #
+  # Monitoring (for i686, build it manually)
+  'cpuarch:x86_64':
+    - match: grain
     - wigo
 
 
