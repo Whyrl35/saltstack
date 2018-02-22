@@ -29,7 +29,7 @@ sshd_config:
   ChallengeResponseAuthentication: 'no'
   # AuthenticationMethods: 'publickey,keyboard-interactive'
   X11Forwarding: 'no'
-  PrintMotd: 'yes'
+  PrintMotd: 'no'
   PrintLastLog: 'no'
   TCPKeepAlive: 'yes'
   AcceptEnv: "LANG LC_*"
