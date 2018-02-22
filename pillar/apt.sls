@@ -42,8 +42,7 @@ apt:
       url: https://packages.wazuh.com/3.x/apt/
       comps: [main]
       arch: [amd64]
-      keyid: 96B3EE5F29111145
-      keyserver: hkp://pgp.mit.edu:80
+      key_url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
     {% endif %}
 
     #
