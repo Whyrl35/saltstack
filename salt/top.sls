@@ -111,3 +111,4 @@ base:
     - postfix.mysql
     - dovecot
     - rspamd
+    - rainloop

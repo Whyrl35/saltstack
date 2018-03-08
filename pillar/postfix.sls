@@ -97,19 +97,19 @@ postfix:
     smtpd_sasl_auth_enable: 'yes'
     smtpd_sasl_authenticated_header: 'yes'
     smtpd_sasl_local_domain: $mydomain
-    smtpd_sasl_path: /var/run/dovecot/auth-client
+    #smtpd_sasl_path: /var/run/dovecot/auth-client
+    smtpd_sasl_path: private/auth
     smtpd_sasl_security_options: noanonymous
     smtpd_sasl_type: dovecot
     smtpd_sasl_tls_security_options: $smtpd_sasl_security_options
     smtpd_sender_restrictions: reject_unknown_sender_domain
-    smtpd_tls_CAfile: /etc/ssl/certs/domain.tld-chain.pem
+    smtpd_tls_CAfile: /etc/letsencrypt/live/mail.whyrl.fr/chain.pem
     smtpd_tls_auth_only: 'yes'
     smtpd_tls_ciphers: high
     smtpd_tls_exclude_ciphers: aNULL, eNULL, EXPORT, DES, RC4, 3DES, MD5, PSK
     smtpd_tls_fingerprint_digest: sha1
     smtpd_tls_loglevel: 1
     smtpd_tls_mandatory_ciphers: high
-    #smtpd_sasl_path: private/auth
     smtpd_tls_received_header: 'yes'
     smtpd_tls_session_cache_database: btree:${data_directory}/smtpd_scache
     smtpd_tls_session_cache_timeout: 3600s
@@ -121,10 +121,10 @@ postfix:
     # SMTP client
     smtp_sasl_password_maps: hash:/etc/postfix/sasl_passwd
     smtp_tls_CApath: /etc/ssl/certs
-    smtp_tls_cert_file: /etc/postfix/ssl/example.com-relay-client-cert.crt
     smtp_tls_ciphers: high
     smtp_tls_fingerprint_digest: sha1
-    smtp_tls_key_file: /etc/postfix/ssl/example.com-relay-client-cert.key
+    smtp_tls_key_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain-privkey.pem
+    smtp_tls_cert_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain.pem
     smtp_tls_loglevel: 1
     smtp_tls_mandatory_ciphers: high
     smtp_tls_security_level: may
