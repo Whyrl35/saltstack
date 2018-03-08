@@ -2,7 +2,9 @@
 # environment in the ``file_roots`` configuration value.
 
 base:
+  #
   # All minions get the following state files applied
+  #
   '*':
     #
     # may filter on debian hosts (grain os)
@@ -11,13 +13,16 @@ base:
     - apt.update
     - apt.unattended
     - common
+
     #
-    # everythin in common :
+    # everything in common :
     - motd
     - zsh
+
     #
     # my account and tools
     - account
+
     #
     # openssh specific configuration
     - openssh
@@ -25,38 +30,45 @@ base:
     - openssh.config
     - openssh.banner
     - openssh.auth
+
     #
     # ipset and iptables protection
     - ipset
     - iptables
+
+  #
+  # Monitoring (for i686, build it manually)
+  #
+  'cpuarch:x86_64':
+    - match: grain
+    #
+    # monitoring
+    - wigo
+
     #
     # metrics
     - beamium
     - noderig
 
   #
-  # Monitoring (for i686, build it manually)
-  'cpuarch:x86_64':
-    - match: grain
-    - wigo
-
-
   # Minions that have a grain set indicating that they are running
   # the docker system will have the state file called
   # in the docker formulas in the 'repos' directory applied.
   #
   # Again take note of the 'match' directive here which tells
   # Salt to match against a grain instead of a minion ID.
+  #
   'roles:container':
     - match: grain
     - docker
     - docker.compose
 
-
+  #
   # Wazuh server, may be only one host, that run the wazuh stack
   # include the wazuh state
   #
   # Match again the roles 'wazuh_server'
+  #
   'roles:wazuh_server':
     - match: grain
     - wazuh.manager
@@ -67,11 +79,35 @@ base:
     - elk.logstash
     - elk.kibana
 
-
+  #
   # Wazuh client, should be all hosts, that run the wazuh stack
   # include the wazuh state
   #
   # Match again the roles 'wazuh_agent'
+  #
   'roles:wazuh_agent':
     - match: grain
     - wazuh.agent
+
+  #
+  # Mail server, will run a stack of postfix/dovecot ta manage mail
+  # need many features and some formulas
+  #
+  # Again take note of the 'match' directive here which tells
+  # Salt to match against a grain instead of a minion ID.
+  #
+  'roles:mail_server':
+    - match: grain
+    - mysql
+    - mysql.server
+    - letsencrypt
+    - nginx.ng
+    - postfixadmin
+    - postfix
+    - postfix.config
+    - postfix.pcre
+    - postfix.header_checks
+    - postfix.diffiehellman
+    - postfix.mysql
+    - dovecot
+    - rspamd

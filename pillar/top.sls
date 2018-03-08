@@ -15,3 +15,11 @@ base:
   'roles:wazuh_server':
     - match: grain
     - kibana
+
+  'roles:mail_server':
+    - match: grain
+    - mysql
+    - letsencrypt
+    - nginx
+    - postfix
+    - dovecot

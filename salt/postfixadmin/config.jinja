@@ -1,0 +1,15 @@
+<?php
+$CONF['configured'] = true;
+$CONF['database_type'] = 'mysqli';
+$CONF['database_host'] = 'localhost';
+$CONF['database_user'] = 'postfix';
+$CONF['database_password'] = '{{ pillar['mysql']['user']['postfix']['password'] }}';
+$CONF['database_name'] = 'postfix';
+$CONF['domain_path'] = 'YES';
+$CONF['domain_in_mailbox'] = 'NO';
+$CONF['fetchmail'] = 'NO';
+
+{% if 'mail.whyrl.fr' == grains['fqdn'] %}
+$CONF['setup_password'] = 'b9f7b84e138aa1b381aa17d50fd5f8df:9af980199af948009391223701297ccbc7a4f6d8';
+{% endif%}
+?>

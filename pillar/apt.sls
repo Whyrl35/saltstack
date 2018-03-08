@@ -83,3 +83,14 @@ apt:
       key_url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     {% endif %}
 
+    #
+    # rspamd
+    #
+    {% if 'mail_server' in grains['roles'] %}
+    rspamd:
+      distro: stretch
+      url: http://rspamd.com/apt-stable
+      comps: [main]
+      arch: [amd64]
+      key_url: https://rspamd.com/apt-stable/gpg.key
+    {% endif %}

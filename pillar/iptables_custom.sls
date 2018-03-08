@@ -24,7 +24,7 @@ iptables_custom:
 
   # For all webserver, we may want to open 80/443 ports
   # those are standard, all host with role "webserver" will have those port open
-  {% if 'webserver' in grains['roles'] %}
+  {% if 'webserver' in grains['roles'] or 'mail_server' in grains['roles'] %}
     - _03:
       method: append
       jump: ACCEPT
@@ -136,6 +136,16 @@ iptables_custom:
       proto: tcp
       dport: 5601
       comment: "\"kibana for my ovh office\""
+  {% endif %}
+
+  {% if 'mail_server' in grains['roles'] %}
+    - _16:
+      state: NEW,ESTABLISHED
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 25
+      comment: "\"SMTP\""
   {% endif %}
 
   # The default rule is to return to the master chain
