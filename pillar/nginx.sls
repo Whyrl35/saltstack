@@ -36,11 +36,14 @@ nginx:
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/postfixadmin.whyrl.fr/privkey.pem
               - ssl_protocols: TLSv1.2
-              - ssl_ciphers: "EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS:!RC4"
-              - ssl_prefer_server_ciphers: "on"
               - ssl_session_cache: shared:SSL:10m
               - ssl_session_timeout: 10m
-              - ssl_ecdh_curve: secp521r1
+              - ssl_ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
+              - ssl_ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
+              - ssl_prefer_server_ciphers: "on"
+              - ssl_session_tickets: 'off'
+              - ssl_stapling: 'on'
+              - ssl_stapling_verify: 'on'
               - add_header: Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
               - add_header: X-Content-Type-Options nosniff
               - add_header: X-Frame-Options SAMEORIGIN
