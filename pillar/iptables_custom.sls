@@ -146,6 +146,13 @@ iptables_custom:
       proto: tcp
       dport: 25
       comment: "\"SMTP\""
+    - _17:
+      state: NEW,ESTABLISHED
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 993
+      comment: "\"IMAP\""
   {% endif %}
 
   # The default rule is to return to the master chain

@@ -41,6 +41,10 @@ nginx:
               - ssl_session_cache: shared:SSL:10m
               - ssl_session_timeout: 10m
               - ssl_ecdh_curve: secp521r1
+              - add_header: Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+              - add_header: X-Content-Type-Options nosniff
+              - add_header: X-Frame-Options SAMEORIGIN
+              - add_header: X-XSS-Protection "1; mode=block"
               - location /:
                 - try_files:
                   - $uri
