@@ -1,12 +1,34 @@
+############################## Default configuration ############################
+#
+{%- load_yaml as defaults %}
+charset: utf-8
+ssl:
+  protocol: TLSv1.2
+  ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
+  ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
+  prefer_server_ciphers: 'on'
+  session_timeout: 1d
+  session_ticket: 'off'
+  stapling: 'on'
+  stapling_verify: 'on'
+headers:
+  - Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+  - X-Content-Type-Options nosniff
+  - X-Frame-Options SAMEORIGIN
+  - X-XSS-Protection "1; mode=block"
+{%- endload %}
+
+
+################################ NGINX configuration ############################
+#
 nginx:
   ng:
     install_from_repo: false
     service:
       enable: True
-
-    ################################# MAIL SERVER ###############################
-
-    {% if 'mail_server' in grains['roles'] %}
+################################# MAIL SERVER ###################################
+#
+{% if 'mail_server' in grains['roles'] %}
     servers:
       managed:
         postfixadmin:
@@ -28,26 +50,26 @@ nginx:
               - listen:
                 - 443
                 - ssl
+                - http2
               - access_log: /var/log/nginx/postfixadmin-access.log
               - error_log: /var/log/nginx/postfixadmin-error.log
               - root: /usr/share/postfixadmin
               - index: index.php
-              - charset: utf-8
+              - charset: {{ defaults.charset }}
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/postfixadmin.whyrl.fr/privkey.pem
-              - ssl_protocols: TLSv1.2
               - ssl_session_cache: shared:SSL:10m
-              - ssl_session_timeout: 10m
-              - ssl_ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
-              - ssl_ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
-              - ssl_prefer_server_ciphers: "on"
-              - ssl_session_tickets: 'off'
-              - ssl_stapling: 'on'
-              - ssl_stapling_verify: 'on'
-              - add_header: Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-              - add_header: X-Content-Type-Options nosniff
-              - add_header: X-Frame-Options SAMEORIGIN
-              - add_header: X-XSS-Protection "1; mode=block"
+              - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
+              - ssl_protocols: {{ defaults.ssl.protocol }}
+              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
+              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
+              - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
+              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
+              - ssl_stapling: '{{ defaults.ssl.stapling }}'
+              - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
+              {% for header in defaults.headers %}
+              - add_header: {{ header }}
+              {% endfor %}
               - location /:
                 - try_files:
                   - $uri
@@ -78,18 +100,17 @@ nginx:
               - error_log: /var/log/nginx/rspamd-error.log
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/postfixadmin.whyrl.fr/privkey.pem
-              - ssl_protocols: TLSv1.2
-              - ssl_ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
-              - ssl_ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
-              - ssl_prefer_server_ciphers: "on"
-              - ssl_session_timeout: 1d
-              - ssl_session_tickets: 'off'
-              - ssl_stapling: 'on'
-              - ssl_stapling_verify: 'on'
-              - add_header: Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-              - add_header: X-Content-Type-Options nosniff
-              - add_header: X-Frame-Options SAMEORIGIN
-              - add_header: X-XSS-Protection "1; mode=block"
+              - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
+              - ssl_protocols: {{ defaults.ssl.protocol }}
+              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
+              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
+              - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
+              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
+              - ssl_stapling: '{{ defaults.ssl.stapling }}'
+              - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
+              {% for header in defaults.headers %}
+              - add_header: {{ header }}
+              {% endfor %}
               - location /robots.txt:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
@@ -121,21 +142,20 @@ nginx:
               - error_log: /var/log/nginx/wemail-error.log
               - root: /var/www/rainloop
               - index: index.php
-              - charset: utf-8
+              - charset: {{ defaults.charset }}
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/postfixadmin.whyrl.fr/privkey.pem
-              - ssl_protocols: TLSv1.2
-              - ssl_ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
-              - ssl_ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
-              - ssl_prefer_server_ciphers: "on"
-              - ssl_session_timeout: 1d
-              - ssl_session_tickets: 'off'
-              - ssl_stapling: 'on'
-              - ssl_stapling_verify: 'on'
-              - add_header: Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-              - add_header: X-Content-Type-Options nosniff
-              - add_header: X-Frame-Options SAMEORIGIN
-              - add_header: X-XSS-Protection "1; mode=block"
+              - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
+              - ssl_protocols: {{ defaults.ssl.protocol }}
+              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
+              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
+              - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
+              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
+              - ssl_stapling: '{{ defaults.ssl.stapling }}'
+              - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
+              {% for header in defaults.headers %}
+              - add_header: {{ header }}
+              {% endfor %}
               - location /:
                 - try_files:
                   - $uri
@@ -157,5 +177,4 @@ nginx:
                 - deny: all
               - location ^~ /data:
                 - deny: all
-
-    {% endif %}
+{% endif %}
