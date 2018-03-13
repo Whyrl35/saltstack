@@ -24,7 +24,7 @@ iptables_custom:
 
   # For all webserver, we may want to open 80/443 ports
   # those are standard, all host with role "webserver" will have those port open
-  {% if 'webserver' in grains['roles'] or 'mail_server' in grains['roles'] %}
+  {% if 'webserver' in grains['roles'] or 'mail_server' in grains['roles'] or 'wazuh_server' in grains['roles'] or 'wigo_server' in grains['roles'] %}
     - _03:
       method: append
       jump: ACCEPT
@@ -71,26 +71,6 @@ iptables_custom:
       proto: tcp
       dport: 4001
       comment: "\"wigo push-server for my hosts\""
-    - _09:
-      set:
-        name: myhosts
-        direction: src
-      state: NEW
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 4000
-      comment: "\"wigo http from myhosts\""
-    - _09:
-      set:
-        name: ovh_office
-        direction: src
-      state: NEW
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 4000
-      comment: "\"wigo http from ovh_office\""
   {% endif %}
 
   # For the wazuh host, need some port to be opened
@@ -116,26 +96,6 @@ iptables_custom:
       proto: tcp
       dport: 1514
       comment: "\"ossec-remoted for my own hosts\""
-    - _14:
-      set:
-        name: myhosts
-        direction: src
-      state: NEW
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 5601
-      comment: "\"kibana for my own hosts\""
-    - _15:
-      set:
-        name: ovh_office
-        direction: src
-      state: NEW
-      method: append
-      jump: ACCEPT
-      proto: tcp
-      dport: 5601
-      comment: "\"kibana for my ovh office\""
   {% endif %}
 
   {% if 'mail_server' in grains['roles'] %}

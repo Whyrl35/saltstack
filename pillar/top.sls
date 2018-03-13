@@ -14,6 +14,8 @@ base:
 
   'roles:wazuh_server':
     - match: grain
+    - letsencrypt
+    - nginx
     - kibana
 
   'roles:mail_server':

@@ -71,6 +71,8 @@ base:
   #
   'roles:wazuh_server':
     - match: grain
+    - letsencrypt
+    - nginx.ng
     - wazuh.manager
     - wazuh.api
     - oracle.jre8
