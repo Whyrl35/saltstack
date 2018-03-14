@@ -4,15 +4,15 @@
 charset: utf-8
 ssl:
   protocol: TLSv1.2
-  ecdh_curve: X25519:sect571r1:secp521r1:secp384r1
-  ciphers: "ECDHE-RSA-CHACHA20-POLY1305:EECDH+AES:+AES128:+AES256:+SHA"
+  ecdh_curve: "prime256v1:secp384r1:secp521r1"
+  ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256"
   prefer_server_ciphers: 'on'
   session_timeout: 1d
   session_ticket: 'off'
   stapling: 'on'
   stapling_verify: 'on'
 headers:
-  - Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+  - Strict-Transport-Security "max-age=15768000; includeSubDomains; preload"
   - X-Content-Type-Options nosniff
   - X-Frame-Options SAMEORIGIN
   - X-XSS-Protection "1; mode=block"
