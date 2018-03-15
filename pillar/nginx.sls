@@ -1,3 +1,5 @@
+#!jinja|yaml|gpg
+
 ############################## Default configuration ############################
 #
 {%- load_yaml as defaults %}
@@ -16,6 +18,27 @@ headers:
   - X-Content-Type-Options nosniff
   - X-Frame-Options SAMEORIGIN
   - X-XSS-Protection "1; mode=block"
+authentication:
+  file: /etc/nginx/conf.d/auth.htpasswd
+  login: ludovic
+  password: |
+    -----BEGIN PGP MESSAGE-----
+
+    hQIMA85QH7s0WVo+AQ/+MH6BHm7K28KN4LYX2qzLjF08k1IUijIEhLiM2aS7SsiR
+    9knIiRNV/PMn8M6H0rQ1XgMx7hagGwztv5TshaEwxVJeXELaZ4Ahh9mpvjqAffHE
+    ttuY+gUfCnEReUdyS50+LXBCV+dfbkbk9HpGDA/VjeJ+M5wX9yA+bUXVm6dPJ5fc
+    s9fA4BvWW8vVTT5n709zbPHbCpyPPFTNgakB8X0yl0fvDY2r9izH6PTuKO555MVK
+    mcYZ8kH79WhlEaH4ltaXlMCmZYGohVeuzldfCuDhEFz2Bxg5bNNealLzdzWE9REC
+    qoi62xVLEJmvl5ylo7m+QeSIP5B8MkjCHoYdTA1v60qlQYd2JcM97uFLKCyDvpJ5
+    /SOzqFyoWv0H31vDlpvdcFvAaCoBnThar8KAdLRF4bcxatNfzd1ngj4PDTgrgHA0
+    bI/aOsNrsvzfC/5xMsQ6bR+PEw8rcg5WXo0J5vo6XrNh68cijdMKA473BPTWhSbJ
+    YxKMhjaYYQSHiR7D1NuyxScaolYTRfKDV6ppx3AMIuEcVHJ+yHnTsNVpgfE/kQ3T
+    E3P6gTdZJ/eL+HsOXynMbl/Asp/a4XONvgCDBuxPitVVADoUOEcehQZlnbmHLz5d
+    /bErcRf29RYxaUJ6w3dQvxIXnSgrqKk3nleYUgmx92O/VLnhR4/1+bHmvs9xS1DS
+    SwHCZIa3LM4rpDTwDaMiA99Ki0876Q3VEbNH03xR0XWtZYJeZf0I6LmMk0mLtIgC
+    EiJL/O85sIUJNUTXVFxIudjbrM2Ox8UGBmJ+Cg==
+    =5isy
+    -----END PGP MESSAGE-----
 {%- endload %}
 
 
@@ -187,6 +210,11 @@ nginx:
       managed:
         wazuh:
           enabled: True
+          authentication:
+            password: |
+              {{ defaults.authentication.password|indent(14) }}
+            file: {{ defaults.authentication.file }}
+            login: {{ defaults.authentication.login }}
           config:
             #
             # HTTP server on port 80, forward to 443 for postfixadmin
@@ -223,11 +251,18 @@ nginx:
               - location /robots.txt:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
+                - auth_basic: "Restricted"
+                - auth_basic_user_file: {{ defaults.authentication.file }}
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
                 - proxy_pass: http://127.0.0.1:5601
         wigo:
           enabled: True
+          authentication:
+            password: |
+              {{ defaults.authentication.password|indent(14) }}
+            file: {{ defaults.authentication.file }}
+            login: {{ defaults.authentication.login }}
           config:
             #
             # HTTP server on port 80, forward to 443 for postfixadmin
@@ -264,6 +299,8 @@ nginx:
               - location /robots.txt:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
+                - auth_basic: "Restricted"
+                - auth_basic_user_file: {{ defaults.authentication.file }}
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
                 - proxy_pass: http://127.0.0.1:4000

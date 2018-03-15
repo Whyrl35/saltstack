@@ -136,9 +136,6 @@ postfix:
     tls_high_cipherlist: ECDH+aRSA+AES256:ECDH+aRSA+AES128:AES256-SHA:DES-CBC3-SHA
     tls_preempt_cipherlist: 'yes'
 
-  #transport:
-    #DOMAIN_NAME: ':[IP_ADDRESS]'
-
   vmail:
     user: postfix
     hosts: localhost
@@ -161,62 +158,3 @@ postfix:
       Xv2LgMtOTzkIwTTjL1fZZZyTDF5xUJWfnecQ5HtnvPoU4YnGGQemSva86j0=
       =Ykv9
       -----END PGP MESSAGE-----
-
-  #aliases:
-    # manage single aliases
-    # this uses the aliases file defined in the minion config, /etc/aliases by default
-    #use_file: false
-    #present:
-      #root: ludovic@whyrl.fr ###USED, need var
-    #absent:
-      #- root
-
-    # manage entire aliases file
-    #use_file: true
-    #content: |
-      # Forward all local *nix users mail to our admins (via greedy regexp)
-      #/.+/    admins@example.com
-
-  #certificates:
-    #server-cert:
-      #public_cert: |
-        #-----BEGIN CERTIFICATE-----
-        #(Your primary SSL certificate: smtp.example.com.crt)
-        #-----END CERTIFICATE-----
-        #-----BEGIN CERTIFICATE-----
-        #(Your intermediate certificate: example-ca.crt)
-        #-----END CERTIFICATE-----
-        #-----BEGIN CERTIFICATE-----
-        #(Your root certificate: trusted-root.crt)
-        #-----END CERTIFICATE-----
-      #private_key: |
-        #-----BEGIN RSA PRIVATE KEY-----
-        #(Your Private key)
-        #-----END RSA PRIVATE KEY-----
-
-    #example.com-relay-client-cert:
-      #public_cert: |
-        #-----BEGIN CERTIFICATE-----
-        #(Your primary SSL certificate: smtp.example.com.crt)
-        #-----END CERTIFICATE-----
-      #private_key: |
-        #-----BEGIN RSA PRIVATE KEY-----
-        #(Your Private key)
-        #-----END RSA PRIVATE KEY-----
-
-  #mapping:
-    #smtp_sasl_password_maps:
-      #- smtp.example.com: myaccount:somepassword
-
-    #sender_canonical_maps:
-      #- root: servers@example.com
-      #- nagios: alerts@example.com
-
-    #relay_recipient_maps:
-      #- example.com: OK
-
-    #virtual_alias_maps:
-      #- groupaliasexample:
-        #- someuser_1@example.com
-        #- someuser_2@example.com
-      #- singlealiasexample: someuser_3@example.com

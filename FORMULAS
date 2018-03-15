@@ -6,9 +6,14 @@ https://github.com/saltstack-formulas/docker-formula
 https://github.com/saltstack-formulas/ntp-formula
 https://github.com/saltstack-formulas/mysql-formula
 https://github.com/saltstack-formulas/postfix-formula
-https://github.com/saltstack-formulas/nginx-formula
 https://github.com/saltstack-formulas/letsencrypt-formula
 https://github.com/saltstack-formulas/dovecot-formula
+
+# Forked one
+
+https://github.com/Whyrl35/nginx-formula
+
+# Installation
 
 ``` cd formulas
 ``` grep github ../FORMULAS | xargs -I% git clone %
