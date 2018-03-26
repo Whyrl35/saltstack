@@ -8,3 +8,8 @@ wigo:
       - 217.182.169.71     # vps001
       - 217.182.85.34      # wazuh
       - 217.182.85.80      # mail
+  mail:
+    enabled: 1
+    server: 127.0.0.1:25
+    mailto:
+      - 'ludovic+wigo@whyrl.fr'

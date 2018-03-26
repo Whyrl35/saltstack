@@ -142,8 +142,8 @@ HttpEnabled                 = 0                     # -> 0: disabled, 1: enabled
 HttpUrl                     = ""
 
 # EMAIL
-EmailEnabled                = 0                     # -> 0: disabled, 1: enabled, 2: only if http failed
-EmailSmtpServer             = "smtp.domain.tld:25"
-EmailRecipients             = ["user@domain.tld","user2@domain.tld"]
+EmailEnabled                = {{ pillar['wigo']['mail']['enabled'] }}                     # -> 0: disabled, 1: enabled, 2: only if http failed
+EmailSmtpServer             = "{{ pillar['wigo']['mail']['server'] }}"
+EmailRecipients             = ["{{ pillar['wigo']['mail']['mailto']|join('\",\"') }}"]
 EmailFromName               = "Wigo"
-EmailFromAddress            = "wigo@domain.tld"
+EmailFromAddress            = "wigo@{{ grains['fqdn'] }}"
