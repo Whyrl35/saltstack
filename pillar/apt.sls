@@ -1,9 +1,27 @@
 apt:
-  repositories:
-    #
-    # GLOBAL repository, disposed on all hosts
-    #
+  #
+  # Unattended
+  #
+  unattended:
+    auto_fix_interrupted_dpkg: true
+    minimal_steps: false
+    install_on_shutdown: false
+    mail: ludovic+unattended@whyrl.fr
+    mail_only_on_error: false
+    remove_unused_dependencies: true
+    automatic_reboot: false
+    dl_limit: 0
+    enabled: 1
+    update_package_lists: 1
+    download_upgradeable_packages: 1
+    unattended_upgrade: 1
+    auto_clean_interval: 7
+    verbose: 2
 
+  #
+  # GLOBAL repository, disposed on all hosts
+  #
+  repositories:
     # Metrics repository include :
     # noderig and beamium
     metrics:
