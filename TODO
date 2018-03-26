@@ -1,2 +1,6 @@
+- POSTFIX
+	- configure a sattelite on each host other than mail_server
+	- configure the relaying
+	- configure unattended to use this relay
 - Docker
 	- Configuration des container sur ks

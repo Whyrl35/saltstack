@@ -11,6 +11,8 @@ base:
     - beamium
     - noderig
     - wigo
+    - postfix
+    - postfix-satellite
 
   'roles:wazuh_server':
     - match: grain
@@ -23,5 +25,4 @@ base:
     - mysql
     - letsencrypt
     - nginx
-    - postfix
     - dovecot

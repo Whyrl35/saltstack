@@ -114,3 +114,7 @@ base:
     - dovecot
     - rspamd
     - rainloop
+  'not G@roles:mail_server':
+    - postfix
+    - postfix.config
+    - postfix.satellite

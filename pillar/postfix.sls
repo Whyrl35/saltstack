@@ -1,9 +1,11 @@
 #!jinja|yaml|gpg
 
+{# ----------------------------------------------------------------------------
+ # - Main postfix configuration (mail server)
+ #}
 {% if grains['fqdn'] == 'mail.whyrl.fr' %}
-  {% set domain = grains['domain'] %}
-  {% set smtp = "smtp." ~ domain %}
-{% endif %}
+{% set domain = grains['domain'] %}
+{% set smtp = "smtp." ~ domain %}
 
 postfix:
   enable_service: True
@@ -158,3 +160,39 @@ postfix:
       Xv2LgMtOTzkIwTTjL1fZZZyTDF5xUJWfnecQ5HtnvPoU4YnGGQemSva86j0=
       =Ykv9
       -----END PGP MESSAGE-----
+{% endif %}
+
+
+{# ----------------------------------------------------------------------------
+ # - Satelitte postfix configuration (localhost to relay)
+ #}
+{% if grains['fqdn'] != 'mail.whyrl.fr' %}
+postfix:
+  enable_service: True
+
+  # Postfix
+  config:
+    append_dot_mydomain: 'no'
+    biff: 'no'
+    compatibility_level: 2
+
+    mailbox_size_limit: 0
+    recipient_delimiter: +
+    inet_interfaces: loopback-only
+    inet_protocols: ipv4
+
+    smtpd_sasl_auth_enable: 'yes'
+    smtpd_sasl_local_domain: $mydomain
+    smtpd_sasl_password_maps: hash:/etc/postfix/sasl/sasl_passwd
+    smtpd_sasl_security_options: noanonymous
+    smtpd_use_tls: 'yes'
+    smtpd_enforce_tls: 'yes'
+
+    myhostname: {{ grains['fqdn'] }}
+    alias_maps: hash:/etc/aliases
+    alias_database: hash:/etc/aliases
+    myorigin: {{ grains['fqdn'] }}
+    mydestination: $myorigin
+    relayhost: "smtp.{{ grains['domain'] }}:25"
+    smtp_generic_maps: hash:/etc/postfix/generic
+{% endif %}
