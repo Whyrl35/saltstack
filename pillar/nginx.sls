@@ -46,7 +46,7 @@ authentication:
 #
 nginx:
   ng:
-    install_from_repo: false
+    install_from_repo: true
     service:
       enable: True
 ################################# MAIL SERVER ###################################
