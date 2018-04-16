@@ -114,7 +114,18 @@ base:
     - dovecot
     - rspamd
     - rainloop
+
+  #
+  # Postfix for non mail server, aka postfix satellite
+  #
   'not G@roles:mail_server':
     - postfix
     - postfix.config
     - postfix.satellite
+
+
+  #
+  # Specific nodes configuration :
+  #
+  'srv001*':
+    - nginx.ng

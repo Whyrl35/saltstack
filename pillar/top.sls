@@ -26,3 +26,6 @@ base:
     - letsencrypt
     - nginx
     - dovecot
+
+  'srv001*':
+    - nginx
