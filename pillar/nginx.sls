@@ -303,7 +303,7 @@ nginx:
                 - auth_basic_user_file: {{ defaults.authentication.file }}
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
-                - proxy_pass: http://192.168.0.2:5000
+                - proxy_pass: http://127.0.0.1:4000
 
 {% endif %}
 
