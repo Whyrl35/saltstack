@@ -9,6 +9,7 @@ ipset_custom:
       - 217.182.169.71/32     # vps001
       - 217.182.85.34/32      # wazuh
       - 217.182.85.80/32      # mail
+      - 54.38.245.69          # redash
       {% if grains['id'] == 'srv001.whyrl.fr' %}
       - 192.168.0.1/24        # home network (pc, laptop, tablet, tv, ....)
       {% endif %}
