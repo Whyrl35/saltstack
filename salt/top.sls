@@ -125,7 +125,16 @@ base:
 
 
   #
+  # Redash dashboard
+  #
+  'roles:redash':
+    - match: grain
+    - letsencrypt
+    - nginx.ng
+
+  #
   # Specific nodes configuration :
   #
   'srv001*':
     - nginx.ng
+

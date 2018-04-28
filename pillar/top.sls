@@ -29,3 +29,8 @@ base:
 
   'srv001*':
     - nginx
+
+  'roles:redash':
+    - match: grain
+    - letsencrypt
+    - nginx

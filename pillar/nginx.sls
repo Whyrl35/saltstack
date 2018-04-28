@@ -308,7 +308,7 @@ nginx:
 {% endif %}
 
 
-################################ WAZUH SERVER ###################################
+################################ PERSO SERVER ###################################
 #
 {% if grains['nodename'] == 'srv001.whyrl.fr' %}
     servers:
@@ -484,5 +484,60 @@ nginx:
                 - try_files:
                   - $uri
                   - /index.html
+
+{% endif %}
+
+
+################################ REDASH SERVER ###################################
+#
+{% if 'redash' in grains['roles'] %}
+    servers:
+      managed:
+        redash:
+          enabled: True
+          config:
+            #
+            # HTTP server on port 80, forward to 443 for postfixadmin
+            - server:
+              - server_name: redash.whyrl.fr
+              - listen:
+                - 80
+              - root: /var/www/html
+              - location ~ /\.well-known/acme-challenge:
+                - allow:
+                  - all
+              - location /:
+                - return:
+                  - 301
+                  - https://$server_name$request_uri
+            #
+            # HTTPS server on port 443 for rspamd
+            - server:
+              - server_name: redash.whyrl.fr
+              - listen:
+                - 443
+                - ssl
+                - http2
+              - access_log: /var/log/nginx/redash-access.log
+              - error_log: /var/log/nginx/redash-error.log
+              - ssl_certificate: /etc/letsencrypt/live/redash.whyrl.fr/fullchain.pem
+              - ssl_certificate_key: /etc/letsencrypt/live/redash.whyrl.fr/privkey.pem
+              - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
+              - ssl_protocols: {{ defaults.ssl.protocol }}
+              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
+              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
+              - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
+              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
+              - ssl_stapling: '{{ defaults.ssl.stapling }}'
+              - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
+              {% for header in defaults.headers %}
+              - add_header: {{ header }}
+              {% endfor %}
+              - location /robots.txt:
+                - return: '200 "User-agent: *\Disallow: /\n"'
+              - location /:
+                - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                - proxy_set_header: Host $http_host
+                - proxy_pass: http://127.0.0.1:5000
 
 {% endif %}
