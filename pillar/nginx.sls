@@ -63,9 +63,14 @@ nginx:
               - server_name: postfixadmin.whyrl.fr
               - listen:
                 - 80
-              - return:
-                - 301
-                - https://$server_name$request_uri
+              - root: /var/www/html
+              - location ~ /\.well-known/acme-challenge:
+                - allow:
+                  - all
+              - location /:
+                - return:
+                  - 301
+                  - https://$server_name$request_uri
             #
             # HTTPS server on port 443 for postfixadmin
             - server:
@@ -150,9 +155,14 @@ nginx:
               - server_name: webmail.whyrl.fr
               - listen:
                 - 80
-              - return:
-                - 301
-                - https://$server_name$request_uri
+              - root: /var/www/html
+              - location ~ /\.well-known/acme-challenge:
+                - allow:
+                  - all
+              - location /:
+                - return:
+                  - 301
+                  - https://$server_name$request_uri
             #
             # HTTPS server on port 443 for postfixadmin
             - server:
@@ -222,6 +232,10 @@ nginx:
               - server_name: wazuh.whyrl.fr
               - listen:
                 - 80
+              - root: /var/www/html
+              - location ~ /\.well-known/acme-challenge:
+                - allow:
+                  - all
               - return:
                 - 301
                 - https://$server_name$request_uri
@@ -270,6 +284,10 @@ nginx:
               - server_name: wigo.whyrl.fr
               - listen:
                 - 80
+              - root: /var/www/html
+              - location ~ /\.well-known/acme-challenge:
+                - allow:
+                  - all
               - return:
                 - 301
                 - https://$server_name$request_uri
