@@ -234,11 +234,15 @@ nginx:
                 - 80
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
+                - auth_basic:
+                  - 'off'
                 - allow:
                   - all
-              - return:
-                - 301
-                - https://$server_name$request_uri
+              - location /:
+                - return:
+                  - 301
+                  - https://$server_name$request_uri
+
             #
             # HTTPS server on port 443 for rspamd
             - server:
@@ -286,11 +290,14 @@ nginx:
                 - 80
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
+                - auth_basic:
+                  - 'off'
                 - allow:
                   - all
-              - return:
-                - 301
-                - https://$server_name$request_uri
+              - location /:
+                - return:
+                  - 301
+                  - https://$server_name$request_uri
             #
             # HTTPS server on port 443 for rspamd
             - server:
