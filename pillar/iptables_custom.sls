@@ -115,6 +115,16 @@ iptables_custom:
       comment: "\"IMAP\""
   {% endif %}
 
+  {% if 'bastion' in grains['roles'] %}
+    - _18:
+      state: NEW,ESTABLISHED
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 2222
+      comment: "\"SSH Bastion\""
+  {% endif %}
+
   # The default rule is to return to the master chain
   # And apply the policy of the master chain (INPUT)
   # Without this the iptables files won't compiled

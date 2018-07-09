@@ -18,17 +18,18 @@
 #
 # My host are allowed
 #
--A SSH -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH office and vpn"
--A SSH -m set --match-set myhosts src -j ACCEPT -m comment --comment "My own hosts"
+#-A SSH -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH office and vpn"
+#-A SSH -m set --match-set myhosts src -j ACCEPT -m comment --comment "My own hosts"
+-A SSH -m set --match-set bastion src -j ACCEPT -m comment --comment "Bastions"
 
 #
 # Logging other connection
 #
--A SSH -m state --state NEW -j LOG --log-prefix "SSH connection: "
+#-A SSH -m state --state NEW -j LOG --log-prefix "SSH connection: "
 
 #
 # And accept all other, let ossec act on bruteforce, ssh conf hardened.
 #
--A SSH -j ACCEPT
+-A SSH -j DROP
 
 COMMIT

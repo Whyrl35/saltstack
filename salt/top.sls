@@ -64,6 +64,14 @@ base:
     - docker.compose
 
   #
+  # Bastion server, may be only one host, that run the bastion container
+  # include the docker.containers state
+  #
+  'roles:bastion':
+    - match: grain
+    - docker.containers
+
+  #
   # Wazuh server, may be only one host, that run the wazuh stack
   # include the wazuh state
   #

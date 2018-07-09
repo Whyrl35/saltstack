@@ -1,5 +1,14 @@
 #!jinja|yaml|gpg
 ipset_custom:
+  bastion:
+    name : bastion
+    id : '00'
+    ips:
+      - 54.38.71.9/32         # bastion
+      - 78.232.192.141/32     # srv001
+      {% if grains['id'] == 'srv001.whyrl.fr' %}
+      - 192.168.0.1/24        # home network (pc, laptop, tablet, tv, ....)
+      {% endif %}
   myhosts:
     name : myhosts
     id : '01'
@@ -9,7 +18,8 @@ ipset_custom:
       - 217.182.169.71/32     # vps001
       - 217.182.85.34/32      # wazuh
       - 217.182.85.80/32      # mail
-      - 54.38.245.69          # redash
+      - 54.38.245.69/32       # redash
+      - 54.38.71.9/32         # bastion
       {% if grains['id'] == 'srv001.whyrl.fr' %}
       - 192.168.0.1/24        # home network (pc, laptop, tablet, tv, ....)
       {% endif %}

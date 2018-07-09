@@ -38,6 +38,7 @@ sshd_config:
   UseDNS: 'yes'
   KexAlgorithms:
     - 'diffie-hellman-group-exchange-sha256'
+    - 'curve25519-sha256@libssh.org'
   Ciphers:
     - 'chacha20-poly1305@openssh.com'
     - 'aes256-gcm@openssh.com'
@@ -57,27 +58,21 @@ sshd_config:
 openssh:
   sshd_enable: true
   auth:
-    ludovic-valid-ssh-key-ks001:
-      - user: ludovic
-        present: True
-        enc: ssh-rsa
-        comment: ludovic@ks001
-        source: salt://ssh/keys/id_rsa_ks001.pub
     ludovic-valid-ssh-key-ovhdesk:
       - user: ludovic
         present: True
         enc: ssh-rsa
         comment: lhoudaye@desk557819.ovh.net
         source: salt://ssh/keys/id_rsa_ovhdesk.pub
-    ludovic-valid-ssh-key-vps:
-      - user: ludovic
-        present: True
-        enc: ssh-rsa
-        comment: ludovic@vps409127.ovh.net
-        source: salt://ssh/keys/id_rsa_vps001.pub
     ludovic-valid-ssh-key-srv001:
       - user: ludovic
         present: True
         enc: ssh-rsa
         comment: ludovic@srv001
         source: salt://ssh/keys/id_rsa_srv001.pub
+    ludovic-valid-ssh-key-bastion:
+      - user: ludovic
+        present: True
+        enc: ssh-rsa
+        comment: bastion
+        source: salt://ssh/keys/id_rsa_bastion.pub

@@ -29,8 +29,7 @@ apt:
       url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian/
       comps: [main]
       arch: [amd64, i386]
-      keyid: A7F0D217C80D5BB8
-      keyserver: hkp://pgp.mit.edu:80
+      key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
 
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
