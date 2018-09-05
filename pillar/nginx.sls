@@ -378,7 +378,7 @@ nginx:
               - location /:
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
-                - proxy_pass: http://192.168.0.2:5000
+                - proxy_pass: https://192.168.0.2:5001
 
 
         gateway:
