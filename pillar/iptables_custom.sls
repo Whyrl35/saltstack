@@ -96,6 +96,16 @@ iptables_custom:
       proto: tcp
       dport: 1514
       comment: "\"ossec-remoted for my own hosts\""
+    - _14:
+      set:
+        name: myhosts
+        direction: src
+      state: NEW
+      method: append
+      jump: ACCEPT
+      proto: tcp
+      dport: 1515
+      comment: "\"ossec-authd for my own hosts\""
   {% endif %}
 
   {% if 'mail_server' in grains['roles'] %}

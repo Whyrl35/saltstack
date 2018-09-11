@@ -20,6 +20,7 @@ ipset_custom:
       - 217.182.85.80/32      # mail
       - 54.38.245.69/32       # redash
       - 54.38.71.9/32         # bastion
+      - 54.38.71.44/32        # rocket.chat
       {% if grains['id'] == 'srv001.whyrl.fr' %}
       - 192.168.0.1/24        # home network (pc, laptop, tablet, tv, ....)
       {% endif %}

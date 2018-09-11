@@ -10,6 +10,7 @@ base:
     - iptables_custom
     - beamium
     - noderig
+    - wazuh
     - wigo
     - postfix
     - postfix-satellite
