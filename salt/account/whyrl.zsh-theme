@@ -92,8 +92,10 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_user() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment "039" black "%(!.%{%F{yellow}%}.)%n"
+  if [[ "$USER" == "root" ]]; then
+    prompt_segment "001" "011" "%n"
+  elif [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment "039" black "%(!.%{%F{124}%}.)%n"
   fi
 }
 
