@@ -1,0 +1,14 @@
+{%-
+set host_to_color = dict(
+			  vps001='057',
+			  srv001='226',
+			  ks001='033',
+			  mail='202',
+			  wazuh='200',
+			)
+-%}
+{% if grains['host'] in host_to_color %}
+HOST_COLOR='{{ host_to_color[grains['host']] }}'
+{% else %}
+HOST_COLOR='255'
+{% endif %}

@@ -33,7 +33,10 @@
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
+
+# ---- START Managed Zone, do-not-edit ----
 HOST_COLOR='255'
+# ---- END Managed Zone ----
 
 case ${SOLARIZED_THEME:-dark} in
     light) CURRENT_FG='white';;

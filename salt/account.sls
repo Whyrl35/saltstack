@@ -52,13 +52,22 @@ clone_ohmyzsh_repo:
 ohmyzsh_custom_theme:
   file.managed:
     - name : /home/{{ pillar['account_name'] }}/.oh-my-zsh/custom/themes/whyrl.zsh-theme
-    - source: salt://account/whyrl.zsh-theme.jinja
+    - source: salt://account/whyrl.zsh-theme
     - user: {{ pillar['account_name'] }}
     - group: users
     - mode: 644
-    - template: jinja
     - require:
       - pkg : zsh
+
+ohmyzsh_custom_theme_{{ grains['host'] }}:
+  file.blockreplace:
+    - name : /home/{{ pillar['account_name'] }}/.oh-my-zsh/custom/themes/whyrl.zsh-theme
+    - marker_start: "# ---- START Managed Zone, do-not-edit ----"
+    - marker_end: "# ---- END Managed Zone ----"
+    - source: salt://account/whyrl.zsh-theme.host-color.jinja
+    - template: jinja
+    - prepend_if_not_found: True
+
 
 # ------------------------------------------------------------
 # - Clone my own zshrc repo
