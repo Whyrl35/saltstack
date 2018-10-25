@@ -49,6 +49,17 @@ clone_ohmyzsh_repo:
     - target : /home/{{ pillar['account_name'] }}/.oh-my-zsh
     - user: {{ pillar['account_name'] }}
 
+ohmyzsh_custom_theme:
+  file.managed:
+    - name : /home/{{ pillar['account_name'] }}/.oh-my-zsh/custom/themes/whyrl.zsh-theme
+    - source: salt://account/whyrl.zsh-theme.jinja
+    - user: {{ pillar['account_name'] }}
+    - group: users
+    - mode: 644
+    - template: jinja
+    - require:
+      - pkg : zsh
+
 # ------------------------------------------------------------
 # - Clone my own zshrc repo
 # -
@@ -60,20 +71,6 @@ clone_zshrc_repo:
   git.latest:
     - name : git@github.com:Whyrl35/zshrc.git
     - target : /home/{{ pillar['account_name'] }}/development/zshrc
-    - user: {{ pillar['account_name'] }}
-    - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
-
-# ------------------------------------------------------------
-# - Clone my own zsh-powerline repo
-# -
-clone_zsh_powerline_repo:
-  require:
-    - pkg : git
-    - pkg : zsh
-    - file : development_directory
-  git.latest:
-    - name : git@github.com:Whyrl35/zsh-powerline.git
-    - target : /home/{{ pillar['account_name'] }}/development/zsh-powerline
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
 
