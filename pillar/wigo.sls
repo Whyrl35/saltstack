@@ -8,7 +8,8 @@ wigo:
       - 217.182.169.71     # vps001
       - 217.182.85.34      # wazuh
       - 217.182.85.80      # mail
-      - 54.38.245.69       # redash
+      - 54.38.71.9         # bastion
+      - 54.38.71.44        # rocket
   mail:
     enabled: 1
     server: 127.0.0.1:25

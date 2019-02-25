@@ -31,11 +31,6 @@ base:
   'srv001*':
     - nginx
 
-  'roles:redash':
-    - match: grain
-    - letsencrypt
-    - nginx
-
   'roles:bastion':
     - match: grain
     - container-bastion

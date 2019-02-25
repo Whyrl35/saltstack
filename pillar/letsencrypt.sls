@@ -25,8 +25,4 @@ letsencrypt:
     wigo:
       - wigo.whyrl.fr
   {% endif %}
-  {% if 'redash' in grains['roles'] %}
-    redash:
-      - redash.whyrl.fr
-  {% endif %}
 

@@ -131,15 +131,6 @@ base:
     - postfix.config
     - postfix.satellite
 
-
-  #
-  # Redash dashboard
-  #
-  'roles:redash':
-    - match: grain
-    - letsencrypt
-    - nginx.ng
-
   #
   # Specific nodes configuration :
   #
