@@ -6,7 +6,7 @@
 # Creating set {{ pillar['ipset_custom'][ipset_name]['name'] }}
 #
 
-create {{ pillar['ipset_custom'][ipset_name]['name'] }} hash:net {% if 'timeout' in pillar['ipset_custom'][ipset_name] %} timeout {{ pillar['ipset_custom'][ipset_name]['timeout'] }} {% endif %}
+create {{ pillar['ipset_custom'][ipset_name]['name'] }} hash:net {% if 'family' in pillar['ipset_custom'][ipset_name] %} family {{ pillar['ipset_custom'][ipset_name]['family'] }}{% endif %}{% if 'timeout' in pillar['ipset_custom'][ipset_name] %} timeout {{ pillar['ipset_custom'][ipset_name]['timeout'] }} {% endif %}
 
 #
 # Adding ip to {{ pillar['ipset_custom'][ipset_name]['name'] }}

@@ -82,9 +82,9 @@ apt:
     # Elasticshearch
     #
     {% if 'wazuh_server' in grains['roles'] %}
-    elastic-6.x:
+    elastic-7.x:
       distro: stable
-      url: https://artifacts.elastic.co/packages/6.x/apt
+      url: https://artifacts.elastic.co/packages/7.x/apt
       comps: [main]
       arch: [amd64]
       key_url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
