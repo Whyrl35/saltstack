@@ -1,0 +1,24 @@
+#
+# MANAGED BY SALT - don't edit manually
+#
+
+#
+# Allow ssh
+#
+*filter
+
+-N SSH
+-A INPUT -p tcp -m tcp --dport 22 -j SSH
+
+#
+# My host are allowed
+#
+-A SSH -m set --match-set bastionv6 src -j ACCEPT -m comment --comment "Bastions"
+
+#
+# And accept all other, let ossec act on bruteforce, ssh conf hardened.
+#
+-A SSH -j DROP
+
+COMMIT
+
