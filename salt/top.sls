@@ -134,6 +134,7 @@ base:
   #
   # Specific nodes configuration :
   #
-  'srv001*':
+  'srv00*':
+    - letsencrypt
     - nginx.ng
 

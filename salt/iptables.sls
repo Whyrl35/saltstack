@@ -78,9 +78,10 @@ iptables_service:
 # ------------------------------------------------------------
 # - Install Dynamic custom rules
 # -
-iptables_rules_custom:
+{% for name, custom in pillar.get('iptables_custom', {}).items()  %}
+iptables_rules_{{ name }}:
   file.managed:
-    - name: /etc/iptables.d/{{ pillar['iptables_custom']['chain_id'] }}-{{ pillar['iptables_custom']['chain']|lower }}.rules.{{ pillar['iptables_custom']['chain_type'] }}
+    - name: /etc/iptables.d/{{ custom['chain_id'] }}-{{ custom['chain']|lower }}.rules.{{ custom['chain_type'] }}
     - source: salt://iptables/rules_custom
     - user: root
     - group: root
@@ -90,3 +91,6 @@ iptables_rules_custom:
       - file : /etc/iptables.d
     - watch_in:
       - service : iptables
+    - defaults:
+      chain: {{ name }}
+{% endfor %}

@@ -17,7 +17,10 @@ apt:
     unattended_upgrade: 1
     auto_clean_interval: 7
     verbose: 2
-
+    origins_patterns:
+      - origin=SaltStack
+      - origin=Debian,archive=stable,label=Debian-Security
+      - origin=Debian,archive=oldstable,label=Debian-Security
   #
   # GLOBAL repository, disposed on all hosts
   #
@@ -30,6 +33,15 @@ apt:
       comps: [main]
       arch: [amd64, i386]
       key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
+
+    # Wigo is a light pull/push monitoring agent
+    # https://github.com/root-gg/wigo
+    wigo:
+      distro: stretch
+      url: http://deb.carsso.com/
+      comps: [main]
+      arch: [amd64]
+      key_url: http://deb.carsso.com/deb.carsso.com.key
 
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent

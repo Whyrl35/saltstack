@@ -25,4 +25,16 @@ letsencrypt:
     wigo:
       - wigo.whyrl.fr
   {% endif %}
-
+  {% if grains['nodename'] == "srv002.whyrl.fr"  %}
+    web:
+      - whyrl.fr
+      - www.whyrl.fr
+      - nas.whyrl.fr
+      - hassio.whyrl.fr
+      - homepanel.whyrl.fr
+      - gateway.whyrl.fr
+      - extend.whyrl.fr
+  {% endif %}
+  post_renew:
+    cmds:
+      - service nginx reload

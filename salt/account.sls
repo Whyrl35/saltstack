@@ -6,6 +6,7 @@ create_account_name:
     - name: {{ pillar['account_name'] }}
     - present
     - gid: 100
+    - allow_gid_change: True
     - fullname: {{ pillar['account_fullname'] }}
     - shell: /usr/bin/zsh
     - gid_from_name: False
@@ -68,6 +69,14 @@ ohmyzsh_custom_theme_{{ grains['host'] }}:
     - template: jinja
     - prepend_if_not_found: True
 
+ohmyzsh_custom_plugin_highlight:
+  require:
+    - pkg : git
+    - pkg : zsh
+  git.latest:
+    - name : https://github.com/zsh-users/zsh-syntax-highlighting.git
+    - target : /home/{{ pillar['account_name'] }}/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    - user: {{ pillar['account_name'] }}
 
 # ------------------------------------------------------------
 # - Clone my own zshrc repo
@@ -78,7 +87,7 @@ clone_zshrc_repo:
     - pkg : zsh
     - file : development_directory
   git.latest:
-    - name : git@github.com:Whyrl35/zshrc.git
+    - name : https://github.com/Whyrl35/zshrc.git
     - target : /home/{{ pillar['account_name'] }}/development/zshrc
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa
@@ -92,7 +101,7 @@ clone_vim_repo:
     - pkg : vim
     - file : development_directory
   git.latest:
-    - name : git@github.com:Whyrl35/vimrc.git
+    - name : https://github.com/Whyrl35/vimrc.git
     - target : /home/{{ pillar['account_name'] }}/development/vimrc
     - user: {{ pillar['account_name'] }}
     - identity: /home/{{ pillar['account_name'] }}/.ssh/id_rsa

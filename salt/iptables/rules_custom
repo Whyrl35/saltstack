@@ -2,28 +2,28 @@
 # MANAGED BY SALT - don't edit it manually
 #
 
-* {{ pillar['iptables_custom']['table'] }}
+* {{ pillar['iptables_custom'][chain]['table'] }}
 
-:{{ pillar['iptables_custom']['chain'] }} - [0:0]
-
-#
-# Adding {{ pillar['iptables_custom']['chain'] }} into INPUT
-#
-
--A INPUT -j {{ pillar['iptables_custom']['chain'] }}
+:{{ pillar['iptables_custom'][chain]['chain'] }} - [0:0]
 
 #
-# Adding rules to {{ pillar['iptables_custom']['chain'] }}
+# Adding {{ pillar['iptables_custom'][chain]['chain'] }} into INPUT
 #
 
-{% for rule in pillar['iptables_custom']['rules'] %}
+-A INPUT -j {{ pillar['iptables_custom'][chain]['chain'] }}
+
+#
+# Adding rules to {{ pillar['iptables_custom'][chain]['chain'] }}
+#
+
+{% for rule in pillar['iptables_custom'][chain]['rules'] %}
 {%- with str = "" -%}
 {%- if rule['method'] == 'append'  -%}
 	{%- set str = str ~ "-A " -%}
 {%- else -%}
 	{%- set str = str ~ "-I " -%}
 {%- endif -%}
-{%- set str = str ~ pillar['iptables_custom']['chain'] ~ " " -%}
+{%- set str = str ~ pillar['iptables_custom'][chain]['chain'] ~ " " -%}
 {%- if 'proto' in rule -%}
 	{%- set str = str ~ "-p " ~ rule['proto'] ~ " " -%}
 {%- endif -%}

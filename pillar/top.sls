@@ -7,7 +7,7 @@ base:
     - ipset
     - ipset_custom
     - iptables
-    - iptables_custom
+    - iptables.common
     - beamium
     - noderig
     - wazuh
@@ -17,20 +17,27 @@ base:
 
   'roles:wazuh_server':
     - match: grain
+    - iptables.webserver
+    - iptables.wazuh
     - letsencrypt
     - nginx
     - kibana
 
   'roles:mail_server':
     - match: grain
+    - iptables.webserver
+    - iptables.mail
     - mysql
     - letsencrypt
     - nginx
     - dovecot
 
-  'srv001*':
+  'srv00*':
+    - iptables.webserver
+    - letsencrypt
     - nginx
 
   'roles:bastion':
     - match: grain
-    - container-bastion
+    - iptables.bastion
+    - container.bastion
