@@ -5,7 +5,9 @@ base:
     - openssh
     - account
     - ipset
-    - ipset_custom
+    - ipset.bastion
+    - ipset.blacklist
+    - ipset.myhosts
     - iptables
     - iptables.common
     - beamium
@@ -14,6 +16,10 @@ base:
     - wigo
     - postfix
     - postfix-satellite
+
+  'deployment:gra':
+    - match: grain
+    - ipset.monitoring
 
   'roles:wazuh_server':
     - match: grain

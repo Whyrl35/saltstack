@@ -1,2 +1,5 @@
 - Docker
-	- Configuration des container sur ks
+- Configuration des container sur ks
+- Configuration des container home assistant
+- Configuration de home assistant (rapartriement backup ?)
+- Configuration de portainer (docker + iptables)

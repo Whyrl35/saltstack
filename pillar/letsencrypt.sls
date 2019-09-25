@@ -38,4 +38,4 @@ letsencrypt:
   {% endif %}
   post_renew:
     cmds:
-      - service nginx reload
+      - systemctl restart nginx
