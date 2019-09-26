@@ -17,6 +17,10 @@ base:
     - postfix
     - postfix-satellite
 
+  # Must be executed on all host, but for now, only on specific
+  'vps*':
+    - schedule
+
   'deployment:gra':
     - match: grain
     - ipset.monitoring
