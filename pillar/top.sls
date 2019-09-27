@@ -7,10 +7,9 @@ base:
     - apt
     - openssh
     - account
+    # FIXME: migrate on state.ipset
     - ipset
-    - ipset.bastion
-    - ipset.blacklist
-    - ipset.myhosts
+    # FIXME: migrate on state.iptables
     - iptables
     - iptables.common
     - beamium
@@ -39,7 +38,8 @@ base:
     - iptables.wazuh
     - letsencrypt
     - nginx
-    - kibana
+    - elk.kibana
+    - elk.filebeat
 
   'roles:mail_server':
     - match: grain
@@ -65,4 +65,7 @@ base:
     - schedule  # FIXME : run this as default in '*' when all hosts are fixed
 
   'bastion.whyrl.fr':
+    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
+
+  'wazuh.whyrl.fr':
     - schedule  # FIXME : run this as default in '*' when all hosts are fixed

@@ -11,8 +11,7 @@ filebeat:
     - source: salt://elk/filebeat.yml
     - user: root
     - group: root
-    - mode: 700
-    - template: jinja
+    - mode: 644
     - require:
       - pkg : filebeat
 
