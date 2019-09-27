@@ -30,6 +30,7 @@ base:
   'roles:bastion':
     - match: grain
     - iptables.bastion
+    - iptables.portainer
     - container.bastion
 
   'roles:wazuh_server':
@@ -57,8 +58,11 @@ base:
   'ks001.whyrl.fr':
     # FIXME: need to migrate on nginx and automate letsencrypt
     - iptables.webserver
-    - schedule
+    - iptables.portainer
+    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
 
-  # Must be executed on all host, but for now, only on specific
   'vps*':
-    - schedule
+    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
+
+  'bastion.whyrl.fr':
+    - schedule  # FIXME : run this as default in '*' when all hosts are fixed

@@ -1,7 +1,7 @@
 iptables_custom:
-  bastion:
-    chain: BASTION
-    chain_id: 40
+  portainer:
+    chain: PORTAINER
+    chain_id: 80
     chain_type: ipv4
     table: filter
     rules:
@@ -10,5 +10,6 @@ iptables_custom:
         method: append
         jump: ACCEPT
         proto: tcp
-        dport: 2222
-        comment: "\"SSH Bastion\""
+        dport: 9001
+        source: 78.232.192.141
+        comment: "\"portainter agent\""

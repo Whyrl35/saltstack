@@ -1,6 +1,6 @@
 iptables_custom:
   mail:
-    chain: MYSERVICES
+    chain: MAIL
     chain_id: 55
     chain_type: ipv4
     table: filter
