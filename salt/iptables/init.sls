@@ -13,9 +13,10 @@ iptables:
     - name: firewall
     - enable: True
     - require:
-      - pkg : iptables
-      - file : /etc/iptables.d
-      - file : /etc/iptables.d/firewall
+      - pkg: iptables
+      - file: /etc/iptables.d
+      - file: /etc/init.d/firewall
+      - file: iptables_service
 
 
 # ------------------------------------------------------------
@@ -35,13 +36,22 @@ iptables_rules_default:
     - watch_in:
       - service : iptables
 
+iptables_generated_rules:
+  file.directory:
+    - name: /etc/iptables.generated.d
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+    - watch_in:
+      - service: iptables
 
 # ------------------------------------------------------------
 # - Create an init script to start/load iptables
 # -
 iptables_init:
   file.managed:
-    - name: /etc/iptables.d/firewall
+    - name: /etc/init.d/firewall
     - source: salt://iptables/init/firewall
     - user: root
     - group: root
@@ -65,12 +75,11 @@ iptables_service:
     - template: jinja
     - require:
       - pkg : iptables
-      - file : /etc/iptables.d/firewall
+      - file : /etc/init.d/firewall
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
       - file: /etc/systemd/system/firewall.service
-      - file: /etc/iptables.d/firewall
     - require:
       - file: /etc/systemd/system/firewall.service
 
@@ -81,7 +90,7 @@ iptables_service:
 {% for name, custom in pillar.get('iptables_custom', {}).items()  %}
 iptables_rules_{{ name }}:
   file.managed:
-    - name: /etc/iptables.d/{{ custom['chain_id'] }}-{{ custom['chain']|lower }}.rules.{{ custom['chain_type'] }}
+    - name: /etc/iptables.generated.d/{{ custom['chain_id'] }}-{{ custom['chain']|lower }}.rules.{{ custom['chain_type'] }}
     - source: salt://iptables/rules_custom
     - user: root
     - group: root

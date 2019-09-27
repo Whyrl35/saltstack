@@ -1,6 +1,24 @@
 iptables_custom:
+  wigo:
+    chain: WIGO
+    chain_id: 44
+    chain_type: ipv4
+    table: filter
+    rules:
+    # For the wigo server, need a port to push data on it.
+    # work on role wigo_server
+      - _01:
+        set:
+          name: myhosts
+          direction: src
+        state: NEW
+        method: append
+        jump: ACCEPT
+        proto: tcp
+        dport: 4001
+        comment: "\"wigo push-server for my hosts\""
   wazuh:
-    chain: MYSERVICES
+    chain: WAZUH
     chain_id: 45
     chain_type: ipv4
     table: filter

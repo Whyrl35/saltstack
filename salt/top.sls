@@ -84,9 +84,9 @@ base:
     - wazuh.manager
     - wazuh.api
     - oracle.jre8
-    # - elk.filebeat
     - elk.elasticsearch
-    - elk.logstash
+    - elk.filebeat
+    # - elk.logstash
     - elk.kibana
 
   #

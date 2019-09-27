@@ -1,5 +1,5 @@
 [Unit]
-SourcePath=/etc/iptables.d/firewall
+SourcePath=/etc/init.d/firewall
 Description=Run iptables
 Wants=ipset.service
 After=networking.service ipset.service
@@ -13,8 +13,8 @@ KillMode=process
 GuessMainPID=no
 RemainAfterExit=yes
 SuccessExitStatus=5 6
-ExecStart=/etc/iptables.d/firewall start
-ExecStop=/etc/iptables.d/firewall stop
+ExecStart=/etc/init.d/firewall start
+ExecStop=/etc/init.d/firewall stop
 
 [Install]
 WantedBy=multi-user.target

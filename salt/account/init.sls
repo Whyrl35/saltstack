@@ -54,6 +54,7 @@ ohmyzsh_custom_theme:
   file.managed:
     - name : /home/{{ pillar['account_name'] }}/.oh-my-zsh/custom/themes/whyrl.zsh-theme
     - source: salt://account/whyrl.zsh-theme
+    - replace: False
     - user: {{ pillar['account_name'] }}
     - group: users
     - mode: 644

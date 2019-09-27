@@ -1,4 +1,7 @@
 base:
+  #
+  # Present on all hosts / common
+  #
   '*':
     - default
     - apt
@@ -17,13 +20,17 @@ base:
     - postfix
     - postfix-satellite
 
-  # Must be executed on all host, but for now, only on specific
-  'vps*':
-    - schedule
-
+  #
+  # Specific configuration / hosts/roles based
+  #
   'deployment:gra':
     - match: grain
     - ipset.monitoring
+
+  'roles:bastion':
+    - match: grain
+    - iptables.bastion
+    - container.bastion
 
   'roles:wazuh_server':
     - match: grain
@@ -47,7 +54,11 @@ base:
     - letsencrypt
     - nginx
 
-  'roles:bastion':
-    - match: grain
-    - iptables.bastion
-    - container.bastion
+  'ks001.whyrl.fr':
+    # FIXME: need to migrate on nginx and automate letsencrypt
+    - iptables.webserver
+    - schedule
+
+  # Must be executed on all host, but for now, only on specific
+  'vps*':
+    - schedule

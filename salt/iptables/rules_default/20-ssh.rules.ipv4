@@ -13,12 +13,11 @@
 #
 # OVH monitoring host, allowed
 #
--A SSH -m set --match-set monitoring_ssh src -j ACCEPT -m comment --comment "OVH"
+-A SSH -m set --match-set monitoring_ssh src -j ACCEPT -m comment --comment "Monitoring from OVH"
 
 #
 # My host are allowed
 #
-#-A SSH -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH office and vpn"
 #-A SSH -m set --match-set myhosts src -j ACCEPT -m comment --comment "My own hosts"
 -A SSH -m set --match-set bastion src -j ACCEPT -m comment --comment "Bastions"
 
@@ -28,7 +27,7 @@
 #-A SSH -m state --state NEW -j LOG --log-prefix "SSH connection: "
 
 #
-# And accept all other, let ossec act on bruteforce, ssh conf hardened.
+# And drop all others connexion (avoiding test/bruteforce all day long), need to go throuph bastion
 #
 -A SSH -j DROP
 

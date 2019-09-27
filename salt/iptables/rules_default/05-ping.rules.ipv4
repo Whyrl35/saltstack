@@ -15,7 +15,6 @@
 -A INPUT -p icmp -j MONITO
 
 -A MONITO -m set --match-set monitoring_ping src -j ACCEPT -m comment --comment "OVH / uptimerobot"
--A MONITO -m set --match-set ovh_office src -j ACCEPT -m comment --comment "OVH desk and VPN"
 -A MONITO -m set --match-set myhosts src -j ACCEPT -m comment --comment "All my own hosts"
 -A MONITO -j DROP
 

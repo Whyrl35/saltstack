@@ -12,7 +12,7 @@ ipset:
     - require:
       - pkg : ipset
       - file : {{ pillar['ipset']['conf_directory'] }}
-      - file : {{ pillar['ipset']['conf_directory'] }}/ipset
+      - file : /etc/init.d/ipset
       - file : /etc/systemd/system/ipset.service
 
 # ------------------------------------------------------------
@@ -32,7 +32,7 @@ ipset_directory:
 # -
 ipset_init:
   file.managed:
-    - name: {{ pillar['ipset']['conf_directory'] }}/ipset
+    - name: /etc/init.d/ipset
     - source: salt://ipset/init/ipset
     - user: root
     - group: root
@@ -55,12 +55,12 @@ ipset_service:
     - template: jinja
     - require:
       - pkg : ipset
-      - file : {{ pillar['ipset']['conf_directory'] }}/ipset
+      - file : /etc/init.d/ipset
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
       - file: /etc/systemd/system/ipset.service
-      - file: {{ pillar['ipset']['conf_directory'] }}/ipset
+      - file: /etc/init.d/ipset
     - require:
       - file : /etc/systemd/system/ipset.service
 
