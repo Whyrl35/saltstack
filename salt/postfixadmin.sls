@@ -7,7 +7,7 @@ postfixadmin:
       - debconf
       - dbconfig-common
       - wwwconfig-common
-      - nginx-full
+      - nginx
       - php-fpm
       - php-imap
       - php-mysql

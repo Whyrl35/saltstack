@@ -3,6 +3,7 @@ base:
   # Present on all hosts / common
   #
   '*':
+    - schedule
     - default
     - apt
     - openssh
@@ -59,13 +60,4 @@ base:
     # FIXME: need to migrate on nginx and automate letsencrypt
     - iptables.webserver
     - iptables.portainer
-    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
 
-  'vps*':
-    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
-
-  'bastion.whyrl.fr':
-    - schedule  # FIXME : run this as default in '*' when all hosts are fixed
-
-  'wazuh.whyrl.fr':
-    - schedule  # FIXME : run this as default in '*' when all hosts are fixed

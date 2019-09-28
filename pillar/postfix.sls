@@ -160,6 +160,21 @@ postfix:
       Xv2LgMtOTzkIwTTjL1fZZZyTDF5xUJWfnecQ5HtnvPoU4YnGGQemSva86j0=
       =Ykv9
       -----END PGP MESSAGE-----
+
+  mysql:
+    virtual_mailbox_domains:
+      table: domain
+      select_field: domain
+      where_field: domain
+    virtual_alias_maps:
+      table: alias
+      select_field: goto
+      where_field: address
+    virtual_mailbox_maps:
+      table: mailbox
+      select_field: maildir
+      where_field: username
+
 {% endif %}
 
 
