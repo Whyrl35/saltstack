@@ -1,11 +1,20 @@
-- Docker
+# Docker
+# =============================================================================
 - Configuration des container sur ks
 - Configuration des container home assistant
 - Configuration de home assistant (rapartriement backup ?)
 - Configuration de portainer (docker)
 
+# Pillar refactoring
+# =============================================================================
+x Move from monolithic nginx pillar to some dynamic one (nginx/init + nginx/mail + include in init depending of host/role)
+
+# DNS management on local_dns
+# =============================================================================
 - Install PowerDNS (admin) sur srv002 (nginx + whatever)
 
+# Buster Migration
+# =============================================================================
 - \!/ Migrer sous BUSTER /!\ <= attention : changement de depot / changement iptables -> nftables
    +
    +=> Preparer un environment : Migration (pour surcharger de la conf pour buster)

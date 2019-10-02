@@ -8,9 +8,7 @@ base:
     - apt
     - openssh
     - account
-    # FIXME: migrate on state.ipset
     - ipset
-    # FIXME: migrate on state.iptables
     - iptables
     - iptables.common
     - beamium

@@ -80,7 +80,7 @@ base:
   'roles:wazuh_server':
     - match: grain
     - letsencrypt
-    - nginx.ng
+    - nginx
     - wazuh.manager
     - wazuh.api
     - oracle.jre8
@@ -111,7 +111,7 @@ base:
     - mysql
     - mysql.server
     - letsencrypt
-    - nginx.ng
+    - nginx
     - postfixadmin
     - postfix
     - postfix.config
@@ -136,5 +136,5 @@ base:
   #
   'srv00*':
     - letsencrypt
-    - nginx.ng
+    - nginx
 
