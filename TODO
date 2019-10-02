@@ -2,4 +2,16 @@
 - Configuration des container sur ks
 - Configuration des container home assistant
 - Configuration de home assistant (rapartriement backup ?)
-- Configuration de portainer (docker + iptables)
+- Configuration de portainer (docker)
+
+- Install PowerDNS (admin) sur srv002 (nginx + whatever)
+
+- \!/ Migrer sous BUSTER /!\ <= attention : changement de depot / changement iptables -> nftables
+   +
+   +=> Preparer un environment : Migration (pour surcharger de la conf pour buster)
+   +-> [ ] vps001
+   +-> [ ] mail
+   +-> [ ] bastion
+   +-> [ ] wazuh
+   +-> [ ] ks
+   +-> [ ] srv002
