@@ -30,8 +30,8 @@ iptables_rules_default:
     - include_empty: True
     - user: root
     - group: root
-    - dir_mode : 700
-    - file_mode : 600
+    - dir_mode : "0700"
+    - file_mode : "0600"
     - maxdepth: 0
     - watch_in:
       - service : iptables
@@ -41,8 +41,8 @@ iptables_generated_rules:
     - name: /etc/iptables.generated.d
     - user: root
     - group: root
-    - dir_mode: 700
-    - file_mode: 600
+    - dir_mode: "0700"
+    - file_mode: "0600"
     - watch_in:
       - service: iptables
 
@@ -55,7 +55,7 @@ iptables_init:
     - source: salt://iptables/init/firewall
     - user: root
     - group: root
-    - mode: 700
+    - mode: "0700"
     - template: jinja
     - require:
       - pkg : iptables
@@ -71,7 +71,7 @@ iptables_service:
     - source: salt://iptables/init/firewall.service
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - require:
       - pkg : iptables
@@ -94,7 +94,7 @@ iptables_rules_{{ name }}:
     - source: salt://iptables/rules_custom
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - require:
       - file : /etc/iptables.d

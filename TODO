@@ -1,17 +1,19 @@
-# Docker
+#
+# Having a view an last run of each highstate (WebUI) + debug error
 # =============================================================================
-- Configuration des container sur ks
-- Configuration des container home assistant
-- Configuration de home assistant (rapartriement backup ?)
-- Configuration de portainer (docker)
-
-# Pillar refactoring
-# =============================================================================
-x Move from monolithic nginx pillar to some dynamic one (nginx/init + nginx/mail + include in init depending of host/role)
+- Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
+- Debug erreur sur letsencrypt
 
 # DNS management on local_dns
 # =============================================================================
 - Install PowerDNS (admin) sur srv002 (nginx + whatever)
+  * https://computingforgeeks.com/install-powerdns-and-powerdns-admin-on-ubuntu-18-04-debian-9-mariadb-backend/
+  * https://github.com/salt-formulas/salt-formula-powerdns
+
+--or--
+
+- Configure DNS on srv002 via salt
+  * https://github.com/salt-formulas/salt-formula-bind
 
 # Buster Migration
 # =============================================================================
@@ -24,3 +26,17 @@ x Move from monolithic nginx pillar to some dynamic one (nginx/init + nginx/mail
    +-> [ ] wazuh
    +-> [ ] ks
    +-> [ ] srv002
+
+# Docker
+# =============================================================================
+- Configuration des container sur ks
+- Configuration des container home assistant
+- Configuration de home assistant (rapartriement backup ?)
+- Configuration de portainer (docker)
+
+
+# Maison / Domotique
+# =============================================================================
+- Voir quoi mettre dans VM sur box
+- Voir quoi spawn comme VM openstack (openvpn ?)
+- Continuer domotique (lampe, energie, temperature etage, ...)
