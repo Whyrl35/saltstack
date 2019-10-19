@@ -6,24 +6,17 @@ base:
   # All minions get the following state files applied
   #
   '*':
-    #
     # may filter on debian hosts (grain os)
     - apt.transports.https
     - apt.repositories
     - apt.update
     - apt.unattended
     - common
-
-    #
     # everything in common :
     - motd
     - zsh
-
-    #
     # my account and tools
     - account
-
-    #
     # openssh specific configuration
     - openssh
     - openssh.client
@@ -31,21 +24,28 @@ base:
     - openssh.banner
     - openssh.auth
 
+  #
+  # Since debian buster (>=10) nftables is preferred to iptables
+  #
+  #'osmajorrelease:^[1-9]$':
+  'not G@roles:saltstack':
+    #- match: grain_pcre
     #
     # ipset and iptables protection
     - ipset
     - iptables
+  #'osmajorrelease:^[1-9][0-9]$':
+  'vps*':
+    #- match: grain_pcre
+    - nftables
 
   #
   # Monitoring (for i686, build it manually)
   #
   'cpuarch:x86_64':
     - match: grain
-    #
     # monitoring
     - wigo
-
-    #
     # metrics
     - beamium
     - noderig

@@ -4,6 +4,17 @@
 - Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
 - Debug erreur sur letsencrypt
 
+# Backup management
+# =============================================================================
+- Use borgbackup
+  * https://github.com/MEschenbacher/borgbackup-formula
+- Two roles BackupServer and BackupAgent (= not BackupServer)
+  * if backup server, prepare space to receive backup (need to spawn a vm)
+  * if backup server, use mine to prepare accepted keys ?
+  * if agent, generate key for the backup
+  * if agent, configure what need to be backuped
+
+
 # DNS management on local_dns
 # =============================================================================
 - Install PowerDNS (admin) sur srv002 (nginx + whatever)
@@ -20,6 +31,7 @@
 - \!/ Migrer sous BUSTER /!\ <= attention : changement de depot / changement iptables -> nftables
    +
    +=> Preparer un environment : Migration (pour surcharger de la conf pour buster)
+   +-> [ ] nftables formula
    +-> [ ] vps001
    +-> [ ] mail
    +-> [ ] bastion

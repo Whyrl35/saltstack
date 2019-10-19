@@ -17,3 +17,4 @@ ipset_custom:
     family: 'inet6'
     ips:
       - 2a01:e34:ee8c:8d0::/64 # HOME (freebox, srv001, all @home computer)
+      - 2001:a70:3:0:10d1:7445:3b04:e275 # CLARANET

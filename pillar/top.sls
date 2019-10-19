@@ -8,9 +8,6 @@ base:
     - apt
     - openssh
     - account
-    - ipset
-    - iptables
-    - iptables.common
     - beamium
     - noderig
     - wazuh
@@ -18,13 +15,17 @@ base:
     - postfix
     - postfix-satellite
 
+  'not G@roles:saltstack':
+    - ipset
+    - iptables
+    - iptables.common
+
+  'vps*':
+    - nftables
+
   #
   # Specific configuration / hosts/roles based
   #
-  'deployment:gra':
-    - match: grain
-    - ipset.monitoring
-
   'roles:bastion':
     - match: grain
     - iptables.bastion
