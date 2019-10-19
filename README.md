@@ -3,7 +3,7 @@
 ## Install salt on new minion :
 
 	curl -L https://bootstrap.saltstack.com -o install_salt.sh
-	sudo sh install_salt.sh -A 217.182.169.71 -i name.whyrl.fr
+	sudo sh install_salt.sh -A <salt-server> -i fqdn
 
 ## salt directory
 
