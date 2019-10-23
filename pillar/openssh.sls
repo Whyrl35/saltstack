@@ -8,9 +8,6 @@ sshd_config:
   Banner: none
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
-  UsePrivilegeSeparation: 'yes'
-  KeyRegenerationInterval: 3600
-  ServerKeyBits: 2048
   SyslogFacility: AUTH
   LogLevel: INFO
   ClientAliveInterval: 0
@@ -20,10 +17,8 @@ sshd_config:
   StrictModes: 'yes'
   MaxAuthTries: 3
   MaxSessions: 10
-  RSAAuthentication: 'yes'
   PubkeyAuthentication: 'yes'
   IgnoreRhosts: 'yes'
-  RhostsRSAAuthentication: 'no'
   HostbasedAuthentication: 'no'
   PermitEmptyPasswords: 'no'
   ChallengeResponseAuthentication: 'no'
@@ -50,7 +45,6 @@ sshd_config:
     - 'umac-128-etm@openssh.com'
     - 'hmac-sha2-512'
     - 'hmac-sha2-256'
-    - 'hmac-ripemd160'
 
 #------------------------------------------------------------------------------
 #- OPENSSH server + authorized_keys configuration

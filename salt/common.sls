@@ -11,3 +11,4 @@ common:
       - lsb-release
       - unattended-upgrades
       - apt-listchanges
+      - ipv6calc

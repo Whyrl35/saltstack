@@ -1,0 +1,31 @@
+nftables:
+  configuration:
+    "wigo_server_specific":
+      chains:
+        - name: 'WIGO'
+          table: 'filter'
+          family: 'ip'
+        - name: 'WIGO'
+          table: 'filter'
+          family: 'ip6'
+      rules:
+        - name: 'jump to WIGO'
+          table: 'filter'
+          chain: 'INPUT'
+          family: 'ip'
+          rule: 'jump WIGO'
+        - name: 'jump to WIGO'
+          table: 'filter'
+          chain: 'INPUT'
+          family: 'ip6'
+          rule: 'jump WIGO'
+        - name: 'allow wigo'
+          table: 'filter'
+          chain: 'WIGO'
+          family: 'ip'
+          rule: 'ip saddr @myhosts tcp dport 4001 counter accept'
+        - name: 'allow wigo'
+          table: 'filter'
+          chain: 'WIGO'
+          family: 'ip6'
+          rule: 'ip6 saddr @myhosts tcp dport 4001 counter accept'

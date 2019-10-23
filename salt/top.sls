@@ -23,20 +23,7 @@ base:
     - openssh.config
     - openssh.banner
     - openssh.auth
-
-  #
-  # Since debian buster (>=10) nftables is preferred to iptables
-  #
-  #'osmajorrelease:^[1-9]$':
-  'not G@roles:saltstack':
-    #- match: grain_pcre
-    #
-    # ipset and iptables protection
-    - ipset
-    - iptables
-  #'osmajorrelease:^[1-9][0-9]$':
-  'vps*':
-    #- match: grain_pcre
+    # firewalling
     - nftables
 
   #

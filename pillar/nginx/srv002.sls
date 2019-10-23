@@ -94,7 +94,7 @@ nginx:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
                 - proxy_set_header: Host $host
-                - proxy_pass: http://localhost:9000
+                - proxy_pass: http://127.0.0.1:9000
                 - proxy_http_version: 1.1
                 - proxy_set_header: Upgrade $http_upgrade
                 - proxy_set_header: Connection "upgrade"
@@ -141,12 +141,12 @@ nginx:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
                 - proxy_set_header: Host $host
-                - proxy_pass: http://localhost:8123
+                - proxy_pass: http://127.0.0.1:8123
                 - proxy_http_version: 1.1
                 - proxy_set_header: Upgrade $http_upgrade
                 - proxy_set_header: Connection "upgrade"
               - location /api/websocket:
-                - proxy_pass: http://localhost:8123/api/websocket
+                - proxy_pass: http://127.0.0.1:8123/api/websocket
                 - proxy_set_header: Host $host
                 - proxy_http_version: 1.1
                 - proxy_set_header: Upgrade $http_upgrade
@@ -193,7 +193,7 @@ nginx:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
                 - proxy_set_header: Host $host
-                - proxy_pass: http://localhost:8234
+                - proxy_pass: http://127.0.0.1:8234
                 - proxy_http_version: 1.1
                 - proxy_set_header: Upgrade $http_upgrade
                 - proxy_set_header: Connection "upgrade"

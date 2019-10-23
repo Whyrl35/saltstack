@@ -1,8 +1,14 @@
 #
+# Install bitwarden server/web and agents
+#
+- install bitwarden docker on srv002 or ks
+- install webui
+- install agents
+
 # Having a view an last run of each highstate (WebUI) + debug error
 # =============================================================================
-- Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
-- Debug erreur sur letsencrypt
+- [ ] Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
+- [X] Debug erreur sur letsencrypt
 
 # Backup management
 # =============================================================================
@@ -30,17 +36,18 @@
 # =============================================================================
 - \!/ Migrer sous BUSTER /!\ <= attention : changement de depot / changement iptables -> nftables
    +
-   +=> Preparer un environment : Migration (pour surcharger de la conf pour buster)
-   +-> [ ] nftables formula
-   +-> [ ] vps001
-   +-> [ ] mail
-   +-> [ ] bastion
-   +-> [ ] wazuh
-   +-> [ ] ks
-   +-> [ ] srv002
+   +-> [X] nftables formula
+   +-> [X] vps001
+   +-> [X] mail
+   +-> [X] bastion
+   +-> [X] wazuh
+   +-> [X] ks
+   +-> [X] srv002
+   +-> [ ] refaire le script ipset.sh pour gerer les nftables sets
 
 # Docker
 # =============================================================================
+- Integrer pillar a la mode nftables ?
 - Configuration des container sur ks
 - Configuration des container home assistant
 - Configuration de home assistant (rapartriement backup ?)

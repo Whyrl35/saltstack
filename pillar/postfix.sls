@@ -75,7 +75,7 @@ postfix:
     myhostname: {{ smtp }}
     mydestination: {{ smtp }}, localhost
     mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
-    myorigin: {{ smtp }}
+    myorigin: {{ domain }}
     relay_domains: '$mydestination'
     relayhost:
 

@@ -28,7 +28,7 @@ apt:
     # Metrics repository include :
     # noderig and beamium
     metrics:
-      distro: stretch
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
       url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian/
       comps: [main]
       arch: [amd64, i386]
@@ -37,7 +37,7 @@ apt:
     # Wigo is a light pull/push monitoring agent
     # https://github.com/root-gg/wigo
     wigo:
-      distro: stretch
+      distro: 'stretch'
       url: http://deb.carsso.com/
       comps: [main]
       arch: [amd64]
@@ -46,6 +46,9 @@ apt:
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
     saltstack:
+      # FIXME : the URL has moved on /py3/debian/10/amd64
+      #distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      #url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
       distro: stretch
       url: https://repo.saltstack.com/apt/debian/9/amd64/latest
       comps: [main]
@@ -69,7 +72,7 @@ apt:
     #
     {% if 'wazuh_server' in grains['roles'] %}
     nodesource:
-      distro: stretch
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
       url: https://deb.nodesource.com/node_6.x/
       comps: [main]
       arch: [amd64]
@@ -107,7 +110,7 @@ apt:
     #
     {% if 'mail_server' in grains['roles'] %}
     rspamd:
-      distro: stretch
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
       url: http://rspamd.com/apt-stable
       comps: [main]
       arch: [amd64]

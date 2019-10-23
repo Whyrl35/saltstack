@@ -22,22 +22,37 @@ if [ "x${IP}" = "x" ]; then
    exit 1;
 fi
 
-if ! (ipset list ${SET} | grep -q Name)
+if ! (nft list set ip filter ${SET} | grep -q ipv4_addr)
 then
-    echo "$0: Missing ipset ${SET}"
+    echo "$0: Missing IPv4 set ${SET}"
     exit 1
 fi
 
+if ! (nft list set ip6 filter ${SET} | grep -q ipv6_addr)
+then
+    echo "$0: Missing IPv6 set ${SET}"
+    exit 1
+fi
 
-# Custom block (touching a file inside /ipblock/IP)
+if ! ipv6calc --showinfo ${IP} 2>&1 | grep -q 'ipv'
+then
+    echo "${0}: ${IP} is not a valid IP"
+    exit 1
+else
+    if ipv6calc --showinfo ${IP} 2>&1 | grep -q 'ipv4addr'
+    then
+	ip='ip'
+    else
+	ip='ip6'
+    fi
+fi
+
 if [ "x${ACTION}" = "xadd" ]; then
-    ipset add ${SET} ${IP} timeout 1800
+    nft add element ${ip} filter ${SET} { ${IP} }
 elif [ "x${ACTION}" = "xdelete" ]; then
-    ipset del ${SET} ${IP}
-# Invalid action
+    nft delete element ${ip} filter ${SET} { ${IP} }
 else
    echo "$0: invalid action: ${ACTION}"
 fi
 
 exit 1;
-

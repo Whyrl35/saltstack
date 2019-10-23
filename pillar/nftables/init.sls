@@ -1,3 +1,5 @@
+{% set host = salt.grains.get('host') %}
+
 nftables:
   lookup:
     service:
@@ -6,4 +8,7 @@ nftables:
 
 include:
     - nftables.common
-    - nftables.{{ salt.grains.get('host') }}
+    - nftables.h_{{ host }}
+    {% for role in grains['roles'] %}
+    - nftables.r_{{ role }}
+    {% endfor %}

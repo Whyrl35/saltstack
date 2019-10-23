@@ -1,0 +1,31 @@
+nftables:
+  configuration:
+    "dns_server_specific":
+      chains:
+        - name: 'DNS'
+          table: 'filter'
+          family: 'ip'
+        - name: 'DNS'
+          table: 'filter'
+          family: 'ip6'
+      rules:
+        - name: 'jump to DNS'
+          table: 'filter'
+          chain: 'INPUT'
+          family: 'ip'
+          rule: 'jump DNS'
+        - name: 'jump to DNS'
+          table: 'filter'
+          chain: 'INPUT'
+          family: 'ip6'
+          rule: 'jump DNS'
+        - name: 'allow dns tcp'
+          table: 'filter'
+          chain: 'DNS'
+          family: 'ip'
+          rule: 'tcp dport 53 accept'
+        - name: 'allow dns udp'
+          table: 'filter'
+          chain: 'DNS'
+          family: 'ip'
+          rule: 'udp dport 53 accept'
