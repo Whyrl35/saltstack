@@ -113,6 +113,7 @@ nftables:
             - 217.182.85.34/32      # wazuh
             - 217.182.85.80/32      # mail
             - 54.38.71.9/32         # bastion
+            - 145.239.154.247/32    # warden
         - name: 'myhostsv6_elements'
           table: 'filter'
           family: 'ip6'
@@ -124,6 +125,7 @@ nftables:
             - 2001:41d0:302:1100::b:2e37/128  # bastion
             - 2001:41d0:302:1100::7:d86b/128  # wazuh
             - 2001:41d0:302:1100::9:5fb4/128  # mail
+            - 2001:41d0:401:2100::8a3/128     # warden
       #
       # create all the default rules
       # INPUT rules

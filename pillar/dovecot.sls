@@ -32,11 +32,11 @@ dovecot:
           ssl = required
           ssl_cert = </etc/letsencrypt/live/mail.whyrl.fr/cert.pem
           ssl_key = </etc/letsencrypt/live/mail.whyrl.fr/privkey.pem
-          ssl_ca = </etc/letsencrypt/live/mail.whyrl.fr/chain.pem
-          ssl_dh_parameters_length = 2048
-          ssl_protocols = !SSLv3
-          ssl_cipher_list = ALL:!LOW:!SSLv3:!aNULL:!eNULL:!EXP:!DES:!RC4:!3DES:!MD5:!PS
-          ssl_prefer_server_ciphers = yes
+          ssl_ca = </etc/letsencrypt/live/mail.whyrl.fr/fullchain.pem
+          ssl_dh = </usr/share/dovecot/dh.pem
+          ssl_min_protocol = TLSv1.1
+          ssl_cipher_list = ALL:!kRSA:!SRP:!kDHd:!DSS:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK:!RC4:!ADH:!LOW@STRENGTH
+          ssl_prefer_server_ciphers = no
         10-master: |
           service imap-login {
             inet_listener imap {

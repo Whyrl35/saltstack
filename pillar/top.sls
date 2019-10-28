@@ -21,14 +21,10 @@ base:
   #
   'roles:bastion':
     - match: grain
-    #- iptables.bastion
-    #- iptables.portainer
     - container.bastion
 
   'roles:wazuh_server':
     - match: grain
-    #- iptables.webserver
-    #- iptables.wazuh
     - letsencrypt
     - nginx
     - elk.kibana
@@ -36,20 +32,12 @@ base:
 
   'roles:mail_server':
     - match: grain
-    #- iptables.webserver
-    #- iptables.mail
     - mysql
     - letsencrypt
     - nginx
     - dovecot
 
-  'srv00*':
-    #- iptables.webserver
+  'roles:webserver':
+    - match: grain
     - letsencrypt
     - nginx
-
-  #'ks001.whyrl.fr':
-    # FIXME: need to migrate on nginx and automate letsencrypt
-    #- iptables.webserver
-    #- iptables.portainer
-

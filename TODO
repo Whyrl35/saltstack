@@ -1,14 +1,16 @@
-#
-# Install bitwarden server/web and agents
-#
-- install bitwarden docker on srv002 or ks
-- install webui
-- install agents
-
 # Having a view an last run of each highstate (WebUI) + debug error
 # =============================================================================
 - [ ] Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
+  * saltpad :
+	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/index.md
+	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/salt-api-tornado-cors.md
+	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/nginx-server.md
+  * silica : (more complex to install)
+  	https://gitlab.com/perfecto25/silica/tree/master
+  * saltgui :
+  	https://github.com/erwindon/SaltGUI
 - [X] Debug erreur sur letsencrypt
+
 
 # Backup management
 # =============================================================================
@@ -32,18 +34,6 @@
 - Configure DNS on srv002 via salt
   * https://github.com/salt-formulas/salt-formula-bind
 
-# Buster Migration
-# =============================================================================
-- \!/ Migrer sous BUSTER /!\ <= attention : changement de depot / changement iptables -> nftables
-   +
-   +-> [X] nftables formula
-   +-> [X] vps001
-   +-> [X] mail
-   +-> [X] bastion
-   +-> [X] wazuh
-   +-> [X] ks
-   +-> [X] srv002
-   +-> [ ] refaire le script ipset.sh pour gerer les nftables sets
 
 # Docker
 # =============================================================================

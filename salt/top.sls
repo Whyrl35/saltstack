@@ -6,24 +6,19 @@ base:
   # All minions get the following state files applied
   #
   '*':
-    # may filter on debian hosts (grain os)
     - apt.transports.https
     - apt.repositories
     - apt.update
     - apt.unattended
     - common
-    # everything in common :
     - motd
     - zsh
-    # my account and tools
     - account
-    # openssh specific configuration
     - openssh
     - openssh.client
     - openssh.config
     - openssh.banner
     - openssh.auth
-    # firewalling
     - nftables
 
   #
@@ -31,9 +26,7 @@ base:
   #
   'cpuarch:x86_64':
     - match: grain
-    # monitoring
     - wigo
-    # metrics
     - beamium
     - noderig
 
@@ -41,9 +34,6 @@ base:
   # Minions that have a grain set indicating that they are running
   # the docker system will have the state file called
   # in the docker formulas in the 'repos' directory applied.
-  #
-  # Again take note of the 'match' directive here which tells
-  # Salt to match against a grain instead of a minion ID.
   #
   'roles:container':
     - match: grain
@@ -53,6 +43,7 @@ base:
   #
   # Bastion server, may be only one host, that run the bastion container
   # include the docker.containers state
+  # FIXME: must be called for each role `container`
   #
   'roles:bastion':
     - match: grain
@@ -60,9 +51,7 @@ base:
 
   #
   # Wazuh server, may be only one host, that run the wazuh stack
-  # include the wazuh state
-  #
-  # Match again the roles 'wazuh_server'
+  # include the wazuh server state + elk + front for kibana
   #
   'roles:wazuh_server':
     - match: grain
@@ -73,14 +62,11 @@ base:
     - oracle.jre8
     - elk.elasticsearch
     - elk.filebeat
-    # - elk.logstash
     - elk.kibana
 
   #
   # Wazuh client, should be all hosts, that run the wazuh stack
-  # include the wazuh state
-  #
-  # Match again the roles 'wazuh_agent'
+  # include the wazuh agent state
   #
   'roles:wazuh_agent':
     - match: grain
@@ -89,9 +75,6 @@ base:
   #
   # Mail server, will run a stack of postfix/dovecot ta manage mail
   # need many features and some formulas
-  #
-  # Again take note of the 'match' directive here which tells
-  # Salt to match against a grain instead of a minion ID.
   #
   'roles:mail_server':
     - match: grain
@@ -112,6 +95,7 @@ base:
 
   #
   # Postfix for non mail server, aka postfix satellite
+  # Will use the `mail_server` as relay
   #
   'not G@roles:mail_server':
     - postfix
@@ -119,9 +103,9 @@ base:
     - postfix.satellite
 
   #
-  # Specific nodes configuration :
+  # Webserver using nginx and letsencrypt
   #
-  'srv00*':
+  'roles:webserver':
+    - match: grain
     - letsencrypt
     - nginx
-

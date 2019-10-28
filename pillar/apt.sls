@@ -46,11 +46,8 @@ apt:
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
     saltstack:
-      # FIXME : the URL has moved on /py3/debian/10/amd64
-      #distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
-      #url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
-      distro: stretch
-      url: https://repo.saltstack.com/apt/debian/9/amd64/latest
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
       comps: [main]
       arch: [amd64, i386]
       keyid: 0E08A149DE57BFBE

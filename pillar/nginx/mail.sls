@@ -55,7 +55,7 @@ nginx:
               - location ~* \.php$:
                 - fastcgi_split_path_info: ^(.+\.php)(/.+)$
                 - include: fastcgi_params
-                - fastcgi_pass: unix:/run/php/php7.0-fpm.sock
+                - fastcgi_pass: unix:/run/php/php7.3-fpm.sock
                 - fastcgi_index: index.php
                 - include: fastcgi_params
                 - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
@@ -140,7 +140,7 @@ nginx:
                 - fastcgi_split_path_info: ^(.+\.php)(/.+)$
                 - include: fastcgi_params
                 - fastcgi_keep_conn: 'on'
-                - fastcgi_pass: unix:/run/php/php7.0-fpm.sock
+                - fastcgi_pass: unix:/run/php/php7.3-fpm.sock
                 - fastcgi_index: index.php
                 - include: fastcgi_params
                 - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
