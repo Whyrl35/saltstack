@@ -30,16 +30,14 @@ nginx:
               - server_name: grafana.ks.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/grafana-access.log
               - error_log: /var/log/nginx/grafana-error.log
               - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}
@@ -75,16 +73,14 @@ nginx:
               - server_name: warp10.ks.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/warp10-access.log
               - error_log: /var/log/nginx/warp10-error.log
               - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}
@@ -120,16 +116,14 @@ nginx:
               - server_name: music.ks.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/music-access.log
               - error_log: /var/log/nginx/music-error.log
               - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
               - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}
@@ -164,6 +158,7 @@ nginx:
               - server_name: ks.whyrl.fr www.ks.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/default-access.log
               - error_log: /var/log/nginx/default-error.log
               - root: /var/www/website/
@@ -174,10 +169,7 @@ nginx:
               - ssl_session_cache: shared:SSL:10m
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}

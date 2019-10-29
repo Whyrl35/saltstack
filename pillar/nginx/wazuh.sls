@@ -44,10 +44,7 @@ nginx:
               - ssl_certificate_key: /etc/letsencrypt/live/wazuh.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}
@@ -96,10 +93,7 @@ nginx:
               - ssl_certificate_key: /etc/letsencrypt/live/wigo.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
-              - ssl_ecdh_curve: {{ defaults.ssl.ecdh_curve }}
-              - ssl_ciphers: '{{ defaults.ssl.ciphers }}'
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
-              - ssl_session_tickets: '{{ defaults.ssl.session_ticket }}'
               - ssl_stapling: '{{ defaults.ssl.stapling }}'
               - ssl_stapling_verify: '{{ defaults.ssl.stapling_verify }}'
               {% for header in defaults.headers %}
