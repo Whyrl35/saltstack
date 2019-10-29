@@ -17,6 +17,7 @@ nginx:
               - server_name: postfixadmin.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
@@ -30,6 +31,7 @@ nginx:
               - server_name: postfixadmin.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/postfixadmin-access.log
               - error_log: /var/log/nginx/postfixadmin-error.log
               - root: /usr/share/postfixadmin
@@ -68,6 +70,7 @@ nginx:
               - server_name: rspamd.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/rspamd-access.log
               - error_log: /var/log/nginx/rspamd-error.log
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem
@@ -96,6 +99,7 @@ nginx:
               - server_name: webmail.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
@@ -109,6 +113,7 @@ nginx:
               - server_name: webmail.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/webmail-access.log
               - error_log: /var/log/nginx/wemail-error.log
               - root: /var/www/rainloop

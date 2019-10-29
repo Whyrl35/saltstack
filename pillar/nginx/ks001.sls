@@ -17,6 +17,7 @@ nginx:
               - server_name: grafana.ks.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
@@ -60,6 +61,7 @@ nginx:
               - server_name: warp10.ks.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
@@ -103,6 +105,7 @@ nginx:
               - server_name: music.ks.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
@@ -145,6 +148,7 @@ nginx:
               - server_name: ks.whyrl.fr www.ks.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:

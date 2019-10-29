@@ -22,6 +22,7 @@ nginx:
               - server_name: wazuh.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - auth_basic:
@@ -38,6 +39,7 @@ nginx:
               - server_name: wazuh.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/wazuh-access.log
               - error_log: /var/log/nginx/wazuh-error.log
               - ssl_certificate: /etc/letsencrypt/live/wazuh.whyrl.fr/fullchain.pem
@@ -72,6 +74,7 @@ nginx:
               - server_name: wigo.whyrl.fr
               - listen:
                 - 80
+                - '[::]:80'
               - root: /var/www/html
               - location ~ /\.well-known/acme-challenge:
                 - auth_basic:
@@ -87,6 +90,7 @@ nginx:
               - server_name: wigo.whyrl.fr
               - listen:
                 - '443 ssl http2'
+                - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/wigo-access.log
               - error_log: /var/log/nginx/wigo-error.log
               - ssl_certificate: /etc/letsencrypt/live/wigo.whyrl.fr/fullchain.pem
