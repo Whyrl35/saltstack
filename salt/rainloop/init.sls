@@ -2,11 +2,10 @@ rainloop.packages:
   pkg.installed:
     - pkgs:
       - php-cli
-      - php-mcrypt
       - php-mysql
       - php-curl
-      - php7.0-sqlite3
-      - php7.0-xml
+      - php-sqlite3
+      - php-xml
 
 rainloop_dir:
   file.directory:
