@@ -36,7 +36,6 @@ letsencrypt:
       - homepanel.whyrl.fr
       - gateway.whyrl.fr
       - extend.whyrl.fr
-      - grafana.ks.whyrl.fr
   {% endif %}
   {% if grains['nodename'] == "ks001.whyrl.fr"  %}
     web:
@@ -46,6 +45,12 @@ letsencrypt:
       - moviecat.ks.whyrl.fr
       - warp10.ks.whyrl.fr
       - grafana.ks.whyrl.fr
+  {% endif %}
+  {% if grains['nodename'] == "vps001.whyrl.fr"  %}
+    web:
+      - saltpad.whyrl.fr
+      - salt.whyrl.fr
+      - vps001.whyrl.fr
   {% endif %}
   post_renew:
     cmds:
