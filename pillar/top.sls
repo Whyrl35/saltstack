@@ -19,9 +19,9 @@ base:
   #
   # Specific configuration / hosts/roles based
   #
-  'roles:bastion':
+  'roles:container':
     - match: grain
-    - container.bastion
+    - docker
 
   'roles:wazuh_server':
     - match: grain

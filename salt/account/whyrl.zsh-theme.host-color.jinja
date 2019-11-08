@@ -1,18 +1,29 @@
 {%-
 set host_to_color = dict(
-			  vps001='127',
+			  vps001='088',
 			  srv002='214',
 			  ks001='033',
-			  mail='202',
+			  mail='156',
 			  wazuh='200',
 			  bastion='196',
 			  warden='123',
 			)
 -%}
+{%-
+set host_to_fg = dict(
+			vps001='light',
+			bastion='light',
+		     )
+-%}
 # see color definition here : https://jonasjacek.github.io/colors/
 # or try : spectrum_ls
 {% if grains['host'] in host_to_color %}
 HOST_COLOR='{{ host_to_color[grains['host']] }}'
-{% else %}
+{%- else %}
 HOST_COLOR='255'
+{%- endif %}
+{% if grains['host'] in host_to_fg -%}
+SOLARIZED_THEME='{{ host_to_fg[grains['host']] }}'
+{% else %}
+SOLARIZED_THEME='dark'
 {% endif %}

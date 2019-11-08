@@ -1,17 +1,3 @@
-# Having a view an last run of each highstate (WebUI) + debug error
-# =============================================================================
-- [ ] Installer une WebUI + nginx sur vps (iptables / nginx / letsencrypt)
-  * saltpad :
-	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/index.md
-	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/salt-api-tornado-cors.md
-	https://github.com/Lothiraldan/saltpad/blob/master/docs/installation/nginx-server.md
-  * silica : (more complex to install)
-  	https://gitlab.com/perfecto25/silica/tree/master
-  * saltgui :
-  	https://github.com/erwindon/SaltGUI
-- [X] Debug erreur sur letsencrypt
-
-
 # Backup management
 # =============================================================================
 - Use borgbackup
@@ -37,15 +23,38 @@
 
 # Docker
 # =============================================================================
-- Integrer pillar a la mode nftables ?
-- Configuration des container sur ks
-- Configuration des container home assistant
-- Configuration de home assistant (rapartriement backup ?)
-- Configuration de portainer (docker)
+- Configuration des volumes (portainer sur srv002)
+- Pour koel, mettre en place un volume pour les assests (pour pas rebuild le image a chaque fois)
+- upgrade warp10 sur ks001
+
+
+# Warden
+# =============================================================================
+- Automatiser l'installation
+	* curl (?) vs depot fichier
+	* updateself
+- Automatiser update (schedule regulier)
+	* updateself
+	* update
+
+
+#
+# srv002 - hassio
+# =============================================================================
+- Automatiser installation + restore
+- Automatiser update ?
 
 
 # Maison / Domotique
 # =============================================================================
-- Voir quoi mettre dans VM sur box
-- Voir quoi spawn comme VM openstack (openvpn ?)
+- Refaire fonctionner les metrics netatmo dans grafana
 - Continuer domotique (lampe, energie, temperature etage, ...)
+
+
+# Promotheus
+# =============================================================================
+- Virer noderig / beamium / wigo partout
+- Virer Warp10.io / Wigo
+- install promotheus (server / agent)
+- customize
+

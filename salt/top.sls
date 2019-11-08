@@ -39,14 +39,6 @@ base:
     - match: grain
     - docker
     - docker.compose
-
-  #
-  # Bastion server, may be only one host, that run the bastion container
-  # include the docker.containers state
-  # FIXME: must be called for each role `container`
-  #
-  'roles:bastion':
-    - match: grain
     - docker.containers
 
   #
