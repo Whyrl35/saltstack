@@ -32,7 +32,7 @@ docker-containers:
         - "-e PUID=0"
         - "-e PGID=0"
     warp10:
-      image: "warp10io/warp10:1.2.7-rc2"
+      image: "warp10io/warp10:1.2.22"
       cmd: ~
       #args:
       pull_before_start: false
