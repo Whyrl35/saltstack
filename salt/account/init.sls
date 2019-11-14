@@ -2,9 +2,15 @@
 # - Create the user "{{ pillar['account_name'] }}" on all hosts
 # -
 create_account_name:
-  user:
+  user.present:
     - name: {{ pillar['account_name'] }}
-    - present
+    - password: {{ pillar['account_password'] }}
+    - enforce_password: True
+    - mindays: 0
+    - maxdays: 99999
+    - inactdays: -1
+    - warndays:
+    - expire: -1
     - gid: 100
     - allow_gid_change: True
     - fullname: {{ pillar['account_fullname'] }}

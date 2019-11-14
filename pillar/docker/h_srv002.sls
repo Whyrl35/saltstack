@@ -5,7 +5,7 @@ docker-containers:
       cmd: ~
       #args:
       pull_before_start: true
-      remove_on_stop: false
+      remove_on_stop: true
       runoptions:
         - "-p 8000:8000"
         - "-p 9000:9000"

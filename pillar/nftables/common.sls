@@ -1,3 +1,7 @@
+#!jinja|yaml|gpg
+
+{% from 'nftables/ips.jinja' import ips %}
+
 nftables:
   configuration:
     common:
@@ -88,44 +92,22 @@ nftables:
           table: 'filter'
           family: 'ip'
           set: 'bastion'
-          elements:
-            - 54.38.71.9/32     # bastion.whyrl.fr
-            - 78.232.192.141/32 # whyrl.fr
-            - 82.252.137.158/32 # whyrl.fr (4G aggregation)
-            - 82.252.131.254/32 # whyrl.fr (4G aggregation, new)
+          elements: {{ ips.bastion.ipv4 }}
         - name: 'bastionv6_elements'
           table: 'filter'
           family: 'ip6'
           set: 'bastion'
-          elements:
-            - 2a01:e34:ee8c:8d0::/64          # whyrl.fr
-            - 2001:41d0:302:1100::b:2e37/128  # bastion.whyrl.fr
-            - 2001:a70:3:0::/64               # claranet
+          elements: {{ ips.bastion.ipv6 }}
         - name: 'myhosts_elements'
           table: 'filter'
           family: 'ip'
           set: 'myhosts'
-          elements:
-            - 91.121.156.77/32      # ks001
-            - 78.232.192.141/32     # srv001
-            - 82.252.137.158/32     # srv001 since freebox delta (why???)
-            - 217.182.169.71/32     # vps001
-            - 217.182.85.34/32      # wazuh
-            - 217.182.85.80/32      # mail
-            - 54.38.71.9/32         # bastion
-            - 145.239.154.247/32    # warden
+          elements: {{ ips.myhosts.ipv4 }}
         - name: 'myhostsv6_elements'
           table: 'filter'
           family: 'ip6'
           set: 'myhosts'
-          elements:
-            - 2a01:e34:ee8c:8d0::/64          # HOME (freebox, srv001, all @home computer)
-            - 2001:41d0:1:dd4d::1/128         # ks001
-            - 2001:41d0:302:2100::83d0/128    # vps001
-            - 2001:41d0:302:1100::b:2e37/128  # bastion
-            - 2001:41d0:302:1100::7:d86b/128  # wazuh
-            - 2001:41d0:302:1100::9:5fb4/128  # mail
-            - 2001:41d0:401:2100::8a3/128     # warden
+          elements: {{ ips.myhosts.ipv6 }}
       #
       # create all the default rules
       # INPUT rules
@@ -194,9 +176,9 @@ nftables:
           table: 'filter'
           chain: 'INPUT'
           family: 'ip'
-          rule: 'ip saddr @myhosts tcp dport { 4505, 4506 } counter accept'
+          rule: 'tcp dport { 4505, 4506 } counter accept'
         - name: 'jump to salt chain'
           table: 'filter'
           chain: 'INPUT'
           family: 'ip6'
-          rule: 'ip6 saddr @myhosts tcp dport { 4505, 4506 } counter accept'
+          rule: 'tcp dport { 4505, 4506 } counter accept'

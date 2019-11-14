@@ -9,6 +9,8 @@ nftables:
 include:
     - nftables.common
     - nftables.h_{{ host }}
+    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - nftables.r_{{ role }}
     {% endfor %}
+    {% endif %}

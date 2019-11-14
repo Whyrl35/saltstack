@@ -52,12 +52,12 @@ sshd_config:
 openssh:
   sshd_enable: true
   auth:
-    ludovic-valid-ssh-key-ovhdesk:
+    ludovic-valid-ssh-key-desk:
       - user: ludovic
         present: True
         enc: ssh-rsa
-        comment: lhoudaye@desk557819.ovh.net
-        source: salt://ssh/keys/id_rsa_ovhdesk.pub
+        comment: lhoudaye@desk
+        source: salt://ssh/keys/id_rsa_desk.pub
     ludovic-valid-ssh-key-srv001:
       - user: ludovic
         present: True
