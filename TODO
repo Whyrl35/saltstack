@@ -1,14 +1,12 @@
 # Salt Cloud
 # =============================================================================
 - [X] pre-apply  : add roles on /etc/salt/grains (done via *.map for salt-cloud)
-- [ ] pre-apply  : list all IP of the hosts + mount them, add them every where (reboot or networking restart)
 - [ ] post-action: add IP in nftables pillar (other place than YAML)
-	=> extraire les ip de la partie "common" et mettre dans un yaml/json a part
 	=> faire un script d'extraction (static + ovh API) pour remplir le dit fichier
 	   ou check avec runner/reactionner
 - [ ] post-action: add DNS in OVH
 - [ ] post-action: mount IPv6
-- [ ] post-action: mount vRack
+- [X] post-action: mount vRack => isOk via cloud-init
 - [X] apply	 : set a default password for user
 - [X] apply	 : add sudoers.d rules for user
 - [X] apply	 : manage /etc/hosts
@@ -29,6 +27,7 @@
 # =============================================================================
 - [ ] Monitoring local des containers docker (pas de docker en exited)
 - [ ] Monitoring ext. des sitewebs (all, portainer/koel/grafana/etc...)
+
 
 # DNS management on local_dns
 # =============================================================================

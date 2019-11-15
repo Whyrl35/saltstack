@@ -21,7 +21,7 @@ docker-containers:
       cmd: ~
       #args:
       pull_before_start: true
-      remove_on_stop: false
+      remove_on_stop: true
       runoptions:
         - "-p target=9001,published=9001"
         - "-v /var/run/docker.sock:/var/run/docker.sock"

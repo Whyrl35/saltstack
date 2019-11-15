@@ -37,6 +37,7 @@ base:
   #
   'roles:container':
     - match: grain
+    - systemd
     - docker
     - docker.compose
     - docker.containers

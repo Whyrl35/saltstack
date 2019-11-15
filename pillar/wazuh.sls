@@ -1,5 +1,6 @@
 #!jinja|yaml|gpg
 wazuh:
+  server: 217.182.85.34
   auth:
     passwd: |
       -----BEGIN PGP MESSAGE-----
