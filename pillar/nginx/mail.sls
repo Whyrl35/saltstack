@@ -34,7 +34,7 @@ nginx:
                 - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/postfixadmin-access.log
               - error_log: /var/log/nginx/postfixadmin-error.log
-              - root: /usr/share/postfixadmin
+              - root: /usr/share/postfixadmin/public
               - index: index.php
               - charset: {{ defaults.charset }}
               - ssl_certificate: /etc/letsencrypt/live/postfixadmin.whyrl.fr/fullchain.pem

@@ -1,6 +1,6 @@
 #!jinja|yaml|gpg
 
-{% from 'nftables/ips.jinja' import ips %}
+{% from 'hosts-ips.jinja' import ips %}
 
 nftables:
   configuration:

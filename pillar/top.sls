@@ -14,7 +14,7 @@ base:
     - wazuh
     - wigo
     - postfix
-    - postfix-satellite
+    - postfix.satellite
 
   #
   # Specific configuration / hosts/roles based
