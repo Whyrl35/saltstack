@@ -1,5 +1,7 @@
 name: salt-lint
-on: push
+on: 
+  schedule:
+    - cron:  '0 3 * * *'
 
 jobs:
   build:
