@@ -1,5 +1,5 @@
 name: salt-lint
-on: [push]
+on: push
 
 jobs:
   build:
