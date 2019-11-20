@@ -72,7 +72,7 @@
 # =============================================================================
 
 - [ ] Mettre sous salt la conf salt (surtout la partie cloud)
-- [ ] Mettre sous salt la partie webhook
+- [X] Mettre sous salt la partie webhook
 - [ ] Mettre en place l'auto-deploy par webhook pour le git salt
 - [ ] Mettre en place un auto-fetch pour les formula ?
 - [ ] Faire marcher le salt-lint sur github action (check)
