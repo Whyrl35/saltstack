@@ -1,5 +1,4 @@
-name: CI
-
+name: salt-linting
 on: [push]
 
 jobs:
