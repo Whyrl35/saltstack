@@ -1,0 +1,27 @@
+{%- set configurations = salt.pillar.get('webhooks', [ ]) -%}
+
+[{% for webhook in configurations|dictsort %}
+    {
+        "id": "{{ webhook[0] }}",
+        "execute-command": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":execute_command", '') }}",
+        "command-working-directory": "{{ {{ salt.pillar.get("webhooks:" + webhook[0] + ":working_directory", '') }} }}",
+        "response-message": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":response_message", '') }}",
+        {% if salt.pillar.get("webhooks:" + webhook[0] + ":triggers", False) %}
+        "trigger-rule": {
+            {% for trigger in salt.pillar.get("webhooks:" + webhook[0] + ":triggers",  [ ]) %}
+            "{{ trigger }}": {
+                "type": "{{ trigger['type'] }}",
+                "type": "{{ trigger['secret'] }}"
+            }
+            {% if 'parameter' in trigger %}
+            "parameter": {
+                {% for parameter in trigger['parameter'] %}
+                "{{ parameter }}": "{{ trigger['parameter'][parameter] }}"{% if not loop.last %},{% endif %}
+                {% endfor %}
+            }
+            {% endif %}
+            {% endfor %}
+        }
+        {% endif %}
+    }
+{% endfor %}}]

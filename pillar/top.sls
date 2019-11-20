@@ -19,6 +19,10 @@ base:
   #
   # Specific configuration / hosts/roles based
   #
+  'roles:saltstack':
+    - match: grain
+    - webhook
+
   'roles:container':
     - match: grain
     - docker
