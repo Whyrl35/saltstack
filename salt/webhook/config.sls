@@ -6,7 +6,7 @@ webhook_configuration:
     - name: /etc/webhook.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - source: salt://webhook/files/webhook.jinja
     - template: jinja
     - require:
@@ -16,4 +16,9 @@ webhook_configuration:
 webhook_files:
   file.managed:
     - names: {{ pillar['webhooks']['files'] }}
+    - user: root
+    - group: root
+    - mode: "0755"
+    - makedir: True
+    - dir_mode: "0755"
 {% endif %}
