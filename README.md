@@ -1,3 +1,5 @@
+![]https://github.com/Whyrl35/saltstack/workflows/salt-lint/badge.svg
+
 # Saltstack repository
 
 ## Install salt on new minion :

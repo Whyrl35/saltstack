@@ -1,4 +1,4 @@
-name: salt-linting
+name: salt-lint
 on: [push]
 
 jobs:
