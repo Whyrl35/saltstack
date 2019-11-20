@@ -1,4 +1,6 @@
 webhooks:
+  files:
+    - salt://webhook/files/git-deploy.sh
   configurations:
     - id: "salt-git-deployment"
       execute_command: "/opt/webhooks/salt/git-deploy.sh"

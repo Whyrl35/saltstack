@@ -11,3 +11,9 @@ webhook_configuration:
     - template: jinja
     - require:
       - pkg : webhook_package
+
+{% if 'files' in pillar['webhooks'] %}
+webhook_files:
+  file.managed:
+    - names: {{ pillar['webhooks']['files'] }}
+{% endif %}
