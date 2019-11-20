@@ -19,6 +19,6 @@ webhook_files:
     - user: root
     - group: root
     - mode: "0755"
-    - makedir: True
+    - makedirs: True
     - dir_mode: "0755"
 {% endif %}
