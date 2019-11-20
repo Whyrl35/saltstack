@@ -1,0 +1,19 @@
+borgbackup:
+  borgbackup: borgbackup
+  orchestrate:
+    server:
+      auto_add_allowed: True
+      new_client: {}
+    client:
+      auto_add_servers: []
+      force_server_update: False
+  client:
+    config:
+      ssh_key_name: /root/.ssh/id_rsa
+  server:
+    config:
+      user: borg
+      group: borg
+      backup_dir: /srv/borg
+
+Debian: {}

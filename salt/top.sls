@@ -102,3 +102,10 @@ base:
     - match: grain
     - letsencrypt
     - nginx
+
+  #
+  # Backup server, will use borgbackup
+  #
+  #'roles:borgbackup':
+  #  - match: grain
+  #  - borgbackup.server

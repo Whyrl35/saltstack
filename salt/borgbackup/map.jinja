@@ -1,0 +1,16 @@
+{% import_yaml 'borgbackup/defaults.yaml' as defaults %}
+
+{% set base_settings = salt['grains.filter_by'](
+    defaults,
+    grain='os_family',
+    merge=salt['pillar.get']('borgbackup:lookup'),
+    base='borgbackup'
+    )
+%}
+
+{% set borgbackup = salt['pillar.get'](
+    'borgbackup',
+    default=base_settings,
+    merge=True
+    )
+%}

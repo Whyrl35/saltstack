@@ -4,6 +4,9 @@
 - [ ] post-action: add IP in nftables pillar (other place than YAML)
 	=> faire un script d'extraction (static + ovh API) pour remplir le dit fichier
 	   ou check avec runner/reactionner
+
+	ex: https://github.com/hkbakke/saltstack-states/blob/master/borgbackup/server.sls (orchestrate + event + reactioner)
+
 - [ ] post-action: add DNS in OVH
 - [ ] post-action: mount IPv6
 - [X] post-action: mount vRack => isOk via cloud-init
