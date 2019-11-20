@@ -1,6 +1,6 @@
 webhooks:
     configurations:
-        "salt-git-deployment":
+        -   id: "salt-git-deployment":
             execute_command: "/opt/webhooks/salt/git-deploy.sh"
             working_directory: "/srv"
             reponse_message: "deploying git on salt..."
