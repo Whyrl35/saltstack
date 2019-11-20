@@ -1,4 +1,4 @@
-![]https://github.com/Whyrl35/saltstack/workflows/salt-lint/badge.svg
+![](https://github.com/Whyrl35/saltstack/workflows/salt-lint/badge.svg)
 
 # Saltstack repository
 
