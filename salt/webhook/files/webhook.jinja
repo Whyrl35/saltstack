@@ -11,7 +11,7 @@
             {% for trigger in salt.pillar.get("webhooks:" + webhook[0] + ":triggers",  [ ]) -%}
             "{{ trigger }}": {
                 "type": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":type",  '') }}",
-                "secret": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":secret",  '') }}"
+                "secret": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":secret",  '') }}",
 		        {%- set parameter = salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":parameter",  [])-%}
             	{% if parameter %}
 	            "parameter": {
@@ -25,4 +25,4 @@
         }
         {%- endif %}
     }{% if not loop.last %},{% endif %}
-{% endfor %}}]
+{% endfor %}]
