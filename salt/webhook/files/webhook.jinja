@@ -4,24 +4,25 @@
     {
         "id": "{{ webhook[0] }}",
         "execute-command": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":execute_command", '') }}",
-        "command-working-directory": "{{ {{ salt.pillar.get("webhooks:" + webhook[0] + ":working_directory", '') }} }}",
+        "command-working-directory": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":working_directory", '') }}",
         "response-message": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":response_message", '') }}",
-        {% if salt.pillar.get("webhooks:" + webhook[0] + ":triggers", False) %}
+        {% if salt.pillar.get("webhooks:" + webhook[0] + ":triggers", False) -%}
         "trigger-rule": {
-            {% for trigger in salt.pillar.get("webhooks:" + webhook[0] + ":triggers",  [ ]) %}
+            {% for trigger in salt.pillar.get("webhooks:" + webhook[0] + ":triggers",  [ ]) -%}
             "{{ trigger }}": {
-                "type": "{{ trigger['type'] }}",
-                "type": "{{ trigger['secret'] }}"
+                "type": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":type",  '') }}",
+                "secret": "{{ salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":secret",  '') }}"
+		{%- set parameter = salt.pillar.get("webhooks:" + webhook[0] + ":triggers:" + trigger + ":parameter",  [])-%}
+            	{% if parameter %}
+	        "parameter": {
+        	    {% for item in parameter -%}
+                    "{{ item }}": "{{ parameter[item] }}"{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                }
+            	{% endif %}
             }
-            {% if 'parameter' in trigger %}
-            "parameter": {
-                {% for parameter in trigger['parameter'] %}
-                "{{ parameter }}": "{{ trigger['parameter'][parameter] }}"{% if not loop.last %},{% endif %}
-                {% endfor %}
-            }
-            {% endif %}
-            {% endfor %}
+            {%- endfor %}
         }
-        {% endif %}
-    }
+        {%- endif %}
+    }{% if not loop.last %},{% endif %}
 {% endfor %}}]

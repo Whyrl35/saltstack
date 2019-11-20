@@ -1,4 +1,4 @@
-webook_package:
+webhook_package:
   pkg.installed:
     - pkgs:
       - webhook
@@ -9,7 +9,7 @@ webhook_configuration:
     - user: root
     - group: root
     - mode: 644
-    - source: salt://webhook/file/webhook.jinja
+    - source: salt://webhook/files/webhook.jinja
     - template: jinja
     - require:
       - pkg : webhook_package
