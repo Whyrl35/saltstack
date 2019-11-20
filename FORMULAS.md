@@ -16,5 +16,7 @@ https://github.com/Whyrl35/nginx-formula
 
 # Installation
 
-``` cd formulas
-``` grep github ../FORMULAS.md | xargs -I% git clone %
+``` 
+cd formulas
+grep github ../FORMULAS.md | xargs -I% git clone %
+```
