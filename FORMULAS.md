@@ -1,0 +1,20 @@
+# Interesting formulas used by this repository
+
+https://github.com/saltstack-formulas/apt-formula
+https://github.com/saltstack-formulas/openssh-formula
+https://github.com/saltstack-formulas/docker-formula
+https://github.com/saltstack-formulas/ntp-formula
+https://github.com/saltstack-formulas/mysql-formula
+https://github.com/saltstack-formulas/postfix-formula
+https://github.com/saltstack-formulas/letsencrypt-formula
+https://github.com/saltstack-formulas/dovecot-formula
+https://github.com/saltstack-formulas/bind-formula
+
+# Forked one
+
+https://github.com/Whyrl35/nginx-formula
+
+# Installation
+
+``` cd formulas
+``` grep github ../FORMULAS.md | xargs -I% git clone %
