@@ -4,7 +4,7 @@ gpg import salt-master.pub
 
 # encrypt data
 
-echo -n "supersecret" | gpg --armor --batch --trust-model always --encrypt -r saltmaster
+`echo -n "supersecret" | gpg --armor --batch --trust-model always --encrypt -r saltmaster`
 
 # bash function
 

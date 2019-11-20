@@ -20,15 +20,16 @@ base:
     - openssh.banner
     - openssh.auth
     - nftables
-
-  #
-  # Monitoring (for i686, build it manually)
-  #
-  'cpuarch:x86_64':
-    - match: grain
     - wigo
     - beamium
     - noderig
+
+  #
+  # Saltstack server
+  #
+  'roles:saltstack':
+    - match: grain
+    - webhook
 
   #
   # Minions that have a grain set indicating that they are running
