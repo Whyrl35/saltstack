@@ -1,0 +1,16 @@
+{% import_yaml 'borgwrapper/defaults.yaml' as defaults %}
+
+{% set base_settings = salt['grains.filter_by'](
+    defaults,
+    grain='os_family',
+    merge=salt['pillar.get']('borgwrapper:lookup'),
+    base='borgwrapper'
+    )
+%}
+
+{% set borgwrapper = salt['pillar.get'](
+    'borgwrapper',
+    default=base_settings,
+    merge=True
+    )
+%}

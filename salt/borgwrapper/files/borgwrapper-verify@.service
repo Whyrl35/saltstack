@@ -1,0 +1,10 @@
+[Unit]
+Description=borgwrapper backup verification (config: %i)
+After=network.target borgwrapper-backup@%i.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/borgwrapper -c /etc/borgwrapper/%i verify
+Nice=10
+User=root
+Group=root

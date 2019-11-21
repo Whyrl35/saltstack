@@ -1,0 +1,29 @@
+borgwrapper:
+  bin: /usr/local/bin/borgwrapper
+  config_dir: /etc/borgwrapper
+  config_defaults:
+    borg: /usr/bin/borg
+    keep_daily: 31
+    keep_weekly: 0
+    keep_monthly: 24
+    keep_yearly: 5
+    paths: []
+    excludes: []
+    schedule:
+      backup:
+        interval: daily
+        randomized_delay: 3h
+      verify:
+        interval: monthly
+        randomized_delay: 12h
+  configs: {}
+
+Debian:
+  {% if grains['oscodename'] == 'jessie' %}
+  config_defaults:
+    schedule:
+      backup:
+        randomized_delay: False
+      verify:
+        randomized_delay: False
+  {% endif %}

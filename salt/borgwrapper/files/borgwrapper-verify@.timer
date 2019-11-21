@@ -1,0 +1,10 @@
+[Unit]
+Description=monthly borgwrapper backup verification timer
+
+[Timer]
+OnCalendar=monthly
+RandomizedDelaySec=3d
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

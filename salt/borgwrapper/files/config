@@ -1,0 +1,24 @@
+#
+# This file is managed by Salt. Changes will be overwritten
+#
+
+BORG="{{ config.borg }}"
+BORG_REPO="{{ config.repo }}"
+BORG_PASSPHRASE="{{ config.passphrase }}"
+PATHS=(
+{%- for path in config.paths %}
+    "{{ path }}"
+{%- endfor %}
+)
+EXCLUDES=(
+{%- for exclude in config.excludes %}
+    "{{ exclude }}"
+{%- endfor %}
+)
+KEEP_DAILY={{ config.keep_daily }}
+KEEP_WEEKLY={{ config.keep_weekly }}
+KEEP_MONTHLY={{ config.keep_monthly }}
+KEEP_YEARLY={{ config.keep_yearly }}
+{%- if config.bwlimit is defined %}
+BWLIMIT={{ config.bwlimit }}
+{%- endif %}
