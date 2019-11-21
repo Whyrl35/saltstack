@@ -3,5 +3,5 @@ borgbackup:
     orchestrate:
       client:
         auto_add_servers:
-          - {{ grain['id'] }}
+          - {{ grains['id'] }}
           
