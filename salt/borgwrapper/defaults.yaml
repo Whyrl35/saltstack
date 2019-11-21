@@ -18,7 +18,7 @@ borgwrapper:
         randomized_delay: 12h
   configs: {}
 
-Debian:
+Debian:  
   {% if grains['oscodename'] == 'jessie' %}
   config_defaults:
     schedule:

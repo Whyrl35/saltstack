@@ -48,5 +48,5 @@ base:
     - nginx
 
   #'not G@roles:borgbackup':
-  'vps*'
+  'vps*':
     - borgwrapper
