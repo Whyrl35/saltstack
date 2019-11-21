@@ -89,3 +89,8 @@ base:
   'roles:borgbackup':
     - match: grain
     - borgbackup.server
+
+  # All other nodes are client of borgserver
+  #'not G@roles:borgbackup':
+  'vps*'
+    - borgbackup.client
