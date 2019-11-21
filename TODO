@@ -14,7 +14,7 @@ Salt Cloud:
 
 
 Backup management:
-	☐ Use borgbackup
+	☐ Use borgbackup @high
   		* https://github.com/MEschenbacher/borgbackup-formula
 	☐ Two roles BackupServer and BackupAgent (= not BackupServer)
   		* if backup server, prepare space to receive backup (need to spawn a vm)
@@ -46,7 +46,7 @@ Warden:
 		* updateself
 		* update
 
-		
+
 Srv002:
 	☐ Automatiser installation + restore
 	☐ Automatiser update ?

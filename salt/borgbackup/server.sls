@@ -20,19 +20,6 @@ borg_backup_dir:
     - require:
       - user: borg_user
 
-
-{% if borgbackup.server.config.symlink is defined %}
-{% set client_path = borgbackup.server.config.symlink %}
-
-borgbackup_backup_dir_symlink:
-  file.symlink:
-    - name: {{ borgbackup.server.config.symlink }}
-    - target: {{ borgbackup.server.config.backup_dir }}
-    - require:
-      - file: borg_backup_dir
-
-{% endif %}
-
 # This is used for reactor setups where the client ssh key is automatically added
 {% if borgbackup.orchestrate.server.new_client and borgbackup.orchestrate.server.auto_add_allowed %}
 borgbackup_new_client:
