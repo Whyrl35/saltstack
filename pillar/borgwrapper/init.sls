@@ -1,3 +1,5 @@
+{% set host = salt.grains.get('host') %}
+
 include:
   - .common
   - .h_{{ host }}
