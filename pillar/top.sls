@@ -46,3 +46,7 @@ base:
     - match: grain
     - letsencrypt
     - nginx
+
+  #'not G@roles:borgbackup':
+  'vps*'
+    - borgwrapper
