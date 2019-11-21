@@ -15,6 +15,7 @@ base:
     - wigo
     - postfix
     - postfix.satellite
+    - borgbackup
 
   #
   # Specific configuration / hosts/roles based
