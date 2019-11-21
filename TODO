@@ -1,78 +1,59 @@
-# Salt Cloud
-# =============================================================================
-- [X] pre-apply  : add roles on /etc/salt/grains (done via *.map for salt-cloud)
-- [ ] post-action: add IP in nftables pillar (other place than YAML)
-	=> faire un script d'extraction (static + ovh API) pour remplir le dit fichier
-	   ou check avec runner/reactionner
-
-	ex: https://github.com/hkbakke/saltstack-states/blob/master/borgbackup/server.sls (orchestrate + event + reactioner)
-
-- [ ] post-action: add DNS in OVH
-- [ ] post-action: mount IPv6
-- [X] post-action: mount vRack => isOk via cloud-init
-- [X] apply	 : set a default password for user
-- [X] apply	 : add sudoers.d rules for user
-- [X] apply	 : manage /etc/hosts
+Salt Cloud:
+	Pre-action:
+		✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52)
+	Post-acion:
+		☐ Add Ip in nftables pillar
+			Script d'extraction + runner/reactionner (https://github.com/hkbakke/saltstack-states/blob/master/borgbackup/server.sls)
+		☐ Add DNS in OVH
+		☐ Mount IPv6 @low
+		✔ mount vrack @done(19-11-21 09:55)
+	applying:
+		✔ Set a default password @done(19-11-21 09:55)
+		✔ Add sudoers.d rules for user @done(19-11-21 09:56)
+		✔ manage /etc/hosts @done(19-11-21 09:56)
 
 
-# Backup management
-# =============================================================================
-- [ ] Use borgbackup
-  * https://github.com/MEschenbacher/borgbackup-formula
-- [ ] Two roles BackupServer and BackupAgent (= not BackupServer)
-  * if backup server, prepare space to receive backup (need to spawn a vm)
-  * if backup server, use mine to prepare accepted keys ?
-  * if agent, generate key for the backup
-  * if agent, configure what need to be backuped
+Backup management:
+	☐ Use borgbackup
+  		* https://github.com/MEschenbacher/borgbackup-formula
+	☐ Two roles BackupServer and BackupAgent (= not BackupServer)
+  		* if backup server, prepare space to receive backup (need to spawn a vm)
+  		* if backup server, use mine to prepare accepted keys ?
+  		* if agent, generate key for the backup
+  		* if agent, configure what need to be backuped
 
 
-# Monitoring
-# =============================================================================
-- [ ] Monitoring local des containers docker (pas de docker en exited)
-- [ ] Monitoring ext. des sitewebs (all, portainer/koel/grafana/etc...)
+Monitoring:
+	☐ Monitoring local des containers docker (pas de docker en exited)
+	☐ Monitoring ext. des sitewebs (all, portainer/koel/grafana/etc...)
 
 
-# DNS management on local_dns
-# =============================================================================
-- [ ] Configure DNS on srv002 via salt
-
-->https://github.com/saltstack-formulas/bind-formula
+DNS management on local_dns:
+	☐ Configure DNS on srv002 via salt
+		* https://github.com/saltstack-formulas/bind-formula
 
 
-# Bastion
-# =============================================================================
-- [ ] monitoring docker access to bastion
-- [ ] if down -> restart docker ! (implement a reactionner ?)
-      if change in nftables, restart docker (reactionner / runner)
-
-# Warden
-# =============================================================================
-- [ ] Automatiser l'installation
-	* curl (?) vs depot fichier
-	* updateself
-- [ ] Automatiser update (schedule regulier)
-	* updateself
-	* update
+Bastion:
+	☐ monitoring docker access to bastion
+	☐ if down -> restart docker ! (implement a reactionner ?)
 
 
-#
-# srv002 - hassio
-# =============================================================================
-- [ ] Automatiser installation + restore
-- [ ] Automatiser update ?
+Warden:
+	☐ Automatiser l'installation
+		* curl (?) vs depot fichier
+		* updateself
+	☐ Automatiser update (schedule regulier)
+		* updateself
+		* update
+
+		
+Srv002:
+	☐ Automatiser installation + restore
+	☐ Automatiser update ?
 
 
-# Maison / Domotique
-# =============================================================================
-- Continuer domotique (lampe, energie, temperature etage, ...)
-- monitoring de netatmo
-
-
-# saltstack - server
-# =============================================================================
-
-- [ ] Mettre sous salt la conf salt (surtout la partie cloud)
-- [X] Mettre sous salt la partie webhook
-- [X] Mettre en place l'auto-deploy par webhook pour le git salt
-- [ ] Mettre en place un auto-fetch pour les formula ?
-- [ ] Faire marcher le salt-lint sur github action (check)
+Saltstack (vps001):
+	☐ Mettre sous salt la conf salt (surtout la partie cloud)
+	✔ Mettre sous salt la partie webhook @done(19-11-21 09:59)
+	✔ Mettre en place l'auto-deploy par webhook pour le git salt @done(19-11-21 09:59)
+	✔ Faire marcher le salt-lint sur github action (check) @done(19-11-21 09:59)
