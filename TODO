@@ -20,6 +20,7 @@ Backup management:
 	✔ Two roles BackupServer and BackupAgent (= not BackupServer) @done(19-11-22 11:10)
 	✔ Use event to propagate key (when installing borg on client) @done(19-11-22 11:11)
 	✔ Use reactor to catch event and push the new key on borg server @done(19-11-22 11:11)
+	☐ Automate the first borg-init using the borgwrapper
 
 
 Monitoring:

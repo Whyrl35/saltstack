@@ -3,6 +3,10 @@
 systemd-reload:
   cmd.run:
    - name: systemctl --system daemon-reload
+   - onchanges:
+    - file: /etc/systemd/system/borgwrapper-backup@.service
+    - file: /etc/systemd/system/borgwrapper-verify@.service
+  
 
 {% for name, params in borgwrapper.configs.items() %}
 {% set config = borgwrapper.config_defaults %}
