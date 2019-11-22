@@ -3,7 +3,9 @@ Salt Cloud:
 		✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52)
 	Post-acion:
 		☐ Add Ip in nftables pillar
-			Script d'extraction + runner/reactionner (https://github.com/hkbakke/saltstack-states/blob/master/borgbackup/server.sls)
+			☐ Find an event to catch (salt/auth ?) and get IP
+			☐ Push the IP in a file or sqlite
+			☐ Add this file / sqlite as a pillar to be used by nftables
 		☐ Add DNS in OVH
 		☐ Mount IPv6 @low
 		✔ mount vrack @done(19-11-21 09:55)
@@ -14,13 +16,10 @@ Salt Cloud:
 
 
 Backup management:
-	☐ Use borgbackup @high
-  		* https://github.com/MEschenbacher/borgbackup-formula
-	☐ Two roles BackupServer and BackupAgent (= not BackupServer)
-  		* if backup server, prepare space to receive backup (need to spawn a vm)
-  		* if backup server, use mine to prepare accepted keys ?
-  		* if agent, generate key for the backup
-  		* if agent, configure what need to be backuped
+	✔ Use borgbackup @high @done(19-11-22 11:10)
+	✔ Two roles BackupServer and BackupAgent (= not BackupServer) @done(19-11-22 11:10)
+	✔ Use event to propagate key (when installing borg on client) @done(19-11-22 11:11)
+	✔ Use reactor to catch event and push the new key on borg server @done(19-11-22 11:11)
 
 
 Monitoring:

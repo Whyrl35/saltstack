@@ -91,6 +91,5 @@ base:
     - borgbackup.server
 
   # All other nodes are client of borgserver
-  #'not G@roles:borgbackup':
-  'vps*':
+  'not G@roles:borgbackup':
     - borgwrapper
