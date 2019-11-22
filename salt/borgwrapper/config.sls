@@ -3,7 +3,7 @@
 systemd-reload:
   cmd.run:
     - name: systemctl --system daemon-reload
-    - watch:
+    - onchanges:
       - file: /etc/systemd/system/borgwrapper-backup@.service
 
 
@@ -31,7 +31,7 @@ borgwrapper_{{ name }}_backup_service:
     - user: root
     - group: root
     - mode: 644
-    - watch_in:
+    - onchanges_in:
       - cmd: systemd-reload
 
 borgwrapper_{{ name }}_backup_timer:
@@ -42,7 +42,7 @@ borgwrapper_{{ name }}_backup_timer:
     - user: root
     - group: root
     - mode: 644
-    - watch_in:
+    - onchanges_in:
       - cmd: systemd-reload
     - context:
         config: {{ config|tojson }}
@@ -60,7 +60,7 @@ borgwrapper_{{ name }}_verify_service:
     - user: root
     - group: root
     - mode: 644
-    - watch_in:
+    - onchanges_in:
       - cmd: systemd-reload
 
 borgwrapper_{{ name }}_verify_timer:
@@ -71,7 +71,7 @@ borgwrapper_{{ name }}_verify_timer:
     - user: root
     - group: root
     - mode: 644
-    - watch_in:
+    - onchanges_in:
       - cmd: systemd-reload
     - context:
         config: {{ config|tojson }}
