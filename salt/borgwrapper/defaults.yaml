@@ -7,7 +7,8 @@ borgwrapper:
     keep_weekly: 0
     keep_monthly: 24
     keep_yearly: 5
-    paths: []
+    paths:
+      - /srv
     excludes: []
     schedule:
       backup:
@@ -18,7 +19,7 @@ borgwrapper:
         randomized_delay: 12h
   configs: {}
 
-Debian:  
+Debian:
   {% if grains['oscodename'] == 'jessie' %}
   config_defaults:
     schedule:

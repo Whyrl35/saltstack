@@ -1,5 +1,4 @@
-base:
-  #
+base: #
   # Present on all hosts / common
   #
   '*':
@@ -47,6 +46,5 @@ base:
     - letsencrypt
     - nginx
 
-  #'not G@roles:borgbackup':
-  'vps*':
+  'not G@roles:borgbackup':
     - borgwrapper

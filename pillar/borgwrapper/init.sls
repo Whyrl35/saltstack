@@ -1,10 +1,10 @@
 {% set host = salt.grains.get('host') %}
 
 include:
-  - .common
-  - .h_{{ host }}
+  - borgwrapper.common
+  - borgwrapper.h_{{ host }}
   {% if 'roles' in grains %}
   {% for role in grains['roles'] %}
-  - .r_{{ role }}
+  - borgwrapper.r_{{ role }}
   {% endfor %}
   {% endif %}
