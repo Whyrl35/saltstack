@@ -1,13 +1,13 @@
 common:
   pkg.installed:
     - pkgs:
-      - w3m
+      - apt-transport-https
       - curl
       - sudo
       - htop
       - git
       - vim
-      - apt-transport-https
+      - vim-nox
       - lsb-release
       - unattended-upgrades
       - apt-listchanges
