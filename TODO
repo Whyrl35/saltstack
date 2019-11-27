@@ -3,10 +3,10 @@ Salt Cloud:
 		✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52)
 	Post-acion:
 		☐ Add Ip in nftables pillar
-			☐ Find an event to catch (salt/auth ?) and get IP
-			☐ Push the IP in a file or sqlite
-			☐ Add this file / sqlite as a pillar to be used by nftables
-		☐ Add DNS in OVH
+			☐ Find an event to catch (salt/auth ?) and get IP or use mine
+			☐ Use those informations to generate the host-ips.jinja
+			☐ Add thoses ip in Wigo too
+		☐ Add DNS in OVH @low
 		☐ Mount IPv6 @low
 		✔ mount vrack @done(19-11-21 09:55)
 	applying:
@@ -14,43 +14,46 @@ Salt Cloud:
 		✔ Add sudoers.d rules for user @done(19-11-21 09:56)
 		✔ manage /etc/hosts @done(19-11-21 09:56)
 
-
 Backup management:
 	✔ Use borgbackup @high @done(19-11-22 11:10)
 	✔ Two roles BackupServer and BackupAgent (= not BackupServer) @done(19-11-22 11:10)
 	✔ Use event to propagate key (when installing borg on client) @done(19-11-22 11:11)
 	✔ Use reactor to catch event and push the new key on borg server @done(19-11-22 11:11)
-	☐ Automate the first borg-init using the borgwrapper
+	☐ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp)
 
+SSH:
+	☐ hardening conf
+	☐ Passer en sshfp
+		* Permettra d'eviter le check de fingerprint (yes/no) a la premiere connexion (borg!) 
+		* Au moins pour le serveur Borg dans un premier temps (sshfp pour lui + modification conf sur les autres)
+		☐ tester si le champ DNS exist et est different
+		☐ remonter les clefs au server salt `ssh-keygen -r {{ grains['host'] }}` 
+		☐ reactor sur le master qui modifie les champs DNS sur OVH + DNS sur srv002 (quand DNS dans salt)
+		☐ Modifier la conf SSHD pour check : http://shaarli.guiguishow.info/?QWcOtQ
 
 Monitoring:
 	☐ Monitoring local des containers docker (pas de docker en exited)
 	☐ Monitoring ext. des sitewebs (all, portainer/koel/grafana/etc...)
-
-
-DNS management on local_dns:
-	☐ Configure DNS on srv002 via salt
-		* https://github.com/saltstack-formulas/bind-formula
-
+	☐ Monitorer le backup, il faut un backup de moins de 48H -> sinon alerte
 
 Bastion:
 	☐ monitoring docker access to bastion
-	☐ if down -> restart docker ! (implement a reactionner ?)
-
+	☐ if down -> restart docker ! (implement a beacon?)
 
 Warden:
 	☐ Automatiser l'installation
 		* curl (?) vs depot fichier
-		* updateself
 	☐ Automatiser update (schedule regulier)
 		* updateself
 		* update
 
-
-Srv002:
-	☐ Automatiser installation + restore
-	☐ Automatiser update ?
-
+srv002:
+	hassio:
+		☐ Automatiser installation + restore
+		☐ Automatiser update ?
+	DNS management on local_dns:
+		☐ Configure DNS on srv002 via salt
+			* https://github.com/saltstack-formulas/bind-formula
 
 Saltstack (vps001):
 	☐ Mettre sous salt la conf salt (surtout la partie cloud)
