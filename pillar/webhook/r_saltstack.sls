@@ -1,3 +1,4 @@
+#!jinja|yaml|gpg
 webhooks:
   files:
     - /opt/webhooks/salt/git-deploy.sh:
