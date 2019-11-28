@@ -14,6 +14,11 @@ Salt Cloud:
 		✔ Add sudoers.d rules for user @done(19-11-21 09:56)
 		✔ manage /etc/hosts @done(19-11-21 09:56)
 
+Docker:
+	☐ Find a way to restart docker on nftables reload
+		* see with systemd dependancies (nft reload -> reload docker)
+		* otherwise add a "onchanges_in" dans un state
+
 Backup management:
 	✔ Use borgbackup @high @done(19-11-22 11:10)
 	✔ Two roles BackupServer and BackupAgent (= not BackupServer) @done(19-11-22 11:10)
@@ -22,7 +27,6 @@ Backup management:
 	☐ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp)
 
 SSH:
-	☐ hardening conf
 	☐ Passer en sshfp
 		* Permettra d'eviter le check de fingerprint (yes/no) a la premiere connexion (borg!) 
 		* Au moins pour le serveur Borg dans un premier temps (sshfp pour lui + modification conf sur les autres)
@@ -39,6 +43,7 @@ Monitoring:
 Bastion:
 	☐ monitoring docker access to bastion
 	☐ if down -> restart docker ! (implement a beacon?)
+	☐ Find a way to auto add host in bastion and group
 
 Warden:
 	☐ Automatiser l'installation

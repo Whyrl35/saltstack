@@ -3,10 +3,10 @@ borgwrapper:
   config_dir: /etc/borgwrapper
   config_defaults:
     borg: /usr/bin/borg
-    keep_daily: 31
-    keep_weekly: 0
-    keep_monthly: 24
-    keep_yearly: 5
+    keep_daily: 6
+    keep_weekly: 4
+    keep_monthly: 2
+    keep_yearly: 1
     paths:
       - /srv
     excludes: []
