@@ -2,10 +2,10 @@ Salt Cloud:
 	Pre-action:
 		✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52)
 	Post-acion:
-		☐ Add Ip in nftables pillar
-			☐ Find an event to catch (salt/auth ?) and get IP or use mine
-			☐ Use those informations to generate the host-ips.jinja
-			☐ Add thoses ip in Wigo too
+		✔ Add Ip in nftables pillar @done(19-11-28 14:53)
+			✔ Find an event to catch (salt/auth ?) and get IP or use mine @done(19-11-28 10:44)
+			✔ Use those informations to generate the host-ips.jinja @done(19-11-28 10:44)
+		✔ Add thoses ip in Wigo too @done(19-11-28 14:53)
 		☐ Add DNS in OVH @low
 		☐ Mount IPv6 @low
 		✔ mount vrack @done(19-11-21 09:55)
