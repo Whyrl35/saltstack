@@ -10,9 +10,9 @@ override_docker_for_nftables:
     - user: root
     - group: root
     - mode: 644
-    - content: |
-        [Service]
-        ExecStartPre=-/usr/sbin/nft -f /etc/nftables.conf
+    - content:
+        - '[Service]'
+        - 'ExecStartPre=-/usr/sbin/nft -f /etc/nftables.conf'
   module.run:
     - name: service.systemctl_reload
     - onchanges:
