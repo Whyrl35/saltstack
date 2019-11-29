@@ -10,7 +10,7 @@ override_docker_for_nftables:
     - user: root
     - group: root
     - mode: 644
-    - content:
+    - contents:
         - '[Service]'
         - 'ExecStartPre=-/usr/sbin/nft -f /etc/nftables.conf'
         - '[unit]'
