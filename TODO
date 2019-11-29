@@ -3,11 +3,6 @@ Salt Cloud:
 		☐ Add DNS in OVH => use the external_pillar to fill the DNS is missing entries + additionnal domaine from pillar
 		☐ Mount IPv6 => use the external_pillar "all_ips", and mount missing IPv6
 
-Docker:
-	☐ Find a way to restart docker on nftables reload @critical 
-		* see with systemd dependancies (nft reload -> reload docker)
-		* otherwise add a "onchanges_in" dans un state
-
 Backup management:
 	☐ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp)
 
@@ -47,8 +42,8 @@ srv002:
 Saltstack (vps001):
 	☐ Mettre sous salt la conf salt (surtout la partie cloud)
 
-
 Archive:
+  ✔ Find a way to restart docker on nftables reload @critical @done(19-11-29 17:21) @project(Docker)
   ✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52) @project(Salt Cloud.Pre-action)
   ✔ Add Ip in nftables pillar @done(19-11-28 14:53) @project(Salt Cloud.Post-acion)
   ✔ Find an event to catch (salt/auth ?) and get IP or use mine @done(19-11-28 10:44) @project(Salt Cloud.Post-acion)

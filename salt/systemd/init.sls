@@ -13,10 +13,10 @@ override_docker_for_nftables:
     - contents:
         - '[Service]'
         - 'ExecStartPre=-/usr/sbin/nft -f /etc/nftables.conf'
-        - '[unit]'
+        - '[Unit]'
         - 'Requires=nftables.service'
         - 'After=nftables.service'
-        - 'BindsTo=nftables.service'
+        - 'PartOf=nftables.service'
   module.run:
     - name: service.systemctl_reload
     - onchanges:
