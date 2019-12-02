@@ -3,8 +3,6 @@ ssh_config:
     '*':
       ForwardAgent: 'no'
       ForwardX11: 'no'
-      RhostsRSAAuthentication: 'no'
-      RSAAuthentication: 'yes'
       PasswordAuthentication: 'yes'
       HostbasedAuthentication: 'no'
       GSSAPIAuthentication: 'no'
