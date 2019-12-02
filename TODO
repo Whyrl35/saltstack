@@ -10,14 +10,15 @@ SSH:
 	☐ Passer en sshfp
 		* Permettra d'eviter le check de fingerprint (yes/no) a la premiere connexion (borg!) 
 		* Au moins pour le serveur Borg dans un premier temps (sshfp pour lui + modification conf sur les autres)
-		☐ tester si le champ DNS exist et est different
-		☐ remonter les clefs au server salt `ssh-keygen -r {{ grains['host'] }}` 
-		☐ reactor sur le master qui modifie les champs DNS sur OVH + DNS sur srv002 (quand DNS dans salt)
-		☐ Modifier la conf SSHD pour check : http://shaarli.guiguishow.info/?QWcOtQ
+		☐ test if the DNS sshfp field exist
+		☐ bring back the key to the salt server `ssh-keygen -r {{ grains['host'] }}` 
+		☐ reactor on master that modify DNS on OVH + DNS on srv002
+		☐ Modify SSHD Configuration: http://shaarli.guiguishow.info/?QWcOtQ
 
 Monitoring:
-	☐ Wigo : Monitoring local des containers docker (pas de docker en exited)
-	☐ Wigo : Monitorer le backup, il faut un backup de moins de 48H -> sinon alerte
+	☐ Wigo : Monitor backup, need a backup that is less than 48H
+	☐ filebeat: send log via filebeat to ELK (nginx, others...)
+	☐ kibana: create dashboard from logs
 
 Bastion:
 	☐ monitoring docker access to bastion
@@ -25,24 +26,25 @@ Bastion:
 	☐ Find a way to auto add host in bastion and group
 
 Warden:
-	☐ Automatiser l'installation
-		* curl (?) vs depot fichier
-	☐ Automatiser update (schedule regulier)
+	☐ Automate install
+		* curl (?) vs file deposit
+	☐ AUtomate update (regular schedule)
 		* updateself
 		* update
 
 srv002:
 	hassio:
-		☐ Automatiser installation + restore
-		☐ Automatiser update ?
+		☐ Automate installation
+		☐ Automate update ?
 	DNS management on local_dns:
-		☐ Configure DNS on srv002 via salt
+		☐ Put local DNS in salt
 			* https://github.com/saltstack-formulas/bind-formula
 
 Saltstack (vps001):
-	☐ Mettre sous salt la conf salt (surtout la partie cloud)
+	☐ Salt the salt :)
 
 Archive:
+  ✔ Wigo : Monitoring local des containers docker (pas de docker en exited) @done(19-11-30 14:56) @project(Monitoring)
   ✔ Find a way to restart docker on nftables reload @critical @done(19-11-29 17:21) @project(Docker)
   ✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52) @project(Salt Cloud.Pre-action)
   ✔ Add Ip in nftables pillar @done(19-11-28 14:53) @project(Salt Cloud.Post-acion)
