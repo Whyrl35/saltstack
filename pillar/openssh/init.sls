@@ -1,4 +1,4 @@
 include:
-  - .openssh
-  - .sshd_config
-  - .ssh_config
+  - openssh.openssh
+  - openssh.sshd_config
+  - openssh.ssh_config
