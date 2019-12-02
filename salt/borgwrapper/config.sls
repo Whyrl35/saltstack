@@ -82,4 +82,9 @@ borgwrapper_{{ name }}_verify_timer:
       - file: borgwrapper_{{ name }}_verify_service
       - file: borgwrapper_{{ name }}_verify_timer
 
+borgwrapper_{{ name }}_init:
+  cmd.run:
+    - name: /usr/local/bin/borgwrapper -c {{ config_file }} init
+    - unless: /usr/local/bin/borgwrapper -c {{ config_file }} exec check --repository-only --show-rc 2>&1 | grep "terminating with success"
+
 {% endfor %}

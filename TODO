@@ -3,18 +3,6 @@ Salt Cloud:
 		☐ Add DNS in OVH => use the external_pillar to fill the DNS is missing entries + additionnal domaine from pillar
 		☐ Mount IPv6 => use the external_pillar "all_ips", and mount missing IPv6
 
-Backup management:
-	☐ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp)
-
-SSH:
-	☐ Passer en sshfp
-		* Permettra d'eviter le check de fingerprint (yes/no) a la premiere connexion (borg!) 
-		* Au moins pour le serveur Borg dans un premier temps (sshfp pour lui + modification conf sur les autres)
-		☐ test if the DNS sshfp field exist
-		☐ bring back the key to the salt server `ssh-keygen -r {{ grains['host'] }}` 
-		☐ reactor on master that modify DNS on OVH + DNS on srv002
-		☐ Modify SSHD Configuration: http://shaarli.guiguishow.info/?QWcOtQ
-
 Monitoring:
 	☐ Wigo : Monitor backup, need a backup that is less than 48H
 	☐ filebeat: send log via filebeat to ELK (nginx, others...)
@@ -44,6 +32,12 @@ Saltstack (vps001):
 	☐ Salt the salt :)
 
 Archive:
+  ✔ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp) @done(19-12-02 14:06) @project(Backup management)
+  ✔ Passer en sshfp @done(19-12-02 12:57) @project(SSH)
+  ✔ test if the DNS sshfp field exist @done(19-12-02 12:56) @project(SSH)
+  ✔ bring back the key to the salt server `ssh-keygen -r {{ grains['host'] }}` @done(19-12-02 12:56) @project(SSH)
+  ✘ reactor on master that modify DNS on OVH + DNS on srv002 @cancelled(19-12-02 12:56) @project(SSH)
+  ✔ Modify SSHD Configuration: http://shaarli.guiguishow.info/?QWcOtQ @done(19-12-02 12:57) @project(SSH)
   ✔ Wigo : Monitoring local des containers docker (pas de docker en exited) @done(19-11-30 14:56) @project(Monitoring)
   ✔ Find a way to restart docker on nftables reload @critical @done(19-11-29 17:21) @project(Docker)
   ✔ Add roles on /etc/salt/grains (done via *.map for salt-cloud) @done(19-11-21 09:52) @project(Salt Cloud.Pre-action)
