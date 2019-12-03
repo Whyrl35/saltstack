@@ -8,3 +8,12 @@ wigo:
       enabled: 'true'
       containerList: 
         - portainer
+    check_process:
+      enabled: 'true'
+      containerList: 
+        - /usr/sbin/sshd
+        - /usr/bin/beamium
+        - /usr/bin/noderig
+        - /usr/bin/salt-minion
+        - /usr/bin/dockerd
+        - /usr/bin/containerd

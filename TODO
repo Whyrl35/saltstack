@@ -32,7 +32,8 @@ srv002:
 			* https://github.com/saltstack-formulas/bind-formula
 
 Saltstack (vps001):
-	☐ Salt the salt :)
+  ☐ Salt the salt :)
+  ☐ Migrate from VPS to better server (more cpu)
 
 Archive:
   ✔ Automate wigo probes deployment with salt @done(19-12-03 11:38) @project(Monitoring)
