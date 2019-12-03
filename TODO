@@ -4,7 +4,11 @@ Salt Cloud:
 		☐ Mount IPv6 => use the external_pillar "all_ips", and mount missing IPv6
 
 Monitoring:
-	☐ Wigo : Monitor backup, need a backup that is less than 48H
+	☐ Autome wigo probes deployment with salt
+	☐ Wigo : Monitor backup, need a backup that is less than 48H (to put on all backuped server, auto-monitoring via wigo)
+		* /usr/local/bin/borgwrapper -c /etc/borgwrapper/default exec list --lock-wait 30 --last 1 --json  | grep -v '^Loading' | jq '.archives[0].time' | xargs date +%s -d
+		* date +%s
+		* diff < 172800
 	☐ filebeat: send log via filebeat to ELK (nginx, others...)
 	☐ kibana: create dashboard from logs
 
