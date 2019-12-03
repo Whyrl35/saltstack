@@ -16,9 +16,9 @@ wigo:
       
 include:
     - wigo.common
-    - wigo.h_{{ host }}
     {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - wigo.r_{{ role }}
     {% endfor %}
     {% endif %}
+    - wigo.h_{{ host }}
