@@ -1,3 +1,7 @@
+#!jinja|yaml|gpg
+
+{% set host = salt.grains.get('host') %}
+
 letsencrypt:
   use_package: false
   config: |
