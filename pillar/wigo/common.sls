@@ -1,6 +1,6 @@
 wigo:
   probes: []
-  probes_actives: []
+  probes_actives: {}
   probes_config:
     check_process:
       enabled: 'true'
