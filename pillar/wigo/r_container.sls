@@ -10,7 +10,7 @@ wigo:
         - portainer
     check_process:
       enabled: 'true'
-      containerList: 
+      processList: 
         - /usr/sbin/sshd
         - /usr/bin/beamium
         - /usr/bin/noderig

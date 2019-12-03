@@ -8,7 +8,7 @@ wigo:
         - bitwarden-admin
         - bitwarden-events
         - bitwarden-web
-        - bitwarden-api
+        - containerbitwarden-api
         - bitwarden-icons
         - bitwarden-mssql
         - bitwarden-identity
