@@ -14,7 +14,7 @@ wigo_probes_{{ name }}:
 wigo_probes_{{ name }}_activate:
   file.symlink:
     - name: /usr/local/wigo/probes/{{ ttr }}/{{ name }}
-    - target: /usr/local/wigo/probes/examples/{{ name }}
+    - target: ../examples/{{ name }}
 {% endfor %}
 
 # Configure custom probes
@@ -24,6 +24,7 @@ wigo_probes_{{ name }}_config:
     - name: /etc/wigo/conf.d/{{ name }}.conf
     - source: salt://wigo/files/{{ name }}.conf
     - context: {{ probe_context }}
+    - template: jinja
     - user: root
     - group: root
     - mode: '0644'

@@ -7,4 +7,4 @@ wigo_config:
     - mode: 644
     - template: jinja
     - require:
-      - pkg : wigo
+      - pkg : wigo_package
