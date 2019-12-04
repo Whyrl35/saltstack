@@ -1,5 +1,5 @@
 # Install custom probes (those that don't come with wigo package)
-{% for name in pillar['wigo']['probes'] %}
+{% for name, activate in pillar['wigo']['probes'].items() %}
 wigo_probes_{{ name }}:
   file.managed:
     - name: /usr/local/wigo/probes/examples/{{ name }}

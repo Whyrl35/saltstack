@@ -1,6 +1,6 @@
 wigo:
   probes:
-    - docker_container
+    docker_container: true
   probes_actives:
     docker_container: 60
   probes_config:

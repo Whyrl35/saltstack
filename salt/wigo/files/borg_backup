@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Wigo::Probe qw/:all/;
+use JSON;
+use Data::Dumper;
+use Date::Parse;
+
+###
+# DEFAULT CONFIG
+###
+
+my $conf = {
+    'maxAge' => 86400
+};
+
+init( config => $conf );
+
+# Exec
+
+my $json = `/usr/local/bin/borgwrapper -c /etc/borgwrapper/default exec list --lock-wait 30 --last 1 --json  | grep -v '^Loading'`;
+my $currentEpoch = `date +%s`;
+my $data = decode_json( $json );
+
+if ( $@ )
+{
+    status  500;
+    message "Error while decoding json config: " . $@;
+    output  1;
+}
+
+my $lastBackup = str2time($data->{'archives'}[0]{'time'});
+my $diff = int($currentEpoch) - int($lastBackup);
+
+if ( $diff > $conf->{'maxAge'} )
+{
+    status  300;
+    message "Last backup is older than " . $conf->{'maxAge'} . "s, number of seconds since last backup: " . $diff;
+}
+else
+{
+    status  100;
+    message "There is a fresh backup at " . $data->{'archives'}[0]{'time'};
+}
+
+detail->{'lastBacukup'} = $data;
+detail->{'dateTime'} = $data->{'archives'}[0]{'time'};
+
+output 0;
