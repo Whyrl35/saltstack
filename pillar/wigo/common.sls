@@ -5,7 +5,7 @@ wigo:
     borg_backup: true
   {% if roles and ('borgbackup' not in roles)%}
   probes_actives:
-    borg_backup: 60
+    borg_backup: 300
   {% else %}
   probes_actives: {}
   {% endif %}
