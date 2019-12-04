@@ -1,7 +1,9 @@
+{% set roles = salt.grains.get('roles', []) %}
+
 wigo:
   probes:
     borg_backup: true
-  {% if ('roles' in grain) and ('borgbackup' not in grain['roles']) %}
+  {% if roles and ('borgbackup' not in roles)%}
   probes_actives:
     probes_actives:
       borg_backup: 60
