@@ -101,7 +101,7 @@ prompt_user() {
 }
 
 prompt_host() {
-  prompt_segment $HOST_COLOR_FG $HOST_COLOR_FG "%m"
+  prompt_segment $HOST_COLOR_BG $HOST_COLOR_FG "%m"
 }
 
 # Git: branch/detached head, dirty status
