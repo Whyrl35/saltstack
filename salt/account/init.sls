@@ -82,7 +82,7 @@ ohmyzsh_custom_plugin_highlight:
     - pkg : zsh
   git.latest:
     - name : https://github.com/zsh-users/zsh-syntax-highlighting.git
-    - target : /home/{{ pillar['account_name'] }}/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    - target : /home/{{ pillar['account_name'] }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     - user: {{ pillar['account_name'] }}
 
 # ------------------------------------------------------------
