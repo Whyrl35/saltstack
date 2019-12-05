@@ -4,7 +4,7 @@ ssh_config:
       ForwardAgent: 'no'
       ForwardX11: 'no'
       PasswordAuthentication: 'yes'
-      HostbasedAuthentication: 'no'
+      #HostbasedAuthentication: 'no'
       GSSAPIAuthentication: 'no'
       GSSAPIDelegateCredentials: 'no'
       BatchMode: 'yes'
