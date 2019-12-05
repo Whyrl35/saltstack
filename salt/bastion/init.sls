@@ -4,5 +4,5 @@
 add_host_to_{{ bastion }}:
   cmd.run:
     - name: ssh -p 2222 admin@{{ bastion }} host create -n {{ host }} --key salt --group ovh ssh://ludovic@{{ fqdn }}
-    - unless: ssh -p 2222 admin@{{ bastion }} list
+    - unless: ssh -p 2222 admin@{{ bastion }} host ls | grep {{ host }}
 {% endfor %}
