@@ -1,41 +1,34 @@
-Salt Cloud:
-	Post-acion:
-		☐ Add DNS in OVH => use the external_pillar to fill the DNS is missing entries + additionnal domaine from pillar
-		☐ Mount IPv6 => use the external_pillar "all_ips", and mount missing IPv6
+Saltstack:
+  ☐ Salt the salt :)
+  ☐ Migrate from VPS to better server (more cpu)  @low 
+
+Salt-cloud:
+  post-action:
+    ☐ add DNS in OVH => use the external_pillar to fill DNS if missing entries
+    ☐ Mount IPv6 => use the external_pillar "all_ips" and monut missing ip
 
 Monitoring:
-	☐ Wigo : Monitor backup, need a backup that is less than 48H (to put on all backuped server, auto-monitoring via wigo)
-		* /usr/local/bin/borgwrapper -c /etc/borgwrapper/default exec list --lock-wait 30 --last 1 --json  | grep -v '^Loading' | jq '.archives[0].time' | xargs date +%s -d
-		* date +%s
-		* diff < 172800
-	☐ filebeat: send log via filebeat to ELK (nginx, others...)
-	☐ kibana: create dashboard from logs
+  ☐ filebeat: send log via filebeat to ELK (nginx, ...)
+  ☐ kibana: create dashboard 
 
 Bastion:
-	☐ monitoring docker access to bastion
-	☐ if down -> restart docker ! (implement a beacon?)
-	☐ Find a way to auto add host in bastion and group
+  ☐ Find a way to auto-add host in bastion from salt @high
+    ☐ Add a key to admin from salt 
+      `ssh -p 2222 admin@bastion.whyrl.fr host create -n {{ name }} --key salt --group ovh ssh://ludovic@{{name}}.whyrl.fr`
 
 Warden:
-	☐ Automate install
-		* curl (?) vs file deposit
-	☐ AUtomate update (regular schedule)
-		* updateself
-		* update
+  ☐ automate install
+  ☐ automate update
 
-srv002:
-	hassio:
-		☐ Automate installation
-		☐ Automate update ?
-	DNS management on local_dns:
-		☐ Put local DNS in salt
-			* https://github.com/saltstack-formulas/bind-formula
-
-Saltstack (vps001):
-  ☐ Salt the salt :)
-  ☐ Migrate from VPS to better server (more cpu)
+Srv002:
+  hassio:
+    ☐ automate installation
+    ☐ automate update
+  dns:
+    ☐ put local dns in salt
 
 Archive:
+  ✔ Wigo : monitor backup, need fresh backup @project(Monitoring)
   ✔ Automate wigo probes deployment with salt @done(19-12-03 11:38) @project(Monitoring)
   ✔ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp) @done(19-12-02 14:06) @project(Backup management)
   ✔ Passer en sshfp @done(19-12-02 12:57) @project(SSH)

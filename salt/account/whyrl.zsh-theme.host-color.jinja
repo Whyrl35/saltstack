@@ -1,10 +1,5 @@
-{%- set white_fg = [ 0, 4 ] -%}
 {%- set random_seed = salt['random.seed'](range=255) %}
 # see color definition here : https://jonasjacek.github.io/colors/
 # or try : spectrum_ls
-HOST_COLOR='{{ random_seed }}'
-{% if random_seed in white_fg -%}
-SOLARIZED_THEME='light'
-{%- else %}
-SOLARIZED_THEME='dark'
-{% endif %}
+HOST_COLOR_BG='{{ random_seed }}'
+HOST_COLOR_FG='{{ (random_seed - 125) % 255 }}'

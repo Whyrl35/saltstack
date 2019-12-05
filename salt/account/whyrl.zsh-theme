@@ -36,6 +36,7 @@ CURRENT_BG='NONE'
 
 # ---- START Managed Zone, do-not-edit ----
 HOST_COLOR='255'
+HOST_COLOR_BG='0'
 # ---- END Managed Zone ----
 
 case ${SOLARIZED_THEME:-dark} in
@@ -100,7 +101,7 @@ prompt_user() {
 }
 
 prompt_host() {
-  prompt_segment $HOST_COLOR $CURRENT_FG "%m"
+  prompt_segment $HOST_COLOR_FG $HOST_COLOR_FG "%m"
 }
 
 # Git: branch/detached head, dirty status

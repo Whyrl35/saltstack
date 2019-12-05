@@ -13,7 +13,7 @@ All salt.states : https://docs.saltstack.com/en/getstarted/config/functions.html
 
 ## pilar directory
 
-All salt.pilar : https://docs.saltstack.com/en/getstarted/config/pillar.html
+All salt.pillar : https://docs.saltstack.com/en/getstarted/config/pillar.html
 
 ## formulas directory
 

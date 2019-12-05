@@ -1,6 +1,6 @@
 # import the GPG pub key
 
-gpg import salt-master.pub
+`gpg import salt-master.pub`
 
 # encrypt data
 
