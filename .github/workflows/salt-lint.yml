@@ -4,13 +4,12 @@ on:
     - cron:  '0 3 * * *'
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
+    name: Salt Lint Action
     steps:
     - uses: actions/checkout@v1
-    - name: salt-lint
-      uses: roaldnefs/salt-lint-action@v0.0.1
+    - name: Run salt-lint
+      uses: roaldnefs/salt-lint-action@master
       env:
-        ACTION_STATE_NAME: salt/top.sls
+        ACTION_STATE_NAME: init.sls

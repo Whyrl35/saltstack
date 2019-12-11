@@ -1,5 +1,5 @@
 Saltstack:
-  ☐ Salt the salt :)
+  ☐ Salt the salt :) @high 
   ☐ Migrate from VPS to better server (more cpu)  @low 
 
 Salt-cloud:
@@ -8,26 +8,25 @@ Salt-cloud:
     ☐ Mount IPv6 => use the external_pillar "all_ips" and monut missing ip
 
 Monitoring:
-  ☐ filebeat: send log via filebeat to ELK (nginx, ...)
+  ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
   ☐ kibana: create dashboard 
-
-Bastion:
-  ☐ Find a way to auto-add host in bastion from salt @high
-    ☐ Add a key to admin from salt 
-      `ssh -p 2222 admin@bastion.whyrl.fr host create -n {{ name }} --key salt --group ovh ssh://ludovic@{{name}}.whyrl.fr`
 
 Warden:
   ☐ automate install
-  ☐ automate update
+  ☐ automate update @low
 
 Srv002:
   hassio:
     ☐ automate installation
-    ☐ automate update
+    ☐ automate update @low
   dns:
-    ☐ put local dns in salt
+    ☐ put local dns in salt @high
 
 Archive:
+  ✔ Find a way to auto-add host in bastion from salt @high @done(19-12-10 17:54) @project(Bastion)
+  ✔ Add a key to admin from salt @done(19-12-10 17:54) @project(Bastion)
+    `ssh -p 2222 admin@bastion.whyrl.fr host create -n {{ name }} --key salt --group ovh ssh://ludovic@{{name}}.whyrl.fr`
+    using event + reactor or thorium
   ✔ Wigo : monitor backup, need fresh backup @project(Monitoring)
   ✔ Automate wigo probes deployment with salt @done(19-12-03 11:38) @project(Monitoring)
   ✔ Automate the first borg-init using the borgwrapper (peut etre facilité par sshfp) @done(19-12-02 14:06) @project(Backup management)
