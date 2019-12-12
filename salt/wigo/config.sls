@@ -4,7 +4,7 @@ wigo_config:
     - source: salt://wigo/wigo.jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - require:
       - pkg : wigo_package

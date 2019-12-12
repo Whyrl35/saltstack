@@ -12,8 +12,8 @@ rainloop_dir:
     - name: /var/www/rainloop
     - user: www-data
     - group: www-data
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
 
 rainloop_install_file:
   cmd.run:
@@ -32,8 +32,8 @@ rainloop_rights:
     - name: /var/www/rainloop
     - user: www-data
     - group: www-data
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
     - recurse:
       - user
       - group

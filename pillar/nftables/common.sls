@@ -146,12 +146,12 @@ nftables:
           family: 'ip'
           table: 'filter'
           chain: 'INPUT'
-          rule: "ip protocol icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem, echo-request } accept"
+          rule: "ip protocol icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem, echo-request } accept"  # noqa: 204
         - name: "allow ICMPv6 traffic"
           family: 'ip6'
           table: 'filter'
           chain: 'INPUT'
-          rule: "ip6 nexthdr icmpv6 icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-reduction, nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert } accept"
+          rule: "ip6 nexthdr icmpv6 icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-reduction, nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert } accept"  # noqa: 204
         - name: 'Allow ssh from bastion IPv4'
           table: 'filter'
           chain: 'INPUT'

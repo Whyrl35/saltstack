@@ -1,5 +1,5 @@
 name: salt-lint
-on: 
+on:
   schedule:
     - cron:  '0 3 * * *'
 
@@ -12,4 +12,4 @@ jobs:
     - name: Run salt-lint
       uses: roaldnefs/salt-lint-action@master
       env:
-        ACTION_STATE_NAME: init.sls
+        ACTION_STATE_NAME: salt/

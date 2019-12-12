@@ -1,5 +1,5 @@
 letsencrypt:
-  domainsets: 
+  domainsets:
     web:
       - ks.whyrl.fr
       - www.ks.whyrl.fr

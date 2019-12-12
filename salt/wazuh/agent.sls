@@ -34,4 +34,4 @@ agent_ar_ipset:
     - source: salt://wazuh/active-response/ipset.sh
     - user: root
     - group: ossec
-    - mode: 750
+    - mode: "0750"

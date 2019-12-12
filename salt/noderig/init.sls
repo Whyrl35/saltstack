@@ -23,7 +23,7 @@ noderig_config:
     - source: salt://noderig/config.jinja
     - user: noderig
     - group: noderig
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - require:
       - pkg : noderig
@@ -33,7 +33,7 @@ noderig_collectors:
     - name: {{ pillar['noderig']['collectors'] }}
     - user: noderig
     - group: noderig
-    - mode: 755
+    - mode: "0755"
     - require:
       - service : noderig
       - file : /etc/noderig/config.yaml

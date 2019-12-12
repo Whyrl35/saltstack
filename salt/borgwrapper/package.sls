@@ -9,7 +9,7 @@ borgwrapper_bin:
     - source: salt://borgwrapper/files/borgwrapper
     - user: root
     - group: root
-    - mode: 750
+    - mode: "0750"
     - makedirs: True
     - require:
       - pkg: borgbackup

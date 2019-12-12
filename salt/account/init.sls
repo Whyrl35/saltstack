@@ -42,7 +42,7 @@ development_directory:
     - name: /home/{{ pillar['account_name'] }}/development
     - user: {{ pillar['account_name'] }}
     - group: users
-    - mode: 755
+    - mode: "0755"
 
 # ------------------------------------------------------------
 # - Clone the oh-my-zsh repository
@@ -63,7 +63,7 @@ ohmyzsh_custom_theme:
     - replace: False
     - user: {{ pillar['account_name'] }}
     - group: users
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg : zsh
 

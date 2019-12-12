@@ -22,9 +22,7 @@ beamium:
     - source: salt://beamium/config.jinja
     - user: beamium
     - group: beamium
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - require:
       - pkg : beamium
-
-

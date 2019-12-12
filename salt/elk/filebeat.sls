@@ -11,7 +11,7 @@ filebeat:
     - source: salt://elk/filebeat.yml
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg : filebeat
 
@@ -23,4 +23,3 @@ filebeat:
       - file : /etc/filebeat/filebeat.yml
     - watch:
       - file: /etc/filebeat/filebeat.yml
-

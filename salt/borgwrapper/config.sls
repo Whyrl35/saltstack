@@ -19,7 +19,7 @@ borgwrapper_{{ name }}_config:
     - template: jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - makedirs: True
     - context:
         config: {{ config|tojson }}
@@ -30,7 +30,7 @@ borgwrapper_{{ name }}_backup_service:
     - source: salt://borgwrapper/files/borgwrapper-backup@.service
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - onchanges_in:
       - cmd: systemd-reload
 
@@ -41,7 +41,7 @@ borgwrapper_{{ name }}_backup_timer:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - onchanges_in:
       - cmd: systemd-reload
     - context:
@@ -59,7 +59,7 @@ borgwrapper_{{ name }}_verify_service:
     - source: salt://borgwrapper/files/borgwrapper-verify@.service
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - onchanges_in:
       - cmd: systemd-reload
 
@@ -70,7 +70,7 @@ borgwrapper_{{ name }}_verify_timer:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - onchanges_in:
       - cmd: systemd-reload
     - context:

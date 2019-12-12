@@ -23,7 +23,7 @@ ipset_directory:
     - name: {{ pillar['ipset']['conf_directory'] }}
     - user: root
     - group: root
-    - mode: 700
+    - mode: "0700"
     - require:
       - pkg : ipset
 
@@ -36,7 +36,7 @@ ipset_init:
     - source: salt://ipset/init/ipset
     - user: root
     - group: root
-    - mode: 700
+    - mode: "0700"
     - template: jinja
     - require:
       - pkg : ipset
@@ -51,7 +51,7 @@ ipset_service:
     - source: salt://ipset/init/ipset.service
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - require:
       - pkg : ipset
@@ -74,7 +74,7 @@ ipset_service:
     - source: salt://ipset/ipset.jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - context:
       ipset_name : {{ ipset_name }}

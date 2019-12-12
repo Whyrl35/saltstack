@@ -4,7 +4,7 @@ satellite_generic:
     - source: salt://postfix/generic.jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - require:
       - file: /etc/postfix/main.cf
@@ -21,7 +21,7 @@ satelitte_sasl:
     - source: salt://postfix/sasl_passwd.jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - require:
       - file: /etc/postfix/main.cf

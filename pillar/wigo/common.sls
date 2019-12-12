@@ -3,7 +3,7 @@
 wigo:
   probes:
     borg_backup: true
-  {% if roles and ('borgbackup' not in roles)%}
+  {% if roles and ('borgbackup' not in roles) %}
   probes_actives:
     borg_backup: 300
   {% else %}
@@ -12,7 +12,7 @@ wigo:
   probes_config:
     check_process:
       enabled: 'true'
-      processList: 
+      processList:
         - /usr/sbin/sshd
         - /usr/bin/beamium
         - /usr/bin/noderig

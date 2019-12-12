@@ -6,10 +6,10 @@ override_docker_for_nftables:
   file.managed:
     - name: /etc/systemd/system/docker.service.d/override.conf
     - makedirs: True
-    - dir_mode: 755
+    - dir_mode: "0755"
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - contents:
         - '[Service]'
         - 'ExecStartPre=-/usr/sbin/nft -f /etc/nftables.conf'

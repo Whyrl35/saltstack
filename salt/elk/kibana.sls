@@ -7,7 +7,7 @@ kibana:
       - kibana
 
   cmd.run:
-    - name: export NODE_OPTIONS="--max-old-space-size=3072" ; /usr/share/kibana/bin/kibana-plugin --allow-root install https://packages.wazuh.com/wazuhapp/wazuhapp.zip
+    - name: export NODE_OPTIONS="--max-old-space-size=3072" ; /usr/share/kibana/bin/kibana-plugin --allow-root install https://packages.wazuh.com/wazuhapp/wazuhapp.zip  # noqa: 204
     - unless: /usr/share/kibana/bin/kibana-plugin --allow-root list | grep -q wazuh
     - require:
       - pkg: kibana
@@ -16,7 +16,7 @@ kibana:
     - name: /etc/kibana/kibana.yml
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: kibana
 

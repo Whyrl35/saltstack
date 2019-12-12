@@ -13,7 +13,7 @@ wigo:
     server: 127.0.0.1:25
     mailto:
       - 'ludovic+wigo@whyrl.fr'
-      
+
 include:
     - wigo.common
     {% if 'roles' in grains %}

@@ -1,5 +1,5 @@
 letsencrypt:
-  domainsets: 
+  domainsets:
     mail:
       - mail.whyrl.fr
       - imap.whyrl.fr

@@ -1,4 +1,4 @@
 letsencrypt:
-  domainsets: 
+  domainsets:
     wazuh:
       - wazuh.whyrl.fr

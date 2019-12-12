@@ -6,11 +6,11 @@ wigo:
   probes_config:
     docker_container:
       enabled: 'true'
-      containerList: 
+      containerList:
         - portainer
     check_process:
       enabled: 'true'
-      processList: 
+      processList:
         - /usr/sbin/sshd
         - /usr/bin/beamium
         - /usr/bin/noderig

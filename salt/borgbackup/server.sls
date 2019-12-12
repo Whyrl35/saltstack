@@ -16,7 +16,7 @@ borg_backup_dir:
     - name: {{ borgbackup.server.config.backup_dir }}
     - user: {{ borgbackup.server.config.user }}
     - group: {{ borgbackup.server.config.group }}
-    - mode: 755
+    - mode: "0755"
     - require:
       - user: borg_user
 

@@ -11,7 +11,7 @@ manager:
     - source: salt://wazuh/authd.pass
     - user: root
     - group: ossec
-    - mode: 640
+    - mode: "0640"
     - template: jinja
     - require:
       - pkg: manager
@@ -32,7 +32,7 @@ manager_ossec_conf:
     - template: jinja
     - user: root
     - group: ossec
-    - mode: 640
+    - mode: "0640"
 
 manager_ar_ipset:
   file.managed:
@@ -40,5 +40,4 @@ manager_ar_ipset:
     - source: salt://wazuh/active-response/ipset.sh
     - user: root
     - group: ossec
-    - mode: 750
-
+    - mode: "0750"

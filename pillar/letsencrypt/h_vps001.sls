@@ -1,5 +1,5 @@
 letsencrypt:
-  domainsets: 
+  domainsets:
     web:
       - saltpad.whyrl.fr
       - salt.whyrl.fr
