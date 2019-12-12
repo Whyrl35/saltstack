@@ -1,6 +1,6 @@
 Saltstack:
-  ☐ Salt the salt :) @high 
-  ☐ Migrate from VPS to better server (more cpu)  @low 
+  ☐ Salt the salt :) @high
+  ☐ Migrate from VPS to better server (more cpu)  @low
 
 Salt-cloud:
   post-action:
@@ -9,7 +9,7 @@ Salt-cloud:
 
 Monitoring:
   ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
-  ☐ kibana: create dashboard 
+  ☐ kibana: create dashboard
 
 Warden:
   ☐ automate install
