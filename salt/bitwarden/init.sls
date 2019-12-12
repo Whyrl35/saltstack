@@ -3,8 +3,8 @@ bitwarden_file:
     - name: /srv/bitwarden/bitwarden.sh
     - makedirs: true
     - dir_mode: "0755"
-    - user: root
-    - group: root
+    - user: ludovic
+    - group: users
     - mode: "0755"
     - source: https://raw.githubusercontent.com/bitwarden/server/master/scripts/bitwarden.sh
     - require:
@@ -15,9 +15,9 @@ bitwarden_config:
     - name: /srv/bitwarden/bwdata/config.yml
     - makedirs: true
     - dir_mode: "0755"
-    - user: root
-    - group: root
-    - mode: "0755"
+    - user: ludovic
+    - group: users
+    - mode: "0644"
     - source: salt://bitwarden/files/config.yml
     - require:
       - file: bitwarden_file
@@ -27,9 +27,9 @@ bitwarden_override_global:
     - name: /srv/bitwarden/bwdata/env/global.override.env
     - makedirs: true
     - dir_mode: "0755"
-    - user: root
-    - group: root
-    - mode: "0755"
+    - user: ludovic
+    - group: users
+    - mode: "0644"
     - source: salt://bitwarden/files/global.override.env
     - require:
       - file: bitwarden_file
@@ -40,9 +40,9 @@ bitwarden_override_mssql:
     - name: /srv/bitwarden/bwdata/env/mssql.override.env
     - makedirs: true
     - dir_mode: "0755"
-    - user: root
-    - group: root
-    - mode: "0755"
+    - user: ludovic
+    - group: users
+    - mode: "0644"
     - source: salt://bitwarden/files/mssql.override.env
     - require:
       - file: bitwarden_file
@@ -53,9 +53,9 @@ bitwarden_override_uid:
     - name: /srv/bitwarden/bwdata/env/uid.override.env
     - makedirs: true
     - dir_mode: "0755"
-    - user: root
-    - group: root
-    - mode: "0755"
+    - user: ludovic
+    - group: users
+    - mode: "0644"
     - source: salt://bitwarden/files/uid.override.env
     - require:
       - file: bitwarden_file
