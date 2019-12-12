@@ -1,14 +1,18 @@
+bitwarden_dir:
+  file.directory:
+    - name: /srv/bitwarden
+    - user: ludovic
+    - group: users
+    - mode: "0755"
+
 bitwarden_file:
   file.managed:
     - name: /srv/bitwarden/bitwarden.sh
-    - makedirs: true
-    - dir_mode: "0755"
     - user: ludovic
     - group: users
     - mode: "0755"
     - source: https://raw.githubusercontent.com/bitwarden/server/master/scripts/bitwarden.sh
-    - require:
-      - pkg: docker-package
+    - source_hash: e6aa294804c838f367eacab19e6f1607560709e35f51c849a95326577da7b700
 
 bitwarden_config:
   file.managed:
@@ -65,6 +69,7 @@ bitwarden_install:
   cmd.run:
     - name: /srv/bitwarden/bitwarden.sh install
     - creates: /srv/bitwarden/bwdata/docker/global.env
+    - runas: ludovic
     - require:
       - file: bitwarden_config
       - file: bitwarden_override_global
@@ -72,5 +77,6 @@ bitwarden_install:
 bitwarder_update:
   cmd.run:
     - name: /srv/bitwarden/bitwarden.sh update
+    - runas: ludovic
     - onchanges:
       - file: bitwarden_config
