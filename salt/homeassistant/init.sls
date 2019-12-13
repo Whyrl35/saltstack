@@ -33,10 +33,8 @@ hassio_supervisor_service:
 hassio_homeassistant_update:
   http.query:
     - name: https://{{ salt.pillar.get('homeassistant:base_url') }}/api/states/binary_sensor.updater
-    - match: '"sate": "on"'
-    - header_list:
-      - Authorization: 'Bearer {{ salt.pillar.get('homeassistant:token') }}'
-      - Content-Type: 'application/json'
+    - match: '"state": "on"'
+    - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
     - header_render: true
     - status: 200
     - raise_error: true
