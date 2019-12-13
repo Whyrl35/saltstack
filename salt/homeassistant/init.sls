@@ -35,7 +35,7 @@ hassio_homeassistant_check_update:
     - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
     - header_render: true
     - status: 200
-    - raise_error: false
+    - raise_error: False
 
 hassio_homeassistant_update:
     http.query:
@@ -45,3 +45,5 @@ hassio_homeassistant_update:
       - header_render: true
       - status: 200
       - raise_error: true
+      - require:
+        - http: hassio_homeassistant_check_update
