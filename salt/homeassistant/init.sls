@@ -28,10 +28,12 @@ hassio_supervisor_service:
 hassio_supervisor_container:
   docker_container.running:
     - name: hassio_supervisor
+    - image: homeassistant/amd64-hassio-supervisor
 
 hassio_homeassistant_container:
   docker_container.running:
     - name: homeassistant
+    - image: homeassistant/qemux86-64-homeassistant
     - require:
       - service: hassio_supervisor_service
       - docker_container: hassio_supervisor_container
