@@ -34,6 +34,7 @@ bitwarden_override_global:
     - user: ludovic
     - group: users
     - mode: "0644"
+    - template: jinja
     - source: salt://bitwarden/files/global.override.env
     - require:
       - file: bitwarden_file
@@ -47,6 +48,7 @@ bitwarden_override_mssql:
     - user: ludovic
     - group: users
     - mode: "0644"
+    - template: jinja
     - source: salt://bitwarden/files/mssql.override.env
     - require:
       - file: bitwarden_file

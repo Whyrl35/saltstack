@@ -48,3 +48,7 @@ base: #
 
   'not G@roles:borgbackup':
     - borgwrapper
+
+  'roles:bitwarden':
+    - match: grain
+    - bitwarden
