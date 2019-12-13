@@ -25,20 +25,6 @@ hassio_supervisor_service:
     - name: hassio-supervisor
     - enable: true
 
-hassio_supervisor_container:
-  docker_container.running:
-    - name: hassio_supervisor
-    - image: homeassistant/amd64-hassio-supervisor
-
-hassio_homeassistant_container:
-  docker_container.running:
-    - name: homeassistant
-    - image: homeassistant/qemux86-64-homeassistant
-    - require:
-      - service: hassio_supervisor_service
-      - docker_container: hassio_supervisor_container
-    - start: true
-
 # TODO: need to place a the last backup in the good directory in case of a re-install
 #       and that a restore is needed (borg or nas)
 
