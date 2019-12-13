@@ -29,9 +29,9 @@ hassio_supervisor_container:
   docker_container.running:
     - name: hassio_supervisor
 
-hassio_supervisor_container:
+hassio_homeassistant_container:
   docker_container.running:
-    - name: hassio_supervisor
+    - name: homeassistant
     - require:
       - service: hassio_supervisor_service
       - docker_container: hassio_supervisor_container

@@ -98,3 +98,8 @@ base:
   'roles:bitwarden':
     - match: grain
     - bitwarden
+
+  # Homeassistant server, will use homeassistant (docker managed)
+  'roles:homeassistant':
+    - match: grain
+    - homeassistant

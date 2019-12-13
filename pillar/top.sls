@@ -52,3 +52,7 @@ base: #
   'roles:bitwarden':
     - match: grain
     - bitwarden
+
+  'roles:homeassistant':
+    - match: grain
+    - homeassistant
