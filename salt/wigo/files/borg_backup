@@ -15,7 +15,7 @@ use Date::Parse;
 ###
 
 my $conf = {
-    'maxAge' => 86400
+    'maxAge' => 129600
 };
 
 init( config => $conf );

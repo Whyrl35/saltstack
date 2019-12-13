@@ -11,18 +11,23 @@ Monitoring:
   ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
   ☐ kibana: create dashboard
 
-Warden:
-  ☐ automate install
-  ☐ automate update @low
-
 Srv002:
   hassio:
     ☐ automate installation
+      * deploy the file hassio_install.sh
+      * install it if file are not present (creates: /usr/share/hassio/homeassistant/...)
+      * run service hassio_supervisor
+      * restore configuration (only if install is needed)
+      * run homeassistant if necessary
     ☐ automate update @low
+      * find a way to check for new version (API?)
+      * launch the upgrade if found (API?)
   dns:
     ☐ put local dns in salt @high
 
 Archive:
+  ✔ automate install @done(19-12-12 20:31) @project(Warden)
+  ✔ automate update @low @done(19-12-12 20:31) @project(Warden)
   ✔ Find a way to auto-add host in bastion from salt @high @done(19-12-10 17:54) @project(Bastion)
   ✔ Add a key to admin from salt @done(19-12-10 17:54) @project(Bastion)
     `ssh -p 2222 admin@bastion.whyrl.fr host create -n {{ name }} --key salt --group ovh ssh://ludovic@{{name}}.whyrl.fr`
