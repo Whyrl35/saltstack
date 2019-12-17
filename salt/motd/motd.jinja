@@ -1,21 +1,23 @@
-{{ grains['lsb_distrib_codename'] }}
 
+╔═════════════╗
+   SaltStack
+╚═════════════╝
+
+distrib   : {{ grains['lsb_distrib_description'] }}
 kernel    : {{ grains['kernelrelease'] }}
-{% for eth in grains['ip4_interfaces'] -%}
-ip        : {{ "%-15s"|format(grains['ip4_interfaces'][eth]|join(',')) }} [{{ eth }}]
+{% for ip in grains['ipv4']|ipaddr -%}
+{% if ip|is_ip(options='public') or (ip|is_ip(options='private') and not ip|is_ip(options='loopback') )-%}
+ipv4	  : {{ ip }}
+{% endif -%}
+{% endfor -%}
+{% for ip in grains['ipv6']|ipaddr -%}
+{% if ip|is_ip(options='global') -%}
+ipv6	  : {{ ip }}
+{% endif -%}
 {% endfor -%}
 hostname  : {{ grains['fqdn'] }}
 salt_id   : {{ grains['id'] }}
 CPU	  : {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
 MEM	  : {{ grains['mem_total'] }} MB
 roles	  : {{ grains['roles']|join(', ') }}
-
-Managed By
-   _____       ____  _____ __             __
-  / ___/____ _/ / /_/ ___// /_____ ______/ /__
-  \__ \/ __ `/ / __/\__ \/ __/ __ `/ ___/ //_/
- ___/ / /_/ / / /_ ___/ / /_/ /_/ / /__/ ,<
-/____/\__,_/_/\__//____/\__/\__,_/\___/_/|_|
-
-Make sure changes get pushed into the state repo!
 
