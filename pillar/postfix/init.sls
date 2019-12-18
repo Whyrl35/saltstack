@@ -1,12 +1,10 @@
 #!jinja|yaml|gpg
 
-{# ----------------------------------------------------------------------------
- # - Main postfix configuration (mail server)
- #}
 {% if grains['fqdn'] == 'mail.whyrl.fr' %}
 {% set domain = grains['domain'] %}
 {% set smtp = "smtp." ~ domain %}
-
+##
+## Mail server configuration
 postfix:
   enable_service: True
 
@@ -95,7 +93,7 @@ postfix:
     smtpd_helo_required: 'yes'
     smtpd_milters: inet:localhost:11332
     #can add SBL/RBL management : reject_rbl_client zen.spamhaus.org, reject_rbl_client dnsbl.sorbs.net, reject_rhsbl_reverse_client dbl.spamhaus.org, reject_rhsbl_helo dbl.spamhaus.org, reject_rhsbl_sender dbl.spamhaus.org,
-      smtpd_recipient_restrictions: permit_sasl_authenticated, permit_mynetworks, reject_invalid_hostname, reject_unknown_recipient_domain, reject_unauth_destination, reject_non_fqdn_hostname, reject_non_fqdn_sender, reject_non_fqdn_recipient, reject_unauth_pipelining  # noqa: 204
+    smtpd_recipient_restrictions: permit_sasl_authenticated, permit_mynetworks, reject_invalid_hostname, reject_unknown_recipient_domain, reject_unauth_destination, reject_non_fqdn_hostname, reject_non_fqdn_sender, reject_non_fqdn_recipient, reject_unauth_pipelining  # noqa: 204
     smtpd_relay_restrictions: permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
     smtpd_sasl_auth_enable: 'yes'
     smtpd_sasl_authenticated_header: 'yes'
@@ -177,11 +175,9 @@ postfix:
 
 {% endif %}
 
-
-{# ----------------------------------------------------------------------------
- # - Satelitte postfix configuration (localhost to relay)
- #}
 {% if grains['fqdn'] != 'mail.whyrl.fr' %}
+##
+## Satellite configuration
 postfix:
   enable_service: True
 

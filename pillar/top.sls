@@ -12,8 +12,6 @@ base: #
     - noderig
     - wazuh
     - wigo
-    - postfix
-    - postfix.satellite
     - borgbackup
 
   #
@@ -36,10 +34,14 @@ base: #
 
   'roles:mail_server':
     - match: grain
+    - postfix
     - mysql
     - letsencrypt
     - nginx
     - dovecot
+
+  'not G@roles:mail_server':
+    - postfix.satellite
 
   'roles:webserver':
     - match: grain
