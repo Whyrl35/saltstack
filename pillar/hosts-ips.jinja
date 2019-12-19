@@ -14,7 +14,7 @@ bastion:
     {% endfor %}
     {% endfor %}
   ipv6:
-    - 2a01:e34:ee8c:8d0::/64          	# whyrl.fr
+    - 2a01:e34:ee8c:8d0::/64  # whyrl.fr
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv6)  %}
     {% if(addr | is_ip(options='global')) %}
