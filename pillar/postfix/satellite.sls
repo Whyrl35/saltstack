@@ -1,5 +1,8 @@
 #!jinja|yaml|gpg
 
+include:
+  - postfix
+
 postfix_satellite:
   user: robot
   password: |
