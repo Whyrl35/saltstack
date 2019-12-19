@@ -97,7 +97,10 @@ nftables:
           table: 'filter'
           family: 'ip6'
           set: 'bastion'
-          elements: {{ ips.bastion.ipv6 }}
+          elements:
+            {% for ip in ips.bastion.ipv6 %}
+            - {{ ip }}
+            {% endfor %}
         - name: 'myhosts_elements'
           table: 'filter'
           family: 'ip'
@@ -107,7 +110,10 @@ nftables:
           table: 'filter'
           family: 'ip6'
           set: 'myhosts'
-          elements: {{ ips.myhosts.ipv6 }}
+          elements:
+            {% for ip in ips.myhosts.ipv6 %}
+            - {{ ip }}
+            {% endfor %}
       #
       # create all the default rules
       # INPUT rules
