@@ -53,8 +53,9 @@ bind:
           nas: 192.168.0.2
           printer: 192.168.0.6
           netatmo: 192.168.0.8
-          freebox-player: 192.168.0.200
-          freebox-player: 192.168.0.201
+          freebox-player:
+            - 192.168.0.200
+            - 192.168.0.201
           camera-salon: 192.168.0.202
           ex6100: 192.168.0.253
           gateway: 192.168.0.254
