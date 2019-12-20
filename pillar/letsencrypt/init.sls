@@ -5,7 +5,7 @@
 letsencrypt:
   use_package: false
   config: |
-     server = https://acme-v01.api.letsencrypt.org/directory
+     server = https://acme-v02.api.letsencrypt.org/directory
      email = webmaster@whyrl.fr
      authenticator = webroot
      webroot-path = /var/www/html
