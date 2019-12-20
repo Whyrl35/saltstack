@@ -1,5 +1,4 @@
 bind:
-
   configured_acls:
     my_net:
       - 127.0.0.0/8
@@ -95,6 +94,7 @@ bind:
     ##
     ## whyrl.fr reverse
     168.192.in-addr.arpa:
+      file: db.168.192.in-addr.arpa
       soa:
         ns: localhost
         contact: root.whyrl.fr
