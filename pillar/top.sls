@@ -58,3 +58,7 @@ base: #
   'roles:homeassistant':
     - match: grain
     - homeassistant
+
+  'roles:local_dns':
+    - match: grain
+    - bind
