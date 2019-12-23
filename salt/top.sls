@@ -103,7 +103,7 @@ base:
   'roles:homeassistant':
     - match: grain
     - homeassistant
-  
+
   # dnsmasq server, will use dnsmasq
   'roles:local_dns':
     - match: grain
