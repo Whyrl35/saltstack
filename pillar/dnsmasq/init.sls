@@ -16,4 +16,4 @@ dnsmasq:
     cache-size: 600
 
 include:
-  - dnsmask.h_{{ host }}
+  - dnsmasq.h_{{ host }}
