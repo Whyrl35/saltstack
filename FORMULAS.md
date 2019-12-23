@@ -11,6 +11,7 @@
 * https://github.com/saltstack-formulas/openssh-formula
 * https://github.com/saltstack-formulas/ossec-formula
 * https://github.com/saltstack-formulas/postfix-formula
+* https://github.com/saltstack-formulas/dnsmasq-formula.git
 
 # My own
 

@@ -11,13 +11,11 @@ dnsmasq:
 
   settings:
     port: 53
-    interface:
-      - lo
-      - eth0
     bogus-priv: True
     domain-needed: True
     expand-hosts: True
     no-resolv: True
+    no-hosts: True
     server:
       - 1.1.1.1
       - 9.9.9.9
