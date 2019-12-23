@@ -61,4 +61,4 @@ base: #
 
   'roles:local_dns':
     - match: grain
-    - bind
+    - dnsmasq
