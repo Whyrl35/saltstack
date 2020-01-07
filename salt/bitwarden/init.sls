@@ -76,9 +76,9 @@ bitwarden_install:
       - file: bitwarden_config
       - file: bitwarden_override_global
 
-bitwarder_update:
-  cmd.run:
-    - name: /srv/bitwarden/bitwarden.sh update
-    - runas: ludovic
-    - onchanges:
-      - file: bitwarden_config
+#bitwarder_update:
+#  cmd.run:
+#    - name: /srv/bitwarden/bitwarden.sh update
+#    - runas: ludovic
+#    - onchanges:
+#      - file: bitwarden_config
