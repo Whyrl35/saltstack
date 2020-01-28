@@ -17,6 +17,9 @@ base: #
   #
   # Specific configuration / hosts/roles based
   #
+  'ks*':
+    - webhook
+
   'roles:saltstack':
     - match: grain
     - webhook

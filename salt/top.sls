@@ -22,6 +22,10 @@ base:
     - beamium
     - noderig
 
+  # KS001 specific, for moviecat CI/CD
+  'ks*':
+    - webhook
+
   # Saltstack server
   'roles:saltstack':
     - match: grain
