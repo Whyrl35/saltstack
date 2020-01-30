@@ -15,7 +15,7 @@ function reload_gunicorn {
 
 function rebuild_js {
     cd "${_DIR}/www"
-    yarn build
+    sudo -u ludovic yarn build
 }
 
 git_refrsesh
