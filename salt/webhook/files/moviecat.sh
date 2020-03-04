@@ -10,6 +10,7 @@ function git_refrsesh {
 
 function reload_gunicorn {
     cd ${_DIR}
+    rm -rf ${_DIR}/.indexes/*
     systemctl restart gunicorn.socket
 }
 
