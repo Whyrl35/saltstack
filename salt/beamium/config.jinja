@@ -19,8 +19,20 @@ scrapers:
     {% if 'metrics' in pillar['beamium']['scrapers'][scraper] -%}
     metrics:
 	{%- for metric in  pillar['beamium']['scrapers'][scraper]['metrics'] %}
-	- metric
+	- {{ metric }}
 	{% endfor -%}
+    {%- endif %}
+    {% if 'labels' in pillar['beamium']['scrapers'][scraper] -%}
+    labels:
+    {%- for label in pillar['beamium']['scrapers'][scraper]['labels'] %}
+      {{ label }}: {{ pillar['beamium']['scrapers'][scraper]['labels'][label] }}
+    {% endfor -%}
+    {%- endif %}
+    {% if 'headers' in pillar['beamium']['scrapers'][scraper] -%}
+    headers:
+	{%- for header in  pillar['beamium']['scrapers'][scraper]['headers'] %}
+      {{ header }}: {{ pillar['beamium']['scrapers'][scraper]['headers'][header] }}
+    {% endfor -%}
     {%- endif %}
 {%- endfor %}
 
@@ -50,10 +62,12 @@ sinks:
 
 ## Defaults labels
 
+{%- if 'labels' in pillar['beamium'] %}
 labels:
 {%- for label in pillar['beamium']['labels'] %}
   host: {{ pillar['beamium']['labels'][label] }}
 {%- endfor %}
+{%- endif %}
 
 ## Parameters
 
