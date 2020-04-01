@@ -13,21 +13,44 @@ Monitoring:
   ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
   ☐ kibana: create dashboard
 
-Srv002:
-  hassio:
-    ☐ automate installation
-      * deploy the file hassio_install.sh
-      * install it if file are not present (creates: /usr/share/hassio/homeassistant/...)
-      * run service hassio_supervisor
-      * restore configuration (only if install is needed)
-      * run homeassistant if necessary
-    ☐ automate update @low
-      * find a way to check for new version (API?)
-      * launch the upgrade if found (API?)
-  dns:
-    ☐ put local dns in salt @high
 
 Archive:
+  ✘ webhook sur commit pour chmod + git pull + chmod back + yarn install/build + reload gunicorn @cancelled(20-01-24 15:48) @project(KS001.moviecat)
+  ✔ manage 401 properly @done(20-01-24 10:50) @project(KS001.moviecat.front)
+  ✔ movie @done(20-01-22 18:47) @project(KS001.moviecat.api)
+  ✔ gestion de l'edition @done(20-01-22 18:47) @project(KS001.moviecat.api)
+  ✔ movies @done(20-01-22 15:55) @project(KS001.moviecat.api)
+  ✔ gestion des poster @done(20-01-22 15:55) @project(KS001.moviecat.api)
+  ✔ listing @done(20-01-22 15:54) @project(KS001.moviecat.front)
+  ✔ details @done(20-01-22 18:46) @project(KS001.moviecat.front)
+  ✔ login @done(20-01-20 13:29) @project(KS001.moviecat.front)
+  ✔ ajout @done(20-01-22 15:54) @project(KS001.moviecat.front)
+  ✔ gestion decouverte par plusieurs moteur (allocine, imdb) @done(20-01-21 13:29) @project(KS001.moviecat.front)
+    * utilisation de : curl "http://www.omdbapi.com/?apikey=bce217fe&t=Avatar"
+  ✔ gestion des poster (modification, import) @done(20-01-22 15:54) @project(KS001.moviecat.front)
+  ✔ edition (add, laisser le post ecraser un film existant en back) @done(20-01-22 18:46) @project(KS001.moviecat.front)
+  ✔ deletion @done(20-01-22 18:46) @project(KS001.moviecat.front)
+  ✔ actors @done(20-01-15 12:21) @project(KS001.moviecat.api)
+  ✔ actor @done(20-01-15 12:21) @project(KS001.moviecat.api)
+  ✔ realisator @done(20-01-15 12:21) @project(KS001.moviecat.api)
+  ✔ realisators @done(20-01-15 12:21) @project(KS001.moviecat.api)
+  ✔ recherche @done(20-01-15 12:20) @project(KS001.moviecat.api)
+  ✔ rercherche @done(20-01-15 12:20) @project(KS001.moviecat.front)
+  ✔ ajouter le depot yarn @done(20-01-10 17:54) @project(KS001.moviecat)
+  ✔ install de vue-cli aussi @done(20-01-10 17:54) @project(KS001.moviecat)
+  ✔ pagination: get number of movies @done(20-01-10 17:53) @project(KS001.moviecat.api)
+  ✔ pagination: return movie list from pages (plus perPage => [(page-1)*10 + 1 , 10]) @done(20-01-10 17:53) @project(KS001.moviecat.api)
+  ✔ pagination @done(20-01-10 17:54) @project(KS001.moviecat.front)
+  ✔ automate installation @done(20-01-13 17:30) @project(Srv002.hassio)
+    * deploy the file hassio_install.sh
+    * install it if file are not present (creates: /usr/share/hassio/homeassistant/...)
+    * run service hassio_supervisor
+    * restore configuration (only if install is needed)
+    * run homeassistant if necessary
+  ✘ automate update @low @cancelled(20-01-13 17:30) @project(Srv002.hassio)
+    * find a way to check for new version (API?)
+    * launch the upgrade if found (API?)
+  ✔ put local dns in salt @high @done(20-01-13 17:30) @project(Srv002.dns)
   ✔ automate install @done(19-12-12 20:31) @project(Warden)
   ✔ automate update @low @done(19-12-12 20:31) @project(Warden)
   ✔ Find a way to auto-add host in bastion from salt @high @done(19-12-10 17:54) @project(Bastion)
