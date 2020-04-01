@@ -2,7 +2,6 @@
 
 Saltstack:
   ☐ Salt the salt :) @high
-  ☐ Migrate from VPS to better server (more cpu)  @low
 
 Salt-cloud:
   post-action:
@@ -13,8 +12,8 @@ Monitoring:
   ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
   ☐ kibana: create dashboard
 
-
 Archive:
+  ✔ Migrate from VPS to better server (more cpu)  @low @done(20-04-01 10:47) @project(Saltstack)
   ✘ webhook sur commit pour chmod + git pull + chmod back + yarn install/build + reload gunicorn @cancelled(20-01-24 15:48) @project(KS001.moviecat)
   ✔ manage 401 properly @done(20-01-24 10:50) @project(KS001.moviecat.front)
   ✔ movie @done(20-01-22 18:47) @project(KS001.moviecat.api)
