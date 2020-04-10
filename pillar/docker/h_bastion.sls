@@ -17,5 +17,4 @@ docker-containers:
       remove_on_stop: true
       runoptions:
         - "-p 8000:8000"
-        - "-v '/srv:/srv'"
-        - "-w '/srv'"
+        - "-v '/srv:/data'"
