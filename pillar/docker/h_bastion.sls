@@ -18,3 +18,4 @@ docker-containers:
       runoptions:
         - "-p 8000:8000"
         - "-v '/srv:/data'"
+        - "-e CONF_PATH=/data"
