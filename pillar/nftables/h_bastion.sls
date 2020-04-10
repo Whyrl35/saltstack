@@ -33,9 +33,9 @@ nftables:
           table: 'filter'
           chain: 'SERVICES'
           family: 'ip'
-          rule: 'tcp dport 9000 counter accept'
+          rule: 'tcp dport 9000 counter log accept'
         - name: 'allow webhook'
           table: 'filter'
           chain: 'SERVICES'
           family: 'ip6'
-          rule: 'tcp dport 9000 counter accept
+          rule: 'tcp dport 9000 counter log accept'
