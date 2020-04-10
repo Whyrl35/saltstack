@@ -20,6 +20,10 @@ base: #
   'ks*':
     - webhook
 
+  'roles:bastion':
+    - match: grain
+    - webhook
+
   'roles:saltstack':
     - match: grain
     - webhook

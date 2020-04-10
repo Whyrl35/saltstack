@@ -26,6 +26,11 @@ base:
   'ks*':
     - webhook
 
+  # bastion server
+  'roles:bastion':
+    - match: grain
+    - webhook
+
   # Saltstack server
   'roles:saltstack':
     - match: grain
