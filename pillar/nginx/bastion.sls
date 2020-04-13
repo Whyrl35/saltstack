@@ -52,7 +52,7 @@ nginx:
               - location /static/:
                 - root:
                   - /var/www/sshportal
-              - location ~ ^/api(.*)$
+              - location ~ ^/api(.*)$:
                 - proxy_set_header: Upgrade $http_upgrade
                 - proxy_set_header: Connection "upgrade"
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
@@ -61,4 +61,3 @@ nginx:
                 - proxy_redirect: off
                 - proxy_http_version: 1.1
                 - proxy_pass: 'http://127.0.0.1:8000$1$is_args$args'
-
