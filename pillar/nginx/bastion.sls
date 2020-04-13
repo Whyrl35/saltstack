@@ -8,7 +8,7 @@ nginx:
       enable: True
     servers:
       managed:
-        grafana:
+        bastion:
           enabled: True
           config:
             #
