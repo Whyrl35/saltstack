@@ -27,3 +27,10 @@ docker-containers:
       runoptions:
         - "-p 8001:8080"
         - '-e URLS="[ { url: \"https://bastion.whyrl.fr/api/v1/spec.json\", name: \"sshportal-api\" } ]"'
+    sshportal-ui:
+      image: "whyrl/sshportal-ui:latest"
+      cmd: ~
+      pull_before_start: true
+      remove_on_stop: true
+      runoptions:
+        - "-p 8002:80"
