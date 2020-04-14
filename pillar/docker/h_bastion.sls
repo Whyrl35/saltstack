@@ -26,4 +26,4 @@ docker-containers:
       remove_on_stop: true
       runoptions:
         - "-p 8001:8080"
-        - '-e URLS="[ { url: \"https://bastion.whyrl.fr/api/v1/spec.json\", name: \"sshportal-api\" } ]'
+        - '-e URLS="[ { url: \"https://bastion.whyrl.fr/api/v1/spec.json\", name: \"sshportal-api\" } ]"'
