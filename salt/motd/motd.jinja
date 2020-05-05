@@ -1,23 +1,22 @@
 
-╔═════════════╗
+[1;36m╔═════════════╗
    SaltStack
-╚═════════════╝
+[1;36m╚═════════════╝
 
-distrib   : {{ grains['lsb_distrib_description'] }}
-kernel    : {{ grains['kernelrelease'] }}
+[1;31mdistrib[0m   : {{ grains['lsb_distrib_description'] }}
+[1;31mkernel[0m    : {{ grains['kernelrelease'] }}
 {% for ip in grains['ipv4']|ipaddr -%}
 {% if ip|is_ip(options='public') or (ip|is_ip(options='private') and not ip|is_ip(options='loopback') )-%}
-ipv4	  : {{ ip }}
+[1;31mipv4[0m	  : {{ ip }}
 {% endif -%}
 {% endfor -%}
 {% for ip in grains['ipv6']|ipaddr -%}
 {% if ip|is_ip(options='global') -%}
-ipv6	  : {{ ip }}
+[1;31mipv6[0m	  : {{ ip }}
 {% endif -%}
 {% endfor -%}
-hostname  : {{ grains['fqdn'] }}
-salt_id   : {{ grains['id'] }}
-CPU	  : {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
-MEM	  : {{ grains['mem_total'] }} MB
-roles	  : {{ grains['roles']|join(', ') }}
-
+[1;31mhostname[0m  : {{ grains['fqdn'] }}
+[1;31msalt_id[0m   : {{ grains['id'] }}
+[1;31mCPU[0m	  : {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
+[1;31mMEM[0m	  : {{ grains['mem_total'] }} MB
+[1;31mroles[0m	  : {{ grains['roles']|join(', ') }}
