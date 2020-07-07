@@ -13,6 +13,7 @@ base: #
     - wazuh
     - wigo
     - borgbackup
+    - ignore_missing: True
 
   #
   # Specific configuration / hosts/roles based

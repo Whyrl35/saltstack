@@ -52,6 +52,13 @@ apt:
       arch: [amd64, i386]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
+    saltstack-archive:
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/archive/3000.3
+      comps: [main]
+      arch: [amd64, i386]
+      keyid: 0E08A149DE57BFBE
+      keyserver: hkp://pgp.mit.edu:80
 
     #
     # WAZUH repository

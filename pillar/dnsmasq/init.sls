@@ -12,13 +12,13 @@ dnsmasq:
   settings:
     port: 53
     bogus-priv: True
-    domain-needed: True
+    # domain-needed: True
     expand-hosts: True
     no-resolv: True
     no-hosts: True
     server:
+      - 192.168.0.254
       - 1.1.1.1
-      - 9.9.9.9
     cache-size: 600
 
 include:

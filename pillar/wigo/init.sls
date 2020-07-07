@@ -9,7 +9,7 @@ wigo:
   client:
     ips: {{ ips.myhosts.ipv4 }}
   mail:
-    enabled: 1
+    enabled: 2
     server: 127.0.0.1:25
     mailto:
       - 'ludovic+wigo@whyrl.fr'
