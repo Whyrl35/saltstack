@@ -138,7 +138,7 @@ OnWigoChange                = false
 OnProbeChange               = false
 
 # HTTP
-HttpEnabled                 = "{{ pillar['wigo']['notification']['http']['enabled'] }}"   # -> 0: disabled, 1: enabled
+HttpEnabled                 = {{ pillar['wigo']['notification']['http']['enabled'] }}     # -> 0: disabled, 1: enabled
 HttpUrl                     = "{{ pillar['wigo']['notification']['http']['url'] }}"
 
 # EMAIL
