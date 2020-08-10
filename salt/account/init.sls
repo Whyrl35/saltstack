@@ -15,7 +15,7 @@ create_account_name:
     - allow_gid_change: True
     - fullname: {{ pillar['account_fullname'] }}
     - shell: /usr/bin/zsh
-    - gid_from_name: False
+    - usergroup: False
     - groups:
       - users
       - sudo
