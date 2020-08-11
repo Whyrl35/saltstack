@@ -1,7 +1,6 @@
 #!jinja|yaml|gpg
 
 {% from 'hosts-ips.jinja' import ips %}
-{% set host = salt.grains.get('host') %}
 
 wigo:
   server:
@@ -38,9 +37,3 @@ wigo:
 
 include:
     - wigo.common
-    {% if 'roles' in grains %}
-    {% for role in grains['roles'] %}
-    - wigo.r_{{ role }}
-    {% endfor %}
-    {% endif %}
-    - wigo.h_{{ host }}

@@ -1,7 +1,5 @@
 #!jinja|yaml|gpg
 
-{% set host = salt.grains.get('host') %}
-
 letsencrypt:
   use_package: false
   config: |
@@ -16,11 +14,3 @@ letsencrypt:
     cmds:
       - systemctl restart nginx
       - systemctl restart postfix
-
-include:
-    {% if 'roles' in grains %}
-    {% for role in grains['roles'] %}
-    - letsencrypt.r_{{ role }}
-    {% endfor %}
-    {% endif %}
-    - letsencrypt.h_{{ host }}
