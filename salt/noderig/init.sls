@@ -37,3 +37,6 @@ noderig_collectors:
     - require:
       - service : noderig
       - file : /etc/noderig/config.yaml
+
+include:
+  - noderig.probes

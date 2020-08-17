@@ -12,6 +12,7 @@ common:
       - unattended-upgrades
       - apt-listchanges
       - ipv6calc
+      - python3-psutil
 
 127.0.1.1:
   host.only:
