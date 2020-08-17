@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+import psutil
+import datetime
+import sys
+
+
+infos = psutil.sensors_temperatures()
+
+if not 'coretemp' in infos:
+    print()
+    sys.exit(1)
+
+for shwtemp in infos['coretemp']:
+    core_number = shwtemp[0].split(' ', 1)[1]
+    temperature = shwtemp[1]
+    timestamp = int(datetime.datetime.timestamp(datetime.datetime.now()))
+    print("os.cpu.temperature {timestamp} {temperature} core={core_number}".format(timestamp=timestamp, temperature=temperature, core_number=core_number))
+
