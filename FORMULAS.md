@@ -12,6 +12,8 @@
 * https://github.com/saltstack-formulas/ossec-formula
 * https://github.com/saltstack-formulas/postfix-formula
 * https://github.com/saltstack-formulas/dnsmasq-formula.git
+* https://github.com/saltstack-formulas/vault-formula.git
+
 
 # My own
 
