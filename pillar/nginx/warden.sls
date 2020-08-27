@@ -98,12 +98,8 @@ nginx:
                 - proxy_set_header: Connection "upgrade"
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: X-Forwarded-Proto $scheme
+                - proxy_set_header: X-Real-IP $remote_addr
                 - proxy_set_header: Host $host
                 - proxy_redirect: 'off'
                 - proxy_http_version: 1.1
-                - proxy_pass: 'http://127.0.0.1:8200$1$is_args$args'
-                - proxy_intercept_errors: on
-                - error_page 301 201 307 = \@handle_vault_standby
-              - location \@handle_vault_standby:
-                - set $saved_vault_endpoint '$upstream_http_location'
-                - proxy_pass: $saved_vault_endpoint
+                - proxy_pass: 'http://127.0.0.1:8200'
