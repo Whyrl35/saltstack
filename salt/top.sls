@@ -107,6 +107,8 @@ base:
   'roles:bitwarden':
     - match: grain
     - bitwarden
+    - letsencrypt
+    - nginx
 
   # Homeassistant server, will use homeassistant (docker managed)
   'roles:homeassistant':

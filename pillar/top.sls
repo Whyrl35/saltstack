@@ -134,6 +134,14 @@ base: #
   'roles:bitwarden':
     - match: grain
     - bitwarden
+    - letsencrypt
+    {% if 'roles' in grains %}
+    {% for role in grains['roles'] %}
+    - letsencrypt.r_{{ role }}
+    {% endfor %}
+    {% endif %}
+    - letsencrypt.h_{{ host }}
+    - nginx
     - ignore_missing: True
 
   'roles:homeassistant':
