@@ -1,5 +1,6 @@
 #!jinja|yaml|gpg
 
+{% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
 {% from 'nginx/common.jinja' import defaults %}
 
 nginx:
@@ -11,8 +12,7 @@ nginx:
         wazuh:
           enabled: True
           authentication:
-            password: |
-              {{ defaults.authentication.password|indent(14) }}
+            password: {{ secret['ludovic'] }}|
             file: {{ defaults.authentication.file }}
             login: {{ defaults.authentication.login }}
           config:
@@ -63,8 +63,7 @@ nginx:
         wigo:
           enabled: True
           authentication:
-            password: |
-              {{ defaults.authentication.password|indent(14) }}
+            password: {{ secret['ludovic'] }}
             file: {{ defaults.authentication.file }}
             login: {{ defaults.authentication.login }}
           config:

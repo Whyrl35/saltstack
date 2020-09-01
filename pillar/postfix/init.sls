@@ -3,6 +3,7 @@
 {% if grains['fqdn'] == 'mail.whyrl.fr' %}
 {% set domain = grains['domain'] %}
 {% set smtp = "smtp." ~ domain %}
+{% set secret = salt['vault'].read_secret('secret/salt/mail/vmail') %}
 ##
 ## Mail server configuration
 postfix:
@@ -140,24 +141,7 @@ postfix:
     user: postfix
     hosts: localhost
     dbname: postfix
-    password: |
-      -----BEGIN PGP MESSAGE-----
-
-      hQIMA85QH7s0WVo+AQ//UdQbYyZHRGfCGKAwghSFFu11zLpix3bb8hGMPJU0MaCf
-      XM9FVlt7lo2Ha3ypUtyI7dNVfQoSngEQzxDsgR/4bU9rFW9yIxR+aW28dwqbiLUU
-      4IsoEN2qPcnMOTL4RazVCeDdI3xKc8UW1+hjRq1g4HuYsq6RBnaIyP6Nkr8Ny8lH
-      pmdEIh6f/ZmIYu6snlgwpMPKBCBJZvSNL/TRt+j9WAkudS3k/HZBXtwmfiNFzHKH
-      JbgGLljOZSwhJPSz8E8cSxUdwP5fcT9+xjEBg32kjdoMfBVdlFArbMsD0Myt1KwT
-      3d9JWFlCgWY6cje4KZj8NvHWoqhMjc6l/8mRJXpvL4Yk+clTO1p5rLTGKHwK6mwl
-      kq9uTNrDAQry3iplHV6w0FinMukaivhxhLnZbfzni0+kcA98ldsooOz10lQnnbpb
-      U9QUn48J2AWYHuQNVG8mjuyzA9SGdUN7OD9IFA/bHaciMObqhtEIJcbdo5AMM20y
-      sKybwesBlq3RpyS80qA3XP0App+tOcVGDUHsZg5YoOVwyUbFtHgNh2M3Wy5AWRWH
-      yOvmTcDoLkftF3rpLVWpV9akqyVatWhLfjuERUWtrDJ9iWP/Bu/QG2l0hqwExB06
-      IRJ9czUCGOm9xkR7ipNPsZ38kEVyG5nKSCOFWzZcWU5Vo1ISh9Ye+JqbRZmuFJbS
-      WwHHVKkuqOd0eaw0APNLkYd94NLOx0jTgAz+0Rg6IPWGtgqKu0JeTZUlvTsE+VQp
-      Xv2LgMtOTzkIwTTjL1fZZZyTDF5xUJWfnecQ5HtnvPoU4YnGGQemSva86j0=
-      =Ykv9
-      -----END PGP MESSAGE-----
+    password: {{ secret['password'] }}
 
   mysql:
     virtual_mailbox_domains:
