@@ -21,12 +21,15 @@ agent-register:
     - require:
       - file: agent-config
 
-agen-service:
+agent-service:
   service.running:
     - name: wazuh-agent
     - enable: True
     - require:
       - cmd: agent-register
+    - watch:
+      - file: agent-config
+      - file: agent_ar_ipset
 
 agent_ar_ipset:
   file.managed:
@@ -35,3 +38,5 @@ agent_ar_ipset:
     - user: root
     - group: ossec
     - mode: "0750"
+    - require:
+      - pkg: agent

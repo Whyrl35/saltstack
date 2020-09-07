@@ -28,23 +28,23 @@ hassio_supervisor_service:
 # TODO: need to place a the last backup in the good directory in case of a re-install
 #       and that a restore is needed (borg or nas)
 
-hassio_homeassistant_check_update:
-  http.query:
-    - name: https://{{ salt.pillar.get('homeassistant:base_url') }}/api/states/binary_sensor.updater
-    - match: '"state": "(unavailable|off)"'
-    - match_type: pcre
-    - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
-    - header_render: true
-    - status: 200
-    - raise_error: False
+# hassio_homeassistant_check_update:
+#  http.query:
+#    - name: https://{{ salt.pillar.get('homeassistant:base_url') }}/api/states/binary_sensor.updater
+#    - match: '"state": "(unavailable|off)"'
+#    - match_type: pcre
+#    - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
+#    - header_render: true
+#    - status: 200
+#    - raise_error: False
 
-hassio_homeassistant_update:
-    http.query:
-      - name: https://hassio.whyrl.fr/api/hassio/homeassistant/update
-      - method: 'POST'
-      - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
-      - header_render: true
-      - status: 200
-      - raise_error: true
-      - onfail:
-        - http: hassio_homeassistant_check_update
+# hassio_homeassistant_update:
+#    http.query:
+#      - name: https://hassio.whyrl.fr/api/hassio/homeassistant/update
+#      - method: 'POST'
+#      - header_list: ["Authorization: Bearer {{ salt.pillar.get('homeassistant:token') }}", 'Content-Type: application/json']
+#      - header_render: true
+#      - status: 200
+#      - raise_error: true
+#      - onfail:
+#        - http: hassio_homeassistant_check_update
