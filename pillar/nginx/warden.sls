@@ -54,7 +54,7 @@ nginx:
                 - proxy_set_header: Host $host
                 - proxy_redirect: 'off'
                 - proxy_http_version: 1.1
-                - proxy_pass: 'http://127.0.0.1:8080$1$is_args$args'
+                - proxy_pass: 'http://127.0.0.1:8080'
         vault:
           enabled: True
           config:
