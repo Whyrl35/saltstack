@@ -1,6 +1,6 @@
 letsencrypt:
   domainsets:
-    web:
+    whyrl.fr:
       - whyrl.fr
       - www.whyrl.fr
       - nas.whyrl.fr

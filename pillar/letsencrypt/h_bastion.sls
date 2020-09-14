@@ -1,4 +1,4 @@
 letsencrypt:
   domainsets:
-    web:
+    bastion.whyrl.fr:
       - bastion.whyrl.fr

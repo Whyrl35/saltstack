@@ -1,4 +1,5 @@
 {% set host = salt.grains.get('host') %}
+
 base: #
   # Present on all hosts / common
   #
@@ -9,28 +10,22 @@ base: #
     - openssh
     - nftables
     - nftables.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - nftables.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - account
     - beamium
     - beamium.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - beamium.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - noderig
     - wazuh
     - wigo
     - wigo.common
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - wigo.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - wigo.h_{{ host }}
     - borgbackup
     - ignore_missing: True
@@ -41,33 +36,30 @@ base: #
   'ks*':
     - webhook
     - webhook.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - webhook.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - ignore_missing: True
 
   'roles:bastion':
     - match: grain
     - webhook
     - webhook.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - webhook.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - ignore_missing: True
 
   'roles:saltstack':
     - match: grain
     - webhook
     - webhook.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - webhook.r_{{ role }}
     {% endfor %}
-    {% endif %}
+    - mysql
+    - mysql.h_{{ host }}
+    - alcali
     - ignore_missing: True
 
   'roles:container':
@@ -79,11 +71,9 @@ base: #
   'roles:wazuh_server':
     - match: grain
     - letsencrypt
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - letsencrypt.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - letsencrypt.h_{{ host }}
     - nginx
     - elk.kibana
@@ -94,12 +84,15 @@ base: #
     - match: grain
     - postfix
     - mysql
+    {% for role in grains['roles'] %}
+    - mysql.r_{{ role }}
+    {% endfor %}
+    - mysql.h_{{ host }}
     - letsencrypt
-    {% if 'roles' in grains %}
+    - letsencrypt
     {% for role in grains['roles'] %}
     - letsencrypt.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - letsencrypt.h_{{ host }}
     - nginx
     - dovecot
@@ -112,11 +105,9 @@ base: #
   'roles:webserver':
     - match: grain
     - letsencrypt
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - letsencrypt.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - letsencrypt.h_{{ host }}
     - nginx
     - ignore_missing: True
@@ -124,22 +115,18 @@ base: #
   'not G@roles:borgbackup':
     - borgwrapper
     - borgwrapper.h_{{ host }}
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - borgwrapper.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - ignore_missing: True
 
   'roles:bitwarden':
     - match: grain
     - bitwarden
     - letsencrypt
-    {% if 'roles' in grains %}
     {% for role in grains['roles'] %}
     - letsencrypt.r_{{ role }}
     {% endfor %}
-    {% endif %}
     - letsencrypt.h_{{ host }}
     - nginx
     - ignore_missing: True

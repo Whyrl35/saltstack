@@ -35,6 +35,9 @@ base:
   'roles:saltstack':
     - match: grain
     - webhook
+    - mysql
+    - mysql.server
+    - alcali
 
   # Minions that have a grain set indicating that they are running
   # the docker system will have the state file called

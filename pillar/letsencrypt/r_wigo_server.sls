@@ -1,4 +1,4 @@
 letsencrypt:
   domainsets:
-    wigo:
+    wigo.whyrl.fr:
       - wigo.whyrl.fr
