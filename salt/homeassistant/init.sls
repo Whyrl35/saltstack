@@ -36,3 +36,16 @@ create_account_name:
     - shell: /usr/bin/zsh
     - require:
       - pkg : zsh
+
+ohmyzsh_custom_theme:
+  file.directory:
+    - user: homeassistant
+    - group: homeassistant
+    - dir_mode: "0755"
+    - file_mode: "0644"
+
+install_with_pipx:
+  cmd.run:
+    - name: /usr/local/bin/pipx install homeassistant
+    - runas: homeassistant
+    - unless: test -f /srv/homeassistant/.local/bin/hass
