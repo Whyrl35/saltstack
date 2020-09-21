@@ -24,16 +24,15 @@ create_account_name:
     - password: {{ pillar['homeassistant']['account']['password'] }}
     - hash_password: True
     - enforce_password: True
+    - usergroup: True
     - mindays: 0
     - maxdays: 99999
     - inactdays: -1
     - warndays:
     - expire: -1
-    - uid: 200
-    - gid: 200
+    - system: True
     - allow_uid_change: True
     - allow_gid_change: True
     - shell: /usr/bin/zsh
-    - usergroup: True
     - require:
       - pkg : zsh
