@@ -15,7 +15,7 @@ hassio_pip:
   pip.installed:
     - name: pipx
     - require:
-      - pkg: python3-pip
+      - pkg: hassio_package
 
 create_account_name:
   user.present:
