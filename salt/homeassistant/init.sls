@@ -17,7 +17,7 @@ hassio_pip:
     - require:
       - pkg: hassio_package
 
-create_account_name:
+hassio_create_homeassistant_account:
   user.present:
     - name: homeassistant
     - home: /srv/homeassistant
@@ -37,8 +37,9 @@ create_account_name:
     - require:
       - pkg : zsh
 
-ohmyzsh_custom_theme:
+homeassistant_directory:
   file.directory:
+    - name: /srv/homeassistant
     - user: homeassistant
     - group: homeassistant
     - dir_mode: "0755"
