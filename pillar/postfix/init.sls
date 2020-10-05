@@ -4,6 +4,7 @@
 {% set domain = grains['domain'] %}
 {% set smtp = "smtp." ~ domain %}
 {% set secret = salt['vault'].read_secret('secret/salt/mail/vmail') %}
+
 ##
 ## Mail server configuration
 postfix:
@@ -19,7 +20,7 @@ postfix:
       flags: DRhu
       argv: "/usr/lib/dovecot/deliver -d ${recipient}"
 
-    enable_submission: False
+    enable_submission: True
     submission:
       smtpd_tls_security_level: encrypt
       smtpd_sasl_auth_enable: 'yes'

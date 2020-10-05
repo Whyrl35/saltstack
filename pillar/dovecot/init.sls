@@ -1,3 +1,5 @@
+{% set secret = salt['vault'].read_secret('secret/salt/mail/postfix') %}
+
 dovecot:
   extra_packages:
     - dovecot-mysql
@@ -13,7 +15,7 @@ dovecot:
       dovecotext:
         sql: |
           driver = mysql
-          connect = host=localhost dbname=postfix user=postfix password=SAiq8LCtSCtCoFaYNnME9pj5MhHHmCvp
+          connect = host=localhost dbname=postfix user=postfix password={{ secret['database_password'] }}
           default_pass_scheme = SHA512-CRYPT
           user_query = SELECT '/home/vmail/%d/%n' as home, 'maildir:/home/vmail/%d/%n' as mail, 5000 AS uid, 5000 AS gid, concat('dirsize:storage=', quota) AS quota FROM mailbox WHERE username = '%u' AND active = '1'  # noqa: 204
           password_query = SELECT username as user, password, '/home/vmail/%d/%n' as userdb_home, 'maildir:/home/vmail/%d/%n' as userdb_mail, 5000 as userdb_uid, 5000 as userdb_gid FROM mailbox WHERE username = '%u' AND active = '1'  # noqa: 204
@@ -84,5 +86,6 @@ dovecot:
           }
         90-sieve: |
           plugin {
-            sieve = /var/vmail/%d/%n/.dovecot.sieve
+            sieve = /home/vmail/%d/%n/.dovecot.sieve
+            sieve_dir = /home/vmail/%d/%n/sieve
           }

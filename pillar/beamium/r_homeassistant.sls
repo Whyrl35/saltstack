@@ -11,4 +11,4 @@ beamium:
       labels:
         host: homeassistant
       headers:
-        Authorization: {{ secret['homeassistant_authorization'] }}
+        Authorization: Bearer {{ secret['homeassistant_authorization'] }}

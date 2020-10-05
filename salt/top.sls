@@ -14,6 +14,7 @@ base:
     - account
     - openssh
     - openssh.client
+    - openssh.trusted_key
     - openssh.config
     - openssh.banner
     - openssh.auth
