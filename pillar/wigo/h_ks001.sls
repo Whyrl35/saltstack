@@ -6,4 +6,3 @@ wigo:
         - portainer_agent
         - grafana
         - warp10
-        - koel
