@@ -6,10 +6,8 @@ dnsmasq:
     whyrl.fr:
       srv002:
         - 192.168.0.1
-        - "2a01:e34:ee8c:8d0:6a1d:efff:fe11:3819"
       nas:
         - 192.168.0.2
-        - "2a01:e34:ee8c:8d0:211:32ff:fe47:9b23"
       printer: 192.168.0.6
       netatmo: 192.168.0.5
       freebox-player:
