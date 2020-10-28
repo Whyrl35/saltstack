@@ -4,8 +4,7 @@
 bastion:
   ipv4:
     - 78.232.192.141/32     # whyrl.fr
-    - 82.252.137.158/32     # whyrl.fr (4G aggregation)
-    - 82.252.131.254/32     # whyrl.fr (4G aggregation, new)
+    - 88.127.73.34/32       # whyrl.fr (new IP since incident)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -15,6 +14,7 @@ bastion:
     {% endfor %}
   ipv6:
     - 2a01:e34:ee8c:8d0::/64  # whyrl.fr
+    - 2a01:e0a:5d2:48b0::/64  # whyrl.fr (new IP since incident)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv6)  %}
     {% if(addr | is_ip(options='global')) %}
@@ -25,7 +25,7 @@ bastion:
 myhosts:
   ipv4:
     - 78.232.192.141/32     # srv001
-    - 82.252.137.158/32     # srv001 since freebox delta (why???)a
+    - 88.127.73.34/32       # srv001 (new IP since incident)
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -35,6 +35,7 @@ myhosts:
     {% endfor %}
   ipv6:
     - 2a01:e34:ee8c:8d0::/64  # HOME (freebox, srv001, all @home computer)
+    - 2a01:e0a:5d2:48b0::/64  # HOME (new IPs since incident)
     {% for server, addrs in minions_v6.items() %}
     {% for addr in (addrs | ipv6) %}
     {% if(addr | is_ip(options='global')) and server != 'srv002.whyrl.fr' %}
