@@ -3,8 +3,9 @@
 {%- load_yaml as ips %}
 bastion:
   ipv4:
-    - 78.232.192.141/32     # whyrl.fr
-    - 88.127.73.34/32       # whyrl.fr (new IP since incident)
+    # - 78.232.192.141/32     # whyrl.fr
+    # - 88.127.73.34/32       # whyrl.fr (new IP since incident, part-stack)
+    - 82.65.179.161/32       # whyrl.fr (new IP since incident, full-stack)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -13,7 +14,7 @@ bastion:
     {% endfor %}
     {% endfor %}
   ipv6:
-    - 2a01:e34:ee8c:8d0::/64  # whyrl.fr
+    # - 2a01:e34:ee8c:8d0::/64  # whyrl.fr
     - 2a01:e0a:5d2:48b0::/64  # whyrl.fr (new IP since incident)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv6)  %}
@@ -24,8 +25,9 @@ bastion:
     {% endfor %}
 myhosts:
   ipv4:
-    - 78.232.192.141/32     # srv001
-    - 88.127.73.34/32       # srv001 (new IP since incident)
+    # - 78.232.192.141/32     # whyrl.fr
+    # - 88.127.73.34/32       # whyrl.fr (new IP since incident, part-stack)
+    - 82.65.179.161/32       # whyrl.fr (new IP since incident, full-stack)
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -34,7 +36,7 @@ myhosts:
     {% endfor %}
     {% endfor %}
   ipv6:
-    - 2a01:e34:ee8c:8d0::/64  # HOME (freebox, srv001, all @home computer)
+    # - 2a01:e34:ee8c:8d0::/64  # HOME (freebox, srv001, all @home computer)
     - 2a01:e0a:5d2:48b0::/64  # HOME (new IPs since incident)
     {% for server, addrs in minions_v6.items() %}
     {% for addr in (addrs | ipv6) %}
