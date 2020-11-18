@@ -53,6 +53,13 @@ nginx:
                 - proxy_set_header: X-Real-IP $remote_addr
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: X-Forwarded-Proto $scheme
+              - location /photo/:
+                - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                - proxy_set_header: Host $http_host
+                - proxy_pass: https://192.168.0.2/photo/
+                - proxy_set_header: X-Real-IP $remote_addr
+                - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
+                - proxy_set_header: X-Forwarded-Proto $scheme
 
 
         portainer:
