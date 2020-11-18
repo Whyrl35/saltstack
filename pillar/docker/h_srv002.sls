@@ -1,7 +1,7 @@
 docker-containers:
   lookup:
     portainer:
-      image: "portainer/portainer"
+      image: "portainer/portainer-ce"
       cmd: ~
       #args:
       pull_before_start: true
