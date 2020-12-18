@@ -1,50 +1,67 @@
-#!/usr/bin/perl
+#!/usr/bin/python3
 
-use strict;
-use warnings;
+import os
+import json
 
-use FindBin;
-use lib "$FindBin::Bin/../../lib";
-use Wigo::Probe qw/:all/;
 
-###
-# DEFAULT CONFIG
-###
+DOCKER_CONF_PATH = '/var/lib/docker/containers/'
+configuration = {}
 
-my $conf = {
-    'containerToCheck' => [
-        'portainer'
-    ],
-};
+def read_configuration():
+	global configuration
+	# TODO: get the probe name and search for probe.conf
+	conf_file = '/etc/wigo/conf.d/docker_container.conf'
 
-init( config => $conf );
+	if os.path.isfile(conf_file):
+		with open(conf_file, 'r') as conf:
+			data = json.load(conf)
+		configuration = data
 
-# Exec
-my @inactiveContainers;
 
-for my $containerName ( @{ config->{'containerList'} } )
-{
-    my $fnret = `docker container ls --format "{{.Names}}" | grep "$containerName"`;
+def check_running_container():
+	running = list()
+	c_dir = os.listdir(DOCKER_CONF_PATH)
+	for dir in c_dir:
+                try:
+		    with open(DOCKER_CONF_PATH + dir + '/config.v2.json', 'r') as conf:
+		    	    data = json.load(conf)
+		    name = data['Name'][1:]
+		    if data['State']['Running']:
+			    running.append(name)
+                except FileNotFoundError:
+                    pass
 
-    if ( $? )
-    {
-        push @inactiveContainers, $containerName; 
-    }
-}
+	check_running = list()
+	check_not_running = list()
+	for container in configuration['containerList']:
+		if container in running:
+			check_running.append(container)
+		else:
+			check_not_running.append(container)
 
-my $countInactiveContainers = scalar @inactiveContainers;
-if ( $countInactiveContainers )
-{
-    status  300 + $countInactiveContainers;
-    message $countInactiveContainers . " container(s) not running : " . join( "," , @inactiveContainers );
-}
-else
-{
-    status  100;
-    message "All monitored containers are running";
-}
+	if len(check_not_running) > 0:
+		status = 300 + len(check_not_running)
+		message = "{} container(s) not running: {}".format(len(check_not_running), ','.join(check_not_running))
+	else:
+		status = 100
+		message = "All monitored containers are running"
 
-detail->{'not_running'} = \@inactiveContainers;
-detail->{'running'}     = [ grep { my $p = $_ ; ! grep { $p eq $_ } @inactiveContainers } @{config->{'containerList'}} ];
+	result = {
+		'Detail': {
+			'not_running': check_not_running,
+			'running': check_running,
+		},
+		'Message': message,
+		'Value': 'OK' if status == 100 else 'KO',
+		'Status': status,
+		'Version': '0.10',
+		'Metrics': []
+	}
 
-output 0;
+	print(json.dumps(result))
+
+
+if __name__ == "__main__":
+	read_configuration()
+	check_running_container()
+
