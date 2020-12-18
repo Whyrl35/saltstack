@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Wigo::Probe qw/:all/;
+
+###
+# DEFAULT CONFIG
+###
+
+my $conf = {
+    'containerToCheck' => [
+        'portainer'
+    ],
+};
+
+init( config => $conf );
+
+# Exec
+my @inactiveContainers;
+
+for my $containerName ( @{ config->{'containerList'} } )
+{
+    my $fnret = `docker container ls --format "{{.Names}}" | grep "$containerName"`;
+
+    if ( $? )
+    {
+        push @inactiveContainers, $containerName; 
+    }
+}
+
+my $countInactiveContainers = scalar @inactiveContainers;
+if ( $countInactiveContainers )
+{
+    status  300 + $countInactiveContainers;
+    message $countInactiveContainers . " container(s) not running : " . join( "," , @inactiveContainers );
+}
+else
+{
+    status  100;
+    message "All monitored containers are running";
+}
+
+detail->{'not_running'} = \@inactiveContainers;
+detail->{'running'}     = [ grep { my $p = $_ ; ! grep { $p eq $_ } @inactiveContainers } @{config->{'containerList'}} ];
+
+output 0;
