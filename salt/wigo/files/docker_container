@@ -7,61 +7,61 @@ import json
 DOCKER_CONF_PATH = '/var/lib/docker/containers/'
 configuration = {}
 
-def read_configuration():
-	global configuration
-	# TODO: get the probe name and search for probe.conf
-	conf_file = '/etc/wigo/conf.d/docker_container.conf'
 
-	if os.path.isfile(conf_file):
-		with open(conf_file, 'r') as conf:
-			data = json.load(conf)
-		configuration = data
+def read_configuration():
+    global configuration
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/docker_container.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
 
 
 def check_running_container():
-	running = list()
-	c_dir = os.listdir(DOCKER_CONF_PATH)
-	for dir in c_dir:
-                try:
-		    with open(DOCKER_CONF_PATH + dir + '/config.v2.json', 'r') as conf:
-		    	    data = json.load(conf)
-		    name = data['Name'][1:]
-		    if data['State']['Running']:
-			    running.append(name)
-                except FileNotFoundError:
-                    pass
+    running = list()
+    c_dir = os.listdir(DOCKER_CONF_PATH)
+    for dir in c_dir:
+        try:
+            with open(DOCKER_CONF_PATH + dir + '/config.v2.json', 'r') as conf:
+                data = json.load(conf)
+            name = data['Name'][1:]
+            if data['State']['Running']:
+                running.append(name)
+        except FileNotFoundError:
+            pass
 
-	check_running = list()
-	check_not_running = list()
-	for container in configuration['containerList']:
-		if container in running:
-			check_running.append(container)
-		else:
-			check_not_running.append(container)
+    check_running = list()
+    check_not_running = list()
+    for container in configuration['containerList']:
+        if container in running:
+            check_running.append(container)
+        else:
+            check_not_running.append(container)
 
-	if len(check_not_running) > 0:
-		status = 300 + len(check_not_running)
-		message = "{} container(s) not running: {}".format(len(check_not_running), ','.join(check_not_running))
-	else:
-		status = 100
-		message = "All monitored containers are running"
+    if len(check_not_running) > 0:
+        status = 300 + len(check_not_running)
+        message = "{} container(s) not running: {}".format(len(check_not_running), ','.join(check_not_running))
+    else:
+        status = 100
+        message = "All monitored containers are running"
 
-	result = {
-		'Detail': {
-			'not_running': check_not_running,
-			'running': check_running,
-		},
-		'Message': message,
-		'Value': 'OK' if status == 100 else 'KO',
-		'Status': status,
-		'Version': '0.10',
-		'Metrics': []
-	}
+    result = {
+        'Detail': {
+            'not_running': check_not_running,
+            'running': check_running,
+        },
+        'Message': message,
+        'Value': 'OK' if status == 100 else 'KO',
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
 
-	print(json.dumps(result))
+    print(json.dumps(result))
 
 
 if __name__ == "__main__":
-	read_configuration()
-	check_running_container()
-
+    read_configuration()
+    check_running_container()
