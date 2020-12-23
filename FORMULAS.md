@@ -14,6 +14,7 @@
 * https://github.com/saltstack-formulas/dnsmasq-formula.git
 * https://github.com/saltstack-formulas/vault-formula.git
 * https://github.com/latenighttales/alcali-formula.git
+* https://github.com/saltstack-formulas/java-formula.git
 
 
 # My own

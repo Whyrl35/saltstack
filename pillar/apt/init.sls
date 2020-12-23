@@ -63,13 +63,11 @@ apt:
     #
     # WAZUH repository
     #
-    {% if 'wazuh_server' in grains['roles'] or 'wazuh_agent' in grains['roles'] %}
     wazuh:
       distro: stable
       url: https://packages.wazuh.com/3.x/apt/
       comps: [main]
       key_url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
-    {% endif %}
 
     #
     # NODE.JS
