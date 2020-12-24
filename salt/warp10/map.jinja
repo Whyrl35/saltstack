@@ -21,6 +21,6 @@
 ) %}
 
 {#- Merge the warp10 pillar #}
-{%- set wapr10 = salt['pillar.get']('warp10', default=defaults, merge=True) %}
+{%- set warp10 = salt['pillar.get']('warp10', default=defaults, merge=True) %}
 
 {%- do warp10.update({ 'path': warp10.dir.home ~ '/' ~ warp10.name ~ '-' ~ warp10.version }) %}
