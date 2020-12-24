@@ -127,4 +127,5 @@ base:
   # warp10 server, will use warp10
   'roles:warp10':
     - match: grain
+    - java
     - warp10
