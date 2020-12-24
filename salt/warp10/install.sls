@@ -32,6 +32,7 @@ warp10-archive-install:
     - format: tar
     - enforce_toplevel: false
     - trim_output: True
+    - options: "--strip-components=1"
     - user: {{ warp10.identity.rootuser }}
     - group: {{ warp10.identity.rootgroup }}
     - onchanges:
