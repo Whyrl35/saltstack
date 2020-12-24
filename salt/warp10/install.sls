@@ -30,7 +30,7 @@ warp10-archive-install:
     - name: {{ warp10.path }}/
     - source: file://{{ warp10.dir.tmp }}/warp10-archive.tar.gz
     - format: tar
-    - enforce_toplevel: firewalld.service:
+    - enforce_toplevel: false
     - trim_output: True
     - user: {{ warp10.identity.rootuser }}
     - group: {{ warp10.identity.rootgroup }}
