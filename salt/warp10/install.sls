@@ -11,3 +11,13 @@ warp10-archive-install:
     - names:
       - {{ warp10.path }}
       - {{ warp10.dir.tmp }}
+    - user: {{ warp10.identity.rootuser }}
+    - group: {{ warp10.identity.rootgroup }}
+    - mode: '0755'
+    - makedirs: True
+#    - require_in:
+#      - archive: java-package-archive-install
+    - recurse:
+        - user
+        - group
+        - mode

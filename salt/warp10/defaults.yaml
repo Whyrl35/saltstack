@@ -29,3 +29,8 @@ warp10:
   dir:
     tmp: /tmp/warp10_tmp_salt
     home: /opt/warp10
+
+  identity:
+    rootuser: root
+    routgroup: root
+    user: undefined_user
