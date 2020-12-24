@@ -5,6 +5,7 @@ warp10:
   config_file: ''
   config: {}
   name: warp10
+  provider: bintray
 
   archive:
     bintray:

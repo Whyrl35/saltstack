@@ -22,5 +22,11 @@
 
 {#- Merge the warp10 pillar #}
 {%- set warp10 = salt['pillar.get']('warp10', default=defaults, merge=True) %}
+{%- set provider = warp10.provider|string %}
 
-{%- do warp10.update({ 'path': warp10.dir.home ~ '/' ~ warp10.name ~ '-' ~ warp10.version }) %}
+{%- if 'bintray' in provider|lower %}
+  {%- set version = warp10.archive.bintray.version %}
+  {%- set name = warp10.name %}
+{%- endif %}
+
+{%- do warp10.update({ 'path': warp10.dir.home ~ '/' ~ name ~ '-' ~ version }) %}
