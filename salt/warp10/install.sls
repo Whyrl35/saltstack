@@ -21,3 +21,8 @@ warp10-archive-install:
         - user
         - group
         - mode
+  cmd.run:
+    - name: curl -Lo {{ warp10.dir.tmp }}/warp10-archive.tar.gz {{ warp10.archive.source }}
+    - retry: 3
+    - unless:
+      - test -f {{ warp10.dir.tmp }}/warp10-archive.tar.gz

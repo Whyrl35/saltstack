@@ -26,7 +26,9 @@
 
 {%- if 'bintray' in provider|lower %}
   {%- set version = warp10.archive.bintray.version %}
+  {%- set base_uri = warp10.archive.bintray.uri %}
   {%- set name = warp10.name %}
 {%- endif %}
 
 {%- do warp10.update({ 'path': warp10.dir.home ~ '/' ~ name ~ '-' ~ version }) %}
+{%- do warp10.archive.update({ 'source': base_uri ~ '/' ~ version ~ '/warp10-' ~ version ~ '.tar.gz' }) %}
