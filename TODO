@@ -11,6 +11,20 @@ Salt-cloud:
 Monitoring:
   ☐ filebeat: send log via filebeat to ELK (nginx, ...) @high
   ☐ kibana: create dashboard
+  ☐ Use timelion to fetch warp10 data and build dashboard
+
+Warp10:
+  ☐ code the warp10-standalone installation
+  ☐ code the warp10-standalone configuration
+  ☐ code the warp10-standalone accelerator
+  ✔ install a new warp10 host @done(20-12-23 11:10)
+  ☐ deploy a new warp10 env
+  ☐ migrate from docker to warp10-standalone
+  ☐ migrate warp10 agent (beamium) on new server
+  ☐ install a new gafana on warp10 host
+  ☐ migrate grafana
+  ☐ kill old warp10 and old grafana
+
 
 Archive:
   ✔ Migrate from VPS to better server (more cpu)  @low @done(20-04-01 10:47) @project(Saltstack)

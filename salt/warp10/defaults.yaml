@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+warp10:
+  config_file: ''
+  config: {}
+  name: warp10
+
+  archive:
+    bintray:
+      version: '2.7.1'
+      uri: 'https://dl.bintray.com/senx/generic/io/warp10/warp10'
+    deps:
+      - curl
+      - tar
+      - gzip
+
+  service:
+    name: warp10
+    enable: true
+
+  accelerator:
+    enable: false
+
+  ha-datalog:
+    enable: false
+
+  dir:
+    tmp: /tmp/warp10_tmp_salt
+    home: /opt/warp10

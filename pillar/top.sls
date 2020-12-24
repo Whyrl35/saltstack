@@ -140,3 +140,7 @@ base: #
     - match: grain
     - dnsmasq
     - ignore_missing: True
+
+  'roles:warp10':
+    - match: grain
+    - warp10
