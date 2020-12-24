@@ -32,5 +32,5 @@ warp10:
 
   identity:
     rootuser: root
-    routgroup: root
+    rootgroup: root
     user: undefined_user
