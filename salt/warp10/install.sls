@@ -26,3 +26,15 @@ warp10-archive-install:
     - retry: 3
     - unless:
       - test -f {{ warp10.dir.tmp }}/warp10-archive.tar.gz
+  archive.extracted:
+    - name: {{ warp10.path }}/
+    - source: file://{{ warp10.dir.tmp }}/warp10-archive.tar.gz
+    - format: tar
+    - enforce_toplevel: firewalld.service:
+    - trim_output: True
+    - user: {{ warp10.identity.rootuser }}
+    - group: {{ warp10.identity.rootgroup }}
+    - onchanges:
+      - cmd: warp10-archive-install
+    - require:
+      - cmd: warp10-archive-install
