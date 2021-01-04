@@ -19,4 +19,13 @@ warp10-prerequisit-service:
     - onchanges:
       - file: warp10-prerequisit-service
 
-#warp10-service-running:
+warp10-service-running:
+  service.running:
+    - name: {{ warp10.name }}.service
+    - unmask: True
+    - enable: True
+    - reload: True
+    - watch:
+      - file: warp10-prerequisit-service
+    - require:
+      - cmd: warp10-prerequisit-service
