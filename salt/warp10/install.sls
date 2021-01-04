@@ -11,7 +11,7 @@ warp10-prerequisit-install:
   user.present:
     - name: {{ warp10.identity.user }}
     - gid: {{ warp10.identity.group }}
-    - shell:
+    - shell: /bin/bash
     - home: {{ warp10.path }}
     - createhome: false
     - system: true
@@ -57,5 +57,5 @@ warp10-archive-install:
 warp10-bootstrap-standalone:
   cmd.run:
     - name: {{ warp10.path }}/bin/warp10-standalone.init bootstrap
-    - unless:
-        - find {{ warp10.path }}/etc/conf.d -not -path "*\/.*" -name "*.conf"
+    - creates:
+      - {{ warp10.path }}/etc/conf.d/00-warp.conf
