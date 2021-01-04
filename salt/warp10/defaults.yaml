@@ -31,6 +31,5 @@ warp10:
     home: /opt/warp10
 
   identity:
-    rootuser: root
-    rootgroup: root
-    user: undefined_user
+    user: warp10
+    group: warp10

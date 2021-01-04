@@ -1,0 +1,20 @@
+[Unit]
+Description=Warp10 Standalone
+
+[Service]
+Type=forking
+User={{ warp10.identity.user }}
+ExecStart={{ warp10.path }}/bin/warp10-standalone.sh start
+ExecStop=i{{ warp10.path }}/bin/warp10-standalone.sh stop
+SuccessExitStatus=143
+RestartSec=10s
+TimeoutStartSec=60s
+Restart=always
+
+LimitNOFILE=1000000
+LimitCORE=infinity
+LimitNPROC=32000
+LimitMEMLOCK=500000
+
+[Install]
+WantedBy=multi-user.target

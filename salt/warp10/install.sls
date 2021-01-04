@@ -4,6 +4,20 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import warp10 with context %}
 
+warp10-prerequisit-install:
+  group.present:
+    - name: {{ warp10.identity.group }}
+    - system: true
+  user.present:
+    - name: {{ warp10.identity.user }}
+    - gid: {{ warp10.identity.group }}
+    - shell:
+    - home: {{ warp10.path }}
+    - createhome: false
+    - system: true
+    - groups:
+      - {{ warp10.identity.group }}
+
 warp10-archive-install:
   pkg.installed:
     - names: {{ warp10.archive.deps }}
@@ -11,8 +25,8 @@ warp10-archive-install:
     - names:
       - {{ warp10.path }}
       - {{ warp10.dir.tmp }}
-    - user: {{ warp10.identity.rootuser }}
-    - group: {{ warp10.identity.rootgroup }}
+    - user: {{ warp10.identity.user }}
+    - group: {{ warp10.identity.group }}
     - mode: '0755'
     - makedirs: True
 #    - require_in:
@@ -33,9 +47,15 @@ warp10-archive-install:
     - enforce_toplevel: false
     - trim_output: True
     - options: "--strip-components=1"
-    - user: {{ warp10.identity.rootuser }}
-    - group: {{ warp10.identity.rootgroup }}
+    - user: {{ warp10.identity.user }}
+    - group: {{ warp10.identity.group }}
     - onchanges:
       - cmd: warp10-archive-install
     - require:
       - cmd: warp10-archive-install
+
+warp10-bootstrap-standalone:
+  cmd.run:
+    - name: {{ warp10.path }}/bin/warp10-standalone.init bootstrap
+    - unless:
+        - find {{ warp10.path }}/etc/conf.d -not -path "*\/.*" -name "*.conf"
