@@ -56,10 +56,10 @@ warp10-archive-install:
 
 warp10-bootstrap-standalone:
   file.line:
-    - name: {{ warp10.path }}/template/warp10-tokengen.mc2
+    - name: {{ warp10.path }}/templates/warp10-tokengen.mc2
     - mode: replace
     - match: 365 100
-    - content: '2200-01-01T00:00:00.000000Z' TOTIMESTAMP 1 ms / 'ttl' STORE
+    - content: "'2200-01-01T00:00:00.000000Z' TOTIMESTAMP 1 ms / 'ttl' STORE"
   cmd.run:
     - name: {{ warp10.path }}/bin/warp10-standalone.init bootstrap
     - creates:
