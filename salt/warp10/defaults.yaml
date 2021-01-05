@@ -23,6 +23,13 @@ warp10:
     warp:
       standalone.host: 127.0.0.1
       standalone.port: 8080
+    throttling:
+      throttling.manager.dir: '${standalone.home}/etc/throttle'
+      throttling.manager.period: 1000
+      throttling.manager.rampup: 120000
+      throttling.manager.rate.default: 1000000.0
+      throttling.manager.mads.default: 100000
+
     directory:
       directory.stats.class.maxcardinality: 100
       directory.stats.labels.maxcardinality: 100
