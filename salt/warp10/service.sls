@@ -24,7 +24,7 @@ warp10-service-running:
     - name: {{ warp10.name }}.service
     - unmask: True
     - enable: True
-    - reload: True
+    - reload: False
     - watch:
       - file: warp10-prerequisit-service
     - require:
