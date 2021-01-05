@@ -14,7 +14,7 @@
         - watch_in:
           - service: warp10-service-running
 
-{{ warp10.path }}/etc/conf.d/00-warp.conf:
+{{ warp10.path }}/etc/conf.d/10-directory.conf:
     file.keyvalue:
         - key_values:
             {% for k,v in warp10.config.directory.items() %}
