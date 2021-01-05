@@ -54,8 +54,6 @@ warp10-archive-install:
     - require:
       - cmd: warp10-archive-install
 
-# TODO : need to patch the mc2 template for tokengen before bootstrap
-
 warp10-bootstrap-standalone:
   file.line:
     - name: {{ warp10.path }}/template/warp10-tokengen.mc2
