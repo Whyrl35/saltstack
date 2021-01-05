@@ -25,6 +25,8 @@ warp10:
     directory:
       directory.stats.class.maxcardinality: 100
       directory.stats.labels.maxcardinality: 100
+    egress:
+      egress.clients.expose: 'false'
 
     accelerator:
       enable: false
