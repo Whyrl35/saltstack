@@ -2,8 +2,6 @@
 # vim: ft=yaml
 ---
 warp10:
-  config_file: ''
-  config: {}
   name: warp10
   provider: bintray
 
@@ -20,11 +18,15 @@ warp10:
     name: warp10
     enable: true
 
-  accelerator:
-    enable: false
+  config:
+    warp:
+      standalone.host: 127.0.0.1
+      standalone.port: 8080
 
-  ha-datalog:
-    enable: false
+    accelerator:
+      enable: false
+    ha-datalog:
+      enable: false
 
   dir:
     tmp: /tmp/warp10_tmp_salt
