@@ -1,7 +1,7 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import warp10 with context %}
 
-{{ warp.path }}/etc/conf.d/00-warp.conf:
+{{ warp10.path }}/etc/conf.d/00-warp.conf:
     file.keyvalue:
         - key_values:
             {% for k,v in warp10.config.warp.items() %}
