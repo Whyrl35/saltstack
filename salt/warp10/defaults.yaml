@@ -22,6 +22,9 @@ warp10:
     warp:
       standalone.host: 127.0.0.1
       standalone.port: 8080
+    directory:
+      directory.stats.class.maxcardinality: 100
+      directory.stats.labels.maxcardinality: 100
 
     accelerator:
       enable: false
