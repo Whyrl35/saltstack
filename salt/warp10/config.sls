@@ -6,7 +6,7 @@
         - key_values:
             {% for k,v in warp10.config.warp.items() %}
             {{ k }}: {{ v }}
-            {% endif %}
+            {% endfor %}
         - separator: ' = '
         - uncomment: '#'
         - key_ignore_case: true
