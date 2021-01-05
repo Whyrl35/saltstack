@@ -13,6 +13,7 @@ warp10:
       - curl
       - tar
       - gzip
+      - jq
 
   service:
     name: warp10
