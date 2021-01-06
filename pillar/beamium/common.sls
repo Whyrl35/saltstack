@@ -17,6 +17,11 @@ beamium:
       token-header: X-Warp10-Token
       token: {{ secret['write_token'] }}
       ttl: 3600
+    warp10_new:
+      url: https://warp10.whyrl.fr/api/v0/update
+      token-header: X-Warp10-Token
+      token: {{ secret['wr_token'] }}
+      ttl: 3600
 
   parameters:
     source-dir:   /opt/beamium/sources
