@@ -34,8 +34,8 @@ nginx:
         #         - '[::]:443 ssl http2'
         #       - access_log: /var/log/nginx/grafana-access.log
         #       - error_log: /var/log/nginx/grafana-error.log
-        #       - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
-        #       - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
+        #       - ssl_certificate: /etc/letsencrypt/live/warp10.whyrl.fr/fullchain.pem
+        #       - ssl_certificate_key: /etc/letsencrypt/live/warp10.whyrl.fr/privkey.pem
         #       - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
         #       - ssl_protocols: {{ defaults.ssl.protocol }}
         #       - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
@@ -72,14 +72,14 @@ nginx:
             #
             # HTTPS server on port 443 for rspamd
             - server:
-              - server_name: warp10.ks.whyrl.fr
+              - server_name: warp10.whyrl.fr
               - listen:
                 - '443 ssl http2'
                 - '[::]:443 ssl http2'
               - access_log: /var/log/nginx/warp10-access.log
               - error_log: /var/log/nginx/warp10-error.log
-              - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
-              - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
+              - ssl_certificate: /etc/letsencrypt/live/warp10.whyrl.fr/fullchain.pem
+              - ssl_certificate_key: /etc/letsencrypt/live/warp10.whyrl.fr/privkey.pem
               - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
               - ssl_protocols: {{ defaults.ssl.protocol }}
               - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
