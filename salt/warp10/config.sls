@@ -147,7 +147,7 @@
         - watch_in:
           - service: warp10-service-running
 
-{% if 'secret' in warp10.config %}
+{% if 'warpscript' in warp10.config %}
 {{ warp10.path }}/etc/conf.d/20-warpscript.conf:
     file.keyvalue:
         - key_values:
