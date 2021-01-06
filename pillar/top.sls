@@ -144,5 +144,3 @@ base: #
   'roles:warp10':
     - match: grain
     - warp10
-    - nginx
-    - letsencrypt.h_{{ host }}
