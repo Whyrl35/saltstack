@@ -33,19 +33,19 @@ warp10:
       directory.stats.class.maxcardinality: 100
       directory.stats.labels.maxcardinality: 100
     egress:
-      egress.clients.expose: 'false'
+      egress.clients.expose: "'false'"
     ingress:
       ingress.websocket.maxmessagesize: 1048576
     leveldb:
-      leveldb.native.disable: "false"
-      leveldb.java.disable: "false"
+      leveldb.native.disable: "'false'"
+      leveldb.java.disable: "'false'"
       leveldb.data.syncrate: 1.0
       leveldb.directory.syncrate: 1.0
       leveldb.cache.size: 100000000
       leveldb.compression.type: SNAPPY
       leveldb.blockcache.gts.threshold: 0
     runner:
-      runner.runatstartup: "true"
+      runner.runatstartup: "'true'"
       runner.id: runner-standalone-1
       runner.roles: standalone
       runner.nthreads: 1
@@ -53,7 +53,7 @@ warp10:
       runner.minperiod: 1000
     webcall:
       webcall.user.agent: Warp10-WebCall
-      webcall.host.patterns: "!.*"
+      webcall.host.patterns: "'!.*'"
     datalog:
       datalog.sync: true
     macros:
@@ -63,9 +63,9 @@ warp10:
     warpfleet:
       warpfleet.macros.repos: https://warpfleet.senx.io/macros
     accelerator:
-      enable: false
+      enable: "'false'"
     ha-datalog:
-      enable: false
+      enable: "'false'"
 
   dir:
     tmp: /tmp/warp10_tmp_salt
