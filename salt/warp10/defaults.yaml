@@ -62,8 +62,6 @@ warp10:
       warpscript.library.cache.size: 10000
     warpfleet:
       warpfleet.macros.repos: https://warpfleet.senx.io/macros
-    warpscript:
-      warpscript.def.unshadow: "false"
     accelerator:
       enable: "'false'"
     ha-datalog:
