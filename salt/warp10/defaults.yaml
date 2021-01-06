@@ -29,13 +29,39 @@ warp10:
       throttling.manager.rampup: 120000
       throttling.manager.rate.default: 1000000.0
       throttling.manager.mads.default: 100000
-
     directory:
       directory.stats.class.maxcardinality: 100
       directory.stats.labels.maxcardinality: 100
     egress:
       egress.clients.expose: 'false'
-
+    ingress:
+      ingress.websocket.maxmessagesize: 1048576
+    leveldb:
+      leveldb.native.disable: "false"
+      leveldb.java.disable: "false"
+      leveldb.data.syncrate: 1.0
+      leveldb.directory.syncrate: 1.0
+      leveldb.cache.size: 100000000
+      leveldb.compression.type: SNAPPY
+      leveldb.blockcache.gts.threshold: 0
+    runner:
+      runner.runatstartup: "true"
+      runner.id: runner-standalone-1
+      runner.roles: standalone
+      runner.nthreads: 1
+      runner.scanperiod: 60000
+      runner.minperiod: 1000
+    webcall:
+      webcall.user.agent: Warp10-WebCall
+      webcall.host.patterns: "!.*"
+    datalog:
+      datalog.sync: true
+    macros:
+      warpscript.repository.refresh: 60000
+      warpscript.repository.cache.size: 10000
+      warpscript.library.cache.size: 10000
+    warpfleet:
+      warpfleet.macros.repos: https://warpfleet.senx.io/macros
     accelerator:
       enable: false
     ha-datalog:
