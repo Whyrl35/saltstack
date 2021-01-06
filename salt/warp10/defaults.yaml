@@ -62,10 +62,6 @@ warp10:
       warpscript.library.cache.size: 10000
     warpfleet:
       warpfleet.macros.repos: https://warpfleet.senx.io/macros
-    accelerator:
-      enable: "'false'"
-    ha-datalog:
-      enable: "'false'"
 
   dir:
     tmp: /tmp/warp10_tmp_salt
