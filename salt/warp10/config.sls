@@ -10,7 +10,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -24,7 +23,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -37,7 +35,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -50,7 +47,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -63,7 +59,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -76,7 +71,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -89,7 +83,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -102,7 +95,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -115,7 +107,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -128,7 +119,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -141,7 +131,6 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
@@ -154,7 +143,20 @@
             {% endfor %}
         - separator: ' = '
         - uncomment: '#'
-        - key_ignore_case: true
         - append_if_not_found: true
         - watch_in:
           - service: warp10-service-running
+
+{% if 'secret' in warp10.config %}
+{{ warp10.path }}/etc/conf.d/20-warpscript.conf:
+    file.keyvalue:
+        - key_values:
+            {% for k,v in warp10.config.warpscript.items() %}
+            {{ k }}: {{ v }}
+            {% endfor %}
+        - separator: ' = '
+        - uncomment: '#'
+        - append_if_not_found: true
+        - watch_in:
+          - service: warp10-service-running
+{% endif %}
