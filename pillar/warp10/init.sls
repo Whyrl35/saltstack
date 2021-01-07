@@ -14,3 +14,5 @@ warp10:
         accelerator.preload: true
         accelerator.preload.poolsize: 8
         accelerator.preload.batchsize: 1000
+      extensions:
+        warpscript.extension.logEvent: io.warp10.script.ext.logging.LoggingWarpScriptExtension
