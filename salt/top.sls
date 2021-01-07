@@ -54,7 +54,7 @@ base:
   # include the wazuh server state + elk + front for kibana
   'roles:wazuh_server':
     - match: grain
-    - letsencrypt
+    # - letsencrypt
     - nginx
     - wazuh.manager
     - wazuh.api
@@ -72,7 +72,7 @@ base:
     - match: grain
     - mysql
     - mysql.server
-    - letsencrypt
+    # - letsencrypt
     - nginx
     - postfixadmin
     - postfix
@@ -95,7 +95,7 @@ base:
   # Webserver using nginx and letsencrypt
   'roles:webserver':
     - match: grain
-    - letsencrypt
+    # - letsencrypt
     - nginx
 
   # Backup server, will use borgbackup
@@ -111,7 +111,7 @@ base:
   'roles:bitwarden':
     - match: grain
     - bitwarden
-    - letsencrypt
+    # - letsencrypt
     - nginx
 
   # Homeassistant server, will use homeassistant (docker managed)
