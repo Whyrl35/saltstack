@@ -16,4 +16,4 @@ dehydrated:
     group: root
 
 include:
-  - dehydrated.{{ host }}
+  - dehydrated.{{ salt.grains.get('host') }}
