@@ -1,7 +1,7 @@
 #!jinja|yaml|gpg
 
 letsencrypt:
-  use_package: false
+  use_package: true
   config: |
      server = https://acme-v02.api.letsencrypt.org/directory
      email = webmaster@whyrl.fr
