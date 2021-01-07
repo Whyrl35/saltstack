@@ -7,7 +7,7 @@ warp10:
 
   archive:
     bintray:
-      version: '2.7.1'
+      version: '2.7.2'
       uri: 'https://dl.bintray.com/senx/generic/io/warp10/warp10'
     deps:
       - curl

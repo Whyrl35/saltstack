@@ -36,13 +36,13 @@ warp10-archive-install:
         - group
         - mode
   cmd.run:
-    - name: curl -Lo {{ warp10.dir.tmp }}/warp10-archive.tar.gz {{ warp10.archive.source }}
+    - name: curl -Lo {{ warp10.dir.tmp }}/{{ warp10.name }}-{{ warp10.version }}.tar.gz {{ warp10.archive.source }}
     - retry: 3
-    - unless:
-      - test -f {{ warp10.dir.tmp }}/warp10-archive.tar.gz
+    - creates: {{ warp10.dir.tmp }}/{{ warp10.name }}-{{ warp10.version }}.tar.gz
+
   archive.extracted:
     - name: {{ warp10.path }}/
-    - source: file://{{ warp10.dir.tmp }}/warp10-archive.tar.gz
+    - source: file://{{ warp10.dir.tmp }}/{{ warp10.name }}-{{ warp10.version }}.tar.gz
     - format: tar
     - enforce_toplevel: false
     - trim_output: True

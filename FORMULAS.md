@@ -13,13 +13,16 @@
 * https://github.com/saltstack-formulas/postfix-formula
 * https://github.com/saltstack-formulas/dnsmasq-formula.git
 * https://github.com/saltstack-formulas/vault-formula.git
-* https://github.com/latenighttales/alcali-formula.git
 * https://github.com/saltstack-formulas/java-formula.git
-
+* https://github.com/saltstack-formulas/grafana-formula.git
 
 # My own
 
 * https://github.com/Whyrl35/nftables-formula.git
+
+# Other people formula
+
+* https://github.com/latenighttales/alcali-formula.git
 
 
 # Installation
