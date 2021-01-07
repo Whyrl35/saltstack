@@ -2,13 +2,20 @@
 
 letsencrypt:
   use_package: true
-  config: |
-     server = https://acme-v02.api.letsencrypt.org/directory
-     email = webmaster@whyrl.fr
-     authenticator = webroot
-     webroot-path = /var/www/html
-     agree-tos = True
-     renew-by-default = True
+  pkgs:
+    - certbot
+    - python3-certbot
+  version: 1.3.0
+  create_init_cert_subcmd: certonly
+  config:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: webmaster@whyrl.fr
+    authenticator:  webroot
+    webroot-path: /var/www/html
+    agree-tos: True
+    renew-by-default: True
+    keep-until-expiring: True
+    expand: true
   domainsets: {}
   post_renew:
     cmds:
