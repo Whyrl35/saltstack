@@ -129,3 +129,4 @@ base:
     - match: grain
     - java
     - warp10
+    - grafana
