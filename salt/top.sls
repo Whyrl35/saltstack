@@ -39,6 +39,7 @@ base:
     - mysql
     - mysql.server
     - alcali
+    - dehydrated
 
   # Minions that have a grain set indicating that they are running
   # the docker system will have the state file called
@@ -95,7 +96,7 @@ base:
   # Webserver using nginx and letsencrypt
   'roles:webserver':
     - match: grain
-    - letsencrypt
+    # - letsencrypt
     - nginx
 
   # Backup server, will use borgbackup
