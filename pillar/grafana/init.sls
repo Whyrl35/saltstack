@@ -9,5 +9,6 @@ grafana:
       instance_name: {{ salt.grains.get('fqdn') }}
     security:
       admin_user: admin
+      x_content_type_options: false
     auth.google:
       client_secret: 0ldS3cretKey
