@@ -30,5 +30,6 @@
   {%- set name = warp10.name %}
 {%- endif %}
 
-{%- do warp10.update({ 'path': warp10.dir.home ~ '/' ~ name ~ '-' ~ version }) %}
+{%- do warp10.update({ 'path': warp10.dir.home }) %}
+{%- do warp10.update({ 'version': version }) %}
 {%- do warp10.archive.update({ 'source': base_uri ~ '/' ~ version ~ '/warp10-' ~ version ~ '.tar.gz' }) %}
