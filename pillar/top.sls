@@ -60,7 +60,6 @@ base: #
     - mysql
     - mysql.h_{{ host }}
     - alcali
-    - dehydrated
     - ignore_missing: True
 
   'roles:container':
