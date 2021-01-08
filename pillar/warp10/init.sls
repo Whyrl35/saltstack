@@ -1,8 +1,5 @@
 warp10:
   lookup:
-    achive:
-      bintray:
-        version: '2.7.1'
     service:
       enable: true
     config:
@@ -16,3 +13,5 @@ warp10:
         accelerator.preload.batchsize: 1000
       extensions:
         warpscript.extension.logEvent: io.warp10.script.ext.logging.LoggingWarpScriptExtension
+      warp:
+        cors.headers: content-type

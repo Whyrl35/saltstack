@@ -143,5 +143,6 @@ base: #
 
   'roles:warp10':
     - match: grain
+    - java
     - warp10
     - grafana
