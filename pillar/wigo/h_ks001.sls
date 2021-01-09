@@ -4,5 +4,4 @@ wigo:
       enabled: 'true'
       containerList:
         - portainer_agent
-        - grafana
         - warp10
