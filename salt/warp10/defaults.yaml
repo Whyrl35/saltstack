@@ -70,3 +70,10 @@ warp10:
   identity:
     user: warp10
     group: warp10
+
+  warpfleet:
+    deps:
+      - npm
+    install_cmd: 'npm install -g @senx/warpfleet'
+    binary: wf
+    plugins: {}

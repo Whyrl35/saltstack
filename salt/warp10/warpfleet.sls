@@ -2,7 +2,6 @@
 # # vim: ft=sls
 
 include:
-  - .install
-  - .config
-  - .plugins
-
+  - .warpfleet.install
+  - .warpfleet.config
+  - .warpfleet.plugins
