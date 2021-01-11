@@ -4,4 +4,3 @@ wigo:
       enabled: 'true'
       containerList:
         - portainer_agent
-        - warp10

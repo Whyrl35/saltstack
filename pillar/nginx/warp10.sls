@@ -70,6 +70,7 @@ nginx:
             #
             # HTTPS server on port 443 for rspamd
             - server:
+              - client_max_body_size: 4G
               - server_name: warp10.whyrl.fr
               - listen:
                 - '443 ssl http2'

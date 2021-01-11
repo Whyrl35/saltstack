@@ -5,5 +5,3 @@ include:
   - .install
   - .config
   - .service
-  - .accelerator
-  - .ha-datalog
