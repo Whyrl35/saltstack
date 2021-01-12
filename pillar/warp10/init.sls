@@ -19,3 +19,5 @@ warp10:
       plugins:
         warp10-plugin-warpstudio:
           repository: io.warp10
+          version: latest
+          file_to_check: warp10-plugin-warpstudio-1.0.40.jar

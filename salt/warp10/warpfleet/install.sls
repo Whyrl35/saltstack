@@ -6,7 +6,8 @@
 
 warpfleet-install:
   pkg.installed:
-    - names: {{ warp10.archive.deps }}
+    - names: {{ warp10.warpfleet.deps }}
   cmd.run:
     - name: {{ warp10.warpfleet.install_cmd }}
-    - unless: {{ warp10.warpfleet.binary }} -v
+    - creates:
+      - '/usr/local/lib/node_modules/@senx/warpfleet/'
