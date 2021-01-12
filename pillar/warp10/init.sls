@@ -15,3 +15,7 @@ warp10:
         warpscript.extension.logEvent: io.warp10.script.ext.logging.LoggingWarpScriptExtension
       warp:
         cors.headers: content-type
+    warpfleet:
+      plugins:
+        warp10-plugin-warpstudio:
+          repository: io.warp10
