@@ -3,3 +3,4 @@ letsencrypt:
     warp10.whyrl.fr:
       - warp10.whyrl.fr
       - grafana.whyrl.fr
+      - warpstudio.whyrl.fr
