@@ -132,18 +132,18 @@ List                        = []
 [Notifications]
 
 # General
-MinLevelToSend              = 250
-RescueOnly                  = false
-OnWigoChange                = false
-OnProbeChange               = false
+MinLevelToSend              = {{ pillar['wigo']['notification']['min_level_to_send'] }}
+RescueOnly                  = {{ pillar['wigo']['notification']['rescue_only'] }}
+OnWigoChange                = {{ pillar['wigo']['notification']['on_wigo_change'] }}
+OnProbeChange               = {{ pillar['wigo']['notification']['on_probe_change'] }}
 
 # HTTP
 HttpEnabled                 = {{ pillar['wigo']['notification']['http']['enabled'] }}     # -> 0: disabled, 1: enabled
 HttpUrl                     = "{{ pillar['wigo']['notification']['http']['url'] }}"
 
 # EMAIL
-EmailEnabled                = {{ pillar['wigo']['mail']['enabled'] }}                     # -> 0: disabled, 1: enabled, 2: only if http failed
-EmailSmtpServer             = "{{ pillar['wigo']['mail']['server'] }}"
-EmailRecipients             = ["{{ pillar['wigo']['mail']['mailto']|join('\",\"') }}"]
+EmailEnabled                = {{ pillar['wigo']['notification']['mail']['enabled'] }}                     # -> 0: disabled, 1: enabled, 2: only if http failed
+EmailSmtpServer             = "{{ pillar['wigo']['notification']['mail']['server'] }}"
+EmailRecipients             = ["{{ pillar['wigo']['notification']['mail']['mailto']|join('\",\"') }}"]
 EmailFromName               = "Wigo"
 EmailFromAddress            = "wigo@{{ grains['fqdn'] }}"
