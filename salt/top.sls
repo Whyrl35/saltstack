@@ -62,6 +62,7 @@ base:
     - elk.elasticsearch
     - elk.filebeat
     - elk.kibana
+    - webhook
 
   # Wazuh client, should be all hosts, that are not the wazuh server
   'not G@roles:wazuh_server':
