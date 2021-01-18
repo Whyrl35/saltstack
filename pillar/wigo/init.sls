@@ -15,7 +15,7 @@ wigo:
     on_probe_change: 'true'
     http:
       enabled: 1
-      url: {{ secret['notification_url'] }} # here call the local webhook url
+      url: http://localhost:9000/hooks/wigo-to-slack
     mail:
       enabled: 2
       server: 127.0.0.1:25
