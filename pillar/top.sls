@@ -78,6 +78,7 @@ base: #
     - nginx
     - elk.kibana
     - elk.filebeat
+    - webhook
     - ignore_missing: True
 
   'roles:mail_server':
