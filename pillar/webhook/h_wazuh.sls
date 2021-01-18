@@ -8,7 +8,7 @@ webhooks:
       - source: salt://webhook/files/wigo-to-slack.py
   configurations:
     - id: "wigo-to-slack"
-      execute-command: "wigo-to-slack.py"
+      execute-command: "/opt/webhooks/actions/wigo-to-slack.py"
       pass-arguments-to-command:
         - source: body
           name: Notification
