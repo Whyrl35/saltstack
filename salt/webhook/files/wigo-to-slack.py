@@ -21,12 +21,17 @@ def main(argv):
 
     slack_data = dict()
     slack_data['text'] = notification['Message']
+    if notification['NewProbe']['Status'] >= 250:
+        title = ":fire: WIGO noticed an issue"
+    else:
+        title = ":white_check_mark: WIGO, all is back to normal"
+
     slack_data['blocks'] = [
         {
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": ":fire: WIGO noticed an issue",
+                "text": title,
                 "emoji": True
             }
         },
