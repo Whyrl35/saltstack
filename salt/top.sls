@@ -131,3 +131,9 @@ base:
     - java
     - warp10
     - grafana
+
+  # loki server, will use loki
+  'roles:loki':
+    - match: grain
+    - loki
+    - promtail

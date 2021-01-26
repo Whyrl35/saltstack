@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{#- Start imports as #}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
+
+{%- set defaults = salt['grains.filter_by'](default_settings,
+    default='loki',
+    merge=salt['grains.filter_by'](osfamilymap, grain='os_family',
+      merge=salt['grains.filter_by'](osmap, grain='os',
+        merge=salt['grains.filter_by'](osfingermap, grain='osfinger',
+          merge=salt['pillar.get']('loki:lookup', default={})
+        )
+      )
+    )
+) %}
+
+{#- Merge the loki pillar #}
+{%- set loki = salt['pillar.get']('loki', default=defaults, merge=True) %}
+{%- set provider = loki.provider|string %}
+
+
+{%- if 'github' in provider|lower %}
+  {%- set version = loki.archive.github.version %}
+  {%- set base_uri = loki.archive.github.uri %}
+  {%- set name = loki.name %}
+  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/v' ~ version ~ '/cmd/loki/loki-local-config.yaml' %}
+{%- endif %}
+
+
+{%- do loki.update({ 'path': loki.dir.home }) %}
+{%- do loki.update({ 'version': version }) %}
+{%- do loki.config_file.update({ 'uri': config_file }) %}
+{%- do loki.archive.update({ 'source': base_uri ~ '/v' ~ version ~ '/' ~ loki.archive.package_name }) %}
+{%- if 'storage_config' not in loki.config %}
+{%- do loki.config.update({ 'storage_config': {
+    'boltdb_shipper': {
+        'active_index_directory': loki.dir.home ~ "/boltdb-shipper-active",
+        'cache_location': loki.dir.home ~ "/boltdb-shipper-cache"
+    },
+    'filesystem': { 'directory': loki.dir.home ~ "/chunks" }
+}}) %}
+{%- endif %}
+{%- do loki.config.update({ 'compactor': { 'working_directory': loki.dir.home ~ "/boltdb-shipper-compactor" }}) %}
+{%- do loki.config.update({ 'ruler': {
+    'storage': { 'local': { 'directory': loki.dir.home ~ "/rules" }},
+    'rule_path': loki.dir.home ~ "/rules-temp"
+}}) %}

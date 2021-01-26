@@ -20,5 +20,5 @@ reactor_register_bastion:
 
 reactor_bastion:
   cmd.state.apply:
-    - tgt: {{ data['id'] }}
+    - tgt: {{ data['name'] }}
 

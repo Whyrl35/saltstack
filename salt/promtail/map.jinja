@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{#- Start imports as #}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
+
+{%- set defaults = salt['grains.filter_by'](default_settings,
+    default='promtail',
+    merge=salt['grains.filter_by'](osfamilymap, grain='os_family',
+      merge=salt['grains.filter_by'](osmap, grain='os',
+        merge=salt['grains.filter_by'](osfingermap, grain='osfinger',
+          merge=salt['pillar.get']('promtail:lookup', default={})
+        )
+      )
+    )
+) %}
+
+{#- Merge the promtail pillar #}
+{%- set promtail = salt['pillar.get']('promtail', default=defaults, merge=True) %}
+{%- set provider = promtail.provider|string %}
+
+
+{%- if 'github' in provider|lower %}
+  {%- set version = promtail.archive.github.version %}
+  {%- set base_uri = promtail.archive.github.uri %}
+  {%- set name = promtail.name %}
+  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/v' ~ version ~ '/cmd/promtail/promtail-local-config.yaml' %}
+{%- endif %}
+
+
+{%- do promtail.update({ 'path': promtail.dir.home }) %}
+{%- do promtail.update({ 'version': version }) %}
+{%- do promtail.config_file.update({ 'uri': config_file }) %}
+{%- do promtail.archive.update({ 'source': base_uri ~ '/v' ~ version ~ '/' ~ promtail.archive.package_name }) %}
+{%- do promtail.config.positions.update({ 'filename': promtail.dir.home ~ "/positions.yaml" }) %}

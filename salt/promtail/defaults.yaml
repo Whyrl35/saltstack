@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+promtail:
+  name: promtail
+  provider: github
+
+  archive:
+    github:
+      version: '2.1.0'
+      uri: 'https://github.com/grafana/loki/releases/download'
+    deps:
+      - curl
+      - tar
+      - gzip
+      - jq
+      - zip
+
+  config_file:
+    uri: 'https://raw.githubusercontent.com/grafana/loki/master/cmd/promtail/promtail-local-config.yaml'
+
+  config:
+    positions: {}
+    scrape_configs:
+    - job_name: syslog
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: syslog
+          __path__: /var/log/syslog
+    - job_name: messages
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: messages
+          __path__: /var/log/messages
+    - job_name: kern
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: kern
+          __path__: /var/log/kern.log
+    - job_name: dpkg
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: dpkg
+          __path__: /var/log/dpkg.log
+    - job_name: deamon
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: daemon
+          __path__: /var/log/daemon.log
+    - job_name: auth
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          host: {{ grains.get('id') }}
+          job: auth
+          __path__: /var/log/auth.log
+
+  service:
+    name: promtail
+    enable: true
+
+  dir:
+    tmp: /tmp/promtail_tmp_salt
+    home: /opt/promtail
+
+  identity:
+    user: root
+    group: root
+

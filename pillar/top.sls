@@ -28,6 +28,7 @@ base: #
     {% endfor %}
     - wigo.h_{{ host }}
     - borgbackup
+    - promtail
     - ignore_missing: True
 
   #
@@ -147,3 +148,7 @@ base: #
     - java
     - warp10
     - grafana
+
+  'roles:loki':
+    - match: grain
+    - loki
