@@ -1,5 +1,9 @@
 warp10:
   lookup:
+    archive:
+      bintray:
+        version: '2.7.3'
+        uri: 'https://dl.bintray.com/senx/generic/io/warp10/warp10'
     service:
       enable: true
     config:
