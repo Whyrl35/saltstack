@@ -4,6 +4,7 @@
 manager:
   pkg.installed:
     - pkgs:
+      - openjdk-11-jdk
       - wazuh-manager
 
   file.managed:

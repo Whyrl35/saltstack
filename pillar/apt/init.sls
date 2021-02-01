@@ -65,47 +65,9 @@ apt:
     #
     wazuh:
       distro: stable
-      url: https://packages.wazuh.com/3.x/apt/
+      url: https://packages.wazuh.com/4.x/apt/
       comps: [main]
       key_url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
-
-    #
-    # NODE.JS
-    #
-    {% if 'wazuh_server' in grains['roles'] %}
-    nodesource:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
-      url: https://deb.nodesource.com/node_6.x/
-      comps: [main]
-      arch: [amd64]
-      key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    {% endif %}
-
-    #
-    # ORACLE JRE
-    #
-    {% if 'wazuh_server' in grains['roles'] %}
-    oracle-jre-8:
-      distro: xenial
-      url: http://ppa.launchpad.net/webupd8team/java/ubuntu
-      comps: [main]
-      arch: [amd64]
-      keyid: EEA14886
-      keyserver: hkp://keyserver.ubuntu.com:8
-    {% endif %}
-
-
-    #
-    # Elasticshearch
-    #
-    {% if 'wazuh_server' in grains['roles'] %}
-    elastic-7.x:
-      distro: stable
-      url: https://artifacts.elastic.co/packages/7.x/apt
-      comps: [main]
-      arch: [amd64]
-      key_url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-    {% endif %}
 
     #
     # rspamd

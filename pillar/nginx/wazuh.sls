@@ -11,10 +11,6 @@ nginx:
       managed:
         wazuh:
           enabled: True
-          authentication:
-            password: {{ secret['ludovic'] }}|
-            file: {{ defaults.authentication.file }}
-            login: {{ defaults.authentication.login }}
           config:
             #
             # HTTP server on port 80, forward to 443 for postfixadmin
@@ -55,11 +51,9 @@ nginx:
               - location /robots.txt:
                 - return: '200 "User-agent: *\Disallow: /\n"'
               - location /:
-                - auth_basic: "Restricted"
-                - auth_basic_user_file: {{ defaults.authentication.file }}
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
-                - proxy_pass: http://127.0.0.1:5601
+                - proxy_pass: https://127.0.0.1:5601
         wigo:
           enabled: True
           authentication:
