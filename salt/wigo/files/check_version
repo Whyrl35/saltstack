@@ -1,0 +1,68 @@
+#!/usr/bin/python3
+
+import os
+import json
+import requests
+import re
+from distutils import version
+
+configuration = {}
+
+
+def read_configuration():
+    global configuration
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/check_version.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def check_version():
+    good_version = list()
+    bad_version = list()
+
+    for cv in configuration['versionList']:
+        name = cv['name']
+
+        res = requests.get(cv['url'])
+        jres = res.json()
+        latest_version = re.findall(r"(?:\d|\.)+", jres['tag_name'])[0]
+
+
+        v_current = version.StrictVersion(cv['current'])
+        v_last = version.StrictVersion(latest_version)
+
+        if v_current >= v_last:
+            good_version.append({name: latest_version})
+        else:
+            bad_version.append({name: cv['current'], 'last': latest_version})
+
+    if len(bad_version) > 0:
+        status = 250
+        message = "Some or all binaries are not at the latest version"
+    else:
+        status = 100
+        message = "All binaries are at good version"
+
+    result = {
+        'Detail': {
+            'good_version': good_version,
+            'bad_version': bad_version
+        },
+        'Message': message,
+        'Value': 'OK' if status == 100 else 'WARN',
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        check_version()
