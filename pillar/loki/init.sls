@@ -24,4 +24,9 @@ loki:
           project_domain_name: default
           region_name: DE
           container_name: loki
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 720h # ~6 months
+    chunk_store_config:
+      max_look_back_period: 720h
 

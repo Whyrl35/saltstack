@@ -27,6 +27,8 @@ loki-service-running:
     - reload: False
     - watch:
       - file: loki-prerequisit-service
+      - file: loki-conf-update
     - require:
       - cmd: loki-prerequisit-service
+      - file: loki-conf-update
 

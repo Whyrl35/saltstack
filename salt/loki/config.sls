@@ -32,5 +32,7 @@ loki-conf-update:
       - indent: 4
     - merge_if_exists: True
     - dataset: {{ loki.config }}
+    - require:
+      - cmd: loki-conf-install
     # - dataset_pillar: {}
 

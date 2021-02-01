@@ -22,6 +22,7 @@ base:
     - wigo
     - beamium
     - noderig
+    - promtail
 
   # KS001 specific, for moviecat CI/CD
   'ks*':
@@ -56,12 +57,12 @@ base:
     - match: grain
     - letsencrypt
     - nginx
-    - wazuh.manager
-    - wazuh.api
-    - oracle.jre8
-    - elk.elasticsearch
-    - elk.filebeat
-    - elk.kibana
+    #- wazuh.manager
+    #- wazuh.api
+    #- oracle.jre8
+    #- elk.elasticsearch
+    #- elk.filebeat
+    #- elk.kibana
     - webhook
 
   # Wazuh client, should be all hosts, that are not the wazuh server
@@ -136,4 +137,3 @@ base:
   'roles:loki':
     - match: grain
     - loki
-    - promtail
