@@ -27,5 +27,6 @@ warp10-service-running:
     - reload: False
     - watch:
       - file: warp10-prerequisit-service
+      - archive: warp10-archive-install
     - require:
       - cmd: warp10-prerequisit-service
