@@ -4,6 +4,7 @@
 {% set domain = grains['domain'] %}
 {% set smtp = "smtp." ~ domain %}
 {% set secret = salt['vault'].read_secret('secret/salt/mail/vmail') %}
+{% from 'hosts-ips.jinja' import ips %}
 
 ##
 ## Mail server configuration
@@ -74,7 +75,7 @@ postfix:
     inet_protocols: ipv4
     myhostname: {{ smtp }}
     mydestination: {{ smtp }}, localhost
-    mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+    mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0.0/24{% for ip in ips.myhosts.ipv4 %} {{ ip }}{% endfor %}
     myorigin: {{ domain }}
     relay_domains: '$mydestination'
     relayhost:
