@@ -1,19 +1,3 @@
-common:
-  pkg.installed:
-    - pkgs:
-      - apt-transport-https
-      - curl
-      - sudo
-      - htop
-      - git
-      - vim
-      - vim-nox
-      - lsb-release
-      - unattended-upgrades
-      - apt-listchanges
-      - ipv6calc
-      - python3-psutil
-
 127.0.1.1:
   host.only:
     - hostnames:

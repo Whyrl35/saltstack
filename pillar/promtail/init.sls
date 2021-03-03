@@ -87,3 +87,4 @@ promtail:
           job: wigo
           __path__: /var/log/wigo.log
 
+### Here are defined per role configuration

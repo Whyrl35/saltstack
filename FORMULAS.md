@@ -15,6 +15,7 @@
 * https://github.com/saltstack-formulas/vault-formula.git
 * https://github.com/saltstack-formulas/java-formula.git
 * https://github.com/saltstack-formulas/grafana-formula.git
+* https://github.com/saltstack-formulas/telegraf-formula.git
 
 # My own
 

@@ -152,3 +152,7 @@ base: #
   'roles:loki':
     - match: grain
     - loki
+
+  'roles:smokeping':
+    - match: grain
+    - telegraf

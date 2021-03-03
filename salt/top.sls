@@ -9,6 +9,7 @@ base:
     - apt.update
     - apt.unattended
     - common
+    - packages
     - motd
     - zsh
     - account
@@ -137,3 +138,8 @@ base:
   'roles:loki':
     - match: grain
     - loki
+
+  # loki server, will use loki
+  'roles:smokeping':
+    - match: grain
+    - telegraf
