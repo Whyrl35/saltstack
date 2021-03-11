@@ -15,12 +15,11 @@ base:
     - account
     - openssh
     - openssh.client
-    - openssh.trusted_key
     - openssh.config
     - openssh.banner
     - openssh.auth
     - nftables
-    - wigo
+    #- wigo
     - beamium
     - noderig
     - promtail
@@ -114,6 +113,13 @@ base:
   'roles:bitwarden':
     - match: grain
     - bitwarden
+    - letsencrypt
+    - nginx
+
+  # vault server
+  'roles:vault':
+    - match: grain
+    #- vault
     - letsencrypt
     - nginx
 
