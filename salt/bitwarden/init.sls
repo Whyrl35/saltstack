@@ -12,7 +12,7 @@ bitwarden_file:
     - group: users
     - mode: "0755"
     - source: https://raw.githubusercontent.com/bitwarden/server/master/scripts/bitwarden.sh
-    - source_hash: e6aa294804c838f367eacab19e6f1607560709e35f51c849a95326577da7b700
+    - source_hash: f22283c6e635b8b7d4a0c97af5d9f18d92bb6169d8c7f9334f01b21da15e77d8
 
 bitwarden_config:
   file.managed:
