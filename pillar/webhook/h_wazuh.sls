@@ -1,7 +1,5 @@
 #!jinja|yaml|gpg
 
-{% set secret = salt['vault'].read_secret('secret/salt/web/webhook') %}
-
 webhooks:
   #files:
   #  - /opt/webhooks/actions/wigo-to-slack.py:
