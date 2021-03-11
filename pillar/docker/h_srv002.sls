@@ -1,13 +1,20 @@
-docker-containers:
-  lookup:
+docker:
+  containers:
+    running:
+      - portainer
+
     portainer:
-      image: "portainer/portainer-ce"
-      cmd: ~
-      #args:
-      pull_before_start: true
-      remove_on_stop: true
-      runoptions:
-        - "-p 8000:8000"
-        - "-p 9000:9000"
-        - "-v /srv/portainer/data:/data"
-        - "-v /var/run/docker.sock:/var/run/docker.sock"
+      name: portainer
+      image: "portainer/portainer-ce:latest"
+      binds:
+        - /srv/portainer/data:/data
+        - /var/run/docker.sock:/var/run/docker.sock
+      port_bindings:
+        - 8000:8000
+        - 9000:9000
+      start: true
+      detatch: true
+      auto_remove: true
+      privilegde: true
+      network_disabled: false
+      network_mode: host
