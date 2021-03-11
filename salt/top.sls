@@ -19,7 +19,7 @@ base:
     - openssh.banner
     - openssh.auth
     - nftables
-    #- wigo
+    - wigo
     - beamium
     - noderig
     - promtail
