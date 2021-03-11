@@ -3,6 +3,10 @@
 {% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
 
 promtail:
+  archive:
+    github:
+      version: '2.2.0'
+
   config:
     clients:
     - url: https://loki.whyrl.fr/loki/api/v1/push

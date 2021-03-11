@@ -1,4 +1,8 @@
 loki:
+  archive:
+    github:
+      version: '2.2.0'
+
   config:
     schema_config:
       configs:
