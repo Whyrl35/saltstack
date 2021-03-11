@@ -15,5 +15,5 @@ wigo:
         - /usr/bin/beamium
         - /usr/bin/noderig
         - /usr/bin/salt-minion
-        - /usr/bin/dockerd
-        - /usr/bin/containerd
+        - dockerd
+        - containerd
