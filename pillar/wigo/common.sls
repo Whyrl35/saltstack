@@ -2,7 +2,7 @@
 
 wigo:
   probes:
-    borg_backup: true
+    borg_backup: false
   {% if roles and ('borgbackup' not in roles) %}
   probes_actives:
     borg_backup: 300

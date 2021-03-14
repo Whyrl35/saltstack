@@ -106,8 +106,8 @@ base:
     - borgbackup.server
 
   # All other nodes are client of borgserver
-  'not G@roles:borgbackup':
-    - borgwrapper
+  #'not G@roles:borgbackup':
+  #  - borgwrapper
 
   # Bitwarden server, will use bitwarden (docker managed)
   'roles:bitwarden':

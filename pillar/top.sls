@@ -27,7 +27,8 @@ base: #
     - wigo.r_{{ role }}
     {% endfor %}
     - wigo.h_{{ host }}
-    - borgbackup
+    #- borgbackup
+    - restic
     - promtail
     - ignore_missing: True
 
@@ -114,13 +115,13 @@ base: #
     - nginx
     - ignore_missing: True
 
-  'not G@roles:borgbackup':
-    - borgwrapper
-    - borgwrapper.h_{{ host }}
-    {% for role in grains['roles'] %}
-    - borgwrapper.r_{{ role }}
-    {% endfor %}
-    - ignore_missing: True
+  #'not G@roles:borgbackup':
+  #  - borgwrapper
+  #  - borgwrapper.h_{{ host }}
+  #  {% for role in grains['roles'] %}
+  #  - borgwrapper.r_{{ role }}
+  #  {% endfor %}
+  #  - ignore_missing: True
 
   'roles:bitwarden':
     - match: grain
