@@ -5,7 +5,7 @@ letsencrypt:
   pkgs:
     - certbot
     - python3-certbot
-  version: 1.3.0
+  #version: 1.3.0
   create_init_cert_subcmd: certonly
   config:
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -13,7 +13,7 @@ letsencrypt:
     authenticator:  webroot
     webroot-path: /var/www/html
     agree-tos: True
-    renew-by-default: True
+    renew-by-default: False
     keep-until-expiring: True
     expand: true
   domainsets: {}
