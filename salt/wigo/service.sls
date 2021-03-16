@@ -3,7 +3,7 @@ wigo_service:
     - name: wigo
     - enable: True
     - require:
-      - pkg : wigo_package
-      - file : wigo_config
+      - pkg: wigo_package
+      - file: wigo_config
     - watch:
-      - file : wigo_config
+      - file: wigo_config

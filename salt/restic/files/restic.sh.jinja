@@ -1,0 +1,58 @@
+### DON'T EDIT THIS FILE, MANAGED BY SALTSTACK
+{%- set id = grains['id'] %}
+{%- set password = salt['vault'].read_secret('secret/salt/backup/restic/' + id, default=None) %}
+{%- if password == None %}
+{%- set password = salt['random'].get_str(128) %}
+{%- set ret = salt['vault'].write_secret('secret/salt/backup/restic/' + id, password=password) %}
+{%- else %}
+{%- set password = password['password'] %}
+{%- endif %}
+
+export RESTIC_PASSWORD={{ password }}
+{%- for name, configuration in restic['repositories'].items() %}
+{%- set parameters = configuration['parameters'] %}
+# --- {{ name }} ---
+{%- if configuration['type'] == "local" %}
+export RESTIC_REPOSITORY={{ configuration['parameters']['path'] }}
+export RESTIC_PATH={{ parameters['path'] }}
+{%- endif %}
+{%- if configuration['type'] == "sftp" %}
+export RESTIC_PATH="sftp:{{ parameters['user'] }}@{{ parameters['host'] }}:{{ parameters['path'] }}
+{%- endif %}
+{%- if configuration['type'] == "rest" %}
+export RESTIC_PATH="rest:https://{{ parameters['user'] }}{%- if parameters['user'] %}:{% endif %}{{ parameters['password'] }}@{{ parameters['host'] }}:{{ parameters['port'] | default('443') }}{{ parameters['path'] }}
+{%- endif %}
+{%- if configuration['type'] == "s3" %}
+export RESTIC_PATH=s3:s3.amazonaws.com/{{ parameters['bucket_name'] }}
+{%- for k,v in configuration['environment'].items() %}
+export {{ k }}={{ v }}
+{%- endfor %}
+{%- endif %}
+{%- if configuration['type'] == "minio" %}
+export RESTIC_PATH=s3:{{ parameters['url'] }}/{{ parameters['bucket_name'] }}
+{%- for k,v in configuration['environment'].items() %}
+export {{ k }}={{ v }}
+{%- endfor %}
+{%- endif %}
+{%- if configuration['type'] == "swift" %}
+export RESTIC_PATH=swift:{{ parameters['container_name'] }}:{{ parameters['path'] | default('/') }}
+{%- for k,v in configuration['environment'].items() %}
+export {{ k }}={{ v }}
+{%- endfor %}
+{%- endif %}
+{%- if configuration['type'] == "azure" %}
+export RESTIC_PATH=azure:{{ parameters['container_name'] }}:{{ parameters['path'] | default('/') }}
+{%- for k,v in configuration['environment'].items() %}
+export {{ k }}={{ v }}
+{%- endfor %}
+{%- endif %}
+{%- if configuration['type'] == "google" %}
+export RESTIC_PATH=gs:{{ parameters['container_name'] }}:{{ parameters['path'] | default('/') }}
+{%- for k,v in configuration['environment'].items() %}
+export {{ k }}={{ v }}
+{%- endfor %}
+{%- endif %}
+{%- if configuration['type'] == "rclone" %}
+export RESTIC_PATH=rclone:{{ parameters['remote_name'] }}:{{ parameters['bucket_name'] }}{{ parameters['path'] | default('') }}
+{%- endif %}
+{%- endfor %}

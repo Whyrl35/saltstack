@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+source {{ restic.configuration.path }}/restic.sh
+
+{%- set args = 'backup' %}
+{%- set paths = restic.backup.paths|join(' ') %}
+{%- set args = args ~ ' ' ~ paths %}
+{%- if restic.backup.force %}{%- set args = args ~' --force' %}{% endif %}
+{%- if restic.backup.ignore_ctime %}{%- set args = args ~ ' --ignore-citme' %}{% endif %}
+{%- if restic.backup.ignore_inode %}{%- set args = args ~ ' --ignore-inode' %}{% endif %}
+{%- if restic.backup.one_file_system %}{%- set args = args ~ ' --one-file-system' %}{% endif %}
+{%- if restic.backup.exclude_caches != '' %}{%- set args = args ~ ' --exclude-caches ' ~ restic.backup.exclude_caches %}{% endif %}
+{%- if restic.backup.exclude_if_present != '' %}{%- set args = args ~ ' --exclucude-if-present ' ~ restic.backup.exclude_if_present %}{% endif %}
+{%- if restic.backup.exclude_larger_than > 0 %}{%- set args = args ~ ' --exclucude-larger-than ' ~ restic.backup.exclude_larger_than %}{% endif %}
+{%- set excludes = []%}
+{%- for ep in restic.backup.exclude.path %}
+{%- if excludes.append(' --exclude="' ~ ep ~ '"') %}{%- endif %}
+{%- endfor %}
+{%- for iep in restic.backup.exclude.ipath %}
+{%- if excludes.append(' --iexclude="' ~ iep ~ '"') %}{%- endif %}
+{%- endfor %}
+{%- for efp in restic.backup.exclude_file.path %}
+{%- if excludes.append(' --exclude-file="' ~ efp ~ '"') %}{%- endif %}
+{%- endfor %}
+{%- for iefp in restic.backup.exclude_file.ipath %}
+{%- if excludes.append(' --iexclude-file="' ~ iefp ~ '"') %}{%- endif %}
+{%- endfor %}
+{%- set exclude_str = excludes|join(' ') %}
+{%- set args = args ~ ' ' ~ exclude_str %}
+
+restic -r ${RESTIC_PATH} {{ args }}
+{%- if restic.backup.need_status %}
+restic -r ${RESTIC_PATH} snapshots --last --compact --json > /var/tmp/{{ restic.name }}.json
+{%- endif %}

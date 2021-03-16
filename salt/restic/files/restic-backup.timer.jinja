@@ -1,0 +1,13 @@
+{% set id = grains['id'] %}
+{% set start_hour = salt['random.rand_int'](start=0, end=4, seed=id) %}
+{% set start_minutes = salt['random.rand_int'](start=0, end=59, seed=grains['id']) %}
+[Unit]
+Description=Run {{ restic.name }} backup
+
+[Timer]
+OnCalendar=*-*-* 0{{ start_hour }}:{{ start_minutes }}:00
+RandomizedDelaySec=300
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+source {{ restic.configuration.path }}/restic.sh
+
+{% set args = 'forget' %}
+{% if restic.forget.daily > 0 %}{% set args = args ~ ' --keep-daily ' ~ restic.forget.daily %}{% endif %}
+{% if restic.forget.weekly > 0 %}{% set args = args ~ ' --keep-weekly ' ~ restic.forget.weekly %}{% endif %}
+{% if restic.forget.monthly > 0 %}{% set args = args ~ ' --keep-monthly ' ~ restic.forget.monthly %}{% endif %}
+{% if restic.forget.yearly > 0 %}{% set args = args ~ ' --keep-yearly ' ~ restic.forget.yearly %}{% endif %}
+{% if restic.forget.auto_prune %}{% set args = args ~ ' --prune' %}{% endif %}
+
+restic -r ${RESTIC_PATH} {{ args }}

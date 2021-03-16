@@ -23,6 +23,7 @@ base:
     - beamium
     - noderig
     - promtail
+    - restic
 
   # KS001 specific, for moviecat CI/CD
   'ks*':
@@ -101,9 +102,9 @@ base:
     - nginx
 
   # Backup server, will use borgbackup
-  'roles:borgbackup':
-    - match: grain
-    - borgbackup.server
+  #'roles:borgbackup':
+  #  - match: grain
+  #  - borgbackup.server
 
   # All other nodes are client of borgserver
   #'not G@roles:borgbackup':

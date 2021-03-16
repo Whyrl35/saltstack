@@ -1,0 +1,6 @@
+[Unit]
+Description=Restic Purge
+Documentation=https://restic.readthedocs.io/en/stable/010_introduction.html
+[Service]
+Type=oneshot
+ExecStart={{ restic.binary.path }}/{{ restic.name }}-purge-script

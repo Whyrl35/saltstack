@@ -2,13 +2,9 @@
 
 wigo:
   probes:
-    borg_backup: false
-  {% if roles and ('borgbackup' not in roles) %}
+    restic: true
   probes_actives:
-    borg_backup: 300
-  {% else %}
-  probes_actives: {}
-  {% endif %}
+    restic: 300
   probes_config:
     check_process:
       enabled: 'true'

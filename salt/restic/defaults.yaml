@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+restic:
+  name: restic
+  package: restic
+
+  prerequisit:
+      packages: []
+
+  configuration:
+      path: /etc/restic
+
+  binary:
+      path: /usr/local/bin
+
+  # repositories:
+  #   repo1:
+  #     type: sftp (local, s3, ...)
+  #     parameters:
+  #       user: john
+  #       host: localhost
+  #       path: /srv
+  #     environment: {}
+  #   repo2:
+  #     type: swift
+  #     parameters:
+  #       container_name: backup
+  #       path: /
+  #     environment:
+  #       OS_AUTH_URL: ...
+  #       ...: ...
+  repositories:
+      repo1:
+          type: local
+          parameters:
+              path: /srv/restic
+
+  # backup:
+  #   force: false
+  #   ignore_ctime: false
+  #   ignore_inode: false
+  #   one_file_system: false
+  #   exclude_caches: ''
+  #   exclude_if_present: ''
+  #   exclude_larger_than: -1
+  #   paths:
+  #     - /srv
+  #     - /etc
+  #   exclude:
+  #     path:
+  #       - '*.c'
+  #     ipath:
+  #       - ...
+  #   exclude_file:
+  #     path:
+  #       - '*.c'
+  #     ipath:
+  #       - ...
+  #   include:
+  #     from:
+  #       - ...
+  #     from_verbatim:
+  #       - ...
+  #     from_raw:
+  #       - www
+  backup:
+    need_status: false
+    force: false
+    ignore_ctime: false
+    ignore_inode: false
+    one_file_system: false
+    exclude_caches: ''
+    exclude_if_present: ''
+    exclude_larger_than: -1
+    paths: []
+    exclude:
+        path: []
+        ipath: []
+    exclude_file:
+        path: []
+        ipath: []
+    include:
+        from: []
+        from_verbatim: []
+        from_row: []
+
+  forget:
+      auto_prune: true
+      daily: 6
+      weekly: 4
+      monthly: 2
+      yearly: 1
