@@ -1,4 +1,7 @@
 <!--
+  -- DON'T EDIT THIS FILE, MANAGED BY SALTSTACK
+  --
+
   Wazuh - Manager - Default configuration for debian 9.5
   More info at: https://documentation.wazuh.com
   Mailing list: https://groups.google.com/forum/#!forum/wazuh
@@ -6,55 +9,80 @@
 
 <ossec_config>
   <global>
-    <jsonout_output>yes</jsonout_output>
-    <alerts_log>yes</alerts_log>
-    <logall>no</logall>
-    <logall_json>no</logall_json>
-    <email_notification>yes</email_notification>
-    <smtp_server>localhost</smtp_server>
-    <email_from>ossec@whyrl.fr</email_from>
-    <email_to>ludovic@whyrl.fr</email_to>
-    <email_maxperhour>12</email_maxperhour>
-    <queue_size>131072</queue_size>
+    <jsonout_output>{{ ossec_config.global.email_notification|default('no') }}</jsonout_output>
+    <alerts_log>{{ ossec_config.global.alerts_log|default('yes') }}</alerts_log>
+    <logall>{{ ossec_config.global.logall|default('no') }}</logall>
+    <logall_json>{{ ossec_config.global.logall_json|default('no') }}</logall_json>
+    <email_notification>{{ ossec_config.global.email_notification|default('no') }}</email_notification>
+    <smtp_server>{{ ossec_config.global.smtp_server|default('localhost') }}</smtp_server>
+    <email_from>{{ ossec_config.global.email_from|default('') }}</email_from>
+    <email_to>{{ ossec_config.global.email_to|default('') }}</email_to>
+    {%- if 'email_reply_to' in ossec_config.global %}<email_reply_to>{{ ossec_config.global.email_reply_to }}</email_reply_to>{% endif %}
+    {%- if 'helo_server' in ossec_config.global %}<helo_server>{{ ossec_config.global.helo_server }}</helo_server>{% endif %}
+    {%- if 'email_idsname' in ossec_config.global %}<email_idsname>{{ ossec_config.global.email_idsname }}</email_idsname>{% endif %}
+    {%- if 'email_log_source' in ossec_config.global %}<email_log_source>{{ ossec_config.global.email_log_source }}</email_log_source>{% endif %}
+    <email_maxperhour>{{ ossec_config.global.email_maxperhour|default(12) }}</email_maxperhour>
+    <queue_size>{{ ossec_config.global.queue_size|default(131072) }}</queue_size>
+    {%- if 'stats' in ossec_config.global %}<stats>{{ ossec_config.global.stats }}</stats>{% endif %}
+    {%- if 'memory_size' in ossec_config.global %}<memory_size>{{ ossec_config.global.memory_size }}</memory_size>{% endif %}
+
+    {%- if 'white_list' in ossec_config.global %}
+    {%- for wl in ossec_config.global.white_list %}
+    {%- set ip = wl.split('/')[0] %}
+    <white_list>{{ ip }}</white_list>
+    {%- endfor %}
+    {%- endif %}
   </global>
 
+  {%- if 'integration' in ossec_config %}
+  {%- for integration in ossec_config.integration %}
+  <integration>
+    {%- for k,v in integration.items() %}
+    <{{ k }}>{{ v }}</{{ k }}>
+    {%- endfor %}
+  </integration>
+  {%- endfor %}
+  {%- endif %}
+
   <alerts>
-    <log_alert_level>3</log_alert_level>
-    <email_alert_level>12</email_alert_level>
+    <log_alert_level>{{ ossec_config.alerts.log_alert_level|default(3) }}</log_alert_level>
+    <email_alert_level>{{ ossec_config.alerts.email_alert_level|default(12) }}</email_alert_level>
+    {%- if 'use_geoip' in ossec_config.alerts %}<use_geoip>{{ ossec_config.alerts.use_geoip }}</use_geoip>{% endif %}
   </alerts>
 
   <!-- Choose between "plain", "json", or "plain,json" for the format of internal logs -->
   <logging>
-    <log_format>plain</log_format>
+    <log_format>{{ ossec_config.logging.log_format|default('plain') }}</log_format>
   </logging>
 
   <remote>
-    <connection>secure</connection>
-    <port>1514</port>
-    <protocol>udp</protocol>
-    <queue_size>131072</queue_size>
+    <connection>{{ ossec_config.remote.connection|default('secure') }}</connection>
+    <port>{{ ossec_config.remote.port|default(1514) }}</port>
+    <protocol>{{ ossec_config.remote.protocol|default('udp') }}</protocol>
+    <queue_size>{{ ossec_config.remote.queue_size|default(131072) }}</queue_size>
   </remote>
 
   <!-- Policy monitoring -->
   <rootcheck>
-    <disabled>no</disabled>
-    <check_unixaudit>yes</check_unixaudit>
-    <check_files>yes</check_files>
-    <check_trojans>yes</check_trojans>
-    <check_dev>yes</check_dev>
-    <check_sys>yes</check_sys>
-    <check_pids>yes</check_pids>
-    <check_ports>yes</check_ports>
-    <check_if>yes</check_if>
+    <disabled>{{ ossec_config.rootcheck.disable|default('no') }}</disabled>
+    <check_unixaudit>{{ ossec_config.rootcheck.check_unixaudit|default('yes') }}</check_unixaudit>
+    <check_files>{{ ossec_config.rootcheck.check_files|default('yes') }}</check_files>
+    <check_trojans>{{ ossec_config.rootcheck.check_trojans|default('yes') }}</check_trojans>
+    <check_dev>{{ ossec_config.rootcheck.check_dev|default('yes') }}</check_dev>
+    <check_sys>{{ ossec_config.rootcheck.check_sys|default('yes') }}</check_sys>
+    <check_pids>{{ ossec_config.rootcheck.check_pids|default('yes') }}</check_pids>
+    <check_ports>{{ ossec_config.rootcheck.check_ports|default('yes') }}</check_ports>
+    <check_if>{{ ossec_config.rootcheck.check_if|default('yes') }}</check_if>
 
     <!-- Frequency that rootcheck is executed - every 12 hours -->
-    <frequency>43200</frequency>
+    <frequency>{{ ossec_config.rootcheck.frequency|default(43200) }}</frequency>
 
-    <rootkit_files>/var/ossec/etc/rootcheck/rootkit_files.txt</rootkit_files>
-    <rootkit_trojans>/var/ossec/etc/rootcheck/rootkit_trojans.txt</rootkit_trojans>
+    <rootkit_files>{{ ossec_config.rootcheck.rootkit_files|default('') }}</rootkit_files>
+    <rootkit_trojans>{{ ossec_config.rootcheck.rootkit_trojans|default('') }}</rootkit_trojans>
 
-    <system_audit>/var/ossec/etc/rootcheck/system_audit_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/rootcheck/system_audit_ssh.txt</system_audit>
+    {% for audit in ossec_config.rootcheck.system_audit %}
+    <system_audit>{{ audit }}</system_audit>
+    {%- endfor %}
 
     <skip_nfs>yes</skip_nfs>
   </rootcheck>
@@ -164,20 +192,6 @@
   </syscheck>
 
   <!-- Active response -->
-  <global>
-    <white_list>127.0.0.1</white_list>
-    <white_list>^localhost.localdomain$</white_list>
-    <white_list>213.186.33.99</white_list>
-    <white_list>54.38.71.9</white_list>
-    <white_list>217.182.169.71</white_list>
-    <white_list>217.18.82.80</white_list>
-    <white_list>91.121.156.77</white_list>
-    <white_list>217.182.85.34</white_list>
-    <white_list>54.38.71.44</white_list>
-    <white_list>54.38.245.69</white_list>
-    <white_list>78.232.192.141</white_list>
-  </global>
-
   <command>
     <name>disable-account</name>
     <executable>disable-account.sh</executable>
@@ -189,13 +203,6 @@
     <name>restart-ossec</name>
     <executable>restart-ossec.sh</executable>
     <expect></expect>
-  </command>
-
-  <command>
-    <name>ipset</name>
-    <executable>ipset.sh</executable>
-    <expect>srcip</expect>
-    <timeout_allowed>yes</timeout_allowed>
   </command>
 
   <command>
@@ -247,36 +254,49 @@
     <timeout_allowed>yes</timeout_allowed>
   </command>
 
+  {%- if 'command' in ossec_config%}
+  {% for command in ossec_config.command %}
+  <command>
+    <name>{{ command['name'] }}</name>
+    <executable>{{ command['executable'] }}</executable>
+    {% if 'except' in command %}<except>{{ command['except'] }}</except>{% endif %}
+    {% if 'timeout_allowed' in command %}<timeout_allowed>{{ command['timeout_allowed'] }}</timeout_allowed>{% endif %}
+    {% if 'extra_args' in command %}<extra_args>{{ command['extra_args'] }}</extra_args>{% endif %}
+  </command>
+  {%- endfor %}
+  {%- endif %}
+
   <!--
   <active-response>
     active-response options here
   </active-response>
   -->
-  {% if 'wazuh_server' in grains['roles'] %}
+
+  {%- if 'active_response' in ossec_config%}
+  {% for active_response in ossec_config.active_response %}
   <active-response>
-    <disabled>no</disabled>
-    <command>ipset</command>
-    <location>all</location>
-    <level>10</level>
-    <timeout>300</timeout>
-    <repeated_offenders>15,30,45</repeated_offenders>
+    <disabled>{{ active_response['disabled'] }}</disabled>
+    <command>{{ active_response['command'] }}</command>
+    <location>{{ active_response['location'] }}</location>
+    {%- if 'agent_id' in active_response %}
+    <agent_id>{{ active_response['agent_id'] }}</agent_id>
+    {%- endif %}
+    {%- if 'level' in active_response %}
+    <level>{{ active_response['level'] }}</level>
+    {%- endif %}
+    {%- if 'timeout' in active_response %}
+    <timeout>{{ active_response['timeout'] }}</timeout>
+    {%- endif %}
+    {%- if 'repeated_offenders' in active_response %}
+    <repeated_offenders>{{ active_response['repeated_offenders'] }}</repeated_offenders>
+    {%- endif %}
+    {%- if 'rules_group' in active_response %}
+    <rules_group>{{ active_response['rules_group'] }}</rules_group>
+    {%- endif %}
   </active-response>
-  <active-response>
-    <disabled>no</disabled>
-    <command>ipset</command>
-    <location>server</location>
-    <level>10</level>
-    <timeout>300</timeout>
-    <repeated_offenders>15,30,45</repeated_offenders>
-  </active-response>
-  {% else %}
-  <active-response>
-    <disabled>no</disabled>
-    <ca_store>/var/ossec/etc/wpk_root.pem</ca_store>
-    <ca_verification>yes</ca_verification>
-    <repeated_offenders>15,30,45</repeated_offenders>
-  </active-response>
-  {% endif %}
+
+  {%- endfor %}
+  {%- endif %}
 
   <!-- Log analysis -->
   <localfile>
@@ -347,9 +367,6 @@
     <disabled>yes</disabled>
   </cluster>
 
-</ossec_config>
-
-<ossec_config>
   <localfile>
     <log_format>apache</log_format>
     <location>/var/log/nginx/access.log</location>

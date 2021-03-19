@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yml tabstop=2
+---
+
+wazuh:
+  version: 4.1
+  installation:
+    mode: all-in-one
+    dependancies:
+      - curl
+      - apt-transport-https
+      - unzip
+      - wget
+      - libcap2-bin
+      - sofware-properties-common
+      - lsb-release
+      - gnupg2
+      - openjdk-11-jdk
+
+  elasticsearch:
+    user: root
+    group: elasticsearch
+    configuration:
+      destination: /etc/elasticsearch/elasticsearch.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/elasticsearch/7.x/elasticsearch_all_in_one.yml
+      certs: /etc/elasticsearch/certs
+    roles:
+      destination: /usr/share/elasticsearch/plugins/opendistro_security/securityconfig/roles.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/elasticsearch/roles/roles.yml
+    roles_mapping:
+      destination: /usr/share/elasticsearch/plugins/opendistro_security/securityconfig/roles_mapping.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/elasticsearch/roles/roles_mapping.yml
+    users:
+      destination: /usr/share/elasticsearch/plugins/opendistro_security/securityconfig/internal_users.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/elasticsearch/roles/internal_users.yml
+    securityadmin:
+      path: /usr/share/elasticsearch/plugins/opendistro_security/tools/securityadmin.sh
+      plugin: /usr/share/elasticsearch/plugins/opendistro_security/securityconfig/
+
+  filebeat:
+    user: root
+    group: root
+    configuration:
+      destination: /etc/filebeat/filebeat.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/filebeat/7.x/filebeat_all_in_one.yml
+      certs: /etc/filebeat/certs
+    alerts:
+      destination: /etc/filebeat/wazuh-template.json
+      source: https://raw.githubusercontent.com/wazuh/wazuh/4.1/extensions/elasticsearch/7.x/wazuh-template.json
+    module:
+      destination: /usr/share/filebeat/module
+      source: https://packages.wazuh.com/4.x/filebeat/wazuh-filebeat-0.1.tar.gz
+
+  kibana:
+    user: root
+    group: root
+    configuration:
+      destination: /etc/kibana/kibana.yml
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/kibana/7.x/kibana_all_in_one.yml
+      certs: /etc/kibana/certs
+    data:
+      path: /usr/share/kibana/data
+      user: kibana
+      group: kibana
+    plugin:
+      binary: /usr/share/kibana/bin/kibana-plugin
+      wazuh_plugin: https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-4.1.2_7.10.0-1.zip
+      created: /usr/share/kibana/plugins/wazuh/kibana.json
+
+  search_guard:
+    binary:
+      source: https://maven.search-guard.com/search-guard-tlstool/1.8/search-guard-tlstool-1.8.zip
+      destination: /tmp/searchguard
+    configuration:
+      source: https://raw.githubusercontent.com/wazuh/wazuh-documentation/4.1/resources/open-distro/searchguard/search-guard-aio.yml
+      destination: /tmp/searchguard/search-guard.yml
+
+  ossec:
+    configuration:
+      ossec_config:
+        global:
+          jsonout_output: 'yes'
+          alerts_log: 'yes'
+          logall: 'no'
+          logall_json: 'no'
+          email_notification: 'no'
+        alerts:
+          log_alert_level: 3
+          email_alert_level: 12
+        logging:
+          log_format: 'plain'
+        remote:
+          connection: 'secure'
+          port: 1514
+          protocol: 'udp'
+          queue_size: 131072
+        rootcheck:
+          disable: 'no'
+          check_unixaudit: 'yes'
+          check_files: 'yes'
+          check_trojans: 'yes'
+          check_dev: 'yes'
+          check_sys: 'yes'
+          check_pids: 'yes'
+          check_ports: 'yes'
+          check_if: 'yes'
+          frequency: 43200
+          rootkit_files: /var/ossec/etc/rootcheck/rootkit_files.txt
+          rootkit_trojans: /var/ossec/etc/rootcheck/rootkit_trojans.txt
+          system_audit:
+            - /var/ossec/etc/rootcheck/system_audit_rcl.txt
+            - /var/ossec/etc/rootcheck/system_audit_ssh.txt
+          skip_nfs: 'yes'

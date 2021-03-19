@@ -58,12 +58,7 @@ base:
     - match: grain
     - letsencrypt
     - nginx
-    #- wazuh.manager
-    #- wazuh.api
-    #- oracle.jre8
-    #- elk.elasticsearch
-    #- elk.filebeat
-    #- elk.kibana
+    #- wazuh
     - webhook
 
   # Wazuh client, should be all hosts, that are not the wazuh server
