@@ -2,11 +2,14 @@
 
 docker:
   install_pypi_pip: true
+
   pkg:
     allow_updates: true
     use_upstream_app: false
-  #docker:
-    #   use_upstream: package
+
+  docker:
+    version: '20.10.5'  # archive package version
+    use_upstream: package
 
   containers:
     skip_translate: ports
