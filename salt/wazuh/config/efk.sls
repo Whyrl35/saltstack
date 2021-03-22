@@ -88,6 +88,7 @@ elastic-search-guard-bin:
     - name: {{ wazuh.search_guard.binary.destination }}
     - source: {{ wazuh.search_guard.binary.source }}
     - source_hash: {{ sh_search_guard_binary }}
+    - enforce_toplevel: False
     - if_missing: {{ wazuh.search_guard.binary.destination }}
     - require:
       - pkg: efk-opendistro-install

@@ -259,7 +259,7 @@
   <command>
     <name>{{ command['name'] }}</name>
     <executable>{{ command['executable'] }}</executable>
-    {% if 'except' in command %}<except>{{ command['except'] }}</except>{% endif %}
+    {% if 'expect' in command %}<expect>{{ command['expect'] }}</expect>{% endif %}
     {% if 'timeout_allowed' in command %}<timeout_allowed>{{ command['timeout_allowed'] }}</timeout_allowed>{% endif %}
     {% if 'extra_args' in command %}<extra_args>{{ command['extra_args'] }}</extra_args>{% endif %}
   </command>

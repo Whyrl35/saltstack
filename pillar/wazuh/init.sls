@@ -41,7 +41,7 @@ wazuh:
         command:
           - name: ipset
             executable: ipset.sh
-            except: srcip
+            expect: srcip
             timeout_allowed: 'yes'
         active_response:
           - disabled: 'no'
