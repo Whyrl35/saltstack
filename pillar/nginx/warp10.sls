@@ -1,6 +1,7 @@
 #!jinja|yaml|gpg
 
 {% from 'nginx/common.jinja' import defaults %}
+{% set https_ready = True %}
 
 nginx:
     install_from_repo: true
@@ -18,7 +19,7 @@ nginx:
               - listen:
                 - 80
                 - '[::]:80'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
                   - all
@@ -27,6 +28,7 @@ nginx:
                   - '301 https://$server_name$request_uri'
             #
             # HTTPS server on port 443 for rspamd
+            {% if https_ready %}
             - server:
               - server_name: grafana.whyrl.fr
               - listen:
@@ -50,6 +52,7 @@ nginx:
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
                 - proxy_pass: http://127.0.0.1:3000
+            {% endif %}
         warp10:
           enabled: True
           config:
@@ -60,7 +63,7 @@ nginx:
               - listen:
                 - 80
                 - '[::]:80'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
                   - all
@@ -69,6 +72,7 @@ nginx:
                   - '301 https://$server_name$request_uri'
             #
             # HTTPS server on port 443 for rspamd
+            {% if https_ready %}
             - server:
               - client_max_body_size: 4G
               - server_name: warp10.whyrl.fr
@@ -93,6 +97,7 @@ nginx:
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
                 - proxy_pass: http://127.0.0.1:8080
+            {% endif %}
         warpstudio:
           enabled: True
           config:
@@ -103,7 +108,7 @@ nginx:
               - listen:
                 - 80
                 - '[::]:80'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
                   - all
@@ -112,6 +117,7 @@ nginx:
                   - '301 https://$server_name$request_uri'
             #
             # HTTPS server on port 443 for rspamd
+            {% if https_ready %}
             - server:
               - client_max_body_size: 4G
               - server_name: warpstudio.whyrl.fr
@@ -138,3 +144,4 @@ nginx:
                 - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
                 - proxy_set_header: Host $http_host
                 - proxy_pass: http://127.0.0.1:8081
+            {% endif %}

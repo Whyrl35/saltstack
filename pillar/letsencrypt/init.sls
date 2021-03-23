@@ -11,7 +11,7 @@ letsencrypt:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: webmaster@whyrl.fr
     authenticator:  webroot
-    webroot-path: /var/www/html
+    webroot-path: /usr/share/nginx/html
     agree-tos: True
     renew-by-default: False
     keep-until-expiring: True

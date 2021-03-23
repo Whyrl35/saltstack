@@ -19,7 +19,7 @@ nginx:
               - listen:
                 - 80
                 - '[::]:80'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - auth_basic:
                   - 'off'
@@ -68,7 +68,7 @@ nginx:
               - listen:
                 - 80
                 - '[::]:80'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - auth_basic:
                   - 'off'

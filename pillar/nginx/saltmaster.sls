@@ -18,7 +18,7 @@ nginx:
               - listen:
                 - '80 default_server'
                 - '[::]:80 default_server ipv6only=on'
-              - root: /var/www/html
+              - root: /usr/share/nginx/html
               - location ~ /\.well-known/acme-challenge:
                 - allow:
                   - all
