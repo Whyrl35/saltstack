@@ -4,12 +4,15 @@ docker:
   install_pypi_pip: true
 
   pkg:
-    allow_updates: true
-    use_upstream_app: false
+    version: 'latest'  # linux native package version
+    name: docker-ce
 
-  docker:
-    version: '20.10.5'  # archive package version
-    use_upstream: package
+    docker:
+      #version: '20.10.5'  # archive package version
+      use_upstream: package
+
+      service:
+        name: docker
 
   containers:
     skip_translate: ports
