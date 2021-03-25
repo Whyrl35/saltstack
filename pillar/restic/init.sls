@@ -38,9 +38,21 @@ restic:
     {% if 'homeassistant' in grains['roles'] %}
       - /usr/share/hassio
     {% endif %}
+    {% if 'warp10' in grains['roles'] %}
+      - /opt/warp10/leveldb/snapshots
+    {% endif %}
+
     {% if grains['id'] == 'ks001.whyrl.fr' %}
     exclude:
         path:
           - backup
+    {% endif %}
+
+    {% if 'warp10' in grains['roles'] %}
+    precommand:
+      - /opt/warp10/bin/warp10-standalone.init snapshot 'warp10-backup'
+      - /usr/bin/sqlite3 /var/lib/grafana/grafana.db .backup '/srv/grafana-backup/grafana.db'
+    postcommand:
+      - /usr/bin/rm -rf /opt/warp10/leveldb/snapshots/warp10-backup
     {% endif %}
 
