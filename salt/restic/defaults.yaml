@@ -84,6 +84,8 @@ restic:
         from: []
         from_verbatim: []
         from_row: []
+    precommand: []
+    postcommand: []
 
   forget:
       auto_prune: true

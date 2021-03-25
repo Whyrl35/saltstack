@@ -4,3 +4,13 @@ Documentation=https://restic.readthedocs.io/en/stable/010_introduction.html
 [Service]
 Type=oneshot
 ExecStart={{ restic.binary.path }}/{{ restic.name }}-backup-script
+{%- if restic.backup.precommand %}
+{%- for prec in restic.backup.precommand %}
+ExecStartPre={{ prec }}
+{%- endfor %}
+{%- endif %}
+{%- if restic.backup.postcommand %}
+{% for postc in restic.backup.postcommand %}
+ExecStartPost={{ postc }}
+{%- endfor %}
+{%- endif %}
