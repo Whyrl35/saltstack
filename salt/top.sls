@@ -56,9 +56,7 @@ base:
   # include the wazuh server state + elk + front for kibana
   'roles:wazuh_server':
     - match: grain
-    - letsencrypt
-    - nginx
-    #- wazuh
+    - wazuh
     - webhook
 
   # Wazuh client, should be all hosts, that are not the wazuh server
@@ -96,28 +94,15 @@ base:
     - letsencrypt
     - nginx
 
-  # Backup server, will use borgbackup
-  #'roles:borgbackup':
-  #  - match: grain
-  #  - borgbackup.server
-
-  # All other nodes are client of borgserver
-  #'not G@roles:borgbackup':
-  #  - borgwrapper
-
   # Bitwarden server, will use bitwarden (docker managed)
   'roles:bitwarden':
     - match: grain
     - bitwarden
-    - letsencrypt
-    - nginx
 
   # vault server
-  'roles:vault':
-    - match: grain
+#'roles:vault':
+  #   - match: grain
     #- vault
-    - letsencrypt
-    - nginx
 
   # Homeassistant server, will use homeassistant (docker managed)
   'roles:homeassistant':
@@ -141,7 +126,7 @@ base:
     - match: grain
     - loki
 
-  # loki server, will use loki
+  # smokeping server, will use telegraf
   'roles:smokeping':
     - match: grain
     - telegraf

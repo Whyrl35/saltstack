@@ -32,8 +32,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/vault.log
-            - error_log: /var/log/nginx/vault.log
+            - access_log: /var/log/nginx/vault_access_log.json json_analytics
+            - error_log: /var/log/nginx/vault_error.log
             - ssl_certificate: /etc/letsencrypt/live/vault.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/vault.whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}

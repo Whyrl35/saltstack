@@ -92,3 +92,24 @@ promtail:
           __path__: /var/log/wigo.log
 
 ### Here are defined per role configuration
+{% if 'roles' in grains and 'webserver' in grains['roles'] %}
+    - job_name: nginx
+      static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: nginx_access_log
+          host:  {{ grains.get('id') }}
+          __path__: /var/log/nginx/*.json
+{% endif %}
+
+{% if 'roles' in grains and 'mail_server' in grains['roles'] %}
+    - job_name: nginx
+      static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: nginx_access_log
+          host:  {{ grains.get('id') }}
+          __path__: /var/log/nginx/*.json
+{% endif %}

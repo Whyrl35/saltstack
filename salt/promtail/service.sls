@@ -27,6 +27,8 @@ promtail-service-running:
     - reload: False
     - watch:
       - file: promtail-prerequisit-service
+      - file: promtail-conf-update
     - require:
       - cmd: promtail-prerequisit-service
+      - file: promtail-conf-update
 

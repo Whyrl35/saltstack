@@ -32,8 +32,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/postfixadmin-access.log
-            - error_log: /var/log/nginx/postfixadmin-error.log
+            - access_log: /var/log/nginx/postfixadmin_access_log.json json_analytics
+            - error_log: /var/log/nginx/postfixadmin_error.log
             - root: /usr/share/postfixadmin/public
             - index: index.php
             - charset: {{ defaults.charset }}
@@ -114,8 +114,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/webmail-access.log
-            - error_log: /var/log/nginx/wemail-error.log
+            - access_log: /var/log/nginx/webmail_access_log.json json_analytics
+            - error_log: /var/log/nginx/wemaili_error.log
             - root: /var/www/rainloop
             - index: index.php
             - charset: {{ defaults.charset }}

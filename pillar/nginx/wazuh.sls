@@ -36,8 +36,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/wazuh-access.log
-            - error_log: /var/log/nginx/wazuh-error.log
+            - access_log: /var/log/nginx/wazuh_access_log.json json_analytics
+            - error_log: /var/log/nginx/wazuh_error.log
             - ssl_certificate: /etc/letsencrypt/live/wazuh.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/wazuh.whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -84,8 +84,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/wigo-access.log
-            - error_log: /var/log/nginx/wigo-error.log
+            - access_log: /var/log/nginx/wigo_access_log.json json_analytics
+            - error_log: /var/log/nginx/wigo_error.log
             - ssl_certificate: /etc/letsencrypt/live/wigo.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/wigo.whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}

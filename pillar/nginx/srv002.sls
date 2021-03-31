@@ -32,8 +32,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/nas-access.log
-            - error_log: /var/log/nginx/nas-error.log
+            - access_log: /var/log/nginx/nas_access_log.json json_analytics
+            - error_log: /var/log/nginx/nas_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -86,8 +86,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/portainer-access.log
-            - error_log: /var/log/nginx/portainer-error.log
+            - access_log: /var/log/nginx/portainer_access_log.json json_analytics
+            - error_log: /var/log/nginx/portainer_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -135,8 +135,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/hassio-access.log
-            - error_log: /var/log/nginx/hassio-error.log
+            - access_log: /var/log/nginx/hassio_access_log.json json_analytics
+            - error_log: /var/log/nginx/hassio_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -192,8 +192,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/homepanel-access.log
-            - error_log: /var/log/nginx/homepanel-error.log
+            - access_log: /var/log/nginx/homepanel_access_log.json json_analytics
+            - error_log: /var/log/nginx/homepanel_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -237,8 +237,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/gateway-access.log
-            - error_log: /var/log/nginx/gateway-error.log
+            - access_log: /var/log/nginx/gateway_access_log.json json_analytics
+            - error_log: /var/log/nginx/gateway_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -278,8 +278,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/extend-access.log
-            - error_log: /var/log/nginx/extend-error.log
+            - access_log: /var/log/nginx/extend_access_log.json json_analytics
+            - error_log: /var/log/nginx/extend_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
@@ -320,8 +320,8 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/default-access.log
-            - error_log: /var/log/nginx/default-error.log
+            - access_log: /var/log/nginx/default_access_log.json json_analytics
+            - error_log: /var/log/nginx/default_error.log
             - root: /var/www/website/
             - index: index.html index.htm
             - charset: {{ defaults.charset }}

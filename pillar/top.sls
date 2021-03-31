@@ -72,14 +72,6 @@ base: #
 
   'roles:wazuh_server':
     - match: grain
-    - letsencrypt
-    {% for role in grains['roles'] %}
-    - letsencrypt.r_{{ role }}
-    {% endfor %}
-    - letsencrypt.h_{{ host }}
-    - nginx
-    - elk.kibana
-    - elk.filebeat
     - webhook
     - ignore_missing: True
 
@@ -126,12 +118,6 @@ base: #
   'roles:bitwarden':
     - match: grain
     - bitwarden
-    - letsencrypt
-    {% for role in grains['roles'] %}
-    - letsencrypt.r_{{ role }}
-    {% endfor %}
-    - letsencrypt.h_{{ host }}
-    - nginx
     - ignore_missing: True
 
   'roles:homeassistant':
