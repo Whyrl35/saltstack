@@ -1,3 +1,6 @@
+{% set bitwarden_sh = 'https://raw.githubusercontent.com/bitwarden/server/master/scripts/bitwarden.sh' %}
+{% set bitwarden_sh_chksum = salt['cmd.shell']('echo "md5=`curl -qs ' ~ bitwarden_sh ~ ' | md5sum | cut -c -32`"') %}
+
 bitwarden_dir:
   file.directory:
     - name: /srv/bitwarden
@@ -11,8 +14,8 @@ bitwarden_file:
     - user: ludovic
     - group: users
     - mode: "0755"
-    - source: https://raw.githubusercontent.com/bitwarden/server/master/scripts/bitwarden.sh
-    - source_hash: f22283c6e635b8b7d4a0c97af5d9f18d92bb6169d8c7f9334f01b21da15e77d8
+    - source: {{ bitwarden_sh }}
+    - source_hash: {{ bitwarden_sh_chksum }}
 
 bitwarden_config:
   file.managed:
