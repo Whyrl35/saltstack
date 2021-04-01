@@ -16,6 +16,7 @@
 * https://github.com/saltstack-formulas/java-formula.git
 * https://github.com/saltstack-formulas/grafana-formula.git
 * https://github.com/saltstack-formulas/telegraf-formula.git
+* https://github.com/saltstack-formulas/nexus-formula
 
 # My own
 
@@ -24,7 +25,6 @@
 # Other people formula
 
 * https://github.com/latenighttales/alcali-formula.git
-
 
 # Installation
 
