@@ -1,5 +1,17 @@
 apt:
   #
+  # Default APT module configuration
+  #
+#remove_apt_conf: true
+#clean_apt_conf_d: true
+
+#remove_sources_list: true
+#clean_sources_list_d: true
+
+#remove_preferences: true
+#clean_preferences_d: true
+
+  #
   # Unattended
   #
   unattended:
@@ -28,35 +40,32 @@ apt:
     # Metrics repository include :
     # noderig and beamium
     metrics:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
       url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian/
       comps: [main]
-      arch: [amd64, i386]
+      keyid: A7F0D217C80D5BB8
       key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
 
     # Wigo is a light pull/push monitoring agent
     # https://github.com/root-gg/wigo
     wigo:
-      distro: 'stretch'
+      distro: 'buster'
       url: http://deb.carsso.com/
       comps: [main]
-      arch: [amd64]
       key_url: http://deb.carsso.com/deb.carsso.com.key
 
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
     saltstack:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
       url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
       comps: [main]
-      arch: [amd64, i386]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
     saltstack-archive:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
       url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/archive/3000.3
       comps: [main]
-      arch: [amd64, i386]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
 
@@ -74,9 +83,8 @@ apt:
     #
     {% if 'mail_server' in grains['roles'] %}
     rspamd:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'stretch' }}
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
       url: http://rspamd.com/apt-stable
       comps: [main]
-      arch: [amd64]
       key_url: https://rspamd.com/apt-stable/gpg.key
     {% endif %}
