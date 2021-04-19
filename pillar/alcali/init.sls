@@ -3,7 +3,7 @@
 alcali:
   deploy:
     repository: https://github.com/latenighttales/alcali.git
-    branch: 3000.1
+    branch: develop
     user: alcali
     group: alcali
     directory: /opt/alcali
