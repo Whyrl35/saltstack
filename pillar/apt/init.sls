@@ -41,7 +41,7 @@ apt:
     # noderig and beamium
     metrics:
       distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian/
+      url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
       comps: [main]
       keyid: A7F0D217C80D5BB8
       key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
@@ -49,8 +49,8 @@ apt:
     # Wigo is a light pull/push monitoring agent
     # https://github.com/root-gg/wigo
     wigo:
-      distro: 'buster'
-      url: http://deb.carsso.com/
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
+      url: http://deb.carsso.com
       comps: [main]
       key_url: http://deb.carsso.com/deb.carsso.com.key
 
@@ -74,7 +74,7 @@ apt:
     #
     wazuh:
       distro: stable
-      url: https://packages.wazuh.com/4.x/apt/
+      url: https://packages.wazuh.com/4.x/apt
       comps: [main]
       key_url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
 
