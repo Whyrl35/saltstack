@@ -39,17 +39,25 @@ loki-archive-install:
     - retry: 3
     - creates: {{ loki.dir.tmp }}/{{ loki.name }}-{{ loki.version }}.zip
 
+  service.dead:
+    - name: {{ loki.service.name }}
+    - enable: False
+    - init_delay: 5
+    - onchanges:
+      - cmd: loki-archive-install
+
   archive.extracted:
     - name: {{ loki.path }}/bin
     - source: file://{{ loki.dir.tmp }}/{{ loki.name }}-{{ loki.version }}.zip
     # - use_cmd_unzip: True
     - enforce_toplevel: false
     - trim_output: True
+    - overwrite: True
     # - options: "--strip-components=1"
     - user: {{ loki.identity.user }}
     - group: {{ loki.identity.group }}
     - onchanges:
       - cmd: loki-archive-install
     - require:
-      - cmd: loki-archive-install
+      - service: loki-archive-install
 

@@ -41,17 +41,25 @@ promtail-archive-install:
     - retry: 3
     - creates: {{ promtail.dir.tmp }}/{{ promtail.name }}-{{ promtail.version }}.zip
 
+  service.dead:
+    - name: {{ promtail.service.name }}
+    - enable: False
+    - init_delay: 5
+    - onchanges:
+      - cmd: promtail-archive-install
+
   archive.extracted:
     - name: {{ promtail.path }}/bin
     - source: file://{{ promtail.dir.tmp }}/{{ promtail.name }}-{{ promtail.version }}.zip
     # - use_cmd_unzip: True
     - enforce_toplevel: false
     - trim_output: True
+    - overwrite: True
     # - options: "--strip-components=1"
     - user: {{ promtail.identity.user }}
     - group: {{ promtail.identity.group }}
     - onchanges:
       - cmd: promtail-archive-install
     - require:
-      - cmd: promtail-archive-install
+      - service: promtail-archive-install
 
