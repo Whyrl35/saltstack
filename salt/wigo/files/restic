@@ -36,21 +36,26 @@ def check_backup():
         message = "No backup status found."
         detail = {}
     else:
-        with open('/var/tmp/restic.json', 'r') as status_file:
-            js = json.load(status_file)
-
-        last_backup = datetime.fromisoformat(js[0]['time'][0:19])
-        current_date = datetime.now()
-        detail = js
-
-        diff = current_date - last_backup
-
-        if diff.seconds > configuration['max_age']:
-            status = 250
-            message = "The backup is to old, it happens {} seconds ago.".format(diff.seconds)
+        try:
+            with open('/var/tmp/restic.json', 'r') as status_file:
+                js = json.load(status_file)
+        except json.decoder.JSONDecodeError:
+            status = 300
+            message = "Json file is malformed."
+            detail = {}
         else:
-            status = 100
-            message = "Everything is fine, last backup at {}".format(last_backup)
+            last_backup = datetime.fromisoformat(js[0]['time'][0:19])
+            current_date = datetime.now()
+            detail = js
+
+            diff = current_date - last_backup
+
+            if diff.seconds > configuration['max_age']:
+                status = 250
+                message = "The backup is to old, it happens {} seconds ago.".format(diff.seconds)
+            else:
+                status = 100
+                message = "Everything is fine, last backup at {}".format(last_backup)
 
     print_result(status, message, detail)
 
