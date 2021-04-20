@@ -14,7 +14,7 @@ docker:
         - 9000:9000
       start: true
       detatch: true
-      auto_remove: true
+      auto_remove: false
       privilegde: true
       network_disabled: false
       network_mode: host
