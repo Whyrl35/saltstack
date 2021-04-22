@@ -5,4 +5,4 @@ invoke_orchestrate_cloud_creation:
       - mods: orchestrate.cloud_created
       - pillar:
           event_tag: {{ tag }}
-        event_data: {{ data|json }}
+          event_data: {{ data|json }}

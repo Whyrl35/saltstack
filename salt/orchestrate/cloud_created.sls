@@ -1,6 +1,6 @@
 {% set tag = salt.pillar.get('event_tag') %}
 {% set data = salt.pillar.get('event_data') %}
-{% set short_hostname = data['id'].split('/')[0] %}
+{% set short_hostname = data['id'].split('.')[0] %}
 {% set domainname = 'whyrl.fr' %}
 
 #- Set the hostname
