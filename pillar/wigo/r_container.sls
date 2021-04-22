@@ -1,6 +1,6 @@
 wigo:
   probes:
-    docker_container: true
+    docker_container: {% if 'swarm' in grains['roles'] %}false{% else %}true{% endif %}
   probes_actives:
     docker_container: 60
   probes_config:
