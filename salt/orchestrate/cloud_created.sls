@@ -3,6 +3,15 @@
 {% set short_hostname = data['id'].split('.')[0] %}
 {% set domainname = 'whyrl.fr' %}
 
+#- Wait for agent installation
+orchestrate_wait_agent_installation:
+  salt.function:
+    - name: cmd.run
+    - tgt: {{ data['id'] }}
+    - tgt_type: grain
+    - arg:
+      - "sleep 120"
+
 #- Set the hostname
 orchestrate_change_hostname:
   salt.function:

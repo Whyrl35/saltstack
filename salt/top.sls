@@ -24,6 +24,7 @@ base:
     - noderig
     - promtail
     - restic
+    - fresh_install
 
   # KS001 specific, for moviecat CI/CD
   'ks*':

@@ -19,7 +19,7 @@ docker:
     force_present: false
     force_running: true
 
-{% if salt.grains.get('host') != 'srv002' %}
+{% if (salt.grains.get('host') != 'srv002') and ('swarm' not in grains['roles'] ) %}
     running:
       - portainer
 
