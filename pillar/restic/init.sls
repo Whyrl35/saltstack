@@ -56,3 +56,6 @@ restic:
       - /usr/bin/rm -rf /opt/warp10/leveldb/snapshots/warp10-backup
     {% endif %}
 
+    {% if 'swarm' in grains['roles'] %}
+      - /var/lib/docker/volumes/
+    {% endif %}
