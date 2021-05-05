@@ -7,10 +7,10 @@ java:
 
   adopt:
     jvm: hotspot
-    javaversion: 8u275-b01 #11.0.9.1+1
+    javaversion: 8u292-b10 #11.0.9.1+1
     pkg:
       #name: OpenJDK11U-jdk
       #uri: https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-
       archive:
         # yamllint disable-line rule:line-length
-        source_hash: 06fb04075ed503013beb12ab87963b2ca36abe9e397a0c298a57c1d822467c29
+        source_hash: 0949505fcf42a1765558048451bb2a22e84b3635b1a31dd6191780eeccaa4ada

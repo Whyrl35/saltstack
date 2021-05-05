@@ -1,9 +1,10 @@
 warp10:
   lookup:
+    provider: github
     archive:
-      bintray:
-        version: '2.7.5'
-        uri: 'https://dl.bintray.com/senx/generic/io/warp10/warp10'
+      github:
+        version: '2.8.1'
+        uri: 'https://github.com/senx/warp10-platform/releases/download'
     service:
       enable: true
     config:

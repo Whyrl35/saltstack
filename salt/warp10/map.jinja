@@ -29,6 +29,11 @@
   {%- set base_uri = warp10.archive.bintray.uri %}
   {%- set name = warp10.name %}
 {%- endif %}
+{%- if 'github' in provider|lower %}
+  {%- set version = warp10.archive.github.version %}
+  {%- set base_uri = warp10.archive.github.uri %}
+  {%- set name = warp10.name %}
+{%- endif %}
 
 {%- do warp10.update({ 'path': warp10.dir.home }) %}
 {%- do warp10.update({ 'version': version }) %}
