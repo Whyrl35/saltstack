@@ -57,9 +57,9 @@ agent-service:
     - watch:
       - file: agent-config-manager-ip
       - file: agent-config-udp
-      - file: agent-config-access-log
+#      - file: agent-config-access-log
 #      - file: agent-config-error-log
-#      - file: agent_ar_ipset
+      - file: agent_ar_ipset
 
 agent_ar_ipset:
   file.managed:
