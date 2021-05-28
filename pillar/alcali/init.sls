@@ -16,6 +16,7 @@ alcali:
     workers: {{ grains['num_cpus'] }}
   # All the items under this section will be converted into an environment file.
   config:
+    auth_backend: local
     db_backend: mysql
     db_name: salt
     db_user: alcali
