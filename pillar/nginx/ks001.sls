@@ -32,7 +32,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/default_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/default_access_log.json json_analytics
+              - /var/log/nginx/default_access.log
             - error_log: /var/log/nginx/default_error.log
             - root: /var/www/website/
             - index: index.html index.htm

@@ -40,7 +40,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/loki_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/loki_access_log.json json_analytics
+              - /var/log/nginx/loki_access.log
             - error_log: /var/log/nginx/loki_error.log
             - ssl_certificate: /etc/letsencrypt/live/loki.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/loki.whyrl.fr/privkey.pem

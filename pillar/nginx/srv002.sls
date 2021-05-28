@@ -32,7 +32,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/nas_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/nas_access_log.json json_analytics
+              - /var/log/nginx/nas_access.log
             - error_log: /var/log/nginx/nas_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -86,7 +88,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/portainer_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/portainer_access_log.json json_analytics
+              - /var/log/nginx/portainer_access.log
             - error_log: /var/log/nginx/portainer_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -135,7 +139,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/hassio_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/hassio_access_log.json json_analytics
+              - /var/log/nginx/hassio_access.log
             - error_log: /var/log/nginx/hassio_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -192,7 +198,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/homepanel_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/homepanel_access_log.json json_analytics
+              - /var/log/nginx/homepanel_access.log
             - error_log: /var/log/nginx/homepanel_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -237,7 +245,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/gateway_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/gateway_access_log.json json_analytics
+              - /var/log/nginx/gateway_access.log
             - error_log: /var/log/nginx/gateway_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -278,7 +288,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/extend_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/extend_access_log.json json_analytics
+              - /var/log/nginx/extend_access.log
             - error_log: /var/log/nginx/extend_error.log
             - ssl_certificate: /etc/letsencrypt/live/whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/whyrl.fr/privkey.pem
@@ -320,7 +332,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/default_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/default_access_log.json json_analytics
+              - /var/log/nginx/default_access.log
             - error_log: /var/log/nginx/default_error.log
             - root: /var/www/website/
             - index: index.html index.htm

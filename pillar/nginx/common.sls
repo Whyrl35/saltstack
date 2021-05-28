@@ -18,4 +18,5 @@ nginx:
           geoip_city: /usr/share/GeoIP/GeoIPCity.dat
           access_log:
             - /var/log/nginx/access_log.json json_analytics
+            - /var/log/nginx/access.log
 

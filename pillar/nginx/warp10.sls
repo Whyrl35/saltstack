@@ -34,7 +34,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/grafana_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/grafana_access_log.json json_analytics
+              - /var/log/nginx/grafana_access.log
             - error_log: /var/log/nginx/grafana_error.log
             - ssl_certificate: /etc/letsencrypt/live/warp10.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/warp10.whyrl.fr/privkey.pem
@@ -79,7 +81,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/warp10_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/warp10_access_log.json json_analytics
+              - /var/log/nginx/warp10_access.log
             - error_log: /var/log/nginx/warp10_error.log
             - ssl_certificate: /etc/letsencrypt/live/warp10.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/warp10.whyrl.fr/privkey.pem
@@ -124,7 +128,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/warp10_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/warp10_access_log.json json_analytics
+              - /var/log/nginx/warp10_access.log
             - error_log: /var/log/nginx/warp10_error.log
             - ssl_certificate: /etc/letsencrypt/live/warp10.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/warp10.whyrl.fr/privkey.pem

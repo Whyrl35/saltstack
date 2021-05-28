@@ -32,7 +32,9 @@ nginx:
             - listen:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
-            - access_log: /var/log/nginx/bastion_access_log.json json_analytics
+            - access_log:
+              - /var/log/nginx/bastion_access_log.json json_analytics
+              - /var/log/nginx/bastion_access.log
             - error_log: /var/log/nginx/bastion_error.log
             - ssl_certificate: /etc/letsencrypt/live/bastion.whyrl.fr/fullchain.pem
             - ssl_certificate_key: /etc/letsencrypt/live/bastion.whyrl.fr/privkey.pem
