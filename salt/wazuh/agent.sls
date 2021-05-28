@@ -22,6 +22,24 @@ agent-config-udp:
     - require:
       - pkg: agent
 
+### XXX: don't needed, use the sync function of wazuh: https://documentation.wazuh.com/4.0/user-manual/reference/centralized-configuration.html
+
+#agent-config-access-log:
+#  file.replace:
+#    - name: /var/ossec/etc/ossec.conf
+#    - pattern: "<location>/var/log/nginx/access.log</location>"
+#    - repl: "<location>/var/log/nginx/*access.log</location>"
+#    - require:
+#      - pkg: agent
+
+#agent-config-error-log:
+#  file.replace:
+#    - name: /var/ossec/etc/ossec.conf
+#    - pattern: "<location>/var/log/nginx/error.log</location>"
+#    - repl: "<location>/var/log/nginx/*error.log</location>"
+#    - require:
+#      - pkg: agent
+
 agent-register:
   cmd.run:
     - name: /var/ossec/bin/agent-auth -m {{ pillar['wazuh']['server'] }}
@@ -39,7 +57,9 @@ agent-service:
     - watch:
       - file: agent-config-manager-ip
       - file: agent-config-udp
-      - file: agent_ar_ipset
+      - file: agent-config-access-log
+#      - file: agent-config-error-log
+#      - file: agent_ar_ipset
 
 agent_ar_ipset:
   file.managed:
