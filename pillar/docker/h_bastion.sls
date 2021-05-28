@@ -16,10 +16,16 @@ docker:
         - URLS: '[ { url: "https://bastion.whyrl.fr/api/v1/spec.json", name: "sshportal-api" } ]'
       start: true
       detatch: true
-      auto_remove: true
+      auto_remove: false
       privilegde: false
       network_disabled: false
       network_mode: bridge
+      deploy:
+        restart_policy:
+          condition: unless-stopped
+          delay: 5s
+          max_attempts: 3
+          window: 120s
 
     sshportal-ui:
       name: sshportal-ui
@@ -28,10 +34,16 @@ docker:
         - 8002:80
       start: true
       detatch: true
-      auto_remove: true
+      auto_remove: false
       privilegde: false
       network_disabled: false
       network_mode: bridge
+      deploy:
+        restart_policy:
+          condition: unless-stopped
+          delay: 5s
+          max_attempts: 3
+          window: 120s
 
     sshportal-api:
       name: sshportal-api
@@ -44,10 +56,16 @@ docker:
         - CONF_PATH: /data
       start: true
       detatch: true
-      auto_remove: true
+      auto_remove: false
       privilegde: false
       network_disabled: false
       network_mode: bridge
+      deploy:
+        restart_policy:
+          condition: unless-stopped
+          delay: 5s
+          max_attempts: 3
+          window: 120s
 
     sshportal:
       name: sshportal
@@ -59,7 +77,13 @@ docker:
       working_dir: /srv
       start: true
       detatch: true
-      auto_remove: true
+      auto_remove: false
       privilegde: false
       network_disabled: false
       network_mode: bridge
+      deploy:
+        restart_policy:
+          condition: unless-stopped
+          delay: 5s
+          max_attempts: 3
+          window: 120s

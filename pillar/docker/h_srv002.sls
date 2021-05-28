@@ -18,3 +18,9 @@ docker:
       privilegde: true
       network_disabled: false
       network_mode: host
+      deploy:
+        restart_policy:
+          condition: unless-stopped
+          delay: 5s
+          max_attempts: 3
+          window: 120s
