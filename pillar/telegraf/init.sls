@@ -10,7 +10,6 @@
                        'https://salt.whyrl.fr',
                        'https://vault.whyrl.fr',
                        'https://warden.whyrl.fr',
-                       'https://warpstudio.whyrl.fr',
                        'https://wazuh.whyrl.fr',
                        'https://webmail.whyrl.fr',
                        'https://whyrl.fr',
