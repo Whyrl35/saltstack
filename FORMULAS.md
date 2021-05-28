@@ -17,6 +17,7 @@
 * https://github.com/saltstack-formulas/grafana-formula.git
 * https://github.com/saltstack-formulas/telegraf-formula.git
 * https://github.com/saltstack-formulas/nexus-formula
+* https://github.com/saltstack-formulas/logrotate-formula.git
 
 # My own
 

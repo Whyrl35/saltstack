@@ -23,6 +23,8 @@ base:
     - beamium
     - noderig
     - promtail
+    - logrotate
+    - logrotate.jobs
     - restic
     - fresh_install
 

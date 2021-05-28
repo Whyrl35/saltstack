@@ -105,6 +105,7 @@ base: #
     {% endfor %}
     - letsencrypt.h_{{ host }}
     - nginx
+    - logrotate.nginx
     - ignore_missing: True
 
   #'not G@roles:borgbackup':
