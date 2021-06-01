@@ -18,6 +18,7 @@ docker:
       privilegde: true
       network_disabled: false
       network_mode: host
+      pull: always
       deploy:
         restart_policy:
           condition: unless-stopped
