@@ -1,0 +1,38 @@
+volume swarm-vols-1
+  type protocol/client
+  option transport-type tcp
+  option remote-host docker1
+  option remote-subvolume /media/gluster/data
+end-volume
+
+volume swarm-vols-2
+  type protocol/client
+  option transport-type tcp
+  option remote-host docker2
+  option remote-subvolume /media/gluster/data
+end-volume
+
+volume swarm-vols-3
+  type protocol/client
+  option transport-type tcp
+  option remote-host docker3
+  option remote-subvolume /media/gluster/data
+end-volume
+
+volume replicate
+  type cluster/replicate
+  subvolumes swarm-vols-1 swarm-vols-2 swarm-vols-3
+end-volume
+
+volume writebehind
+  type performance/write-behind
+  option window-size 1MB
+  subvolumes replicate
+end-volume
+
+volume cache
+  type performance/io-cache
+  option cache-size 512MB
+  subvolumes writebehind
+end-volume
+

@@ -1,0 +1,11 @@
+{%- load_yaml as swarm %}
+masters:
+  {% for server, addrs in salt.saltutil.runner('mine.get', tgt='docker[1-3]*', fun='network.ip_addrs').items() %}
+  {{ server }}:
+  {% for addr in (addrs | ipv4)  %}
+  {% if(addr | is_ip(options='private') and addr[:3] == "192") %}
+    - {{ addr }}
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+{%- endload %}
