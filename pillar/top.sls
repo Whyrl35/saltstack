@@ -70,6 +70,10 @@ base: #
     - docker.h_{{ host }}
     - ignore_missing: True
 
+  'roles:swarm':
+    - match: grain
+    - swarm
+
   'roles:wazuh_server':
     - match: grain
     - webhook

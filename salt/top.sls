@@ -26,7 +26,6 @@ base:
     - logrotate
     - logrotate.jobs
     - restic
-    - fresh_install
 
   # KS001 specific, for moviecat CI/CD
   'ks*':
@@ -54,6 +53,10 @@ base:
     - docker
     - docker.compose
     - docker.containers
+
+  'roles:swarm':
+    - match: grain
+    - swarm
 
   # Wazuh server, may be only one host, that run the wazuh stack
   # include the wazuh server state + elk + front for kibana
