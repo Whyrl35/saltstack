@@ -152,7 +152,7 @@ kibana-plugins-dir-ownership:
 
 kibana-install-plugins:
   cmd.run:
-    - name: /usr/share/kibana/bin/kibana-plugin install https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-{{ wazuh_version }}_{{ kibana_version}}-1.zip
+    - name: /usr/share/kibana/bin/kibana-plugin install https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-{{ wazuh_version }}_{{ kibana_version }}-1.zip
     - cwd: /usr/share/kibana
     - runas: kibana
     - require:
@@ -197,6 +197,3 @@ hold-all-packages:
       - elasticsearch-oss
     - hold: True
 {% endif %}
-
-
-
