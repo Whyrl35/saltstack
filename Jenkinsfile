@@ -17,5 +17,11 @@ fi'''
       }
     }
 
+    stage('Validate') {
+      steps {
+        sh 'find . -type f -name "*.sls" ! -path "./formulas/*" | xargs salt-lint'
+      }
+    }
+
   }
 }
