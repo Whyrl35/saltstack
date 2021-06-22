@@ -19,14 +19,17 @@ kibana-stop-service:
 
 elastic-disable-shard-allocation:
   cmd.run:
-    - name: curl -X PUT "https://127.0.0.1:9200/_cluster/settings"  -u {{user}}:{{password}} -k -H 'Content-Type: application/json' -d '{ "persistent": { "cluster.routing.allocation.enable": "primaries" } } '
+    - name: |
+        curl -X PUT "https://127.0.0.1:9200/_cluster/settings" \
+          -u {{ user }}:{{ password }} -k -H 'Content-Type: application/json' \
+          -d '{ "persistent": { "cluster.routing.allocation.enable": "primaries" } } '
     - require:
       - service: kibana-stop-service
       - service: filebeat-stop-service
 
 elastic-stop-indexing-sync-flush:
   cmd.run:
-    - name: curl -X POST "https://127.0.0.1:9200/_flush/synced" -u {{username}}:{{password}} -k
+    - name: curl -X POST "https://127.0.0.1:9200/_flush/synced" -u {{ username }}:{{ password }} -k
     - require:
       - cmd: elastic-disable-shard-allocation
 
@@ -52,7 +55,10 @@ elastic-start-service:
 
 elastic-reenable-shard-allocation:
   cmd.run:
-    - name: curl -X PUT "https://127.0.0.1:9200/_cluster/settings" -u {{user}}:{{password}} -k -H 'Content-Type: application/json' -d ' { "persistent": { "cluster.routing.allocation.enable": "all" } } '
+    - name: |
+        curl -X PUT "https://127.0.0.1:9200/_cluster/settings" -u {{ user }}:{{ password }} -k \
+          -H 'Content-Type: application/json' \
+          -d ' { "persistent": { "cluster.routing.allocation.enable": "all" } } '
     - require:
       - service: elastic-start-service
 
@@ -64,7 +70,10 @@ filebeat-upgrade-to-latest:
 
 filebeat-alerts-template:
   cmd.run:
-    - name: curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/v4.0.4/extensions/elasticsearch/7.x/wazuh-template.json && chmod go+r /etc/filebeat/wazuh-template.json
+    - name: |
+        curl -so /etc/filebeat/wazuh-template.json \
+        https://raw.githubusercontent.com/wazuh/wazuh/v4.0.4/extensions/elasticsearch/7.x/wazuh-template.json && \
+        chmod go+r /etc/filebeat/wazuh-template.json
     - require:
       - pkg: filebeat-upgrade-to-latest
 

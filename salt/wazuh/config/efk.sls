@@ -103,14 +103,22 @@ elastic-search-guard-conf:
 
 elastic-search-guard-generate-cert:
   cmd.run:
-    - name: {{ wazuh.search_guard.binary.destination }}/tools/sgtlstool.sh -c {{ wazuh.search_guard.configuration.destination }}  -ca -crt -t {{ wazuh.elasticsearch.configuration.certs }} && echo && echo "changed=yes comment='New cert created'"
+    - name: |
+        {{ wazuh.search_guard.binary.destination }}/tools/sgtlstool.sh -c {{ wazuh.search_guard.configuration.destination }} \
+          -ca -crt -t {{ wazuh.elasticsearch.configuration.certs }} && \
+          echo && \
+          echo "changed=yes comment='New cert created'"
     - creates: {{ wazuh.elasticsearch.configuration.certs }}/elasticsearch.key
     - require:
       - file: elastic-search-guard-conf
 
 elastic-securityadmin:
   cmd.run:
-    - name: {{ wazuh.elasticsearch.securityadmin.path }} -cd {{ wazuh.elasticsearch.securityadmin.plugin }} -nhnv -cacert {{ wazuh.elasticsearch.configuration.certs }}/root-ca.pem -cert {{ wazuh.elasticsearch.configuration.certs }}/admin.pem -key {{ wazuh.elasticsearch.configuration.certs }}/admin.key
+    - name: |
+        {{ wazuh.elasticsearch.securityadmin.path }} -cd {{ wazuh.elasticsearch.securityadmin.plugin }} \
+          -nhnv -cacert {{ wazuh.elasticsearch.configuration.certs }}/root-ca.pem \
+          -cert {{ wazuh.elasticsearch.configuration.certs }}/admin.pem \
+          -key {{ wazuh.elasticsearch.configuration.certs }}/admin.key
     - onchanges:
       - cmd: elastic-search-guard-generate-cert
     - require:

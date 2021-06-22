@@ -28,4 +28,4 @@ nftables:
           table: 'filter'
           chain: 'WEBHOOK'
           family: 'ip6'
-          rule: 'tcp dport 9000 counter accept'#    
+          rule: 'tcp dport 9000 counter accept'

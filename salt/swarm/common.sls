@@ -9,7 +9,7 @@ swarm_prerequisits:
 {% if master != grains['id'] %}
 {% set short_name = master.split('.', 1)[0] %}
 {% for ip in ips %}
-add_master_in_hosts_{{master}}_{{ip}}:
+add_master_in_hosts_{{ master }}_{{ ip }}:
   host.only:
     - name: {{ ip }}
     - hostnames:
