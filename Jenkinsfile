@@ -12,8 +12,6 @@ pipeline {
 
 if [ $FOUND -eq 0 ]
 then
-  sudo apt update
-  sudo apt install python3-pip
   pip3 install --user salt-lint
 fi'''
       }
