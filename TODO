@@ -14,9 +14,9 @@ Monitoring:
   ☐ Use timelion to fetch warp10 data and build dashboard
 
 Warp10:
-  ☐ code the warp10-standalone installation
-  ☐ code the warp10-standalone configuration
-  ☐ code the warp10-standalone accelerator
+  ✔ code the warp10-standalone installation
+  ✔ code the warp10-standalone configuration
+  ✔ code the warp10-standalone accelerator
   ✔ install a new warp10 host @done(20-12-23 11:10)
   ☐ deploy a new warp10 env
   ☐ migrate from docker to warp10-standalone
