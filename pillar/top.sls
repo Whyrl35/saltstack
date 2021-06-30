@@ -1,6 +1,7 @@
 {% set host = salt.grains.get('host') %}
 
-base: #
+base:
+  #
   # Present on all hosts / common
   #
   '*':
