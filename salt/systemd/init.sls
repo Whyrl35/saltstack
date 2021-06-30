@@ -36,6 +36,8 @@ override_docker_for_api:
         - '[Service]'
         - 'ExecStart='
         - "ExecStart=/usr/bin/dockerd -H fd:// -H tcp://{{ grains['ip4_interfaces']['eth1'][0] }}:2375 --containerd=/run/containerd/containerd.sock"
+    - watch_in:
+      - service: docker-software-service-running-docker
   module.run:
     - name: service.systemctl_reload
     - onchanges:
