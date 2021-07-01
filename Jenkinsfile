@@ -10,12 +10,7 @@ pipeline {
       steps {
         sh '''which python3 || (apt update && apt install -y python3 python3-pip)
 '''
-        sh '''if [ -e /home/jenkins/.local/bin/salt-lint ]
-then
-  echo "salt-lint is already installed"
-else
-  pip3 install --user salt-lint
-fi'''
+        sh 'which salt-lint || pip3 install salt-lint'
       }
     }
 
