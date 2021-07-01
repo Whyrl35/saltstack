@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Prepare') {
       steps {
-        sh '''which python3 || (apt update && apt install python3 python3-pip)
+        sh '''which python3 || (apt update && apt install -y python3 python3-pip)
 '''
         sh '''if [ -e /home/jenkins/.local/bin/salt-lint ]
 then
