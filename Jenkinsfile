@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'jnlp-docker-agent'
+      label 'swarm-agent'
     }
 
   }
