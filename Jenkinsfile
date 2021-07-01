@@ -21,7 +21,7 @@ fi'''
 
     stage('Validate') {
       steps {
-        sh 'find . -type f -name "*.sls" ! -path "./formulas/*" | xargs /home/jenkins/.local/bin/salt-lint'
+        sh 'find . -type f -name "*.sls" ! -path "./formulas/*" | xargs salt-lint'
       }
     }
 
