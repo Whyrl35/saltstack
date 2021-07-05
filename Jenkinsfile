@@ -17,6 +17,10 @@ pipeline {
     stage('Validate') {
       steps {
         sh 'find . -type f -name "*.sls" ! -path "./formulas/*" | xargs salt-lint'
+        catchError() {
+          slackSend(message: 'Error during Validation \'salt-lint\' of the repository', color: 'danger', failOnError: true, tokenCredentialId: 'slack-token')
+        }
+
       }
     }
 
