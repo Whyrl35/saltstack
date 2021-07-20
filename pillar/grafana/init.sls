@@ -12,3 +12,5 @@ grafana:
       x_content_type_options: false
     auth.google:
       client_secret: 0ldS3cretKey
+    plugins:
+      allow_loading_unsigned_plugins: ovh-warp10-datasource
