@@ -8,8 +8,8 @@ wigo:
       enabled: 'true'
       versionList:
         - name: loki
-          current: '2.2.1'
+          current: '2.3.0'
           url: https://api.github.com/repos/grafana/loki/releases/latest
         - name: promtail
-          current: '2.2.1'
+          current: '2.3.0'
           url: https://api.github.com/repos/grafana/loki/releases/latest

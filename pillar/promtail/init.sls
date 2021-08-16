@@ -5,7 +5,7 @@
 promtail:
   archive:
     github:
-      version: '2.2.1'
+      version: '2.3.0'
 
   config:
     clients:
@@ -20,7 +20,7 @@ promtail:
         max_age: 12h
         path: /run/log/journal
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: systemd-journal
       relabel_configs:
         - source_labels: ['__journal__systemd_unit']
@@ -30,7 +30,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: syslog
           __path__: /var/log/syslog
     - job_name: messages
@@ -38,7 +38,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: messages
           __path__: /var/log/messages
     - job_name: kern
@@ -46,7 +46,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: kern
           __path__: /var/log/kern.log
     - job_name: dpkg
@@ -54,7 +54,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: dpkg
           __path__: /var/log/dpkg.log
     - job_name: deamon
@@ -62,7 +62,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: daemon
           __path__: /var/log/daemon.log
     - job_name: auth
@@ -70,7 +70,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: auth
           __path__: /var/log/auth.log
 
@@ -79,7 +79,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: mail
           __path__: /var/log/mail.log
     - job_name: wigo
@@ -87,7 +87,7 @@ promtail:
       - targets:
           - localhost
         labels:
-          host: {{ grains.get('id') }}
+          host: {{ grains['id'] }}
           job: wigo
           __path__: /var/log/wigo.log
 
@@ -99,7 +99,7 @@ promtail:
         - localhost
         labels:
           job: nginx_access_log
-          host:  {{ grains.get('id') }}
+          host:  {{ grains['id'] }}
           __path__: /var/log/nginx/*.json
 {% endif %}
 
@@ -110,6 +110,6 @@ promtail:
         - localhost
         labels:
           job: nginx_access_log
-          host:  {{ grains.get('id') }}
+          host:  {{ grains['id'] }}
           __path__: /var/log/nginx/*.json
 {% endif %}

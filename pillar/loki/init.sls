@@ -1,7 +1,7 @@
 loki:
   archive:
     github:
-      version: '2.2.1'
+      version: '2.3.0'
 
   config:
     schema_config:
@@ -33,4 +33,3 @@ loki:
       retention_period: 720h # ~6 months
     chunk_store_config:
       max_look_back_period: 720h
-
