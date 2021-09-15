@@ -13,7 +13,6 @@
                        'https://wazuh.whyrl.fr',
                        'https://webmail.whyrl.fr',
                        'https://whyrl.fr',
-                       'https://blog.whyrl.fr',
                        'https://wigo.whyrl.fr'] %}
 
 telegraf:
@@ -98,4 +97,3 @@ telegraf:
       prometheus_client:
       - listen: ":9283"
         metric_version: 2
-

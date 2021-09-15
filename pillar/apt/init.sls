@@ -40,7 +40,7 @@ apt:
     # Metrics repository include :
     # noderig and beamium
     metrics:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
+      distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
       url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
       comps: [main]
       keyid: A7F0D217C80D5BB8
@@ -49,7 +49,7 @@ apt:
     # Wigo is a light pull/push monitoring agent
     # https://github.com/root-gg/wigo
     wigo:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
+      distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
       url: http://deb.carsso.com
       comps: [main]
       key_url: http://deb.carsso.com/deb.carsso.com.key
@@ -57,14 +57,14 @@ apt:
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
     saltstack:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
+      distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
+      url: http://repo.saltstack.com/py3/debian/{# grains['osrelease'] #}10/amd64/latest
       comps: [main]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
     saltstack-archive:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/archive/3000.3
+      distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
+      url: http://repo.saltstack.com/py3/debian/{# grains['osrelease'] #}10/amd64/archive/3000.3
       comps: [main]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80
