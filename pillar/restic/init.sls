@@ -2,7 +2,7 @@
 
 {% set secret = salt['vault'].read_secret('secret/salt/openstack') %}
 
-{% if grains['deployment'] == 'gra' %}
+{% if grains['deployment'][0:3] == 'gra' %}
 {% set container_name = 'bkp-repo2' %}
 {% set region_name = 'DE' %}
 {% else %}
