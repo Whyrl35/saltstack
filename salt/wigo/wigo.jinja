@@ -12,7 +12,7 @@
 #
 [Global]
 Hostname                    = ""
-Group                       = "{{ grains['domain'] if 'domain' in grains else local }}"
+Group                       = "{{ grains['fqdn'].split('.',1)[1] if 'fqdn' in grains else local }}"
 LogFile                     = "/var/log/wigo.log"
 ProbesDirectory             = "/usr/local/wigo/probes"
 ProbesConfigDirectory       = "/etc/wigo/conf.d"
