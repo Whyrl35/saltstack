@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+glusterfs:
+  prerequisit:
+    packages:
+      - xfsprogs
+
+  filesystem:
+    device: /dev/nvme0n1p1
+    mount: /mnt/glusterfs
+
+  service:
+    name: glusterd.service
+
+  nodes: {}
+  volumes: {}

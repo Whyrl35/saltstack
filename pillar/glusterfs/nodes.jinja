@@ -1,0 +1,10 @@
+{%- load_yaml as nodes %}
+{% for server, addrs in salt.saltutil.runner('mine.get', tgt='gfs[0-9]*', fun='network.ip_addrs').items() %}
+{{ server }}:
+{% for addr in (addrs | ipv4)  %}
+{% if(addr | is_ip(options='private')) %}
+  - {{ addr }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{%- endload %}
