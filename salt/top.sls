@@ -136,3 +136,13 @@ base:
   'roles:smokeping':
     - match: grain
     - telegraf
+
+  # glusterfs servers
+  'roles:glusterfs':
+    - match: grain
+    - glusterfs.server
+
+  # webserver in backend, no front exposure
+  'roles:webserver-back':
+    - match: grain
+    - glusterfs.client

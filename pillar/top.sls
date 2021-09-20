@@ -149,3 +149,12 @@ base:
   'roles:smokeping':
     - match: grain
     - telegraf
+
+  'roles:glusterfs':
+    - match: grain
+    - glusterfs
+
+  'roles:webserver-back':
+    - match: grain
+    - glusterfs
+    - glusterfs.webserver
