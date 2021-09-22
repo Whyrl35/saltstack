@@ -1,0 +1,3 @@
+{% for server in salt.shuffle.shuffle(service['servers'], grains['id']) -%}
+server {{ loop.index }} address {{ server['ip'] }} port {{ server['port'] }}
+{% endfor %}

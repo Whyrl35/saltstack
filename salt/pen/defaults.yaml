@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+pen:
+  name: pen
+  package: pen
