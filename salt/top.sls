@@ -146,5 +146,15 @@ base:
   'roles:webserver-back':
     - match: grain
     - glusterfs.client
-    #- letsencrypt
+    - pen
     - nginx
+
+  # galera server, mariadb cluster
+  'roles:galera':
+    - match: grain
+    - galera
+
+  # loadbalancer servers
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy

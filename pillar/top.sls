@@ -158,3 +158,8 @@ base:
     - match: grain
     - glusterfs
     - glusterfs.webserver
+    - pen
+
+  'roles:galera':
+    - match: grain
+    - galera

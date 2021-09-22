@@ -36,7 +36,9 @@ glusterfs-mount-volume-{{ mountpoint_name }}:
     - dump: 0
     - pass_num: 0
     - device_name_regex:
-      - ({{ glusterfs_ip_list|join('|') }}):/volume_name
+      {% for ip in glusterfs_ip_list %}
+      - {{ ip }}:{{ mountpoint.volume }}
+      {% endfor %}
     - require:
       - pkg: glusterfs-client-install
 {% endfor %}
