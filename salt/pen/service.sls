@@ -23,6 +23,8 @@ pen-systemd-{{ name }}:
     - enable: true
     - require:
       - file: pen-systemd-{{ name }}
+    - onchanges:
+      - file: /etc/systemd/system/pen-*
 {% endfor %}
 
 # refresh systemd when there is change on above files

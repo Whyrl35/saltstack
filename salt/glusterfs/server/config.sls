@@ -27,9 +27,9 @@ glusterfs-nodes-peered:
     - require:
       - service: glusterfs-service
 
-glusterfs-replicated-volume:
-  {% for volume_name in glusterfs.volumes %}
-  {% set volume = glusterfs.volumes[volume_name] %}
+{% for volume_name in glusterfs.volumes %}
+{% set volume = glusterfs.volumes[volume_name] %}
+glusterfs-replicated-volume-{{ volume_name }}:
   glusterfs.volume_present:
     - name: {{ volume_name }}
     - bricks:
@@ -38,4 +38,4 @@ glusterfs-replicated-volume:
       {% endfor %}
     - replica: {{ volume.replica }}
     - start: {{ volume.start }}
-  {% endfor %}
+{% endfor %}

@@ -4,4 +4,4 @@ Description=Pen load balancer - {{ name }}
 [Service]
 Type=forking
 PIDFile=/run/pen/{{ name }}.pid
-ExecStart=/usr/bin/pen -C /run/pen/{{ name }}.ctl -F /etc/pen/{{ name }}.cfg -p /run/pen/{{ name }}.pid {{ service.ip}}:{{ service.port }}
+ExecStart=/usr/bin/pen -r -C /run/pen/{{ name }}.ctl -F /etc/pen/{{ name }}.cfg -p /run/pen/{{ name }}.pid {{ service.ip}}:{{ service.port }}

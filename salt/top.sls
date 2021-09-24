@@ -157,4 +157,5 @@ base:
   # loadbalancer servers
   'roles:loadbalancer':
     - match: grain
+    - glusterfs.client
     - haproxy

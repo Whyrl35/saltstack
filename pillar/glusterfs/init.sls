@@ -15,3 +15,10 @@ glusterfs:
         {% endfor %}
       replica: 2
       start: True
+    letsencrypt:
+      bricks:
+        {% for node, ips in nodes.items() %}
+        - {{ node }}:/mnt/glusterfs/letsencrypt
+        {% endfor %}
+      replica: 2
+      start: True

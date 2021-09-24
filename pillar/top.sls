@@ -156,10 +156,14 @@ base:
 
   'roles:webserver-back':
     - match: grain
-    - glusterfs
     - glusterfs.webserver
     - pen
 
   'roles:galera':
     - match: grain
     - galera
+
+  'roles:loadbalancer':
+    - match: grain
+    - glusterfs.loadbalancer
+    - haproxy
