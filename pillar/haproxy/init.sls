@@ -16,7 +16,7 @@ haproxy:
   listens:
     stats:
       bind:
-        - "0.0.0.0:8801"
+        - "0.0.0.0:8801 ssl crt /etc/letsencrypt/live/whyrl.fr/fullcertandkey.pem alpn h2,http/1.1"
       mode: http
       stats:
         enable: true
