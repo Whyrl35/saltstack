@@ -32,6 +32,9 @@ restic:
     paths:
       - /srv
       - /etc
+    {% if 'homeassistant' in grains['roles'] %}
+      - /usr/share/hassio/homeassistant
+    {% endif %}
     {% if 'vault' in grains['roles'] %}
       - /opt/vault
     {% endif %}
@@ -40,6 +43,9 @@ restic:
     {% endif %}
     {% if 'warp10' in grains['roles'] %}
       - /opt/warp10/leveldb/snapshots
+    {% endif %}
+    {% if 'swarm' in grains['roles'] %}
+      - /var/lib/docker/volumes/
     {% endif %}
 
     {% if grains['id'] == 'ks001.whyrl.fr' %}
@@ -56,6 +62,3 @@ restic:
       - /usr/bin/rm -rf /opt/warp10/leveldb/snapshots/warp10-backup
     {% endif %}
 
-    {% if 'swarm' in grains['roles'] %}
-      - /var/lib/docker/volumes/
-    {% endif %}
