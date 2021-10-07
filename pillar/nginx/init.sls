@@ -10,4 +10,7 @@
 {% if standalone and (standalone|length > 0 )%}
 include:
   - nginx.{{ salt.grains.get('host') }}
+{% elif ('roles' in grains) and ('webserver-back' in grains['roles']) %}
+include:
+  - nginx.webserver-back
 {% endif %}

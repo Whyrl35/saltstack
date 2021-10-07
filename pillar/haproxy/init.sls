@@ -53,17 +53,17 @@ haproxy:
     whyrl:
       name: backend-whyrl
       mode: http
-      balance: source
+      balance: roundrobin
       options:
-        - "httpchk HEAD /"
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
       servers:
       {% for server, ips in webservers.items() %}
         {{ server }}:
           host: {{ ips[0] }}
-          port: 80
-          check: check
-          extra: "cookie {{ server.split('.')[0] }}"
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
 
     blog:

@@ -148,6 +148,7 @@ base:
     - glusterfs.client
     - pen
     - nginx
+    - webhook
 
   # galera server, mariadb cluster
   'roles:galera':

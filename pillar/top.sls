@@ -158,6 +158,9 @@ base:
     - match: grain
     - glusterfs.webserver
     - pen
+    - webhook
+    - nginx
+    - ignore_missing: True
 
   'roles:galera':
     - match: grain

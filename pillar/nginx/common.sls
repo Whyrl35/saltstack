@@ -43,7 +43,7 @@ nginx:
         - nginx
         - nginx-module-geoip
         - geoip-database
-        - geoip-database-extra
+        #- geoip-database-extra
     install_from_repo: true
     service:
       enable: True
@@ -54,7 +54,7 @@ nginx:
           log_format: >-
             json_analytics escape=json '{{ log_format | tojson }}'
           geoip_country: /usr/share/GeoIP/GeoIP.dat
-          geoip_city: /usr/share/GeoIP/GeoIPCity.dat
+          #geoip_city: /usr/share/GeoIP/GeoIPCity.dat
           access_log:
             - /var/log/nginx/access_log.json json_analytics
             - /var/log/nginx/access.log
