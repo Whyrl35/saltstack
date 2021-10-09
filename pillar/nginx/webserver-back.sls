@@ -17,6 +17,12 @@ nginx:
               - 80
               - '[::]:80'
             - root: /srv/web/www
+            - gzip: on
+            - gzip_vary: on
+            - gzip_comp_level: 6
+            - gzip_proxied: any
+            - gzip_types: '*' #'text/plain text/html text/css application/json application/javascript application/x-javascript text/javascript text/xml application/xml application/rss+xml application/atom+xml application/rdf+xml'
+            - gzip_disable: 'MSIE [1-6]\.(?!.*SV1)'
             - location ~ /\.well-known/acme-challenge:
               - allow:
                 - all
