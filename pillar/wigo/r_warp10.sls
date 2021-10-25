@@ -8,5 +8,5 @@ wigo:
       enabled: 'true'
       versionList:
         - name: warp10
-          current: 2.8.1
+          current: 2.9.0
           url: https://api.github.com/repos/senx/warp10-platform/releases/latest
