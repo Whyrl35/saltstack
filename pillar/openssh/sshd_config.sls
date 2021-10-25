@@ -1,15 +1,20 @@
+openssh:
+  sshd_config_mode: '0600'
+
 sshd_config:
   Port: 22
   Protocol: 2
   LoginGraceTime: 30
-  Banner: none
+  ClientAliveInterval: 300
+  ClientAliveCountMax: 0
+  MaxStartups: 10:30:60
+  AllowTcpForwarding: 'no'
+  Banner: /etc/issue.net
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
   SyslogFacility: AUTH
   LogLevel: INFO
-  ClientAliveInterval: 0
-  ClientAliveCountMax: 3
-  PermitRootLogin: no
+  PermitRootLogin: 'no'
   # PasswordAuthentication: 'yes'
   StrictModes: 'yes'
   MaxAuthTries: 3
