@@ -26,7 +26,7 @@ telegraf:
   conf:
     global_tags: {}
     agent:
-      interval: 10s
+      interval: 30s
       round_interval: true
       metric_batch_size: 1000
       metric_buffer_limit: 10000
@@ -90,7 +90,7 @@ telegraf:
         {% for url in website_urls %}
         - {{ url }}
         {% endfor %}
-        response_timeout: "5s"
+        response_timeout: "20s"
         method: "GET"
         follow_redirects: false
     outputs:

@@ -57,6 +57,8 @@ nginx:
               - proxy_set_header: X-Forwarded-Proto $scheme
               - proxy_set_header: Upgrade $http_upgrade
               - proxy_set_header: Connection "upgrade"
+              - proxy_read_timeout: 600
+              - client_max_body_size: 100M
             - location /photo/:
               - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
               - proxy_set_header: Host $http_host
@@ -66,6 +68,8 @@ nginx:
               - proxy_set_header: X-Forwarded-Proto $scheme
               - proxy_set_header: Upgrade $http_upgrade
               - proxy_set_header: Connection "upgrade"
+              - proxy_read_timeout: 600
+              - client_max_body_size: 100M
 
       portainer:
         enabled: True
