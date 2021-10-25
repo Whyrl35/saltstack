@@ -62,7 +62,8 @@ base:
   # include the wazuh server state + elk + front for kibana
   'roles:wazuh_server':
     - match: grain
-    - wazuh
+    #TODO: need rewriting again
+    #- wazuh
     - webhook
 
   # Wazuh client, should be all hosts, that are not the wazuh server
