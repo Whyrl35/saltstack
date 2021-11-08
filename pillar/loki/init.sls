@@ -1,7 +1,9 @@
+{% set secret = salt['vault'].read_secret('secret/salt/loki/openstack') %}
+
 loki:
   archive:
     github:
-      version: '2.4.0'
+      version: '2.4.1'
 
   config:
     schema_config:
@@ -21,10 +23,10 @@ loki:
           shared_store: filesystem
       swift:
           auth_url: "https://auth.cloud.ovh.net/v3"
-          username: XRg2mSG29tZa
-          password: 3sWdGUXK2A5bknauwfXkczGF9MaRJcrW
+          username: {{ secret['username'] }}
+          password: {{ secret['password'] }}
           user_domain_name: default
-          project_name: 3723225605861003
+          project_name: {{ secret['project_id'] }}
           project_domain_name: default
           region_name: DE
           container_name: loki

@@ -8,6 +8,7 @@ Type=simple
 User={{ loki.identity.user }}
 Group={{ loki.identity.group }}
 ExecStart={{ loki.path }}/bin/{{ loki.archive.binary_name }} -config.file={{ loki.path }}/etc/loki.yaml
+WorkingDirectory={{ loki.path }}
 
 SyslogIdentifier={{ loki.name }}
 Restart=always
