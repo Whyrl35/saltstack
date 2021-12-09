@@ -69,7 +69,7 @@ nginx:
               - proxy_set_header: Upgrade $http_upgrade
               - proxy_set_header: Connection "upgrade"
               - proxy_read_timeout: 600
-              - client_max_body_size: 100M
+              - client_max_body_size: 1024M
 
       portainer:
         enabled: True

@@ -19,6 +19,7 @@
 * https://github.com/saltstack-formulas/nexus-formula
 * https://github.com/saltstack-formulas/logrotate-formula.git
 * https://github.com/saltstack-formulas/haproxy-formula.git
+* https://github.com/saltstack-formulas/powerdns-formula.git
 
 # My own
 
