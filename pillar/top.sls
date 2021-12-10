@@ -170,3 +170,7 @@ base:
     - match: grain
     - glusterfs.loadbalancer
     - haproxy
+
+  'roles:dns-*':
+    - match: grain
+    - bind

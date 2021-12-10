@@ -161,3 +161,9 @@ base:
     - match: grain
     - glusterfs.client
     - haproxy
+
+  # DNS servers
+  'roles:dns-*':
+    - match: grain
+    - bind
+    - bind.config

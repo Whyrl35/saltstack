@@ -2,13 +2,13 @@
 {%- set id = grains['id'] %}
 {%- set password = salt['vault'].read_secret('secret/salt/backup/restic/' + id, default=None) %}
 {%- if password == None %}
-{%- set password = salt['random'].get_str(128) %}
+{%- set password = salt['random'].get_str(128, punctuation=False) %}
 {%- set ret = salt['vault'].write_secret('secret/salt/backup/restic/' + id, password=password) %}
 {%- else %}
 {%- set password = password['password'] %}
 {%- endif %}
 
-export RESTIC_PASSWORD={{ password }}
+export RESTIC_PASSWORD='{{ password }}'
 {%- for name, configuration in restic['repositories'].items() %}
 {%- set parameters = configuration['parameters'] %}
 # --- {{ name }} ---
