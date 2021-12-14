@@ -20,7 +20,7 @@ bind:
   configured_zones:
     whyrl.fr:
       type: slave
-      notify: false
+      notify: true
       auto-dnssec: 'maintain'
       masters:
         {% for name, ips in primaries.items() %}
@@ -33,7 +33,7 @@ bind:
 
     3.10.in-addr.arpa:
       type: slave
-      notify: false
+      notify: true
       masters:
         {% for name, ips in primaries.items() %}
         {% for ip in ips %}
