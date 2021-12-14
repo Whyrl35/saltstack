@@ -13,3 +13,4 @@ wigo:
         - /usr/bin/beamium
         - /usr/bin/noderig
         - /usr/bin/salt-minion
+        - /opt/promtail/bin/promtail-linux-amd64
