@@ -1,5 +1,6 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
 {% from 'haproxy/webservers.jinja' import webservers %}
+{% from 'haproxy/warden.jinja' import warden %}
 
 haproxy:
   global:
@@ -41,12 +42,14 @@ haproxy:
         - http ssl_fc,not
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
+        - host_warden hdr(host) -i warden.whyrl.fr
       reqadds:
         - "X-Forwarded-Protocol http if http"
         - "X-Forwarded-Protocol https if https"
       extra: "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
         - backend-blog if host_blog
+        - backend-warden if host_warden
       default_backend: backend-whyrl
 
   backends:
@@ -75,6 +78,22 @@ haproxy:
       cookie: "SERVERUID insert indirect nocache"
       servers:
       {% for server, ips in webservers.items() %}
+        {{ server }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    warden:
+      name: backend-warden
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      servers:
+      {% for server, ips in warden.items() %}
         {{ server }}:
           host: {{ ips[0] }}
           port: 443
