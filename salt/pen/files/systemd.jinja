@@ -1,7 +1,13 @@
 [Unit]
 Description=Pen load balancer - {{ name }}
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=forking
-PIDFile=/run/pen/{{ name }}.pid
+ExecStartPre=/bin/mkdir -p /run/pen/
 ExecStart=/usr/bin/pen -r -C /run/pen/{{ name }}.ctl -F /etc/pen/{{ name }}.cfg -p /run/pen/{{ name }}.pid {{ service.ip}}:{{ service.port }}
+PIDFile=/run/pen/{{ name }}.pid
+
+[Install]
+WantedBy=multi-user.target
