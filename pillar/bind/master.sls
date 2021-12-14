@@ -20,7 +20,7 @@ bind:
   configured_zones:
     whyrl.fr:
       type: master
-      notify: false
+      notify: true
       auto-dnssec: 'maintain'
       allow-transfer:
         {% for name, ips in ns_ipv4s.items() %}
@@ -33,7 +33,7 @@ bind:
 
     3.10.in-addr.arpa:
       type: master
-      notify: false
+      notify: true
       allow-transfer:
         {% for name, ips in ns_ipv4s.items() %}
         {% for ip in ips %}
@@ -50,7 +50,7 @@ bind:
     whyrl.fr:
       file: whyrl.fr.txt
       soa:
-        ns: ns1.whyrl.fr
+        ns: ns1.whyrl.fr.
         contact: hostmaster.example.com
         serial: auto # {{ serial }}
         class: IN
@@ -65,7 +65,8 @@ bind:
             - ns1
             - ns2
         A:
-          test: 10.3.1.1
+          srv001: 82.65.179.161
+          ks001: 91.121.156.77
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
@@ -74,10 +75,20 @@ bind:
           {% endif %}
           {% endfor %}
           {% endfor %}
+        CNAME:
+          salt: saltmaster.whyrl.fr.
+          wigo: wazuh.whyrl.fr.
+          saltpad: saltmaster.whyrl.fr.
+          imap: mail.whyrl.fr.
+          grafana: warp10.whyrl.fr.
+          srv002: srv001.whyrl.fr.
+          nas: srv001.whyrl.fr.
+          ks: ks001.whyrl.fr.
+
     3.10.in-addr.arpa:
       file: whyrl.fr.rev.txt
       soa:
-        ns: ns1.whyrl.fr
+        ns: ns1.whyrl.fr.
         contact: hostmaster.whyrl.fr
         serial: auto # {{ serial }}
         class: IN
