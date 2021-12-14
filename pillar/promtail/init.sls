@@ -8,6 +8,9 @@ promtail:
       version: '2.4.1'
 
   config:
+    server:
+      http_listen_address: 127.0.0.1
+      http_listen_port: 19080
     clients:
     - url: https://loki.whyrl.fr/loki/api/v1/push
       basic_auth:
