@@ -37,4 +37,5 @@ docker:
       privilegde: true
       network_disabled: false
       network_mode: bridge
+      restart_policy: always
 {% endif %}

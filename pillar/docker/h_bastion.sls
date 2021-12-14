@@ -20,12 +20,7 @@ docker:
       privilegde: false
       network_disabled: false
       network_mode: bridge
-      deploy:
-        restart_policy:
-          condition: unless-stopped
-          delay: 5s
-          max_attempts: 3
-          window: 120s
+      restart_policy: always
 
     sshportal-ui:
       name: sshportal-ui
@@ -38,12 +33,7 @@ docker:
       privilegde: false
       network_disabled: false
       network_mode: bridge
-      deploy:
-        restart_policy:
-          condition: unless-stopped
-          delay: 5s
-          max_attempts: 3
-          window: 120s
+      restart_policy: always
 
     sshportal-api:
       name: sshportal-api
@@ -60,12 +50,7 @@ docker:
       privilegde: false
       network_disabled: false
       network_mode: bridge
-      deploy:
-        restart_policy:
-          condition: unless-stopped
-          delay: 5s
-          max_attempts: 3
-          window: 120s
+      restart_policy: always
 
     sshportal:
       name: sshportal
@@ -81,9 +66,4 @@ docker:
       privilegde: false
       network_disabled: false
       network_mode: bridge
-      deploy:
-        restart_policy:
-          condition: unless-stopped
-          delay: 5s
-          max_attempts: 3
-          window: 120s
+      restart_policy: always
