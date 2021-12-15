@@ -31,5 +31,5 @@ whyrl_fr_fullchain:
     - group: root
     - mode: "0640"
     - contents:
-      - {{ whyrl_fr['chain'] | yaml_encode }}
       - {{ whyrl_fr['cert'] | yaml_encode }}
+      - {{ whyrl_fr['chain'] | yaml_encode }}
