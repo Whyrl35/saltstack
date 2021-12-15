@@ -75,6 +75,7 @@ base:
     - match: grain
     - mysql
     - mysql.server
+    - certificates
     - letsencrypt
     - nginx
     - postfixadmin
@@ -98,6 +99,7 @@ base:
   # Webserver using nginx and letsencrypt
   'roles:webserver':
     - match: grain
+    - certificates
     - letsencrypt
     - nginx
 
