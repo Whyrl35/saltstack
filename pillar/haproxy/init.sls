@@ -13,7 +13,22 @@ haproxy:
     ssl-default-bind-ciphersuites: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
     ssl-default-bind-options: prefer-client-ciphers no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets no-tlsv12
     ssl-default-server-ciphersuites: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
-    ssl-default-server-options: no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets no-tlsv12
+    ssl-default-server-options: no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets #no-tlsv12
+  defaults:
+    timeouts:
+      - http-request    10s
+      - queue           1m
+      - connect         10s
+      - client          1m
+      - server          1m
+      - http-keep-alive 10s
+      - check           10s
+    options:
+      - httplog
+      - dontlognull
+      - forwardfor
+      - http-server-close
+      - http-buffer-request
   listens:
     stats:
       bind:
@@ -43,6 +58,12 @@ haproxy:
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
+      httprequests:
+        - 'track-sc0 src table per_ip_rates'
+        - 'deny deny_status 429 if { sc_http_req_rate(0) gt 100 }'
+        # If User-Agent is in the list, deny
+        - 'deny if { req.hdr(user-agent) -i -m sub majestic }'
+        - 'deny unless { req.hdr(user-agent) -m found }'
       reqadds:
         - "X-Forwarded-Protocol http if http"
         - "X-Forwarded-Protocol https if https"
@@ -53,6 +74,9 @@ haproxy:
       default_backend: backend-whyrl
 
   backends:
+    per_ip_rates:
+      sticktable: 'type ip size 1m expire 10m store http_req_rate(10s)'
+
     whyrl:
       name: backend-whyrl
       mode: http
@@ -60,6 +84,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
       servers:
       {% for server, ips in webservers.items() %}
         {{ server }}:
@@ -76,6 +102,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ blog.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
       servers:
       {% for server, ips in webservers.items() %}
         {{ server }}:
@@ -92,6 +120,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
       servers:
       {% for server, ips in warden.items() %}
         {{ server }}:
