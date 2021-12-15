@@ -156,7 +156,7 @@ base:
 
   'roles:webserver-back':
     - match: grain
-    - glusterfs.webserver
+    - glusterfs.webserver-back
     - pen
     - webhook
     - nginx
