@@ -1,6 +1,7 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
 {% from 'haproxy/webservers.jinja' import webservers %}
 {% from 'haproxy/warden.jinja' import warden %}
+{% from 'haproxy/wigo.jinja' import wigo %}
 
 haproxy:
   global:
@@ -58,6 +59,7 @@ haproxy:
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
+        - host_wigo hdr(host) -i wigo.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 100 }'
@@ -71,6 +73,7 @@ haproxy:
       use_backends:
         - backend-blog if host_blog
         - backend-warden if host_warden
+        - backend-wigo if host_wigo
       default_backend: backend-whyrl
 
   backends:
@@ -124,6 +127,25 @@ haproxy:
         - "set-header X-Target  %[req.hdr(Host)]"
       servers:
       {% for server, ips in warden.items() %}
+        {{ server }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    wigo:
+      name: backend-wigo
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wigo.whyrl.fr'
+      httpcheck: expect status 401
+      cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
+      servers:
+      {% for server, ips in wigo.items() %}
         {{ server }}:
           host: {{ ips[0] }}
           port: 443
