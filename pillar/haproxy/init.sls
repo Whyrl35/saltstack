@@ -1,7 +1,10 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
+{% from 'haproxy/saltmaster.jinja' import saltmaster %}
 {% from 'haproxy/webservers.jinja' import webservers %}
 {% from 'haproxy/warden.jinja' import warden %}
+{% from 'haproxy/warp10.jinja' import warp10 %}
 {% from 'haproxy/wigo.jinja' import wigo %}
+{% from 'haproxy/wazuh.jinja' import wazuh %}
 
 haproxy:
   global:
@@ -58,7 +61,9 @@ haproxy:
         - http ssl_fc,not
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
+        - host_grafana hdr(host) -i grafana.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
+        - host_wazuh hdr(host) -i wazuh.whyrl.fr
         - host_wigo hdr(host) -i wigo.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
@@ -72,7 +77,9 @@ haproxy:
       extra: "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
         - backend-blog if host_blog
+        - backend-warp10 if host_grafana
         - backend-warden if host_warden
+        - backend-wazuh if host_wazuh
         - backend-wigo if host_wigo
       default_backend: backend-whyrl
 
@@ -127,6 +134,42 @@ haproxy:
         - "set-header X-Target  %[req.hdr(Host)]"
       servers:
       {% for server, ips in warden.items() %}
+        {{ server }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    warp10:
+      name: backend-warp10
+      mode: http
+      balance: source
+      options:
+        - 'httpchk'
+      cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
+      servers:
+      {% for server, ips in warp10.items() %}
+        {{ server }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    wazuh:
+      name: backend-wazuh
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wazuh.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      httprequests:
+        - "set-header X-Target  %[req.hdr(Host)]"
+      servers:
+      {% for server, ips in wazuh.items() %}
         {{ server }}:
           host: {{ ips[0] }}
           port: 443
