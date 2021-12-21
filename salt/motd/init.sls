@@ -13,6 +13,7 @@ xx-motd:
     - group: root
     - mode: "0644"
     - template: jinja
+    - order: last
 
 00-static:
   file.managed:
