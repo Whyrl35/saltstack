@@ -4,6 +4,7 @@
 base:
   # All minions get the following state files applied
   '*':
+    - networking
     - apt.transports.https
     - apt.repositories
     - apt.update
