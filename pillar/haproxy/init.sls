@@ -1,6 +1,7 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
 {% from 'haproxy/webservers.jinja' import webservers %}
+{% from 'haproxy/vault.jinja' import vault %}
 {% from 'haproxy/warden.jinja' import warden %}
 {% from 'haproxy/warp10.jinja' import warp10 %}
 {% from 'haproxy/wigo.jinja' import wigo %}
@@ -62,6 +63,7 @@ haproxy:
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
+        - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_wazuh hdr(host) -i wazuh.whyrl.fr
         - host_wigo hdr(host) -i wigo.whyrl.fr
@@ -74,9 +76,11 @@ haproxy:
       reqadds:
         - "X-Forwarded-Protocol http if http"
         - "X-Forwarded-Protocol https if https"
-      extra: "http-response set-header Strict-Transport-Security max-age=63072000"
+      extra:
+        - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
         - backend-blog if host_blog
+        - backend-vault if host_vault
         - backend-warp10 if host_grafana
         - backend-warden if host_warden
         - backend-wazuh if host_wazuh
@@ -94,8 +98,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in webservers.items() %}
         {{ server }}:
@@ -112,10 +116,28 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ blog.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in webservers.items() %}
+        {{ server }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    vault:
+      name: backend-vault
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ vault.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in vault.items() %}
         {{ server }}:
           host: {{ ips[0] }}
           port: 443
@@ -130,8 +152,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in warden.items() %}
         {{ server }}:
@@ -148,8 +170,8 @@ haproxy:
       options:
         - 'httpchk'
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in warp10.items() %}
         {{ server }}:
@@ -166,8 +188,8 @@ haproxy:
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wazuh.whyrl.fr'
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in wazuh.items() %}
         {{ server }}:
@@ -185,8 +207,8 @@ haproxy:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wigo.whyrl.fr'
       httpcheck: expect status 401
       cookie: "SERVERUID insert indirect nocache"
-      httprequests:
-        - "set-header X-Target  %[req.hdr(Host)]"
+      extra:
+        - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in wigo.items() %}
         {{ server }}:

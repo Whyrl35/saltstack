@@ -97,7 +97,7 @@ base:
     - postfix.config
     - postfix.satellite
 
-  # Webserver using nginx and letsencrypt
+  # Webserver
   'roles:webserver':
     - match: grain
     - certificates
