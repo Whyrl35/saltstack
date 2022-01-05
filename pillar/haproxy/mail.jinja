@@ -1,0 +1,10 @@
+{%- load_yaml as mail %}
+{% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:mail_server', fun='network.ip_addrs', tgt_type='grain').items() %}
+{{ server }}:
+{% for addr in (addrs | ipv4)  %}
+{% if(addr | is_ip(options='private')) %}
+  - {{ addr }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{%- endload %}
