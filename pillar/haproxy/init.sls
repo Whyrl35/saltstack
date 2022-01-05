@@ -1,11 +1,12 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
+{% from 'haproxy/mail.jinja' import mail %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
-{% from 'haproxy/webservers.jinja' import webservers %}
 {% from 'haproxy/vault.jinja' import vault %}
 {% from 'haproxy/warden.jinja' import warden %}
 {% from 'haproxy/warp10.jinja' import warp10 %}
-{% from 'haproxy/wigo.jinja' import wigo %}
 {% from 'haproxy/wazuh.jinja' import wazuh %}
+{% from 'haproxy/webservers.jinja' import webservers %}
+{% from 'haproxy/wigo.jinja' import wigo %}
 
 haproxy:
   global:
@@ -63,6 +64,9 @@ haproxy:
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
+        - host_mail hdr(host) -i webmail.whyrl.fr
+        - host_mail hdr(host) -i rspamd.whyrl.fr
+        - host_mail hdr(host) -i postfixadmin.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_wazuh hdr(host) -i wazuh.whyrl.fr
@@ -80,6 +84,7 @@ haproxy:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
         - backend-blog if host_blog
+        - backend-mail if host_mail
         - backend-vault if host_vault
         - backend-warp10 if host_grafana
         - backend-warden if host_warden
@@ -102,7 +107,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in webservers.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -120,7 +125,25 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in webservers.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    mail:
+      name: backend-mail
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ webmail.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in mail.items() %}
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -138,7 +161,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in vault.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -156,7 +179,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in warden.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -174,7 +197,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in warp10.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -192,7 +215,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in wazuh.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
@@ -211,7 +234,7 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in wigo.items() %}
-        {{ server }}:
+        {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
           check: check check-ssl
