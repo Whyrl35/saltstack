@@ -13,6 +13,10 @@ common:
       - apt-listchanges
       - ipv6calc
       - python3-psutil
+      # - duf # XXX backport only
+      - ncdu
+      - exa
+      - bat
       {% if 'smokeping' in grains['roles'] %}
       - python3-pip
       {% endif %}
