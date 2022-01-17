@@ -67,6 +67,7 @@ haproxy:
         - host_mail hdr(host) -i webmail.whyrl.fr
         - host_mail hdr(host) -i rspamd.whyrl.fr
         - host_mail hdr(host) -i postfixadmin.whyrl.fr
+        - host_salt hdr(host) -i saltui.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_wazuh hdr(host) -i wazuh.whyrl.fr
@@ -85,6 +86,7 @@ haproxy:
       use_backends:
         - backend-blog if host_blog
         - backend-mail if host_mail
+        - backend-salt if host_salt
         - backend-vault if host_vault
         - backend-warp10 if host_grafana
         - backend-warden if host_warden
@@ -143,6 +145,24 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in mail.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    salt:
+      name: backend-salt
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ saltui.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in saltmaster.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443

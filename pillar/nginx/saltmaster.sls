@@ -13,7 +13,7 @@ nginx:
           #
           # HTTP server on port 80, forward to 443 for postfixadmin
           - server:
-            - server_name: saltpad.whyrl.fr
+            - server_name: salt.whyrl.fr
             - listen:
               - '80 default_server'
               - '[::]:80 default_server ipv6only=on'
@@ -32,11 +32,11 @@ nginx:
               - '443 ssl http2'
               - '[::]:443 ssl http2'
             - access_log:
-              - /var/log/nginx/saltpad_access_log.json json_analytics
-              - /var/log/nginx/saltpad_access.log
-            - error_log: /var/log/nginx/saltpad_error.log
-            - ssl_certificate: /etc/letsencrypt/live/saltpad.whyrl.fr/fullchain.pem
-            - ssl_certificate_key: /etc/letsencrypt/live/saltpad.whyrl.fr/privkey.pem
+              - /var/log/nginx/salt_access_log.json json_analytics
+              - /var/log/nginx/salt_access.log
+            - error_log: /var/log/nginx/salt_error.log
+            - ssl_certificate: /etc/nginx/ssl/whyrl.fr.pem
+            - ssl_certificate_key: /etc/nginx/ssl/whyrl.fr.key
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
             - ssl_protocols: {{ defaults.ssl.protocol }}
             - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
