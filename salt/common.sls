@@ -10,8 +10,8 @@
 
 hostnamectl_from_id:
   cmd.run:
-    - name: "hostnamectl set-hostname --static {{ grains['id'] }}"
-    - unless: "hostnamectl status --static | grep '^{{ grains['id'] }}$'"
+    - name: "hostnamectl set-hostname --static {{ short_name }}"
+    - unless: "hostnamectl status --static | grep '^{{ short_name }}$'"
 
 hostname_from_id:
   cmd.run:
