@@ -36,8 +36,8 @@ nginx:
               - /var/log/nginx/nexus_access_log.json json_analytics
               - /var/log/nginx/nexus_access.log
             - error_log: /var/log/nginx/nexus_error.log
-            - ssl_certificate: /etc/letsencrypt/live/nexus.whyrl.fr/fullchain.pem
-            - ssl_certificate_key: /etc/letsencrypt/live/nexus.whyrl.fr/privkey.pem
+            - ssl_certificate: /etc/nginx/ssl/whyrl.fr.fullchain.pem
+            - ssl_certificate_key: /etc/nginx/ssl/whyrl.fr.key
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
             - ssl_protocols: {{ defaults.ssl.protocol }}
             - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
@@ -49,12 +49,10 @@ nginx:
             - location /robots.txt:
               - return: '200 "User-agent: *\Disallow: /\n"'
             - location /:
-              - proxy_set_header: Upgrade $http_upgrade
-              - proxy_set_header: Connection "upgrade"
               - proxy_set_header: X-Forwarded-For $proxy_add_x_forwarded_for
               - proxy_set_header: X-Forwarded-Proto $scheme
               - proxy_set_header: X-Real-IP $remote_addr
               - proxy_set_header: Host $host
               - proxy_redirect: 'off'
               - proxy_http_version: 1.1
-              - proxy_pass: 'http://127.0.0.1:8200'
+              - proxy_pass: 'http://127.0.0.1:8081'

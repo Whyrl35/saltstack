@@ -1,5 +1,6 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
 {% from 'haproxy/mail.jinja' import mail %}
+{% from 'haproxy/nexus.jinja' import nexus %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
 {% from 'haproxy/vault.jinja' import vault %}
 {% from 'haproxy/warden.jinja' import warden %}
@@ -64,6 +65,7 @@ haproxy:
         - https ssl_fc
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
+        - host_nexus hdr(host) -i nexus.whyrl.fr
         - host_mail hdr(host) -i webmail.whyrl.fr
         - host_mail hdr(host) -i rspamd.whyrl.fr
         - host_mail hdr(host) -i postfixadmin.whyrl.fr
@@ -86,6 +88,7 @@ haproxy:
       use_backends:
         - backend-blog if host_blog
         - backend-mail if host_mail
+        - backend-nexus if host_nexus
         - backend-salt if host_salt
         - backend-vault if host_vault
         - backend-warp10 if host_grafana
@@ -145,6 +148,24 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in mail.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    nexus:
+      name: backend-nexus
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ nexus.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in nexus.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443

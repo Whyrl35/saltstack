@@ -5,6 +5,7 @@ base:
   # All minions get the following state files applied
   '*':
     - networking
+    - apt.auth
     - apt.transports.https
     - apt.repositories
     - apt.update
@@ -77,7 +78,7 @@ base:
     - mysql
     - mysql.server
     - certificates
-    - letsencrypt
+    #- letsencrypt
     - nginx
     - postfixadmin
     - postfix
@@ -101,7 +102,7 @@ base:
   'roles:webserver':
     - match: grain
     - certificates
-    - letsencrypt
+    #- letsencrypt
     - nginx
 
   # Bitwarden server, will use bitwarden (docker managed)

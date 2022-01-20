@@ -20,7 +20,7 @@ nexus:
       limit: '65536'
       properties:
         applicationport: '8081'
-        applicationhost: "{{ salt.grains.get('ip4_interfaces:ens4:0', '0.0.0.0') }}"
+        applicationhost: '127.0.0.1' #"{# salt.grains.get('ip4_interfaces:ens4:0', '0.0.0.0') #}"
         nexuscontextpath: '/'
       jetty:
         https:

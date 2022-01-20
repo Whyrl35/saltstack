@@ -1,4 +1,14 @@
+{% set nexus = salt['vault'].read_secret('secret/salt/nexus/users') %}
+
 apt:
+  #
+  # Auths
+  #
+  auths:
+    nexus:
+      machine: nexus.whyrl.fr
+      login: nx-read
+      password: {{ nexus['nx-read'] }}
   #
   # Default APT module configuration
   #
