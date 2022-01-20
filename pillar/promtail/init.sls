@@ -1,11 +1,10 @@
 #!jinja|yaml|gpg
-
 {% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
 
 promtail:
   archive:
     github:
-      version: '2.4.1'
+      version: '2.4.2'
 
   config:
     server:

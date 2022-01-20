@@ -29,7 +29,7 @@ promtail-conf-update:
     - serializer_opts:
       - default_flow_style: False
       - explicit_start: False
-      - indent: 4
+      - indent: 2
     - merge_if_exists: True
     - dataset: {{ promtail.config }}
     # - dataset_pillar: {}

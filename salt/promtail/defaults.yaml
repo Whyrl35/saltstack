@@ -17,7 +17,7 @@ promtail:
       - zip
 
   config_file:
-    uri: 'https://raw.githubusercontent.com/grafana/loki/master/cmd/promtail/promtail-local-config.yaml'
+    uri: 'https://raw.githubusercontent.com/grafana/loki/main/clients/cmd/promtail/promtail-local-config.yaml'
 
   config:
     positions: {}
