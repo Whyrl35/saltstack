@@ -32,10 +32,7 @@ promtail-archive-install:
     - group: {{ promtail.identity.group }}
     - mode: '0755'
     - makedirs: True
-    - recurse:
-        - user
-        - group
-        - mode
+
   cmd.run:
     - name: curl -Lo {{ promtail.dir.tmp }}/{{ promtail.name }}-{{ promtail.version }}.zip {{ promtail.archive.source }}
     - retry: 3
