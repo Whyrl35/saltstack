@@ -170,3 +170,9 @@ base:
     - match: grain
     - bind
     - bind.config
+
+  # Nexus servers
+  'roles:nexus*':
+    - match: grain
+    - java
+    - nexus

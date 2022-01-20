@@ -88,12 +88,12 @@ base:
     - mysql.r_{{ role }}
     {% endfor %}
     - mysql.h_{{ host }}
-    - letsencrypt
-    - letsencrypt
-    {% for role in grains['roles'] %}
-    - letsencrypt.r_{{ role }}
-    {% endfor %}
-    - letsencrypt.h_{{ host }}
+    #- letsencrypt
+    #- letsencrypt
+    #{% for role in grains['roles'] %}
+    #- letsencrypt.r_{{ role }}
+    #{% endfor %}
+    #- letsencrypt.h_{{ host }}
     - nginx
     - dovecot
     - ignore_missing: True
@@ -104,22 +104,14 @@ base:
 
   'roles:webserver':
     - match: grain
-    - letsencrypt
-    {% for role in grains['roles'] %}
-    - letsencrypt.r_{{ role }}
-    {% endfor %}
-    - letsencrypt.h_{{ host }}
+    #- letsencrypt
+    #{% for role in grains['roles'] %}
+    #- letsencrypt.r_{{ role }}
+    #{% endfor %}
+    #- letsencrypt.h_{{ host }}
     - nginx
     - logrotate.nginx
     - ignore_missing: True
-
-  #'not G@roles:borgbackup':
-  #  - borgwrapper
-  #  - borgwrapper.h_{{ host }}
-  #  {% for role in grains['roles'] %}
-  #  - borgwrapper.r_{{ role }}
-  #  {% endfor %}
-  #  - ignore_missing: True
 
   'roles:bitwarden':
     - match: grain
@@ -174,3 +166,8 @@ base:
   'roles:dns-*':
     - match: grain
     - bind
+
+  'roles:nexus':
+    - match: grain
+    - java
+    - nexus
