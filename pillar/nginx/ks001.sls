@@ -39,8 +39,8 @@ nginx:
             - root: /var/www/website/
             - index: index.html index.htm
             - charset: {{ defaults.charset }}
-            - ssl_certificate: /etc/letsencrypt/live/ks.whyrl.fr/fullchain.pem
-            - ssl_certificate_key: /etc/letsencrypt/live/ks.whyrl.fr/privkey.pem
+            - ssl_certificate: /etc/nginx/ssl/whyrl.fr.fullchain.pem
+            - ssl_certificate_key: /etc/nginx/ssl/whyrl.fr.key
             - ssl_session_cache: shared:SSL:10m
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
             - ssl_protocols: {{ defaults.ssl.protocol }}
