@@ -51,7 +51,7 @@ apt:
     # noderig and beamium
     metrics:
       distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
-      url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
+      url: https://nexus.whyrl.fr/repository/metrics/ # http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
       comps: [main]
       keyid: A7F0D217C80D5BB8
       key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
@@ -60,7 +60,7 @@ apt:
     # https://github.com/root-gg/wigo
     wigo:
       distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
-      url: http://deb.carsso.com
+      url: https://nexus.whyrl.fr/repository/wigo/ #http://deb.carsso.com
       comps: [main]
       key_url: http://deb.carsso.com/deb.carsso.com.key
 

@@ -1,4 +1,6 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
+{% from 'haproxy/bastion.jinja' import bastion %}
+{% from 'haproxy/loki.jinja' import loki %}
 {% from 'haproxy/mail.jinja' import mail %}
 {% from 'haproxy/nexus.jinja' import nexus %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
@@ -40,6 +42,7 @@ haproxy:
     stats:
       bind:
         - "0.0.0.0:8801 ssl crt /etc/letsencrypt/live/whyrl.fr/fullcertandkey.pem alpn h2,http/1.1"
+      httprequests: "use-service prometheus-exporter if { path /prom-metrics }"
       mode: http
       stats:
         enable: true
@@ -63,8 +66,10 @@ haproxy:
       acls:
         - http ssl_fc,not
         - https ssl_fc
+        - host_bastion hdr(host) -i sshportal.whyrl.fr
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
+        - host_loki hdr(host) -i loki.whyrl.fr
         - host_nexus hdr(host) -i nexus.whyrl.fr
         - host_mail hdr(host) -i webmail.whyrl.fr
         - host_mail hdr(host) -i rspamd.whyrl.fr
@@ -86,7 +91,9 @@ haproxy:
       extra:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
+        - backend-bastion if host_bastion
         - backend-blog if host_blog
+        - backend-loki if host_loki
         - backend-mail if host_mail
         - backend-nexus if host_nexus
         - backend-salt if host_salt
@@ -119,6 +126,24 @@ haproxy:
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
 
+    bastion:
+      name: backend-bastion
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ bastion.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in bastion.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
     blog:
       name: backend-blog
       mode: http
@@ -130,6 +155,25 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in webservers.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    loki:
+      name: backend-loki
+      mode: http
+      balance: source
+      httpcheck: expect status 401
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ loki.whyrl.fr'
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in loki.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443

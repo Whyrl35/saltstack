@@ -44,8 +44,8 @@ nginx:
               - /var/log/nginx/loki_access_log.json json_analytics
               - /var/log/nginx/loki_access.log
             - error_log: /var/log/nginx/loki_error.log
-            - ssl_certificate: /etc/letsencrypt/live/loki.whyrl.fr/fullchain.pem
-            - ssl_certificate_key: /etc/letsencrypt/live/loki.whyrl.fr/privkey.pem
+            - ssl_certificate: /etc/nginx/ssl/whyrl.fr.fullchain.pem
+            - ssl_certificate_key: /etc/nginx/ssl/whyrl.fr.key
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
             - ssl_protocols: {{ defaults.ssl.protocol }}
             - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
