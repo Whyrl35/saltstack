@@ -75,7 +75,7 @@ postfix:
     inet_protocols: ipv4
     myhostname: {{ smtp }}
     mydestination: {{ smtp }}, localhost
-    mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0.0/24{% for ip in ips.myhosts.ipv4 %} {{ ip }}{% endfor %}
+    mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128{% for ip in ips.myhosts.static_ipv4 %} {{ ip }}{% endfor %}
     myorigin: {{ domain }}
     relay_domains: '$mydestination'
     relayhost:
@@ -107,7 +107,7 @@ postfix:
     smtpd_sasl_type: dovecot
     smtpd_sasl_tls_security_options: $smtpd_sasl_security_options
     smtpd_sender_restrictions: reject_unknown_sender_domain
-    smtpd_tls_CAfile: /etc/letsencrypt/live/mail.whyrl.fr/chain.pem
+    smtpd_tls_CAfile: /etc/ssl/certs/whyrl.fr.chain.pem
     smtpd_tls_auth_only: 'yes'
     smtpd_tls_ciphers: high
     smtpd_tls_exclude_ciphers: aNULL, eNULL, EXPORT, DES, RC4, 3DES, MD5, PSK
@@ -117,8 +117,8 @@ postfix:
     smtpd_tls_received_header: 'yes'
     smtpd_tls_session_cache_database: btree:${data_directory}/smtpd_scache
     smtpd_tls_session_cache_timeout: 3600s
-    smtpd_tls_cert_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain.pem
-    smtpd_tls_key_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain-privkey.pem
+    smtpd_tls_cert_file: /etc/ssl/certs/whyrl.fr.fullchain.pem
+    smtpd_tls_key_file: /etc/ssl/private/whyrl.fr.key
     smtpd_tls_dh1024_param_file: /etc/postfix/dh2048.pem
     smtpd_use_tls: 'yes'
 
@@ -127,8 +127,8 @@ postfix:
     smtp_tls_CApath: /etc/ssl/certs
     smtp_tls_ciphers: high
     smtp_tls_fingerprint_digest: sha1
-    smtp_tls_key_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain-privkey.pem
-    smtp_tls_cert_file: /etc/letsencrypt/live/mail.whyrl.fr/fullchain.pem
+    smtp_tls_key_file: /etc/ssl/private/whyrl.fr.key
+    smtp_tls_cert_file: /etc/ssl/certs/whyrl.fr.fullchain.pem
     smtp_tls_loglevel: 1
     smtp_tls_mandatory_ciphers: high
     smtp_tls_security_level: may

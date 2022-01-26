@@ -89,10 +89,6 @@ base:
     {% endfor %}
     - mysql.h_{{ host }}
     #- letsencrypt
-    #- letsencrypt
-    #{% for role in grains['roles'] %}
-    #- letsencrypt.r_{{ role }}
-    #{% endfor %}
     #- letsencrypt.h_{{ host }}
     - nginx
     - dovecot
@@ -104,11 +100,6 @@ base:
 
   'roles:webserver':
     - match: grain
-    #- letsencrypt
-    #{% for role in grains['roles'] %}
-    #- letsencrypt.r_{{ role }}
-    #{% endfor %}
-    #- letsencrypt.h_{{ host }}
     - nginx
     - logrotate.nginx
     - ignore_missing: True

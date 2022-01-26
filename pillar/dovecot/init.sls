@@ -32,9 +32,9 @@ dovecot:
           }
         10-ssl: |
           ssl = required
-          ssl_cert = </etc/letsencrypt/live/mail.whyrl.fr/cert.pem
-          ssl_key = </etc/letsencrypt/live/mail.whyrl.fr/privkey.pem
-          ssl_ca = </etc/letsencrypt/live/mail.whyrl.fr/fullchain.pem
+          ssl_cert = </etc/ssl/certs/whyrl.fr.pem
+          ssl_key = </etc/ssl/private/whyrl.fr.key
+          ssl_ca = </etc/ssl/certs/whyrl.fr.fullchain.pem
           ssl_dh = </usr/share/dovecot/dh.pem
           ssl_min_protocol = TLSv1.1
           ssl_cipher_list = ALL:!kRSA:!SRP:!kDHd:!DSS:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK:!RC4:!ADH:!LOW@STRENGTH

@@ -102,7 +102,6 @@ base:
   'roles:webserver':
     - match: grain
     - certificates
-    #- letsencrypt
     - nginx
 
   # Bitwarden server, will use bitwarden (docker managed)

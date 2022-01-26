@@ -21,6 +21,7 @@ bastion:
     {% endif %}
     {% endfor %}
     {% endfor %}
+
 myhosts:
   ipv4:
     - 10.3.0.0/16           # vRack
@@ -33,6 +34,26 @@ myhosts:
     {% endif %}
     {% endfor %}
     {% endfor %}
+  pub_ipv4:
+    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
+    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    {% for server, addrs in minions_v4.items() %}
+    {% for addr in (addrs | ipv4)  %}
+    {% if(addr | is_ip(options='public')) %}
+    - {{ addr }}/32
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+  priv_ipv4:
+    - 10.3.0.0/16           # vRack
+    - 192.168.0.0/24        # vHome
+  static_ipv4:
+    - 10.3.0.0/16           # vRack
+    - 192.168.0.0/24        # vHome
+    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
+    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    - 91.121.156.77/32      # KS001
+
   ipv6:
     - 2a01:e0a:5d2:48b0::/64  # HOME (new IPs since incident)
     {% for server, addrs in minions_v6.items() %}

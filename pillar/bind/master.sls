@@ -75,6 +75,14 @@ bind:
           {% endif %}
           {% endfor %}
           {% endfor %}
+        MX:
+          whyrl.fr.: 1 smtp
+        DKIM:
+          dkim._domainkey: 'v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCia87DUjVU6UeAO1Z//ZHk4xb5BhBK5W7zJ0GkzAA45OJ+bQwmRb6BCZyqHr0p2rDK85AxRZW8iA+5gePSciNitlKOyKsrZM7eDROZJfAWfmjvZuCv4FwwqELovegSyUthH8+6RFSfsnfjIkv0gXuT5wQRCAoT+rXJ8ud5YnCQFwIDAQAB'
+        TXT:
+          whyrl.fr: 'v=spf1 a mx -all'
+          arc._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCia87DUjVU6UeAO1Z//ZHk4xb5BhBK5W7zJ0GkzAA45OJ+bQwmRb6BCZyqHr0p2rDK85AxRZW8iA+5gePSciNitlKOyKsrZM7eDROZJfAWfmjvZuCv4FwwqELovegSyUthH8+6RFSfsnfjIkv0gXuT5wQRCAoT+rXJ8ud5YnCQFwIDAQAB'
+          _dmarc.whyrl.fr.: 'v=DMARC1; p=none; sp=reject'
         CNAME:
           salt: saltmaster.whyrl.fr.
           wigo: wazuh.whyrl.fr.

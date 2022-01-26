@@ -36,8 +36,8 @@ nginx:
               - /var/log/nginx/bastion_access_log.json json_analytics
               - /var/log/nginx/bastion_access.log
             - error_log: /var/log/nginx/bastion_error.log
-            - ssl_certificate: /etc/nginx/ssl/whyrl.fr.fullchain.pem
-            - ssl_certificate_key: /etc/nginx/ssl/whyrl.fr.key
+            - ssl_certificate: /etc/ssl/certs/whyrl.fr.fullchain.pem
+            - ssl_certificate_key: /etc/ssl/private/whyrl.fr.key
             - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
             - ssl_protocols: {{ defaults.ssl.protocol }}
             - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'
