@@ -70,6 +70,11 @@ nftables:
           family: 'ip'
           type: ipv4_addr
           flags: [ 'interval' ]
+        - name: 'myhosts_all'
+          table: 'filter'
+          family: 'ip'
+          type: ipv4_addr
+          flags: [ 'interval' ]
         - name: 'myhosts'
           table: 'filter'
           family: 'ip6'
@@ -101,11 +106,16 @@ nftables:
             {% for ip in ips.bastion.ipv6 %}
             - {{ ip }}
             {% endfor %}
+        - name: 'myhosts_all_elements'
+          table: 'filter'
+          family: 'ip'
+          set: 'myhosts_all'
+          elements: {{ ips.myhosts.ipv4 }}
         - name: 'myhosts_elements'
           table: 'filter'
           family: 'ip'
           set: 'myhosts'
-          elements: {{ ips.myhosts.ipv4 }}
+          elements: {{ ips.myhosts.static_ipv4 }}
         - name: 'myhostsv6_elements'
           table: 'filter'
           family: 'ip6'

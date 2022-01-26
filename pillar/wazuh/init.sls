@@ -6,7 +6,7 @@
 {% set slack = salt['vault'].read_secret('secret/salt/siem/wazuh/slack') %}
 
 wazuh:
-  server: 217.182.85.34
+  server: {% if grains['deployment'] in ['sadc', 'rbx'] %}217.182.85.34{% else %}10.3.80.3{% endif %}
   auth:
     passwd: {{ agent['secret'] }}
   users:

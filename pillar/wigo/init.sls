@@ -5,7 +5,7 @@
 
 wigo:
   server:
-    ip: 217.182.85.34
+    ip: wigo.whyrl.fr # 217.182.85.34
   client:
     ips: {{ ips.myhosts.ipv4 }}
   notification:

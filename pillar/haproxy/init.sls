@@ -81,7 +81,7 @@ haproxy:
         - host_wigo hdr(host) -i wigo.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
-        - 'deny deny_status 429 if { sc_http_req_rate(0) gt 100 }'
+        - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
         # If User-Agent is in the list, deny
         - 'deny if { req.hdr(user-agent) -i -m sub majestic }'
         - 'deny unless { req.hdr(user-agent) -m found }'
@@ -103,6 +103,13 @@ haproxy:
         - backend-wazuh if host_wazuh
         - backend-wigo if host_wigo
       default_backend: backend-whyrl
+
+    wigo:
+      name: frontend-wigo
+      bind:
+        - "*:4001"
+      mode: tcp
+      default_backend: backend-wigo-tcp
 
   backends:
     per_ip_rates:
@@ -324,4 +331,15 @@ haproxy:
           port: 443
           check: check check-ssl
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    wigo-tcp:
+      name: backend-wigo-tcp
+      mode: tcp
+      balance: source
+      servers:
+      {% for server, ips in wigo.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 4001
       {% endfor %}

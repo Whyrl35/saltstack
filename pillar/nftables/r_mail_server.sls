@@ -33,10 +33,10 @@ nftables:
           table: 'filter'
           chain: 'MAIL'
           family: 'ip'
-          rule: 'tcp dport { 80, 443 } counter accept'
+          rule: 'ip saddr @myhosts tcp dport { 80, 443 } counter accept'
         - name: 'allow web'
           table: 'filter'
           chain: 'MAIL'
           family: 'ip6'
-          rule: 'tcp dport { 80, 443 } counter accept'
+          rule: 'ip6 saddr @myhosts tcp dport { 80, 443 } counter accept'
 
