@@ -51,18 +51,20 @@ apt:
     # noderig and beamium
     metrics:
       distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
-      url: https://nexus.whyrl.fr/repository/metrics/ # http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
+      url: https://nexus.whyrl.fr/repository/metrics # http://last.public.ovh.metrics.snap.mirrors.ovh.net/debian
       comps: [main]
       keyid: A7F0D217C80D5BB8
       key_url: http://last.public.ovh.metrics.snap.mirrors.ovh.net/pub.key
+      keyserver: hkp://pgp.mit.edu:80
 
     # Wigo is a light pull/push monitoring agent
     # https://github.com/root-gg/wigo
     wigo:
       distro: buster {# grains['oscodename']|lower if 'oscodename' in grains else 'buster' #}
-      url: https://nexus.whyrl.fr/repository/wigo/ #http://deb.carsso.com
+      url: https://nexus.whyrl.fr/repository/wigo #http://deb.carsso.com
       comps: [main]
       key_url: http://deb.carsso.com/deb.carsso.com.key
+      keyserver: hkp://pgp.mit.edu:80
 
     # Saltstack repo include all the saltstack master/minion
     # Needed to update the binaries on server and agent
