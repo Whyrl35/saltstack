@@ -50,7 +50,7 @@ def check_backup():
 
             diff = current_date - last_backup
 
-            if diff.seconds > configuration['max_age']:
+            if int(diff.total_seconds()) > configuration['max_age']:
                 status = 250
                 message = "The backup is to old, it happens {} seconds ago.".format(diff.seconds)
             else:
