@@ -1,24 +1,17 @@
 
-[1;36m╔═════════════╗[0m
-   SaltStack
-[1;36m╚═════════════╝[0m
-
-[1;31mdatacenter[0m: {{ grains['deployment']|upper }}
-[1;31mhostname[0m..: {{ grains['fqdn'] }}
-[1;31msalt_id[0m...: {{ grains['id'] }}
-[1;31mroles[0m.....: {{ grains['roles']|join(', ') }}
-[1;31mdistrib[0m...: {{ grains['lsb_distrib_description'] }}
-[1;31mkernel[0m....: {{ grains['kernelrelease'] }}
-{% for ip in grains['ipv4']|ipaddr -%}
-{% if ip|is_ip(options='public') or (ip|is_ip(options='private') and not ip|is_ip(options='loopback') )-%}
-[1;31mipv4[0m......: {{ ip }}
-{% endif -%}
-{% endfor -%}
-{% for ip in grains['ipv6']|ipaddr -%}
-{% if ip|is_ip(options='global') -%}
-[1;31mipv6[0m......: {{ ip }}
-{% endif -%}
-{% endfor -%}
-[1;31mCPU[0m.......: {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
-[1;31mMEM[0m.......: {{ grains['mem_total'] }} MB
-[1;31mhighstate[0m.: {{ None | strftime('%Y-%m-%d %H:%M:%S') }}
+      _,met$$$$$gg.           [1;90m╔═════════════════[[1;39m System Data [1;90m]═════════════════[0m
+  ,g$$P"     """Y$$.".        [1;90m║ [1;31mdatacenter[0m: {{ grains['deployment']|upper }}
+ ,$$P'              `$$$.     [1;90m║ [1;31mhostname[0m..: {{ grains['fqdn'] }}
+',$$P       ,ggs.     `$$b:   [1;90m║ [1;31mdistrib[0m...: {{ grains['lsb_distrib_description'] }}
+`d$$'     ,$P"'   [1;31m.[0m    $$$    [1;90m║ [1;31mkernel[0m....: {{ grains['kernelrelease'] }}
+ $$P      d$'     [1;31m,[0m    $$P    [1;90m║ [1;31mCPU[0m.......: {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
+ $$:      $$.   [1;31m-[0m    ,d$$'    [1;90m║ [1;31mMEM[0m.......: {{ grains['mem_total'] }} MB
+ $$;      Y$b._   _,d$P'      [1;90m╠═════════════════[[1;39m  Saltstack  [1;90m]═════════════════[0m
+ Y$$.    [1;31m`.[0m`"Y$$$$P"'         [1;90m║ [1;31msalt_id[0m...: {{ grains['id'] }}
+ `$$b      [1;31m"-.__ [0m             [1;90m║ [1;31mroles[0m.....: {{ grains['roles']|join(', ') }}
+  `Y$$                        [1;90m║ [1;31mhighstate[0m.: {{ None | strftime('%Y-%m-%d %H:%M:%S') }}
+   `Y$$.                      [1;90m╠═════════════════[[1;39m   Network   [1;90m]═════════════════[0m
+     `$$b.                    [1;90m║ [1;31mipv4[0m......: {% for ip in grains['ipv4'] %}{% if ip|is_ipv4(options='public') and not ip|is_ipv4(options='loopback') %}{{ ip }} {% endif %}{% endfor %}
+       `Y$$b.                 [1;90m║ [1;31mipv4[0m......: {% for ip in grains['ipv4'] %}{% if ip|is_ipv4(options='private') and not ip|is_ipv4(options='loopback') %}{{ ip }} {% endif %}{% endfor %}
+          `"Y$b._             [1;90m║ [1;31mipv6[0m......: {% for ip in grains['ipv6']|ipaddr %}{% if ip|is_ip(options='global') %}{{ ip }}{% endif %}{% endfor %}
+              `"""            [1;90m║ [1;31mdns[0m.......: {{ grains['dns']['nameservers']|join(', ')}}

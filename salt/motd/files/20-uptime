@@ -2,5 +2,6 @@
 up=$(uptime -p | sed 's/up //')
 lastboot=$(uptime -s)
 
-echo "[1;31muptime[0m....: ${up}"
-echo "[1;31mlast_boot[0m.: ${lastboot}"
+echo "                              [1;90m╠═════════════════[[1;39m   Uptime    [1;90m]═════════════════[0m"
+echo "                              [1;90m║ [1;31muptime[0m....: ${up}"
+echo "                              [1;90m║ [1;31mlast_boot[0m.: ${lastboot}"
