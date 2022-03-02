@@ -76,6 +76,7 @@ haproxy:
         - host_mail hdr(host) -i postfixadmin.whyrl.fr
         - host_salt hdr(host) -i saltui.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
+        - host_warp10 hdr(host) -i warp10.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_wazuh hdr(host) -i wazuh.whyrl.fr
         - host_wigo hdr(host) -i wigo.whyrl.fr
@@ -98,8 +99,9 @@ haproxy:
         - backend-nexus if host_nexus
         - backend-salt if host_salt
         - backend-vault if host_vault
-        - backend-warp10 if host_grafana
         - backend-warden if host_warden
+        - backend-warp10 if host_grafana
+        - backend-warp10 if host_warp10
         - backend-wazuh if host_wazuh
         - backend-wigo if host_wigo
       default_backend: backend-whyrl
@@ -121,6 +123,7 @@ haproxy:
       balance: roundrobin
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -139,6 +142,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ bastion.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -157,6 +161,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ blog.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -176,6 +181,7 @@ haproxy:
       httpcheck: expect status 401
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ loki.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -194,6 +200,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ webmail.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -212,6 +219,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ nexus.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -230,6 +238,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ saltui.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -248,6 +257,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ vault.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -266,6 +276,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -284,6 +295,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -302,6 +314,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wazuh.whyrl.fr'
+        - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
@@ -320,6 +333,7 @@ haproxy:
       balance: source
       options:
         - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wigo.whyrl.fr'
+        - forwardfor
       httpcheck: expect status 401
       cookie: "SERVERUID insert indirect nocache"
       extra:

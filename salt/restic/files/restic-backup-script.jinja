@@ -30,5 +30,5 @@ source {{ restic.configuration.path }}/restic.sh
 
 restic -r ${RESTIC_PATH} {{ args }}
 {%- if restic.backup.need_status %}
-restic -r ${RESTIC_PATH} snapshots --last --compact --json > /var/tmp/{{ restic.name }}.json
+restic -r ${RESTIC_PATH} snapshots --latest 1 --compact --json > /var/tmp/{{ restic.name }}.json
 {%- endif %}

@@ -51,6 +51,10 @@ nginx:
       config:
         load_module: "modules/ngx_http_geoip_module.so"
         http:
+          set_real_ip_from:
+            - 10.3.129.71
+            - 10.3.130.104
+          real_ip_header: X-Forwarded-For
           log_format: >-
             json_analytics escape=json '{{ log_format | tojson }}'
           geoip_country: /usr/share/GeoIP/GeoIP.dat

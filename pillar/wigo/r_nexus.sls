@@ -7,6 +7,6 @@ wigo:
     check_version:
       enabled: 'true'
       versionList:
-        - name: warp10
-          current: 2.10.1
-          url: https://api.github.com/repos/senx/warp10-platform/releases/latest
+        - name: nexus
+          current: '3.37.3'
+          url: https://api.github.com/repos/sonatype/nexus-public/releases/latest

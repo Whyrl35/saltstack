@@ -3,7 +3,7 @@ warp10:
     provider: github
     archive:
       github:
-        version: '2.9.0'
+        version: '2.10.1'  # '2.9.0'
         uri: 'https://github.com/senx/warp10-platform/releases/download'
     service:
       enable: true
