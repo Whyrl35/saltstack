@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+
+import os, os.path
+import json
+import yaml
+
+configuration = {
+    'enabled': True
+}
+
+
+def read_configuration():
+    global configuration
+
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/beamium.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def beamium():
+    with open('/etc/beamium/config.yaml') as stream:
+        yml = yaml.safe_load(stream)
+
+    sink_dir = yml['parameters']['sink-dir']
+
+    num_files = len([name for name in os.listdir(sink_dir) if os.path.isfile(name)])
+    if num_files > 5 and num_files < 10:
+        status = 201
+        message = 'warning there are more than 5 files in sinks'
+    elif num_files > 10:
+        status = 301
+        message = 'too many files in sinks, is there an error with the backend ? (network, backend, resolv, ...)'
+    else:
+        status = 100
+        message = 'all is fine'
+
+    result = {
+        'Detail': {
+            'files_in_sinks': num_files
+        },
+        'Message': message,
+        'Value': 'OK' if status == 100 else 'WARN' if status == 201 else 'CRIT',
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        beamium()

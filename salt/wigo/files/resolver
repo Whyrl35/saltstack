@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+
+import os
+import json
+from dns.resolver import Resolver
+
+configuration = {
+    'enabled': True,
+    'nameservers': [
+        '10.3.129.242',
+        '10.3.25.162'
+    ]
+}
+
+
+def read_configuration():
+    global configuration
+
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/resolver.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def check_resolver():
+    global configuration
+    good_version = list()
+    bad_version = list()
+
+    resolver =  Resolver()
+    nameservers = set(resolver.nameservers)
+    needed_nameservers = set(configuration['nameservers'])
+
+    if needed_nameservers.issubset(nameservers):
+        message = "All nameservers are present in resolv.conf"
+        value = "OK"
+        status = 100
+    else:
+        message = "Some nameservers are missing in the resolv.conf file"
+        value = "CRIT"
+        status = 300
+
+    result = {
+        'Detail': {
+            'nameservers': resolver.nameservers,
+        },
+        'Message': message,
+        'Value': value,
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        check_resolver()

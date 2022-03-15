@@ -8,5 +8,5 @@ wigo:
       enabled: 'true'
       versionList:
         - name: nexus
-          current: '3.37.3'
+          current: '3.38.0'
           url: https://api.github.com/repos/sonatype/nexus-public/releases/latest
