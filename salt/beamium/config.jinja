@@ -10,30 +10,30 @@ scrapers:
 {%- for scraper in pillar['beamium']['scrapers'] %}
   {{ scraper }}:
     url: {{ pillar['beamium']['scrapers'][scraper]['url'] }}
-    {% if 'format' in pillar['beamium']['scrapers'][scraper] -%}
+{%-  if 'format' in pillar['beamium']['scrapers'][scraper] %}
     format: {{ pillar['beamium']['scrapers'][scraper]['format'] }}
-    {%- endif %}
-    {% if 'period' in pillar['beamium']['scrapers'][scraper] -%}
+{%-  endif %}
+{%-  if 'period' in pillar['beamium']['scrapers'][scraper] %}
     period: {{ pillar['beamium']['scrapers'][scraper]['period'] }}
-    {%- endif %}
-    {% if 'metrics' in pillar['beamium']['scrapers'][scraper] -%}
+{%-  endif %}
+{%-  if 'metrics' in pillar['beamium']['scrapers'][scraper] %}
     metrics:
-	{%- for metric in  pillar['beamium']['scrapers'][scraper]['metrics'] %}
+{%-      for metric in  pillar['beamium']['scrapers'][scraper]['metrics'] %}
 	- {{ metric }}
-	{% endfor -%}
-    {%- endif %}
-    {% if 'labels' in pillar['beamium']['scrapers'][scraper] -%}
+{%-      endfor %}
+{%-  endif %}
+{%-  if 'labels' in pillar['beamium']['scrapers'][scraper] %}
     labels:
-    {%- for label in pillar['beamium']['scrapers'][scraper]['labels'] %}
+{%-      for label in pillar['beamium']['scrapers'][scraper]['labels'] %}
       {{ label }}: {{ pillar['beamium']['scrapers'][scraper]['labels'][label] }}
-    {% endfor -%}
-    {%- endif %}
-    {% if 'headers' in pillar['beamium']['scrapers'][scraper] -%}
+{%-      endfor %}
+{%-  endif %}
+{%-  if 'headers' in pillar['beamium']['scrapers'][scraper] %}
     headers:
-	{%- for header in  pillar['beamium']['scrapers'][scraper]['headers'] %}
+{%-      for header in  pillar['beamium']['scrapers'][scraper]['headers'] %}
       {{ header }}: {{ pillar['beamium']['scrapers'][scraper]['headers'][header] }}
-    {% endfor -%}
-    {%- endif %}
+{%-      endfor %}
+{%-  endif %}
 {%- endfor %}
 
 ## Destinations
@@ -43,40 +43,40 @@ sinks:
   {{ sink }}:
     url: {{ pillar['beamium']['sinks'][sink]['url'] }}
     token: {{ pillar['beamium']['sinks'][sink]['token'] }}
-    {% if 'token-header' in pillar['beamium']['sinks'][sink] -%}
+{%-     if 'token-header' in pillar['beamium']['sinks'][sink] %}
     token-header: {{ pillar['beamium']['sinks'][sink]['token-header'] }}
-    {% endif -%}
-    {% if 'selector' in pillar['beamium']['sinks'][sink] -%}
+{%-     endif %}
+{%-     if 'selector' in pillar['beamium']['sinks'][sink] %}
     selector: {{ pillar['beamium']['sinks'][sink]['selector'] }}
-    {% endif -%}
-    {% if 'ttl' in pillar['beamium']['sinks'][sink] -%}
+{%-     endif -%}
+{%-     if 'ttl' in pillar['beamium']['sinks'][sink] %}
     ttl: {{ pillar['beamium']['sinks'][sink]['ttl'] }}
-    {% endif -%}
-    {% if 'size' in pillar['beamium']['sinks'][sink] -%}
+{%-     endif -%}
+{%-     if 'size' in pillar['beamium']['sinks'][sink] %}
     size: {{ pillar['beamium']['sinks'][sink]['size'] }}
-    {% endif -%}
-    {% if 'parallel' in pillar['beamium']['sinks'][sink] -%}
+{%-     endif -%}
+{%-     if 'parallel' in pillar['beamium']['sinks'][sink] %}
     parallel: 	{{ pillar['beamium']['sinks'][sink]['parallel'] }}
-    {% endif -%}
+{%-      endif -%}
 {%- endfor %}
 
 ## Defaults labels
 
-{%- if 'labels' in pillar['beamium'] %}
+{%- if 'labels' in pillar['beamium'] -%}
 labels:
-{%- for label in pillar['beamium']['labels'] %}
+{%-     for label in pillar['beamium']['labels'] %}
   host: {{ pillar['beamium']['labels'][label] }}
-{%- endfor %}
+{%-     endfor %}
 {%- endif %}
 
 ## Parameters
 
 parameters:
-  source-dir:   {{ pillar['beamium']['parameters']['source-dir'] }}
-  sink-dir:     {{ pillar['beamium']['parameters']['sink-dir'] }}
-  log-file:     {{ pillar['beamium']['parameters']['log-file'] }}
-  scan-period:  {{ pillar['beamium']['parameters']['scan-period'] }}
-  batch-count: 	{{ pillar['beamium']['parameters']['batch-count'] }}
-  batch-size:   {{ pillar['beamium']['parameters']['batch-size'] }}
-  timeout:      {{ pillar['beamium']['parameters']['timeout'] }}
-  log-level:    {{ pillar['beamium']['parameters']['log-level'] }}
+  source-dir: {{ pillar['beamium']['parameters']['source-dir'] }}
+  sink-dir: {{ pillar['beamium']['parameters']['sink-dir'] }}
+  log-file: {{ pillar['beamium']['parameters']['log-file'] }}
+  scan-period: {{ pillar['beamium']['parameters']['scan-period'] }}
+  batch-count: {{ pillar['beamium']['parameters']['batch-count'] }}
+  batch-size: {{ pillar['beamium']['parameters']['batch-size'] }}
+  timeout: {{ pillar['beamium']['parameters']['timeout'] }}
+  log-level: {{ pillar['beamium']['parameters']['log-level'] }}

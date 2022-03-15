@@ -1,11 +1,13 @@
+{% set version = '3.38.0-01' %}
+
 nexus:
   java:
     home: '/usr/local/bin/'
 
   download:
-    version: '3.37.3-02'
-    httppath: 'https://download.sonatype.com/nexus/3/nexus-3.37.3-02-unix.tar.gz'
-    hash: 'http://download.sonatype.com/nexus/3/latest-unix.tar.gz.sha1'
+    version: {{ version }}  # '3.37.3-02'
+    httppath: 'https://download.sonatype.com/nexus/3/nexus-{{ version }}-unix.tar.gz'
+    hash: 'https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-{{ version }}-unix.tar.gz.sha1'  # 'http://download.sonatype.com/nexus/3/latest-unix.tar.gz.sha1'
     hostpath: '/tmp/download'
   install:
     path: '/opt'

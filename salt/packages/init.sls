@@ -11,8 +11,8 @@ common:
       - lsb-release
       - unattended-upgrades
       - apt-listchanges
-      - ipv6calc
       - python3-psutil
+      - python3-dnspython
       # - duf # XXX backport only
       - ncdu
       - exa
