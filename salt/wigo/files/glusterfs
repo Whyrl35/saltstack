@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+
+import os
+import json
+from glustercli.cli.peer import pool
+
+configuration = {
+    'enabled': True,
+    'peers': 2,
+    'state': 'Connected'
+}
+
+
+def read_configuration():
+    global configuration
+
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/glusterfs.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def check_glusterfs():
+    global configuration
+
+    message = "Glusterfs is fine"
+    value = "OK"
+    status = 100
+    mypool = pool()
+
+    if len(mypool) != configuration['peers']:
+        message = "The numbers of peers is not right"
+        value = "CRIT"
+        status = 300
+
+    myself = res = next(item for item in mypool if item['hostname'] == 'localhost')
+
+    if myself['connected'] != configuration['state']:
+        message = "The glusterfs is not in a good status"
+        value = "CRIT"
+        status = 300
+
+    result = {
+        'Detail': {
+            'pool': mypool,
+        },
+        'Message': message,
+        'Value': value,
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        check_glusterfs()

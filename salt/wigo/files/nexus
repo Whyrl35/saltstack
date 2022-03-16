@@ -1,0 +1,61 @@
+#!/usr/bin/python3
+
+import os
+import json
+import requests
+
+configuration = {
+    'enabled': True,
+    'user': '',
+    'password': ''
+}
+
+
+def read_configuration():
+    global configuration
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/nexus.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def check_nexus():
+    message = "Nexus is fine"
+    status = 100
+    value = "OK"
+    detail = {}
+
+    try:
+        res = requests.get('http://localhost:8081/service/rest/v1/status')
+    except requests.exceptions.ConnectionError:
+        message = "There is no nexus API reachable"
+        status = 500
+        value = "CRIT"
+    else:
+        if res.status_code != 200:
+            message = "Nexus can't server read requests"
+            status = 300
+            value = "CRIT"
+        else:
+            res = requests.get('http://localhost:8081/service/rest/v1/repositories', auth=(configuration['user'], configuration['password']))
+            detail = res.json()
+
+    result = {
+        'Detail': detail,
+        'Message': message,
+        'Value': value,
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        check_nexus()
