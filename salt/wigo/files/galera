@@ -1,0 +1,109 @@
+#!/usr/bin/python3
+
+import json
+import os.path
+import MySQLdb
+
+configuration = {
+    'cluster_size': 3,
+    'cluster_status': 'Primary',
+    'ready': 'ON',
+    'connected': 'ON',
+}
+
+
+def print_result(status=100, message='', detail={}):
+    if status == 100:
+        value = 'OK'
+    elif 100 < status <= 199:
+        value = 'INFO'
+    elif 200 <= status <= 299:
+        value = 'WARN'
+    elif 300 <= status <= 499:
+        value = 'CRIT'
+    else:
+        value = 'ERROR'
+
+    result = {
+        'Detail': detail,
+        'Message': message,
+        'Value': value,
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+def check_galera():
+    global configuration
+    status = 100
+    message = ['Galera database cluster is fine.']
+    detail = dict()
+
+    try:
+        db = MySQLdb.connect()
+    except:
+        print_result(500, 'Error during connection to database', {})
+        return
+
+    cursor=db.cursor()
+
+    ### Check the cluster size
+
+    cursor.execute("SHOW GLOBAL STATUS LIKE 'wsrep_cluster_size'")
+    res = cursor.fetchone()
+
+    detail['cluster_size'] = res[1]
+    if int(res[1]) < configuration['cluster_size']:
+        status = 250
+        message.append('Nodes are missing in the cluster')
+
+    ### Check the cluster status
+
+    cursor.execute("SHOW GLOBAL STATUS LIKE 'wsrep_cluster_status'")
+    res = cursor.fetchone()
+
+    detail['cluster_status'] = res[1]
+    if res[1] != configuration['cluster_status']:
+        status = 300 if status < 300 else status + 1
+        message.append('Node is in nonoperational mode, there may be an issue in the quorum or there is a split-brain')
+
+    ### Check the node status
+
+    cursor.execute("SHOW GLOBAL STATUS LIKE 'wsrep_ready'")
+    res = cursor.fetchone()
+
+    detail['ready'] = res[1]
+    if res[1] != configuration['ready']:
+        status = 300 if status < 300 else status + 1
+        message.append('Node status is wrong')
+
+    ### Check the node connection
+
+    cursor.execute("SHOW GLOBAL STATUS LIKE 'wsrep_connected'")
+    res = cursor.fetchone()
+
+    detail['connceted'] = res[1]
+    if res[1] != configuration['connected']:
+        status = 300 if status < 300 else status + 1
+        message.append('Node status is not connected to any cluster')
+
+    ### Check the local state comment
+
+    cursor.execute("SHOW GLOBAL STATUS LIKE 'wsrep_local_state_comment'")
+    res = cursor.fetchone()
+
+    detail['local_state_comment'] = res[1]
+    if res[1] not in ['Joining, Wainting on SST', 'Joined', 'Synced', 'Donor']:
+        status = 300 if status < 300 else status + 1
+        message.append('Node is not in primary state')
+
+    if status > 100:
+        message.pop(0)
+    print_result(status, '\n'.join(message), detail)
+
+
+if __name__ == "__main__":
+    check_galera()
