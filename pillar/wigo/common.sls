@@ -1,6 +1,9 @@
 {% set roles = salt.grains.get('roles', []) %}
 
 wigo:
+  extra:
+    packages: ~
+    pip: ~
   probes:
     restic: true
     beamium: true
