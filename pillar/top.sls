@@ -153,6 +153,7 @@ base:
     - match: grain
     - glusterfs.loadbalancer
     - haproxy
+    - keepalived
 
   'roles:dns-*':
     - match: grain

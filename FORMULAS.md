@@ -20,6 +20,7 @@
 * https://github.com/saltstack-formulas/logrotate-formula.git
 * https://github.com/saltstack-formulas/haproxy-formula.git
 * https://github.com/saltstack-formulas/powerdns-formula.git
+* https://github.com/saltstack-formulas/keepalived-formula.git
 
 # My own
 

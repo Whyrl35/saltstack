@@ -164,6 +164,7 @@ base:
     - match: grain
     - glusterfs.client
     - haproxy
+    - keepalived
 
   # DNS servers
   'roles:dns-*':
