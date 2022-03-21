@@ -1,10 +1,12 @@
 {% set minions_v4 = salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs') %}
 {% set minions_v6 = salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs6') %}
+{% set home_ipv4 = '82.65.179.161/32' %}
+{% set home_ipv4_4g = '82.142.30.206/32' %}
 {%- load_yaml as ips %}
 bastion:
   ipv4:
-    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
-    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
+    - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ipv4) %}
@@ -25,8 +27,8 @@ bastion:
 myhosts:
   ipv4:
     - 10.3.0.0/16           # vRack
-    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
-    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
+    - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -35,8 +37,8 @@ myhosts:
     {% endfor %}
     {% endfor %}
   pub_ipv4:
-    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
-    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
+    - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -50,8 +52,8 @@ myhosts:
   static_ipv4:
     - 10.3.0.0/16           # vRack
     - 192.168.0.0/24        # vHome
-    - 82.65.179.161/32      # whyrl.fr (new IP since incident, full-stack)
-    - 82.142.3.166/32       # whyrl.fr (IP outbound with 4G aggregation)
+    - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
+    - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     - 91.121.156.77/32      # KS001
 
   ipv6:

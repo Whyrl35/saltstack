@@ -7,3 +7,9 @@ steps:
     image: warpnetbv/salt-lint
     commands:
       - find . -not -path "./formulas/*" -name "*.sls" | xargs salt-lint -x 204
+
+  - name: slack
+  	image: plugins/slack
+  	settings:
+    	webhook:
+      		from_secret: slack_webhook
