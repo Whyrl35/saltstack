@@ -10,7 +10,7 @@ pen-service-{{ name }}:
     - name: /etc/pen/{{ name }}.cfg
     - user: root
     - group: root
-    - mode: 640
+    - mode: '0640'
     - source: salt://pen/files/service.jinja
     - template: jinja
     - defaults:

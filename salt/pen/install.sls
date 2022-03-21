@@ -13,21 +13,21 @@ pen-configuration:
     - name: /etc/{{ pen.name }}
     - user: root
     - group: root
-    - dir_mode: 750
-    - file_mode: 640
+    - dir_mode: '0750'
+    - file_mode: '0640'
 
 pen-log:
   file.directory:
     - name: /var/log/{{ pen.name }}
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: '0755'
+    - file_mode: '0644'
 
 pen-pid:
   file.directory:
     - name: /run/{{ pen.name }}
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: '0755'
+    - file_mode: '0644'0

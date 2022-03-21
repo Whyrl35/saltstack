@@ -49,7 +49,7 @@ haproxy:
         uri: "/admin?stats"
         refresh: "20s"
         realm: LoadBalancer
-        auth: "admin:{{ secret['admin']}}"
+        auth: "admin:{{ secret['admin'] }}"
     #TODO: here code specific listen !
 
   frontends:
