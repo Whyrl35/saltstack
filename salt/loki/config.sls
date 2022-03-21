@@ -35,4 +35,3 @@ loki-conf-update:
     - require:
       - cmd: loki-conf-install
     # - dataset_pillar: {}
-

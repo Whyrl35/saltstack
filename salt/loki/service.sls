@@ -31,4 +31,3 @@ loki-service-running:
     - require:
       - cmd: loki-prerequisit-service
       - file: loki-conf-update
-

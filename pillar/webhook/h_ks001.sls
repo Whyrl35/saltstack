@@ -18,4 +18,3 @@ webhooks:
           parameter:
             source: "header"
             name: "X-Hub-Signature"
-

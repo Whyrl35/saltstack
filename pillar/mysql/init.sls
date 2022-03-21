@@ -35,4 +35,3 @@ mysql:
       log_bin: /var/log/mysql/mysql-bin.log
       datadir: /var/lib/mysql
       port: 3307
-

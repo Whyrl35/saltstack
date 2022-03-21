@@ -39,4 +39,3 @@ nftables:
           chain: 'MAIL'
           family: 'ip6'
           rule: 'ip6 saddr @myhosts tcp dport { 80, 443 } counter accept'
-

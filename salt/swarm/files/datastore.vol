@@ -35,4 +35,3 @@ volume cache
   option cache-size 512MB
   subvolumes writebehind
 end-volume
-

@@ -59,4 +59,3 @@ promtail-archive-install:
       - cmd: promtail-archive-install
     - require:
       - service: promtail-archive-install
-

@@ -11,4 +11,3 @@
 -A INPUT -m state --state ESTABLISHED -j ACCEPT
 -A OUTPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 COMMIT
-

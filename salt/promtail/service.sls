@@ -31,4 +31,3 @@ promtail-service-running:
     - require:
       - cmd: promtail-prerequisit-service
       - file: promtail-conf-update
-

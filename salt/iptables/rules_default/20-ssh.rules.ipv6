@@ -21,4 +21,3 @@
 -A SSH -j DROP
 
 COMMIT
-

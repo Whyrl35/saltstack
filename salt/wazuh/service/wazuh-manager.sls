@@ -26,4 +26,3 @@ wazuh-service-running:
 {% if wazuh.installation.mode == "distributed" %}
 # TODO : implement wazuh-manager-installation for distributed mode
 {% endif %}
-

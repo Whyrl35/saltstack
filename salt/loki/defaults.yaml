@@ -32,4 +32,3 @@ loki:
   identity:
     user: loki
     group: loki
-

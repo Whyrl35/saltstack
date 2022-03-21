@@ -33,4 +33,3 @@ promtail-conf-update:
     - merge_if_exists: True
     - dataset: {{ promtail.config }}
     # - dataset_pillar: {}
-

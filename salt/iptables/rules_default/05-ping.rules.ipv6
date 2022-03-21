@@ -9,4 +9,3 @@
 
 -A INPUT -p icmpv6 -j ACCEPT -m comment --comment "ping"
 COMMIT
-

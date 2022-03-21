@@ -82,4 +82,3 @@ promtail:
   identity:
     user: root
     group: root
-

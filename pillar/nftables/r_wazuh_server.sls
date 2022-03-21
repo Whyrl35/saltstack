@@ -49,4 +49,3 @@ nftables:
           chain: 'WAZUH'
           family: 'ip6'
           rule: 'tcp dport { 80, 443 } counter accept'
-

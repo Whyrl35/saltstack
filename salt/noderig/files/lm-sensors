@@ -16,4 +16,3 @@ for shwtemp in infos['coretemp']:
     temperature = shwtemp[1]
     timestamp = int(datetime.datetime.timestamp(datetime.datetime.now()))
     print("os.cpu.temperature {timestamp} {temperature} core={core_number}".format(timestamp=timestamp, temperature=temperature, core_number=core_number))
-

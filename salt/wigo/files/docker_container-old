@@ -28,7 +28,7 @@ for my $containerName ( @{ config->{'containerList'} } )
 
     if ( $? )
     {
-        push @inactiveContainers, $containerName; 
+        push @inactiveContainers, $containerName;
     }
 }
 

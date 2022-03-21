@@ -62,4 +62,3 @@ nginx:
           access_log:
             - /var/log/nginx/access_log.json json_analytics
             - /var/log/nginx/access.log
-

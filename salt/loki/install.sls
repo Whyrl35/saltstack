@@ -60,4 +60,3 @@ loki-archive-install:
       - cmd: loki-archive-install
     - require:
       - service: loki-archive-install
-
