@@ -27,7 +27,7 @@ def beamium():
 
     sink_dir = yml['parameters']['sink-dir']
 
-    num_files = len([name for name in os.listdir(sink_dir) if os.path.isfile(name)])
+    num_files = len([name for name in os.listdir(sink_dir) if os.path.isfile("{}/{}".format(sink_dir,name))])
     if num_files > 5 and num_files < 10:
         status = 201
         message = 'warning there are more than 5 files in sinks'
