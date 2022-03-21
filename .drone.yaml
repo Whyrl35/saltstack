@@ -1,0 +1,9 @@
+kind: pipeline
+type: docker
+name: lint
+
+steps:
+  - name: salt-lint
+    image: warpnetbv/salt-lint
+    commands:
+      - find . -not -path "./formulas/*" -name "*.sls" | xargs salt-lint
