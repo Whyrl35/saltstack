@@ -25,7 +25,7 @@ webhooks:
       trigger-rule:
         match:
           type: "value"
-          secret: {{ secret['deploy-saltstack'] }}
+          value: "{{ secret['deploy-saltstack'] }}"
           parameter:
             source: "header"
             name: "X-Drone-Token"
