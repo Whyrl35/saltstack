@@ -21,8 +21,7 @@ steps:
     urls: http://salt.whyrl.fr:9000/hooks/salt-git-deployment
     content_type: application/json
     headers:
-      X-Hub-Signature:
-        from_secret: webhook_header
+      from_secret: webhook_header
 
 depends_on:
 - lint
@@ -40,5 +39,4 @@ steps:
       from_secret: slack_webhook
 
 depends_on:
-- lint
 - push
