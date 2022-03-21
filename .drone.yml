@@ -22,6 +22,7 @@ steps:
     content_type: application/json
     headers:
       from_secret: webhook_header
+    debug: true
 
 depends_on:
 - lint
