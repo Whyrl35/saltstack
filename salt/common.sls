@@ -35,3 +35,11 @@ fresh_install:
     - value: True
     - unless:
       - grep cloud_fresh_install /etc/salt/grains
+
+logrotate_duplicate_wtmp:
+  file.absent:
+    - name: /etc/logrotate.d/wtmp
+
+logrotate_duplicate_btmp:
+  file.absent:
+    - name: /etc/logrotate.d/btmp

@@ -2,8 +2,12 @@
 # - Create an init script to start/load iptables
 # -
 motd:
-  file.absent:
+  file.managed:
     - name: /etc/motd
+    - user: root
+    - group: root
+    - content: ''
+    - mode: '0644'
 
 xx-motd:
   file.managed:
