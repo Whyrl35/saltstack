@@ -1,4 +1,5 @@
-{% set version = '3.38.0-01' %}
+{% from 'nexus/common.jinja' import defaults %}
+{% set version = defaults.version %}
 
 nexus:
   java:

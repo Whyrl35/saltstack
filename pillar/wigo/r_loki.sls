@@ -1,3 +1,6 @@
+{% from 'loki/common.jinja' import defaults %}
+{% set version = defaults.version %}
+
 wigo:
   probes:
     check_version: true
@@ -8,8 +11,8 @@ wigo:
       enabled: 'true'
       versionList:
         - name: loki
-          current: '2.4.2'
+          current: {{ version }}
           url: https://api.github.com/repos/grafana/loki/releases/latest
         - name: promtail
-          current: '2.4.2'
+          current: {{ version }}
           url: https://api.github.com/repos/grafana/loki/releases/latest

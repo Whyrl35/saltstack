@@ -1,4 +1,6 @@
 {% set secret = salt['vault'].read_secret('secret/salt/nexus/users') %}
+{% from 'nexus/common.jinja' import defaults %}
+{% set version = defaults.version.split('-', 1)[0] %}
 
 wigo:
   probes:
@@ -12,7 +14,7 @@ wigo:
       enabled: 'true'
       versionList:
         - name: nexus
-          current: '3.38.0'
+          current: "{{ version }}"
           url: https://api.github.com/repos/sonatype/nexus-public/releases/latest
     nexus:
       enabled: 'true'

@@ -1,10 +1,12 @@
 #!jinja|yaml|gpg
 {% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
+{% from 'loki/common.jinja' import defaults %}
+{% set version = defaults.version %}
 
 promtail:
   archive:
     github:
-      version: '2.4.2'
+      version: {{ version }}
 
   config:
     server:

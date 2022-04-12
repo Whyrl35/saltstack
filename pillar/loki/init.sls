@@ -1,9 +1,11 @@
 {% set secret = salt['vault'].read_secret('secret/salt/loki/openstack') %}
+{% from 'loki/common.jinja' import defaults %}
+{% set version = defaults.version %}
 
 loki:
   archive:
     github:
-      version: '2.4.2'
+      version: {{ version }}
 
   config:
     schema_config:
