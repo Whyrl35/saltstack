@@ -7,7 +7,7 @@ whyrl_fr_cert:
     - group: root
     - mode: "0640"
     - contents: {{ whyrl_fr['cert'] | yaml_encode }}
-    - watch:
+    - listen_in:
       - service: postfix
       - service: nginx
 
@@ -18,7 +18,7 @@ whyrl_fr_privkey:
     - group: root
     - mode: "0600"
     - contents: {{ whyrl_fr['privkey'] | yaml_encode }}
-    - watch:
+    - listen_in:
       - service: postfix
       - service: nginx
 
@@ -29,7 +29,7 @@ whyrl_fr_chain:
     - group: root
     - mode: "0640"
     - contents: {{ whyrl_fr['chain'] | yaml_encode }}
-    - watch:
+    - listen_in:
       - service: postfix
       - service: nginx
 
@@ -42,6 +42,6 @@ whyrl_fr_fullchain:
     - contents:
       - {{ whyrl_fr['cert'] | yaml_encode }}
       - {{ whyrl_fr['chain'] | yaml_encode }}
-    - watch:
+    - listen_in:
       - service: postfix
       - service: nginx
