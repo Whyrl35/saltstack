@@ -38,6 +38,11 @@ restic:
     exclude:
       path:
         - /usr/share/hassio/media
+        - /usr/share/hassio/homeassistant/home-assistant_v2.db
+    precommand:
+      - /srv/homeassistant/home-assistant_backup.sh
+    postcommand:
+      - /usr/bin/rm -rf /srv/homeassistant/home-assistant_v2.db.dump
     {% endif %}
     {% if 'vault' in grains['roles'] %}
       - /opt/vault
