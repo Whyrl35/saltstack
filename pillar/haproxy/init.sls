@@ -1,4 +1,5 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
+{% set websecret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
 {% from 'haproxy/bastion.jinja' import bastion %}
 {% from 'haproxy/loki.jinja' import loki %}
 {% from 'haproxy/mail.jinja' import mail %}
@@ -181,9 +182,9 @@ haproxy:
       name: backend-loki
       mode: http
       balance: source
-      httpcheck: expect status 401
+      #httpcheck: expect status 401
       options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ loki.whyrl.fr'
+        - 'httpchk GET /loki/api/v1/status/buildinfo HTTP/1.1\r\nHost:\ loki.whyrl.fr\r\nAuthorization:\ Basic\ {{ ('loki:' ~ websecret["loki"]) | base64_encode }}'
         - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
