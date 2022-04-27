@@ -4,6 +4,7 @@
 {% from 'haproxy/mail.jinja' import mail %}
 {% from 'haproxy/nexus.jinja' import nexus %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
+{% from 'haproxy/uptime.jinja' import uptime %}
 {% from 'haproxy/vault.jinja' import vault %}
 {% from 'haproxy/warden.jinja' import warden %}
 {% from 'haproxy/warp10.jinja' import warp10 %}
@@ -75,6 +76,7 @@ haproxy:
         - host_mail hdr(host) -i rspamd.whyrl.fr
         - host_mail hdr(host) -i postfixadmin.whyrl.fr
         - host_salt hdr(host) -i saltui.whyrl.fr
+        - host_uptime hdr(host) -i uptime.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warp10 hdr(host) -i warp10.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
@@ -98,6 +100,7 @@ haproxy:
         - backend-mail if host_mail
         - backend-nexus if host_nexus
         - backend-salt if host_salt
+        - backend-uptime if host_uptime
         - backend-vault if host_vault
         - backend-warden if host_warden
         - backend-warp10 if host_grafana
@@ -244,6 +247,25 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in saltmaster.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    uptime:
+      name: backend-uptime
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ uptime.whyrl.fr'
+        - forwardfor
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in uptime.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443

@@ -67,6 +67,14 @@ bind:
         A:
           srv001: 82.65.179.161
           ks001: 91.121.156.77
+          lb-rr.web:
+            {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='lb*', fun='network.ip_addrs').items() %}
+            {% for ip in ips %}
+            {% if (ip | is_ip(options='private')) and (ip[0:5] == '10.3.') %}
+            - {{ ip }}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
@@ -92,6 +100,14 @@ bind:
           srv002: srv001.whyrl.fr.
           nas: srv001.whyrl.fr.
           ks: ks001.whyrl.fr.
+          uptime: probe1.smokeping.whyrl.fr.
+          sshportal: bastion.whyrl.fr.
+          hassio: srv001.whyrl.fr.
+          gateway.whyrl.fr: srv001.whyrl.fr.
+          portainer: srv001.whyrl.fr.
+          webmail: mail.whyrl.fr.
+          saltui: saltmaster.whyrl.fr.
+          blog: lb-rr.web.whyrl.fr.
 
     3.10.in-addr.arpa:
       file: whyrl.fr.rev.txt
