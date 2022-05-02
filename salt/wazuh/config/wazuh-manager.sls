@@ -29,6 +29,16 @@ wazuh-ossec-ar-ipset:
     - require:
       - pkg: wazuh-install
 
+wazuh-ossec-ar-nftables:
+  file.managed:
+    - name: /var/ossec/active-response/bin/nftables-blacklist.py
+    - source: salt://{{ tplroot }}/files/nftables-blacklist.py
+    - user: root
+    - group: ossec
+    - mode: "0750"
+    - require:
+      - pkg: wazuh-install
+
 wazuh-ossec-configuration:
   file.managed:
     - name: /var/ossec/etc/ossec.conf

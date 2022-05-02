@@ -39,19 +39,18 @@ wazuh:
             alert_format: json
             level: 10
         command:
-          - name: ipset
-            executable: ipset.sh
-            expect: srcip
+          - name: nftables-blacklist
+            executable: nftables-blacklist.py
             timeout_allowed: 'yes'
         active_response:
           - disabled: 'no'
-            command: ipset
+            command: nftables-blacklist
             location: all
             level: 10
             timeout: 300
             repeated_offenders: 15,30,45
           - disabled: 'no'
-            command: ipset
+            command: nftables-blacklist
             location: server
             level: 10
             timeout: 300

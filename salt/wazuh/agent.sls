@@ -5,6 +5,7 @@ agent:
   pkg.installed:
     - pkgs:
       - wazuh-agent
+      - python3-nftables
 
 agent-config-manager-ip:
   file.replace:
@@ -65,6 +66,16 @@ agent_ar_ipset:
   file.managed:
     - name: /var/ossec/active-response/bin/ipset.sh
     - source: salt://wazuh/files/ipset.sh
+    - user: root
+    - group: ossec
+    - mode: "0750"
+    - require:
+      - pkg: agent
+
+agent_ar_nftables:
+  file.managed:
+    - name: /var/ossec/active-response/bin/nftables-blacklist.py
+    - source: salt://wazuh/files/nftables-blacklist.py
     - user: root
     - group: ossec
     - mode: "0750"
