@@ -22,7 +22,7 @@ cis_2579_disable_ip_frowarding_ipv4:
     - pattern: '^(.*?)net.ipv4.ip_forward=1$'
     - repl: '\1net.ipv4.ip_forward=0'
   cmd.run:
-    - name: 'sysctl -w net.ipv4.ip_forward = 0'
+    - name: 'sysctl -w net.ipv4.ip_forward=0'
     - unless: 'sysctl net.ipv4.ip_forward | grep 0'
     - onchanges:
       - file: cis_2579_disable_ip_frowarding_ipv4
@@ -33,7 +33,7 @@ cis_2579_disable_ip_frowarding_ipv6:
     - pattern: '^(.*?)net.ipv6.conf.all.forwarding=1$'
     - repl: '\1net.ipv6.conf.all.forwarding=0'
   cmd.run:
-    - name: 'sysctl -w net.ipv6.conf.all.forwarding = 0'
+    - name: 'sysctl -w net.ipv6.conf.all.forwarding=0'
     - unless: 'sysctl net.ipv6.conf.all.forwarding | grep 0'
     - onchanges:
       - file: cis_2579_disable_ip_frowarding_ipv6
