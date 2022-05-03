@@ -110,14 +110,14 @@ base:
     - bitwarden
 
   # vault server
-#'roles:vault':
-  #   - match: grain
-    #- vault
+  #'roles:vault':
+  # - match: grain
+  # - vault
 
   # Homeassistant server, will use homeassistant (docker managed)
-  'roles:homeassistant':
-    - match: grain
-    - homeassistant
+  #'roles:homeassistant':
+  #  - match: grain
+  #  - homeassistant
 
   # dnsmasq server, will use dnsmasq
   'roles:local_dns':
