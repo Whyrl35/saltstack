@@ -53,7 +53,7 @@ def setup_and_check_message(argv):
         input_str = line
         break
 
-    write_debug_file(argv[0], input_str)
+    # write_debug_file(argv[0], input_str)
 
     try:
         data = json.loads(input_str)
