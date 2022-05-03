@@ -82,7 +82,7 @@ def send_keys_and_check_message(argv, keys):
     # build and send message with keys
     keys_msg = json.dumps({"version": 1,"origin":{"name": argv[0],"module":"active-response"},"command":"check_keys","parameters":{"keys":keys}})
 
-    write_debug_file(argv[0], keys_msg)
+    # XXX: write_debug_file(argv[0], keys_msg)
 
     print(keys_msg)
     sys.stdout.flush()
@@ -95,7 +95,7 @@ def send_keys_and_check_message(argv, keys):
             input_str = line
             break
 
-    write_debug_file(argv[0], input_str)
+    # XXX: write_debug_file(argv[0], input_str)
 
     try:
         data = json.loads(input_str)
@@ -167,6 +167,8 @@ def main(argv):
         rc, output, error = nft.cmd("add element %s filter blacklist { %s }" % (ip_type, ip_to_ban))
         if rc > 0:
             write_debug_file(argv[0], error)
+        else:
+            write_debug_file(argv[0], "%s has been added in the blacklist" % ip_to_ban)
 
         """ End Custom Action Add """
 
@@ -184,6 +186,8 @@ def main(argv):
         rc, output, error = nft.cmd("delete element %s filter blacklist { %s }" % (ip_type, ip_to_ban))
         if rc > 0:
             write_debug_file(argv[0], error)
+        else:
+            write_debug_file(argv[0], "%s has been removed from the blacklist" % ip_to_ban)
 
         """ End Custom Action Delete """
 
