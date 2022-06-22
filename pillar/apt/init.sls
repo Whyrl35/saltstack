@@ -43,6 +43,8 @@ apt:
       - origin=SaltStack
       - origin=Debian,archive=stable,label=Debian-Security
       - origin=Debian,archive=oldstable,label=Debian-Security
+      - origin=Debian,archive=stable-security,label=Debian-Security
+      - origin=Debian,archive=oldstable-security,label=Debian-Security
   #
   # GLOBAL repository, disposed on all hosts
   #
