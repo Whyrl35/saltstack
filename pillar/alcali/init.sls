@@ -13,7 +13,7 @@ alcali:
     name: 'config.wsgi:application'
     host: '0.0.0.0'
     port: 8000
-    workers: {{ grains['num_cpus'] }}
+    workers: {{ grains['num_cpus'] * 2 }}
   # All the items under this section will be converted into an environment file.
   config:
     auth_backend: local
