@@ -8,11 +8,14 @@ docker:
     name: docker-ce
 
     docker:
-      #version: '20.10.5'  # archive package version
       use_upstream: package
-
       service:
         name: docker
+      {%- if salt.grains.get('host') == 'srv002' %}
+      daemon_config:
+        log-driver: "journald"
+        storage-driver: overlay2
+      {% endif -%}
 
   containers:
     skip_translate: ports
