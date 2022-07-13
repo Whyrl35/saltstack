@@ -11,17 +11,25 @@
 # osfamilymap: {}
 ---
 Debian:
-  installation:
-    dependancies:
+  packages:
+    dependencies:
       - openjdk-11-jdk
-    opendistro:
-      - elasticsearch-oss
-      - opendistroforelasticsearch
+      - debconf
+      - adduser
+      - procps
+      - debhelper
+      - tar
+      - curl
+      - libcap2-bin
 
 RedHat:
-  installation:
-    opendistro:
-      - opendistroforelasticsearch
+  packages:
+    dependencies:
+      - openjdk-11-jdk
+      - coreutils
+      - initscripts
+      - chkconfig
+      - libcap
 
 openSUSE: {}
 
@@ -31,5 +39,3 @@ Arch:
   installation:
     dependancies:
       - jdk-openjdk
-    opendistro:
-      - opendistroforelasticsearch

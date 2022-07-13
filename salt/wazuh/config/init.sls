@@ -2,5 +2,6 @@
 # # vim: ft=sls
 
 include:
+  - .wazuh-indexer
   - .wazuh-manager
-  - .efk
+  - .wazuh-dashboard

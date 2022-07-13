@@ -2,5 +2,8 @@
 # # vim: ft=sls
 
 include:
+  - .common
+  - .wazuh-certificates
+  - .wazuh-indexer
   - .wazuh-manager
-  - .efk
+  - .wazuh-dashboard
