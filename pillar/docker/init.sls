@@ -5,17 +5,17 @@ docker:
 
   pkg:
     version: 'latest'  # linux native package version
-    name: docker-ce
+    name: "docker-ce"
 
     docker:
-      use_upstream: package
+      use_upstream: "package"
       service:
-        name: docker
-      {%- if salt.grains.get('host') == 'srv002' %}
+        name: "docker"
+      {% if salt.grains.get('host') == 'srv002' %}
       daemon_config:
         log-driver: "journald"
-        storage-driver: overlay2
-      {% endif -%}
+        storage-driver: "overlay2"
+      {% endif %}
 
   containers:
     skip_translate: ports
