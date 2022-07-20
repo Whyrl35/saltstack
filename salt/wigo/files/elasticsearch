@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+
+import os
+import json
+from opensearchpy import OpenSearch
+
+configuration = {
+    'enabled': True,
+    'host': 'localhost',
+    'port': 9200,
+    'auth': ('admin', 'admin'),
+    'use_ssl': True,
+    'ca_certs_path': '/etc/certs/private/root-ca.pem',
+}
+
+
+def read_configuration():
+    global configuration
+
+    # TODO: get the probe name and search for probe.conf
+    conf_file = '/etc/wigo/conf.d/elasticsearch.conf'
+
+    if os.path.isfile(conf_file):
+        with open(conf_file, 'r') as conf:
+            data = json.load(conf)
+        configuration = data
+
+
+def check_elasticsearch():
+    global configuration
+
+    client = OpenSearch(
+        hosts = [{'host': configuration['host'], 'port': configuration['port']}],
+        http_compress = True,
+        http_auth = configuration['auth'],
+        use_ssl = configuration['use_ssl'],
+        verify_certs = True,
+        ssl_assert_hostname = False,
+        ssl_show_warn = False,
+        ca_certs = configuration['ca_certs_path']
+    )
+
+    health = client.cluster.health()
+
+    if health['status'] == 'green':
+        message = "opensearch server is in good state"
+        value = "OK"
+        status = 100
+    elif health['status'] == 'yellow':
+        message = "opensearch server is in warning status"
+        value = "KO"
+        status = 200
+    else:
+        message = "opensearch server is in error status"
+        value = "KO"
+        status = 300
+
+    if health['active_shards'] == 1000:
+        message = "too many shards allocated"
+        value = "KO"
+        status = 300
+
+    if health['unassigned_shards'] != 0:
+        message = "wrong shard configurtion, unassigned shards means that you need to rebalance them"
+        value = "KO"
+        status = 300
+
+    result = {
+        'Detail': {
+            'health': health,
+        },
+        'Message': message,
+        'Value': value,
+        'Status': status,
+        'Version': '0.10',
+        'Metrics': []
+    }
+
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    read_configuration()
+    if configuration['enabled']:
+        check_elasticsearch()
