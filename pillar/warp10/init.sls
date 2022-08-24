@@ -1,9 +1,12 @@
+{% from 'warp10/common.jinja' import defaults %}
+{% set version = defaults.version %}
+
 warp10:
   lookup:
     provider: github
     archive:
       github:
-        version: '2.10.1'  # '2.9.0'
+        version: {{ version }} # '2.11.0' # '2.9.0'
         uri: 'https://github.com/senx/warp10-platform/releases/download'
     service:
       enable: true
