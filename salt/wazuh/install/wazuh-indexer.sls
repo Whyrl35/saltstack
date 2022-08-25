@@ -6,4 +6,4 @@
 
 wazuh-indexer-install-package:
   pkg.installed:
-	- name: {{ wazuh.packages.indexer }}
+    - name: {{ wazuh.packages.indexer }}

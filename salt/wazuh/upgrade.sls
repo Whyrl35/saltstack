@@ -11,7 +11,7 @@ disbale-shard-allocation:
 stop-indexing-and-synced:
   cmd.run:
     - name: |
-        curl -X POST "https://127.0.0.1:9200/_flush/synced" -u {{ user}}:{{ password }} -k
+        curl -X POST "https://127.0.0.1:9200/_flush/synced" -u {{ user }}:{{ password }} -k
     - require:
       - cmd: disbale-shard-allocation
 

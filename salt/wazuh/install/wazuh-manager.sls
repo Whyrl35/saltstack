@@ -6,8 +6,8 @@
 
 wazuh-manager-install-package:
   pkg.installed:
-	- name: {{ wazuh.packages.manager }}
+    - name: {{ wazuh.packages.manager }}
 
 wazuh-manager-install-filebeat:
   pkg.installed:
-	- name: filebeat
+    - name: filebeat

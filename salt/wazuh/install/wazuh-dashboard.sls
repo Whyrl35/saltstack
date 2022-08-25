@@ -6,4 +6,4 @@
 
 wazuh-dashboard-install-package:
   pkg.installed:
-	- name: {{ wazuh.packages.dashboard }}
+    - name: {{ wazuh.packages.dashboard }}
