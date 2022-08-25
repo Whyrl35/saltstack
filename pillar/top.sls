@@ -163,3 +163,7 @@ base:
     - match: grain
     - java
     - nexus
+
+  'roles:firezone':
+    - match: grain
+    - firezone

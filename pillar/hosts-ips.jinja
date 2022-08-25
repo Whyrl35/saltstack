@@ -14,9 +14,23 @@ bastion:
     {% endif %}
     {% endfor %}
     {% endfor %}
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:firezone', fun='network.ip_addrs', tgt_type='grain').items() %}
+    {% for addr in (addrs | ipv4)  %}
+    {% if(addr | is_ipv4) %}
+    - {{ addr }}/32
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
   ipv6:
     - 2a01:e0a:5d2:48b0::/64  # whyrl.fr (new IP since incident)
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
+    {% for addr in (addrs | ipv6)  %}
+    {% if(addr | is_ip(options='global')) %}
+    - {{ addr }}/128
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:firezone', fun='network.ip_addrs6', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv6)  %}
     {% if(addr | is_ip(options='global')) %}
     - {{ addr }}/128

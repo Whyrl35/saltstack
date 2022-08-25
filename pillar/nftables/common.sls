@@ -23,6 +23,7 @@ nftables:
           priority: 0
           table_type: 'filter'
           policy: 'drop'
+        {% if ('roles' in grains) and ('firezone' not in grains['roles']) %}
         - name: 'FORWARD'
           table: 'filter'
           family: 'ip'
@@ -33,6 +34,7 @@ nftables:
           family: 'ip'
           hook: 'output'
           policy: 'accept'
+        {% endif %}
         - name: 'INPUT'
           table: 'filter'
           family: 'ip6'
@@ -40,6 +42,7 @@ nftables:
           priority: 0
           table_type: 'filter'
           policy: 'drop'
+        {% if ('roles' in grains) and ('firezone' not in grains['roles']) %}
         - name: 'FORWARD'
           table: 'filter'
           family: 'ip6'
@@ -50,6 +53,7 @@ nftables:
           family: 'ip6'
           hook: 'output'
           policy: 'accept'
+        {% endif %}
       #
       # create sets (like ipset)
       # myhosts : all the public IP of my hosts

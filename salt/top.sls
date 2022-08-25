@@ -177,3 +177,8 @@ base:
     - match: grain
     - java
     - nexus
+
+  # Firezone servers
+  'roles:firezone':
+    - match: grain
+    - firezone

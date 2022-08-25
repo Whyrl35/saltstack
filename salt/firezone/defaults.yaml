@@ -1,0 +1,170 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+firezone:
+  name: firezone
+
+  packages:
+    - firezone
+  deps:
+    - wireguard
+
+  cmd: firezone-ctl
+
+  service_name: firezone-runsvdir-start
+
+  configuration:
+    path: /etc/firezone
+    file: firezone.rb
+    data:
+      external_url: "https://#{node['fqdn'] || node['hostname']}"
+      admin_email: "firezone@localhost"
+      max_devices_per_user: 10
+      allow_unprivileged_device_management: true
+      allow_unprivileged_device_configuration: true
+      config_directory: "/etc/firezone"
+      install_directory: "/opt/firezone"
+      app_directory: "#{node['firezone']['install_directory']}/embedded/service/firezone"
+      log_directory: "/var/log/firezone"
+      var_directory: "/var/opt/firezone"
+      user: firezone
+      group: firezone
+      egress_interface: nil
+      fips_enabled: nil
+      logging:
+        enabled: true
+      authentication:
+        local:
+          enabled: true
+        auto_create_oidc_users: true
+        disable_vpn_on_oidc_error: false
+        oidc: {}
+      phoenix:
+        external_trusted_proxies: []
+        private_clients: []
+        enabled: true
+        listen_address: '127.0.0.1'
+        port: 13000
+        log_rotation:
+          file_maxbytes: 104857600
+          num_to_keep: 10
+      nginx:
+        enabled: true
+        ssl_port: 443
+        directory: "#{node['firezone']['var_directory']}/nginx/etc"
+        log_directory: "#{node['firezone']['log_directory']}/nginx"
+        log_rotation:
+          file_maxbytes: 104857600
+          num_to_keep: 10
+        log_x_forwarded_for: true
+        hsts_header:
+          enabled: true
+          include_subdomains: true
+          max_age: 31536000
+        ipv6: true
+        redirect_to_canonical: false
+        cache:
+          enabled: false
+          directory: "#{node['firezone']['var_directory']}/nginx/cache"
+        user: "node['firezone']['user']"
+        group: "node['firezone']['group']"
+        dir: "node['firezone']['nginx']['directory']"
+        log_dir: "node['firezone']['nginx']['log_directory']"
+        pid: "#{node['firezone']['nginx']['directory']}/nginx.pid"
+        daemon_disable: true
+        gzip: 'on'
+        keepalive: 'on'
+        keepalive_timeout: 65
+        worker_processes: {{ grains.get('num_cpus') }}
+        worker_connections: 1024
+        client_max_body_size: '250m'
+        enable_rate_limiting: true
+        rate_limiting_backoff: '10m'
+        rate_limit: '10r/s'
+      postgresql:
+        enabled: true
+        log_rotation:
+          file_maxbytes: 104857600
+          num_to_keep: 10
+        checkpoint_completion_target: 0.5
+        checkpoint_segments: 3
+        checkpoint_timeout: '5min'
+        checkpoint_warning: '30s'
+        effective_cache_size: '128MB'
+        listen_address: '127.0.0.1'
+        max_connections: 350
+        md5_auth_cidr_addressses: ['127.0.0.1/32', '::1/128']
+        port: 15432
+        shmmax: 17179869184
+        shmall: 4194304
+        work_mem: '8MB'
+      wireguard:
+        enabled: true
+        log_rotation:
+          file_maxbytes: 104857600
+          num_to_keep: 10
+        interface_name: 'wg-firezone'
+        port: 51820
+        mtu: 1280
+        endpoint: nil
+        allowed_ips: '0.0.0.0/0, ::/0'
+        dns: '1.1.1.1, 1.0.0.1'
+        persistent_keepalive: 0
+        ipv4:
+          enabled: true
+          masquerade: true
+          network: '10.3.2.0/24'
+          address: '10.3.2.1'
+        ipv6:
+          enabled: true
+          masquerade: true
+          network: 'fd00::3:2:0/120'
+          address: 'fd00::3:2:1'
+      ssl:
+        directory: '/var/opt/firezone/ssl'
+        email_address: nil
+        acme:
+          enabled: false
+          server: 'letsencrypt'
+          keylength: 'ec-256'
+        certificate: nil
+        certificate_key: nil
+        ssl_dhparam: nil
+        country_name: US
+        state_name: CA
+        locality_name: 'San Francisco'
+        company_name: 'My Company'
+        organizational_unit_name: 'Operations'
+        ciphers: 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA'
+        fips_ciphers: 'FIPS@STRENGTH:!aNULL:!eNULL'
+        protocols: 'TLSv1 TLSv1.1 TLSv1.2'
+        session_cache: 'shared:SSL:4m'
+        session_timeout: '5m'
+      robots_allow: '/'
+      robots_disallow: nil
+      outbound_email:
+        from: nil
+        provider: nil
+        configs:
+          smtp:
+            relay: 'smtp.example.com'
+            port: 587
+            username: ''
+            password: ''
+            ssl: true
+            tls: 'always'
+            auth: 'always'
+            no_mx_lookup: false
+            retries: 2
+          mailgun:
+            apikey: nil
+            domain: nil
+          mandrill:
+            api_key: nil
+          sendgrid:
+            api_key: nil
+          post_mark:
+            api_key: nil
+          sendmail:
+            cmd_path: '/usr/bin/sendmail'
+            cmd_args: '-N delay,failure,success'
