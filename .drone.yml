@@ -37,6 +37,10 @@ steps:
   settings:
     webhook:
       from_secret: slack_webhook
+  when:
+    status:
+      - failure
+      - success
 
 depends_on:
 - push
