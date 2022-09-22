@@ -10,3 +10,9 @@ firezone-service-running:
     - unmask: True
     - enable: True
     - reload: False
+
+firezone-restart-on-nftables-changes:
+  cmd.run:
+    - name: {{ firezone.cmd }} restart
+    - onchanges:
+      - file: nftables-config-file-file-managed
