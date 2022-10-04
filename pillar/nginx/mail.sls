@@ -122,7 +122,8 @@ nginx:
               - /var/log/nginx/webmail_access_log.json json_analytics
               - /var/log/nginx/webmail_access.log
             - error_log: /var/log/nginx/wemaili_error.log
-            - root: /var/www/rainloop
+            #RAINLOOP - root: /var/www/rainloop
+            - root: /var/www/roundcubemail
             - index: index.php
             - charset: {{ defaults.charset }}
             - ssl_certificate: /etc/ssl/certs/whyrl.fr.fullchain.pem
@@ -153,4 +154,12 @@ nginx:
             - location ~ install.php:
               - deny: all
             - location ^~ /data:
+              - deny: all
+            - location ^~ /installer:
+              - deny: all
+            - location ^~ /temp:
+              - deny: all
+            - location ^~ /config:
+              - deny: all
+            - location ^~ /logs:
               - deny: all
