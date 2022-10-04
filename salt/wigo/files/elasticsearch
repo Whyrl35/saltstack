@@ -56,9 +56,9 @@ def check_elasticsearch():
         status = 300
 
     if health['active_shards'] == 1000:
-        message = "too many shards allocated"
-        value = "KO"
-        status = 300
+        message = "{}\n{}".format(message, "maximum shards allocated")
+        value = value
+        status = status
 
     if health['unassigned_shards'] != 0:
         message = "wrong shard configurtion, unassigned shards means that you need to rebalance them"
