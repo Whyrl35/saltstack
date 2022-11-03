@@ -101,31 +101,31 @@ nftables:
           table: 'filter'
           family: 'ip'
           set: 'bastion'
-          elements: {{ ips.bastion.ipv4 }}
+          elements: {{ ips.bastion.ipv4 | unique }}
         - name: 'bastionv6_elements'
           table: 'filter'
           family: 'ip6'
           set: 'bastion'
           elements:
-            {% for ip in ips.bastion.ipv6 %}
+            {% for ip in ips.bastion.ipv6 | unique %}
             - {{ ip }}
             {% endfor %}
         - name: 'myhosts_all_elements'
           table: 'filter'
           family: 'ip'
           set: 'myhosts_all'
-          elements: {{ ips.myhosts.ipv4 }}
+          elements: {{ ips.myhosts.ipv4 | unique }}
         - name: 'myhosts_elements'
           table: 'filter'
           family: 'ip'
           set: 'myhosts'
-          elements: {{ ips.myhosts.static_ipv4 }}
+          elements: {{ ips.myhosts.static_ipv4 | unique }}
         - name: 'myhostsv6_elements'
           table: 'filter'
           family: 'ip6'
           set: 'myhosts'
           elements:
-            {% for ip in ips.myhosts.ipv6 %}
+            {% for ip in ips.myhosts.ipv6 | unique %}
             - {{ ip }}
             {% endfor %}
       #
