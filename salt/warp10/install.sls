@@ -31,10 +31,10 @@ warp10-archive-install:
     - makedirs: True
 #    - require_in:
 #      - archive: java-package-archive-install
-    - recurse:
-        - user
-        - group
-        - mode
+#    - recurse:
+#        - user
+#        - group
+#        - mode
   cmd.run:
     - name: curl -Lo {{ warp10.dir.tmp }}/{{ warp10.name }}-{{ warp10.version }}.tar.gz {{ warp10.archive.source }}
     - retry: 3
