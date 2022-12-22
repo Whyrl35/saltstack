@@ -2,19 +2,15 @@
 {% set minions_v6 = salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs6') %}
 {% set home_ipv4 = '82.65.179.161/32' %}
 {% set home_ipv4_4g = '82.142.30.206/32' %}
+
 {%- load_yaml as ips %}
 bastion:
   ipv4:
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
-    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
-    {% for addr in (addrs | ipv4)  %}
-    {% if(addr | is_ipv4) %}
-    - {{ addr }}/32
-    {% endif %}
-    {% endfor %}
-    {% endfor %}
-    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:firezone', fun='network.ip_addrs', tgt_type='grain').items() %}
+    - 10.0.1.184/32         # bastion private IP  XXX: for now only until bastion is enrolled in saltstack
+    - 135.125.10.99/32      # bastion public IP   XXX: for now only until bastion is enrolled in saltstack
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='role:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ipv4) %}
     - {{ addr }}/32
@@ -23,14 +19,7 @@ bastion:
     {% endfor %}
   ipv6:
     - 2a01:e0a:5d2:48b0::/64  # whyrl.fr (new IP since incident)
-    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
-    {% for addr in (addrs | ipv6)  %}
-    {% if(addr | is_ip(options='global')) %}
-    - {{ addr }}/128
-    {% endif %}
-    {% endfor %}
-    {% endfor %}
-    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:firezone', fun='network.ip_addrs6', tgt_type='grain').items() %}
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='role:bastion', fun='network.ip_addrs6', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv6)  %}
     {% if(addr | is_ip(options='global')) %}
     - {{ addr }}/128
@@ -40,7 +29,7 @@ bastion:
 
 myhosts:
   ipv4:
-    - 10.3.0.0/16           # vRack
+    - 10.0.0.0/16           # vRack
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     {% for server, addrs in minions_v4.items() %}
@@ -61,10 +50,10 @@ myhosts:
     {% endfor %}
     {% endfor %}
   priv_ipv4:
-    - 10.3.0.0/16           # vRack
+    - 10.0.0.0/16           # vRack
     - 192.168.0.0/24        # vHome
   static_ipv4:
-    - 10.3.0.0/16           # vRack
+    - 10.0.0.0/16           # vRack
     - 192.168.0.0/24        # vHome
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)

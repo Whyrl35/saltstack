@@ -1,5 +1,5 @@
-{%- load_yaml as nexus %}
-{% for server, addrs in salt.saltutil.runner('mine.get', tgt='roles:nexus', fun='network.ip_addrs', tgt_type='grain').items() %}
+{%- load_yaml as docker01 %}
+{% for server, addrs in salt.saltutil.runner('mine.get', tgt='docker01*', fun='network.ip_addrs').items() %}
 {{ server }}:
 {% for addr in (addrs | ipv4)  %}
 {% if(addr | is_ip(options='private')) %}

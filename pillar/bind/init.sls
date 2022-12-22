@@ -70,7 +70,7 @@ bind:
           - query-errors_log
 
     options:
-     allow-recursion: '{ 10.3.0.0/16; 127.0.0.1; }'
+     allow-recursion: '{ 10.0.0.0/16; 127.0.0.1; }'
      querylog: 'yes'
      forwarders:
        - 213.186.33.99
@@ -141,9 +141,9 @@ bind:
     {% endfor %}
 
 include:
-  {% if 'dns-master' in grains['roles'] %}
+  {% if 'dns-master' in grains['role'] %}
   - .master
   {% endif %}
-  {% if 'dns-slave' in grains['roles'] %}
+  {% if 'dns-slave' in grains['role'] %}
   - .slave
   {% endif %}

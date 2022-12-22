@@ -1,7 +1,7 @@
 # Used to have the right resolv.conf on my cloud infra
 
 ## check if cloud or not
-{% if 'roles' in grains and grains['deployment'] not in ['sadc', 'rbx'] %}
+{% if 'role' in grains and grains['deployment'] not in ['sac', 'rbx'] %}
 ## change /etc/network/interface.d/99-cloud-init
 manage_lo_nameservers:
   file.managed:

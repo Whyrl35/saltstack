@@ -49,6 +49,7 @@ sshd_config:
     - 'hmac-sha2-256'
   AllowUsers:
     - ludovic
+    - debian
   AllowGroups:
     - wheel
     - adm

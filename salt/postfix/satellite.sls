@@ -6,14 +6,14 @@ satellite_generic:
     - group: root
     - mode: "0600"
     - template: jinja
-    - require:
-      - file: /etc/postfix/main.cf
+    #- require:
+    #  - file: /etc/postfix/main.cf
   cmd.run:
     - name: postmap /etc/postfix/generic
     - onchanges:
       - file: /etc/postfix/generic
-    - watch_in:
-      - service: postfix
+    #- watch_in:
+    #  - service: postfix
 
 satelitte_sasl:
   file.managed:
@@ -23,11 +23,11 @@ satelitte_sasl:
     - group: root
     - mode: "0600"
     - template: jinja
-    - require:
-      - file: /etc/postfix/main.cf
+    #- require:
+    #  - file: /etc/postfix/main.cf
   cmd.run:
     - name: postmap /etc/postfix/sasl/sasl_passwd
     - onchanges:
       - file: satelitte_sasl
-    - watch_in:
-      - service: postfix
+    #- watch_in:
+    #  - service: postfix

@@ -2,43 +2,39 @@ nftables:
   configuration:
     "webserver_specific":
       chains:
-        - name: 'WEB'
+        - name: 'web'
           table: 'filter'
           family: 'ip'
-        - name: 'WEB'
+        {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
+        - name: 'web'
           table: 'filter'
           family: 'ip6'
+        {% endif %}
       rules:
-        - name: 'jump to WEB'
+        - name: 'jump to web'
           table: 'filter'
-          chain: 'INPUT'
+          chain: 'input'
           family: 'ip'
-          rule: 'jump WEB'
-        - name: 'jump to WEB'
-          table: 'filter'
-          chain: 'INPUT'
-          family: 'ip6'
-          rule: 'jump WEB'
-        {% if ('deployment' in grains) and (grains['deployment'] in ['sadc', 'rbx']) %}
+          rule: 'jump web'
         - name: 'allow web'
           table: 'filter'
-          chain: 'WEB'
+          chain: 'web'
           family: 'ip'
+          {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
           rule: 'tcp dport { 80, 443 } counter accept'
+          {% else %}
+          rule: 'tcp dport { 80, 443 } ip saddr @myhosts counter accept'
+          {% endif %}
+
+        {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
+        - name: 'jump to web'
+          table: 'filter'
+          chain: 'input'
+          family: 'ip6'
+          rule: 'jump web'
         - name: 'allow web'
           table: 'filter'
-          chain: 'WEB'
+          chain: 'web'
           family: 'ip6'
           rule: 'tcp dport { 80, 443 } counter accept'
-        {% else %}
-        - name: 'allow web'
-          table: 'filter'
-          chain: 'WEB'
-          family: 'ip'
-          rule: 'ip saddr @myhosts tcp dport { 80, 443 } counter accept'
-        - name: 'allow web'
-          table: 'filter'
-          chain: 'WEB'
-          family: 'ip6'
-          rule: 'ip6 saddr @myhosts tcp dport { 80, 443 } counter accept'
         {% endif %}

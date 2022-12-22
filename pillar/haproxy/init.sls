@@ -1,17 +1,10 @@
 {% set secret = salt['vault'].read_secret('secret/salt/haproxy') %}
 {% set websecret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
-{% from 'haproxy/bastion.jinja' import bastion %}
-{% from 'haproxy/loki.jinja' import loki %}
 {% from 'haproxy/mail.jinja' import mail %}
-{% from 'haproxy/nexus.jinja' import nexus %}
 {% from 'haproxy/saltmaster.jinja' import saltmaster %}
-{% from 'haproxy/uptime.jinja' import uptime %}
 {% from 'haproxy/vault.jinja' import vault %}
-{% from 'haproxy/warden.jinja' import warden %}
-{% from 'haproxy/warp10.jinja' import warp10 %}
-{% from 'haproxy/wazuh.jinja' import wazuh %}
 {% from 'haproxy/webservers.jinja' import webservers %}
-{% from 'haproxy/wigo.jinja' import wigo %}
+{% from 'haproxy/docker01.jinja' import docker01 %}
 
 haproxy:
   global:
@@ -68,21 +61,12 @@ haproxy:
       acls:
         - http ssl_fc,not
         - https ssl_fc
-        - host_bastion hdr(host) -i sshportal.whyrl.fr
-        - host_blog hdr(host) -i blog.whyrl.fr
-        - host_grafana hdr(host) -i grafana.whyrl.fr
-        - host_loki hdr(host) -i loki.whyrl.fr
-        - host_nexus hdr(host) -i nexus.whyrl.fr
-        - host_mail hdr(host) -i webmail.whyrl.fr
-        - host_mail hdr(host) -i rspamd.whyrl.fr
-        - host_mail hdr(host) -i postfixadmin.whyrl.fr
-        - host_salt hdr(host) -i saltui.whyrl.fr
-        - host_uptime hdr(host) -i uptime.whyrl.fr
+        - host_postfixadmin hdr(host) -i postfixadmin.whyrl.fr
+        - host_rspamd hdr(host) -i rspamd.whyrl.fr
+        - host_webmail hdr(host) -i webmail.whyrl.fr
+        - host_saltgui hdr(host) -i saltgui.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
-        - host_warp10 hdr(host) -i warp10.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
-        - host_wazuh hdr(host) -i wazuh.whyrl.fr
-        - host_wigo hdr(host) -i wigo.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
@@ -95,115 +79,57 @@ haproxy:
       extra:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
-        - backend-bastion if host_bastion
-        - backend-blog if host_blog
-        - backend-loki if host_loki
-        - backend-mail if host_mail
-        - backend-nexus if host_nexus
-        - backend-salt if host_salt
-        - backend-uptime if host_uptime
+        - backend-mail if host_postfixadmin
+        - backend-mail if host_rspamd
+        - backend-mail if host_webmail
+        - backend-vault if host_saltgui
         - backend-vault if host_vault
-        - backend-warden if host_warden
-        - backend-warp10 if host_grafana
-        - backend-warp10 if host_warp10
-        - backend-wazuh if host_wazuh
-        - backend-wigo if host_wigo
-      default_backend: backend-whyrl
+        - backend-docker01 if host_warden
+      default_backend: backend-vault
 
-    wigo:
-      name: frontend-wigo
+    saltstack-publisher:
+      name: frontend-saltstack-publisher
       bind:
-        - "*:4001"
+        - "*:4505"
       mode: tcp
-      default_backend: backend-wigo-tcp
+      default_backend: backend-saltstack-publisher-tcp
+
+    saltstack-request:
+      name: frontend-saltstack-request
+      bind:
+        - "*:4506"
+      mode: tcp
+      default_backend: backend-saltstack-request-tcp
 
   backends:
     per_ip_rates:
       sticktable: 'type ip size 1m expire 10m store http_req_rate(10s)'
 
-    whyrl:
-      name: backend-whyrl
-      mode: http
-      balance: roundrobin
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in webservers.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    bastion:
-      name: backend-bastion
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ bastion.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in bastion.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    blog:
-      name: backend-blog
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ blog.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in webservers.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    loki:
-      name: backend-loki
-      mode: http
-      balance: source
-      #httpcheck: expect status 401
-      options:
-        - 'httpchk GET /loki/api/v1/status/buildinfo HTTP/1.1\r\nHost:\ loki.whyrl.fr\r\nAuthorization:\ Basic\ {{ ('loki:' ~ websecret["loki"]) | base64_encode }}'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in loki.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
+#    whyrl:
+#      name: backend-whyrl
+#      mode: http
+#      balance: roundrobin
+#      options:
+#        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
+#        - forwardfor
+#      cookie: "SERVERUID insert indirect nocache"
+#      extra:
+#        - "http-response set-header X-Target %s"
+#      servers:
+#      { % for server, ips in webservers.items() % }
+#        { { server.split('.')[0] } }:
+#          host: { { ips[0] } }
+#          port: 443
+#          check: check check-ssl
+#          extra: "ssl verify none cookie { { server.split('.')[0] } }"
+#      { % endfor % }
 
     mail:
       name: backend-mail
       mode: http
       balance: source
       options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ webmail.whyrl.fr'
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ postfixadmin.whyrl.fr'
         - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
@@ -217,56 +143,18 @@ haproxy:
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
 
-    nexus:
-      name: backend-nexus
+    docker01:
+      name: backend-docker01
       mode: http
       balance: source
       options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ nexus.whyrl.fr'
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
         - forwardfor
       cookie: "SERVERUID insert indirect nocache"
       extra:
         - "http-response set-header X-Target %s"
       servers:
-      {% for server, ips in nexus.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    salt:
-      name: backend-salt
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ saltui.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in saltmaster.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    uptime:
-      name: backend-uptime
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ uptime.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in uptime.items() %}
+      {% for server, ips in docker01.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443
@@ -293,90 +181,25 @@ haproxy:
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
 
-    warden:
-      name: backend-warden
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ warden.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in warden.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
 
-    warp10:
-      name: backend-warp10
-      mode: http
-      balance: source
-      options:
-        - 'httpchk'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in warp10.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    wazuh:
-      name: backend-wazuh
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wazuh.whyrl.fr'
-        - forwardfor
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in wazuh.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    wigo:
-      name: backend-wigo
-      mode: http
-      balance: source
-      options:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ wigo.whyrl.fr'
-        - forwardfor
-      httpcheck: expect status 401
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in wigo.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 443
-          check: check check-ssl
-          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    wigo-tcp:
-      name: backend-wigo-tcp
+    saltstack-publisher-tcp:
+      name: backend-saltstack-publisher-tcp
       mode: tcp
       balance: source
       servers:
-      {% for server, ips in wigo.items() %}
+      {% for server, ips in saltmaster.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
-          port: 4001
+          port: 4505
+      {% endfor %}
+
+    saltstack-request-tcp:
+      name: backend-saltstack-request-tcp
+      mode: tcp
+      balance: source
+      servers:
+      {% for server, ips in saltmaster.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 4506
       {% endfor %}

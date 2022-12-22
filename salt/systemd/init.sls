@@ -1,7 +1,7 @@
 # Deploy here specific configuration for systemd
 # to add value, create script, or override them
 
-{% if 'roles' in grains and 'container' in grains['roles'] %}
+{% if 'role' in grains and 'container' in grains['role'] %}
 override_docker_for_nftables:
   file.managed:
     - name: /etc/systemd/system/docker.service.d/override.conf
@@ -23,7 +23,7 @@ override_docker_for_nftables:
       - file: override_docker_for_nftables
 {% endif %}
 
-{% if 'roles' in grains and 'swarm' in grains['roles'] %}
+{% if 'role' in grains and 'swarm' in grains['role'] %}
 override_docker_for_api:
   file.managed:
     - name: /etc/systemd/system/docker.service.d/api.conf

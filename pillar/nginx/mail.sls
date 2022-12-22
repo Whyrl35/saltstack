@@ -36,7 +36,7 @@ nginx:
               - /var/log/nginx/postfixadmin_access_log.json json_analytics
               - /var/log/nginx/postfixadmin_access.log
             - error_log: /var/log/nginx/postfixadmin_error.log
-            - root: /usr/share/postfixadmin/public
+            - root: /opt/postfixadmin/public
             - index: index.php
             - charset: {{ defaults.charset }}
             - ssl_certificate: /etc/ssl/certs/whyrl.fr.fullchain.pem
@@ -123,7 +123,7 @@ nginx:
               - /var/log/nginx/webmail_access.log
             - error_log: /var/log/nginx/wemaili_error.log
             #RAINLOOP - root: /var/www/rainloop
-            - root: /var/www/roundcubemail
+            - root: /opt/roundcubemail
             - index: index.php
             - charset: {{ defaults.charset }}
             - ssl_certificate: /etc/ssl/certs/whyrl.fr.fullchain.pem

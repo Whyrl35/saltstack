@@ -15,7 +15,7 @@ bind:
   configured_acls:
     my_net:
       - 127.0.0.0/8
-      - 10.3.0.0/16
+      - 10.0.0.0/16
 
   configured_zones:
     whyrl.fr:
@@ -31,7 +31,7 @@ bind:
         {% endfor %}
         {% endfor %}
 
-    3.10.in-addr.arpa:
+    0.10.in-addr.arpa:
       type: master
       notify: true
       allow-transfer:
@@ -63,22 +63,15 @@ bind:
         NS:
           '@':
             - ns1
-            - ns2
         A:
           srv001: 82.65.179.161
           ks001: 91.121.156.77
-          lb-rr.web:
-            {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='lb*', fun='network.ip_addrs').items() %}
-            {% for ip in ips %}
-            {% if (ip | is_ip(options='private')) and (ip[0:5] == '10.3.') %}
-            - {{ ip }}
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
+          ns1: 10.0.2.133
+          smtp: 10.0.3.67
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
-          {% if (ip | is_ip(options='private')) and (ip[0:5] == '10.3.') %}
+          {% if (ip | is_ip(options='private')) and (ip[0:5] == '10.0.') %}
           {{ name }}: {{ ip }}
           {% endif %}
           {% endfor %}
@@ -86,30 +79,25 @@ bind:
         MX:
           whyrl.fr.: '1 smtp'
         TXT:
-          dkim._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCia87DUjVU6UeAO1Z//ZHk4xb5BhBK5W7zJ0GkzAA45OJ+bQwmRb6BCZyqHr0p2rDK85AxRZW8iA+5gePSciNitlKOyKsrZM7eDROZJfAWfmjvZuCv4FwwqELovegSyUthH8+6RFSfsnfjIkv0gXuT5wQRCAoT+rXJ8ud5YnCQFwIDAQAB'
+          dkim._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'
           whyrl.fr.: 'v=spf1 a mx -all'
-          arc._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCia87DUjVU6UeAO1Z//ZHk4xb5BhBK5W7zJ0GkzAA45OJ+bQwmRb6BCZyqHr0p2rDK85AxRZW8iA+5gePSciNitlKOyKsrZM7eDROZJfAWfmjvZuCv4FwwqELovegSyUthH8+6RFSfsnfjIkv0gXuT5wQRCAoT+rXJ8ud5YnCQFwIDAQAB'
+          arc._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'
           _dmarc.whyrl.fr.: 'v=DMARC1; p=none; sp=reject'
         CNAME:
-          salt: saltmaster.whyrl.fr.
-          wigo: wazuh.whyrl.fr.
-          saltpad: saltmaster.whyrl.fr.
-          imap: mail.whyrl.fr.
-          smtp: mail.whyrl.fr.
-          grafana: warp10.whyrl.fr.
+          ks: ks001.whyrl.fr.
           srv002: srv001.whyrl.fr.
           nas: srv001.whyrl.fr.
-          ks: ks001.whyrl.fr.
-          uptime: probe1.smokeping.whyrl.fr.
-          sshportal: bastion.whyrl.fr.
           hassio: srv001.whyrl.fr.
-          gateway.whyrl.fr: srv001.whyrl.fr.
+          gateway: srv001.whyrl.fr.
           portainer: srv001.whyrl.fr.
-          webmail: mail.whyrl.fr.
-          saltui: saltmaster.whyrl.fr.
-          blog: lb-rr.web.whyrl.fr.
+          salt: saltmaster.cloud.whyrl.fr.
+          vault: saltmaster.cloud.whyrl.fr.
+          smtp.cloud: smtp.whyrl.fr.
+          mail.cloud: mail.whyrl.fr.
+          imap.cloud: mail.whyrl.fr.
+          vault.cloud: saltmaster.cloud.whyrl.fr.
 
-    3.10.in-addr.arpa:
+    0.10.in-addr.arpa:
       file: whyrl.fr.rev.txt
       soa:
         ns: ns1.whyrl.fr.
@@ -125,8 +113,7 @@ bind:
         NS:
           '@':
              - ns1.whyrl.fr.
-             - ns2.whyrl.fr.
       generate_reverse:
-        net: 10.3.0.0/16
+        net: 10.0.0.0/16
         for_zones:
           - any

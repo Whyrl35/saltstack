@@ -3,5 +3,5 @@
 # It will set our own DNS servers and domains
 auto lo
 iface lo inet loopback
-    dns-nameservers 10.3.25.162 10.3.129.242
-    dns-search whyrl.fr web.whyrl.fr smokeping.whyrl.fr
+    dns-nameservers 10.0.2.133
+    dns-search whyrl.fr cloud.whyrl.fr

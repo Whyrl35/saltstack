@@ -8,7 +8,7 @@
  [1;90m║ [1;31mMEM[0m.......: {{ grains['mem_total'] }} MB
  [1;90m╠═════════════════════╣[1;34m  Saltstack  [1;90m╠═════════════════════[0m
  [1;90m║ [1;31msalt_id[0m...: {{ grains['id'] }}
- [1;90m║ [1;31mroles[0m.....: {{ grains['roles']|join(', ') }}
+ [1;90m║ [1;31mroles[0m.....: {{ grains['role']|join(', ') }}
  [1;90m║ [1;31mhighstate[0m.: {{ None | strftime('%Y-%m-%d %H:%M:%S') }}
  [1;90m╠═════════════════════╣[1;34m   Network   [1;90m╠═════════════════════[0m
  [1;90m║ [1;31mipv4[0m......: {% for ip in grains['ipv4'] %}{% if ip|is_ipv4(options='public') and not ip|is_ipv4(options='loopback') %}{{ ip }} {% endif %}{% endfor %}

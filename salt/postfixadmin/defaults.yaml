@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+postfixadmin:
+  name: postfixadmin
+  provider: github
+
+  archive:
+    github:
+      version: '3.3.13'
+      uri: 'https://github.com/postfixadmin/postfixadmin/archive/refs/tags/'
+    deps:
+      - debconf
+      - dbconfig-common
+      - wwwconfig-common
+      - nginx
+      - php-fpm
+      - php-imap
+      - php-mysql
+      - php-json
+      - php-zip
+      - php-gd
+      - php-mbstring
+      - php-curl
+      - php-xml
+      - php-pear
+      - php-bcmath
+      - mariadb-client
+
+  config:
+    configured: 'true'
+    database_type: mysqli
+    database_host: localhost
+    database_user: postfix
+    database_password: postfix
+    database_name: postfix
+    domain_path: 'YES'
+    domain_in_mailbox: 'NO'
+    fetchmail: 'NO'
+    setup_password: changeme
+
+  dir:
+    tmp: /tmp/postfixadmin/
+    home: /home/vmail
+    app: /opt/postfixadmin
+
+  identity:
+    virtual:
+      user: vmail
+      group: vmail
+    web:
+      user: www-data
+      group: www-data

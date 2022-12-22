@@ -1,9 +1,10 @@
+{% set secret = salt['vault'].read_secret('secret/salt/databases/mysql') %}
 <?php
 $CONF['configured'] = true;
 $CONF['database_type'] = 'mysqli';
-$CONF['database_host'] = 'localhost';
+$CONF['database_host'] = 'mysql-caaca600-o37d65b73.database.cloud.ovh.net';
 $CONF['database_user'] = 'postfix';
-$CONF['database_password'] = '{{ pillar['mysql']['user']['postfix']['password'] }}';
+$CONF['database_password'] = '{{ secret['postfix'] }}';
 $CONF['database_name'] = 'postfix';
 $CONF['domain_path'] = 'YES';
 $CONF['domain_in_mailbox'] = 'NO';

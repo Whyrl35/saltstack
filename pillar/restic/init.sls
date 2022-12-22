@@ -32,7 +32,15 @@ restic:
     paths:
       - /srv
       - /etc
-    {% if 'homeassistant' in grains['roles'] %}
+    {% if 'saltmaster' in grains['role'] %}
+      - /opt/vault
+    {% endif %}
+    {% if grains['id'] == 'ks001.whyrl.fr' %}
+    exclude:
+        path:
+          - backup
+    {% endif %}
+    {% if 'homeassistant' in grains['role'] %}
       - /usr/share/hassio
       - /usr/share/hassio/homeassistant
     exclude:
@@ -42,25 +50,5 @@ restic:
     precommand:
       - /srv/homeassistant/home-assistant_backup.sh
     postcommand:
-      - /usr/bin/rm -rf /srv/homeassistant/home-assistant_v2.db.dump
-    {% endif %}
-    {% if 'vault' in grains['roles'] %}
-      - /opt/vault
-    {% endif %}
-    {% if 'warp10' in grains['roles'] %}
-      - /opt/warp10/leveldb/snapshots
-    precommand:
-      - /usr/bin/rm -rf /opt/warp10/leveldb/snapshots/warp10-backup
-      - /opt/warp10/bin/warp10-standalone.init snapshot 'warp10-backup'
-      - /usr/bin/sqlite3 /var/lib/grafana/grafana.db '.backup /srv/grafana-backup/grafana.db'
-    postcommand:
-      - /usr/bin/rm -rf /opt/warp10/leveldb/snapshots/warp10-backup
-    {% endif %}
-    {% if 'swarm' in grains['roles'] %}
-      - /var/lib/docker/volumes/
-    {% endif %}
-    {% if grains['id'] == 'ks001.whyrl.fr' %}
-    exclude:
-        path:
-          - backup
+      - /bin/rm -rf /srv/homeassistant/home-assistant_v2.db.dump
     {% endif %}

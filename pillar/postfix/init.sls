@@ -3,7 +3,7 @@
 {% if grains['fqdn'] == 'mail.whyrl.fr' %}
 {% set domain = grains['domain'] %}
 {% set smtp = "smtp." ~ domain %}
-{% set secret = salt['vault'].read_secret('secret/salt/mail/vmail') %}
+{% set secret = salt['vault'].read_secret('secret/salt/databases/mysql') %}
 {% from 'hosts-ips.jinja' import ips %}
 
 ##
@@ -141,9 +141,9 @@ postfix:
 
   vmail:
     user: postfix
-    hosts: localhost
+    hosts: mysql-caaca600-o37d65b73.database.cloud.ovh.net:20184
     dbname: postfix
-    password: {{ secret['password'] }}
+    password: {{ secret['postfix'] }}
 
   mysql:
     virtual_mailbox_domains:

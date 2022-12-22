@@ -22,6 +22,7 @@
 * https://github.com/saltstack-formulas/powerdns-formula.git
 * https://github.com/saltstack-formulas/keepalived-formula.git
 * https://github.com/saltstack-formulas/sudoers-formula.git
+* https://github.com/saltstack-formulas/prometheus-formula.git
 
 # My own
 
