@@ -15,8 +15,8 @@ postfixadmin_prereq:
       #- postfixadmin
 
 postfixadmin_install:
-    
-      
+
+
 postfixadmin_config:
   file.managed:
     - name: /etc/postfixadmin/config.local.php
