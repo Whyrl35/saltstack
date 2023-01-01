@@ -61,12 +61,13 @@ haproxy:
       acls:
         - http ssl_fc,not
         - https ssl_fc
+        - host_grafana hdr(host) -i grafana.whyrl.fr
         - host_postfixadmin hdr(host) -i postfixadmin.whyrl.fr
         - host_rspamd hdr(host) -i rspamd.whyrl.fr
-        - host_webmail hdr(host) -i webmail.whyrl.fr
         - host_saltgui hdr(host) -i saltgui.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
+        - host_webmail hdr(host) -i webmail.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
@@ -84,8 +85,23 @@ haproxy:
         - backend-mail if host_webmail
         - backend-vault if host_saltgui
         - backend-vault if host_vault
+        - backend-docker01 if host_grafana
         - backend-docker01 if host_warden
       default_backend: backend-vault
+
+    webhooks:
+      name: frontend-whyrl-webhooks
+      bind:
+        - "*:9000"
+      mode: http
+      acls:
+        - http ssl_fc,not
+        - host_salt hdr(host) -i salt.whyrl.fr
+      reqadds:
+        - "X-Forwarded-Protocol http if http"
+      use_backends:
+        - backend-webhook-salt if host_salt
+      default_backend: backend-webhook-salt
 
     saltstack-publisher:
       name: frontend-saltstack-publisher
@@ -181,6 +197,20 @@ haproxy:
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
 
+    saltstack-webhook:
+      name: backend-webhook-salt
+      mode: http
+      balance: source
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in saltmaster.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 9000
+          check: check
+      {% endfor %}
 
     saltstack-publisher-tcp:
       name: backend-saltstack-publisher-tcp

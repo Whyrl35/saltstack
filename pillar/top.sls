@@ -22,6 +22,16 @@ base:
     - openssh
     - ignore_missing: True
 
+  # Saltsatck servers
+  'role:saltstack':
+    - match: grain
+    - webhook
+    - webhook.h_{{ host }}
+    {% for role in grains['role'] %}
+    - webhook.r_{{ role }}
+    {% endfor %}
+    - ignore_missing: True
+
   # loadbalancer servers
   'role:loadbalancer':
     - match: grain
@@ -66,4 +76,10 @@ base:
 
   'not G@role:mailserver':
     - postfix.satellite
+    - ignore_missing: True
+
+  # Prometheus server
+  'role:prometheus':
+    - match: grain
+    - prometheus
     - ignore_missing: True

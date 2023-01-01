@@ -60,6 +60,7 @@ nftables:
           table: 'filter'
           family: 'ip'
           type: ipv4_addr
+          flags: [ 'interval' ]
           # timeout: 1h
       #
       # Fill the sets with elements
@@ -170,6 +171,7 @@ nftables:
           table: 'filter'
           family: 'ip6'
           type: ipv6_addr
+          flags: [ 'interval' ]
           # timeout: 1h
       #
       # Fill the sets with elements

@@ -35,3 +35,8 @@ nftables:
           chain: 'loadbalancer'
           family: 'ip'
           rule: 'tcp dport {4505, 4506} counter accept'
+        - name: 'allow proxy for webhooks'
+          table: 'filter'
+          chain: 'loadbalancer'
+          family: 'ip'
+          rule: 'tcp dport 9000 counter accept'

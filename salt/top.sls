@@ -32,6 +32,11 @@ base:
     # A prevoir quand certains services seront de retour
     # - promtail
 
+  # Saltstack server
+  'role:saltstack':
+    - match: grain
+    - webhook
+
   # loadbalancer servers
   'role:loadbalancer':
     - match: grain
@@ -90,6 +95,11 @@ base:
     - postfix
     - postfix.config
     - postfix.satellite
+
+  # Mail server, will run a stack of promotheus manage monitoring
+  'role:prometheus':
+    - match: grain
+    - prometheus
 
 
 

@@ -175,7 +175,12 @@ postfix:
 
     mailbox_size_limit: 0
     recipient_delimiter: +
+    {% if 'role' in grains and 'container' in grains['role'] %}
+    mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 172.0.0.0/8
+    inet_interfaces: all
+    {% else %}
     inet_interfaces: loopback-only
+    {% endif %}
     inet_protocols: ipv4
 
     smtpd_sasl_auth_enable: 'yes'
