@@ -8,6 +8,25 @@ docker:
     running:
       - portainer
       - grafana
+      - cadvisor
+
+    cadvisor:
+      name: cadvisor
+      image: "gcr.io/cadvisor/cadvisor:latest"
+      binds:
+        - /:/rootfs:ro
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+      port_bindings:
+        - 9102:8080
+      start: true
+      detatch: true
+      #auto_remove: true
+      privilegde: true
+      network_disabled: false
+      network_mode: bridge
+      restart_policy: always
 
     portainer:
       name: portainer_edge_agent

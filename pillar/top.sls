@@ -83,3 +83,8 @@ base:
     - match: grain
     - prometheus
     - ignore_missing: True
+
+  # Prometheus exporters, agents like
+  'not G@role:prometheus':
+    - prometheus.agent
+    - ignore_missing: True

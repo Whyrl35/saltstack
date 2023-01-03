@@ -25,3 +25,8 @@ nftables:
           chain: 'dns'
           family: 'ip'
           rule: 'ip saddr 10.0.0.0/16 udp dport 53 counter accept'
+        - name: 'allow bind exporter prometheus scraping'
+          table: 'filter'
+          chain: 'prometheus'
+          family: 'ip'
+          rule: 'tcp dport { 9119 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'

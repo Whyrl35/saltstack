@@ -34,3 +34,8 @@ nftables:
           chain: 'container'
           family: 'ip6'
           rule: 'ip6 saddr @myhosts tcp dport 9001 counter accept'
+        - name: 'allow docker-engine/cadvisor prometheus scraping'
+          table: 'filter'
+          chain: 'prometheus'
+          family: 'ip'
+          rule: 'tcp dport { 9101-9102 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'

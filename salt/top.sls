@@ -13,6 +13,7 @@ base:
     - common
     - nftables
     - packages
+    - prometheus
     - restic
     - zsh
 

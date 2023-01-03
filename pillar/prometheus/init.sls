@@ -36,7 +36,88 @@ prometheus:
               # machine by default.
               static_configs:
               - targets:
-                - prometheus.cloud.whyrl.fr:9100
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
+                - {{ fqdn }}:9100
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: docker
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:container', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9101
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: docker-cadvisor
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:container', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9102
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: haproxy
+              scheme: https
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:loadbalancer', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:8801
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: bind
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:dns-master', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9119
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: postfix
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:mailserver', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9154
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: nginx
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:webserver', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9113
+                {% endfor %}
               relabel_configs:
                 - source_labels: ['__address__']
                   separator:     ':'

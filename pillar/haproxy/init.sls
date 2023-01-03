@@ -37,7 +37,7 @@ haproxy:
     stats:
       bind:
         - "0.0.0.0:8801 ssl crt /etc/letsencrypt/live/whyrl.fr/fullcertandkey.pem alpn h2,http/1.1"
-      httprequests: "use-service prometheus-exporter if { path /prom-metrics }"
+      httprequests: "use-service prometheus-exporter if { path /metrics }"
       mode: http
       stats:
         enable: true

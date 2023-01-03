@@ -29,6 +29,11 @@ nftables:
           chain: 'mail'
           family: 'ip6'
           rule: 'tcp dport { 25, 587, 993 } counter accept'
+        - name: 'allow postfix exporter prometheus scraping'
+          table: 'filter'
+          chain: 'prometheus'
+          family: 'ip'
+          rule: 'tcp dport { 9154 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'
 
       set_elements:
         - name: 'blacklist censys ipv4'

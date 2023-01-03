@@ -1,7 +1,7 @@
 #!jinja|yaml|gpg
 
 {% from 'nginx/common.jinja' import defaults %}
-{% from 'nginx/macros/server_definition.sls' import server_http_80,server_https_443 with context %}
+{% from 'nginx/macros/server_definition.sls' import server_http_80,server_https_443, server_monitoring_9180 with context %}
 
 include:
   - .common

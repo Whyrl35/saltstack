@@ -11,8 +11,10 @@ docker:
       use_upstream: "package"
       service:
         name: "docker"
-      {% if salt.grains.get('host') == 'srv002' %}
       daemon_config:
+        metrics-addr: "0.0.0.0:9101"
+        experimental : true
+      {% if salt.grains.get('host') == 'srv002' %}
         log-driver: "journald"
         storage-driver: "overlay2"
       {% endif %}

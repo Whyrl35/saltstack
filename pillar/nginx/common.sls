@@ -1,3 +1,4 @@
+{% from 'nginx/macros/server_definition.sls' import server_monitoring_9180 with context %}
 {% set log_format = { "msec": "$msec",
                       "connection": "$connection",
                       "connection_requests": "$connection_requests",
@@ -38,26 +39,33 @@
                       "geoip_country_code": "$geoip_country_code" }  %}
 
 nginx:
-    lookup:
-      package:
-        - nginx
-        - nginx-module-geoip
-        - geoip-database
-        #- geoip-database-extra
-    install_from_repo: true
-    service:
-      enable: True
-    server:
-      config:
-        load_module: "modules/ngx_http_geoip_module.so"
-        http:
-          log_format: >-
-            json_analytics escape=json '{{ log_format | tojson }}'
-          access_log:
-            # - /var/log/nginx/access_log.json json_analytics
-            - /var/log/nginx/access.log
-          set_real_ip_from:
-            - 10.0.1.177
-          real_ip_header: X-Forwarded-For
-          geoip_country: /usr/share/GeoIP/GeoIP.dat
-          #geoip_city: /usr/share/GeoIP/GeoIPCity.dat
+  lookup:
+    package:
+      - nginx
+      - nginx-module-geoip
+      - geoip-database
+      #- geoip-database-extra
+  install_from_repo: true
+  service:
+    enable: True
+  server:
+    config:
+      load_module: "modules/ngx_http_geoip_module.so"
+      http:
+        log_format: >-
+          json_analytics escape=json '{{ log_format | tojson }}'
+        access_log:
+          # - /var/log/nginx/access_log.json json_analytics
+          - /var/log/nginx/access.log
+        set_real_ip_from:
+          - 10.0.1.177
+        real_ip_header: X-Forwarded-For
+        geoip_country: /usr/share/GeoIP/GeoIP.dat
+        #geoip_city: /usr/share/GeoIP/GeoIPCity.dat
+
+  servers:
+    managed:
+      monitoring:
+        enabled: True
+        config:
+          - {{ server_monitoring_9180() | indent(11) }}

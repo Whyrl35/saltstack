@@ -1,5 +1,20 @@
 {% from 'nginx/common.jinja' import defaults %}
 
+{% macro server_monitoring_9180() -%}
+server:
+  - server_name: '_'
+  - listen:
+    - 9180
+    - '[::]:9180'
+  - root: /usr/share/nginx/html
+  - location /stub_status:
+    - stub_status: ''
+    - allow:
+      - 127.0.0.1
+    - deny:
+      - all
+{%- endmacro %}
+
 {% macro server_http_80(server_name) -%}
 server:
   - server_name: {{ server_name }}
@@ -10,6 +25,7 @@ server:
   - location ~ /\.well-known/acme-challenge:
     - allow:
       - 'all'
+  {# if server_name == salt.grains.get('id') #}
   - location /:
     - return:
       - '301 https://$server_name$request_uri'

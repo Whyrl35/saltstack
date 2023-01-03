@@ -41,6 +41,9 @@ nftables:
         - name: 'bastion'
           table: 'filter'
           family: 'ip'
+        - name: 'prometheus'
+          table: 'filter'
+          family: 'ip'
       #
       # create sets (like ipset)
       # myhosts : all the public IP of my hosts
@@ -115,6 +118,17 @@ nftables:
           chain: 'bastion'
           family: 'ip'
           rule: 'tcp dport 22 ip saddr @bastion log counter accept'
+
+        - name: 'jump to prometheus scraping'
+          table: 'filter'
+          chain: 'input'
+          family: 'ip'
+          rule: 'jump prometheus'
+        - name: 'Allow exporters scraping from prometheus IPv4'
+          table: 'filter'
+          chain: 'prometheus'
+          family: 'ip'
+          rule: 'tcp dport 9100 ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'
 
     # Activate IPv6 Filtering only if IPv6 is in used.
     {% if ipv6 %}
