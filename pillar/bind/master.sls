@@ -79,9 +79,9 @@ bind:
         MX:
           whyrl.fr.: '1 smtp'
         TXT:
-          dkim._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'
+          dkim._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'  # noqa: 204
           whyrl.fr.: 'v=spf1 a mx -all'
-          arc._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'
+          arc._domainkey.whyrl.fr.: 'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI6+mdm+MLMECQC5mJz9ISpxo6jMpQnTUL0l/oNkg348uzwHhUjYPkpwFFD8l4X6TPoEynf4DDgbYipDFChXFUyCWDGZr8tFQAT84iz7Pnyb3/OGnXeYl/H7IZyLQB/hNi1FFd7Baejbvgf4N+L+tUt8SEAPYtqpgr7oMJjp10lQIDAQAB'  # noqa: 204
           _dmarc.whyrl.fr.: 'v=DMARC1; p=none; sp=reject'
         CNAME:
           ks: ks001.whyrl.fr.
@@ -90,11 +90,13 @@ bind:
           hassio: srv001.whyrl.fr.
           gateway: srv001.whyrl.fr.
           portainer: srv001.whyrl.fr.
-          salt: saltmaster.cloud.whyrl.fr.
-          vault: saltmaster.cloud.whyrl.fr.
-          smtp.cloud: smtp.whyrl.fr.
-          mail.cloud: mail.whyrl.fr.
+
           imap.cloud: mail.whyrl.fr.
+          loki: loki.cloud.whyrl.fr.
+          mail.cloud: mail.whyrl.fr.
+          salt: saltmaster.cloud.whyrl.fr.
+          smtp.cloud: smtp.whyrl.fr.
+          vault: saltmaster.cloud.whyrl.fr.
           vault.cloud: saltmaster.cloud.whyrl.fr.
 
     0.10.in-addr.arpa:

@@ -5,6 +5,7 @@
 {% from 'haproxy/vault.jinja' import vault %}
 {% from 'haproxy/webservers.jinja' import webservers %}
 {% from 'haproxy/docker01.jinja' import docker01 %}
+{% from 'haproxy/loki.jinja' import loki %}
 
 haproxy:
   global:
@@ -68,6 +69,7 @@ haproxy:
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_webmail hdr(host) -i webmail.whyrl.fr
+        - host_loki hdr(host) -i loki.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
@@ -80,6 +82,7 @@ haproxy:
       extra:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
+        - backend-loki if host_loki
         - backend-mail if host_postfixadmin
         - backend-mail if host_rspamd
         - backend-mail if host_webmail
@@ -139,6 +142,27 @@ haproxy:
 #          check: check check-ssl
 #          extra: "ssl verify none cookie { { server.split('.')[0] } }"
 #      { % endfor % }
+
+    loki:
+      name: backend-loki
+      mode: http
+      balance: source
+      # httpcheck: expect status 401
+      options:
+        # - 'httpchk HEAD / HTTP/1.1\r\nHost:\ loki.whyrl.fr'
+        - 'httpchk GET /loki/api/v1/status/buildinfo HTTP/1.1\r\nHost:\ loki.whyrl.fr\r\nAuthorization:\ Basic\ {{ ('loki:' ~ websecret["loki"]) | base64_encode }}'  # noqa: 204
+        - forwardfor
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in loki.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
 
     mail:
       name: backend-mail

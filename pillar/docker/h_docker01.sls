@@ -51,7 +51,7 @@ docker:
 
     grafana:
       name: grafana
-      image: "grafana/grafana-oss:9.3.2"
+      image: "grafana/grafana-oss:latest"
       binds:
         - grafana-storage:/var/lib/grafana
       port_bindings:
@@ -72,7 +72,8 @@ docker:
         - GF_SMTP_FROM_NAME=Grafana
         - GF_SMTP_SKIP_VERIFY=true
         #- GF_SMTP_STARTTLS_POLICY=MandatoryStartTLS
-        #- GF_LOG_LEVEL=debug
+        #- GF_LOG_LEVEL=debuga
+        - GF_DATAPROXY_MAX_IDLE_CONNECTIONS=256
       start: true
       detatch: true
       restart_policy: always

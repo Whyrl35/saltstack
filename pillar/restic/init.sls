@@ -1,6 +1,6 @@
 #!jinja|yaml|gpg
 
-{% set secret = salt['vault'].read_secret('secret/salt/openstack') %}
+{% set secret = salt['vault'].read_secret('secret/salt/openstack/backup-operator') %}
 
 {% if grains['deployment'][0:3] == 'gra' %}
 {% set container_name = 'bkp-repo2' %}

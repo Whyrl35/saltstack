@@ -13,6 +13,7 @@ base:
     - restic
     - default
     - schedule
+    - promtail
     - ignore_missing: True
 
   # All minions but not the bastion, as the ssh and host configuration is very different
@@ -40,6 +41,7 @@ base:
   # Webserver
   'role:webserver':
     - match: grain
+    - logrotate.nginx
     - nginx
 
   # DNS servers
@@ -88,3 +90,7 @@ base:
   'not G@role:prometheus':
     - prometheus.agent
     - ignore_missing: True
+
+  'role:loki':
+    - match: grain
+    - loki

@@ -1,6 +1,6 @@
-{% set secret = salt['vault'].read_secret('secret/salt/loki/openstack') %}
-{% from 'loki/common.jinja' import defaults %}
-{% set version = defaults.version %}
+{% set secret = salt['vault'].read_secret('secret/salt/openstack/admin') %}
+{% set loki_info = salt.http.query('https://api.github.com/repos/grafana/loki/releases/latest')['body'] | load_json %}
+{% set version = loki_info.tag_name %}
 
 loki:
   archive:
@@ -10,13 +10,14 @@ loki:
   config:
     schema_config:
       configs:
-      - from: 2020-10-24
+      - from: 2023-01-01
         index:
           period: 24h
           prefix: index_
         object_store: swift
         schema: v11
         store: boltdb-shipper
+
     storage_config:
       boltdb_shipper:
           active_index_directory: /opt/loki/boltdb-shipper-active
@@ -30,10 +31,40 @@ loki:
           user_domain_name: default
           project_name: {{ secret['project_id'] }}
           project_domain_name: default
-          region_name: DE
+          region_name: GRA
           container_name: loki
+
     table_manager:
       retention_deletes_enabled: true
-      retention_period: 720h # ~6 months
+      retention_period: 2190h # ~3 months
+
     chunk_store_config:
-      max_look_back_period: 720h
+      # store for 6 months
+      max_look_back_period: 2190h
+
+
+    limits_config:
+      enforce_metric_name: false
+      max_cache_freshness_per_query: 10m
+      max_query_length: 12000h
+      max_query_parallelism: 256
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+      ingestion_rate_mb: 10
+      ingestion_burst_size_mb: 30
+
+    frontend_worker:
+      parallelism: 2
+
+    frontend:
+      log_queries_longer_than: 5s
+      compress_responses: true
+      max_outstanding_per_tenant: 8192
+
+    query_range:
+      split_queries_by_interval: 0
+      parallelise_shardable_queries: false
+
+    server:
+      http_server_read_timeout: 3m
+      http_server_write_timeout: 3m

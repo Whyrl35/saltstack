@@ -1,7 +1,7 @@
 #!jinja|yaml|gpg
 {% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
-{% from 'loki/common.jinja' import defaults %}
-{% set version = defaults.version %}
+{% set loki_info = salt.http.query('https://api.github.com/repos/grafana/loki/releases/latest')['body'] | load_json %}
+{% set version = loki_info.tag_name %}
 
 promtail:
   archive:
@@ -24,7 +24,7 @@ promtail:
         max_age: 12h
         path: /run/log/journal
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: systemd-journal
       relabel_configs:
         - source_labels: ['__journal__systemd_unit']
@@ -32,88 +32,68 @@ promtail:
     - job_name: syslog
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: syslog
           __path__: /var/log/syslog
     - job_name: messages
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: messages
           __path__: /var/log/messages
     - job_name: kern
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: kern
           __path__: /var/log/kern.log
     - job_name: dpkg
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: dpkg
           __path__: /var/log/dpkg.log
     - job_name: deamon
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: daemon
           __path__: /var/log/daemon.log
     - job_name: auth
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: auth
           __path__: /var/log/auth.log
-
     - job_name: mail
       static_configs:
       - targets:
-          - localhost
+          - localinstance
         labels:
-          host: {{ grains['id'] }}
+          instance: {{ grains['id'] }}
           job: mail
           __path__: /var/log/mail.log
-    - job_name: wigo
-      static_configs:
-      - targets:
-          - localhost
-        labels:
-          host: {{ grains['id'] }}
-          job: wigo
-          __path__: /var/log/wigo.log
 
 ### Here are defined per role configuration
 {% if 'roles' in grains and 'webserver' in grains['roles'] %}
     - job_name: nginx
       static_configs:
       - targets:
-        - localhost
+        - localinstance
         labels:
           job: nginx_access_log
-          host:  {{ grains['id'] }}
-          __path__: /var/log/nginx/*.json
-{% endif %}
-
-{% if 'roles' in grains and 'mail_server' in grains['roles'] %}
-    - job_name: nginx
-      static_configs:
-      - targets:
-        - localhost
-        labels:
-          job: nginx_access_log
-          host:  {{ grains['id'] }}
+          instance:  {{ grains['id'] }}
           __path__: /var/log/nginx/*.json
 {% endif %}

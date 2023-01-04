@@ -7,7 +7,7 @@ loki:
 
   archive:
     github:
-      version: '2.1.0'
+      version: 'v2.1.0'
       uri: 'https://github.com/grafana/loki/releases/download'
     deps:
       - curl

@@ -29,12 +29,12 @@
   {%- set version = promtail.archive.github.version %}
   {%- set base_uri = promtail.archive.github.uri %}
   {%- set name = promtail.name %}
-  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/v' ~ version ~ '/clients/cmd/promtail/promtail-local-config.yaml' %}
+  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/' ~ version ~ '/clients/cmd/promtail/promtail-local-config.yaml' %}
 {%- endif %}
 
 
 {%- do promtail.update({ 'path': promtail.dir.home }) %}
 {%- do promtail.update({ 'version': version }) %}
 {%- do promtail.config_file.update({ 'uri': config_file }) %}
-{%- do promtail.archive.update({ 'source': base_uri ~ '/v' ~ version ~ '/' ~ promtail.archive.package_name }) %}
+{%- do promtail.archive.update({ 'source': base_uri ~ '/' ~ version ~ '/' ~ promtail.archive.package_name }) %}
 {%- do promtail.config.positions.update({ 'filename': promtail.dir.home ~ "/positions.yaml" }) %}

@@ -29,14 +29,14 @@
   {%- set version = loki.archive.github.version %}
   {%- set base_uri = loki.archive.github.uri %}
   {%- set name = loki.name %}
-  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/v' ~ version ~ '/cmd/loki/loki-local-config.yaml' %}
+  {%- set config_file = 'https://raw.githubusercontent.com/grafana/loki/' ~ version ~ '/cmd/loki/loki-local-config.yaml' %}
 {%- endif %}
 
 
 {%- do loki.update({ 'path': loki.dir.home }) %}
 {%- do loki.update({ 'version': version }) %}
 {%- do loki.config_file.update({ 'uri': config_file }) %}
-{%- do loki.archive.update({ 'source': base_uri ~ '/v' ~ version ~ '/' ~ loki.archive.package_name }) %}
+{%- do loki.archive.update({ 'source': base_uri ~ '/' ~ version ~ '/' ~ loki.archive.package_name }) %}
 {%- if 'storage_config' not in loki.config %}
 {%- do loki.config.update({ 'storage_config': {
     'boltdb_shipper': {
