@@ -23,6 +23,7 @@
 * https://github.com/saltstack-formulas/keepalived-formula.git
 * https://github.com/saltstack-formulas/sudoers-formula.git
 * https://github.com/saltstack-formulas/prometheus-formula.git
+* https://github.com/saltstack-formulas/fail2ban-formula.git
 
 # My own
 

@@ -87,7 +87,7 @@ promtail:
           __path__: /var/log/mail.log
 
 ### Here are defined per role configuration
-{% if 'roles' in grains and 'webserver' in grains['roles'] %}
+{% if 'role' in grains and 'webserver' in grains['role'] %}
     - job_name: nginx
       static_configs:
       - targets:

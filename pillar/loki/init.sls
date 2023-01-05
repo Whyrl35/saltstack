@@ -68,3 +68,6 @@ loki:
     server:
       http_server_read_timeout: 3m
       http_server_write_timeout: 3m
+
+    query_scheduler:
+      max_outstanding_requests_per_tenant: 10000

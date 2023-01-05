@@ -32,8 +32,7 @@ base:
     - openssh.config
     - openssh.banner
     - openssh.auth
-    # XXX: A prevoir quand certains services seront de retour
-    # - promtail
+    - promtail
 
   # Saltstack server
   'role:saltstack':
