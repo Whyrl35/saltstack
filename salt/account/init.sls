@@ -142,3 +142,14 @@ symlink_vim_directory:
     - target : /home/{{ pillar['account_name'] }}/development/vimrc/vim
     - user : {{ pillar['account_name'] }}
     - group: users
+
+# ------------------------------------------------------------
+# - Root bashrc
+# -
+root_bashrc:
+  file.managed:
+    - name: /root/.bashrc
+    - source: salt://account/bashrc
+    - user: root
+    - group: root
+    - template: jinja

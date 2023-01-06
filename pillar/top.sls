@@ -14,6 +14,7 @@ base:
     - default
     - schedule
     - promtail
+    - fail2ban
     - ignore_missing: True
 
   # All minions but not the bastion, as the ssh and host configuration is very different
@@ -74,6 +75,7 @@ base:
     - postfixadmin
     - postfix
     - dovecot
+    - roundcubemail
     - ignore_missing: True
 
   'not G@role:mailserver':

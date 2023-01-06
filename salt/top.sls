@@ -11,6 +11,7 @@ base:
     - apt.repositories
     - apt.update
     - common
+    - fail2ban
     - logrotate
     - logrotate.jobs
     - nftables
@@ -89,7 +90,7 @@ base:
     - postfix.mysql
     - dovecot
     - rspamd
-    # XXX: faire un module - roundcubemail
+    - roundcubemail
 
   # Postfix for non mail server, aka postfix satellite
   # Will use the `mail_server` as relay
