@@ -1,0 +1,64 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+roundcubemail:
+  name: roundcubemail
+  path: /opt/roundcubemail
+
+  package:
+    deps:
+      - php-mysql
+      # list all others / place them in osfamilymap
+    version: 1.6.0  # or latest
+    url: https://github.com/roundcube/roundcubemail/releases/download/
+    tmp: /tmp/roundcubemail/
+
+  web:
+    user: www-data
+    group: www-data
+
+  config:
+    others:
+      support_url: 'mailto:support@domain.local'
+      des_key: 'changeme'
+      enable_spellcheck: 'true'
+    database:
+      type: mysql
+      name: roundcubemail
+      host: 127.0.0.1
+      port: 3306
+      user: roundcubemail
+      password: changeme
+    imap:
+      enable: true
+      host: 'mail.domain.local:143'   # '(ssl|tls)://mail.domain.local:993
+      conn_options:
+        ssl:
+          verify_peer: 'true'
+          verify_depth: 3
+          cafile: 'path-to-ca-file'
+      vendor: 'dovecot'
+    smtp:
+      enable: true
+      host: 'smtp.domail.local:25'    # (ssl|tls)://smtp.domain.local:587
+      user: 'null'
+      pass: 'null'
+      conn_options:
+        ssl:
+          verify_peer: 'true'
+          verify_depth: 3
+          cafile: 'path-to-ca-file'
+    plugins:
+      - emoticons
+      - markasjunk
+    logging:
+      smtp_log: 'false'
+      log_logins: 'true'
+      session_debug: 'false'
+      sql_debug: 'false'
+      ldap_debug: 'false'
+      smtp_debug: 'false'
+      imap_debug: 'false'
+      memcache_debug: 'false'
+      apc_debug: 'false'
+      redis_debug: 'false'
