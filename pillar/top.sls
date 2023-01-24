@@ -96,3 +96,7 @@ base:
   'role:loki':
     - match: grain
     - loki
+
+  'role:firezone':
+    - match: grain
+    - firezone

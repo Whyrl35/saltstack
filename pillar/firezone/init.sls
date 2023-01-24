@@ -3,9 +3,9 @@ firezone:
     data:
       admin_email: "ludovic@whyrl.fr"
       max_devices_per_user: 50
-      egress_interface: 'ens4'
+      egress_interface: 'ens3'
       wireguard:
-        dns: '10.3.25.162, 10.3.129.242'
+        dns: '1.1.1.1, 9.9.9.9'
         ipv4:
           network: '172.16.2.0/24'
           address: '172.16.2.1'

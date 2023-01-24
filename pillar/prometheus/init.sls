@@ -89,7 +89,7 @@ prometheus:
             - job_name: bind
               static_configs:
               - targets:
-                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:dns-master', fun='network.ip_addrs', tgt_type='grain').items() %}
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:dns-*', fun='network.ip_addrs', tgt_type='grain').items() %}
                 - {{ fqdn }}:9119
                 {% endfor %}
               relabel_configs:
@@ -117,6 +117,19 @@ prometheus:
               - targets:
                 {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:webserver', fun='network.ip_addrs', tgt_type='grain').items() %}
                 - {{ fqdn }}:9113
+                {% endfor %}
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: salt
+              static_configs:
+              - targets:
+                {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='role:saltstack', fun='network.ip_addrs', tgt_type='grain').items() %}
+                - {{ fqdn }}:9105
                 {% endfor %}
               relabel_configs:
                 - source_labels: ['__address__']

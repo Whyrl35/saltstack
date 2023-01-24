@@ -195,6 +195,6 @@ postfix:
     alias_database: hash:/etc/aliases
     myorigin: {{ grains['fqdn'] }}
     mydestination: $myorigin
-    relayhost: "smtp.{{ grains['domain'] }}:25"
+    relayhost: "smtp.{{ grains['domain'] }}:587"
     smtp_generic_maps: hash:/etc/postfix/generic
 {% endif %}

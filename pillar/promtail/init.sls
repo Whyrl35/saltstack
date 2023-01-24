@@ -85,6 +85,14 @@ promtail:
           instance: {{ grains['id'] }}
           job: mail
           __path__: /var/log/mail.log
+    - job_name: audit
+      static_configs:
+      - targets:
+          - localinstance
+        labels:
+          instance: {{ grains['id'] }}
+          job: audit
+          __path__: /var/log/audit/audit.log
 
 ### Here are defined per role configuration
 {% if 'role' in grains and 'webserver' in grains['role'] %}

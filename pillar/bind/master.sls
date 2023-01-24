@@ -51,7 +51,7 @@ bind:
       file: whyrl.fr.txt
       soa:
         ns: ns1.whyrl.fr.
-        contact: hostmaster.example.com
+        contact: hostmaster
         serial: auto # {{ serial }}
         class: IN
         refresh: 8600
@@ -63,10 +63,12 @@ bind:
         NS:
           '@':
             - ns1
+            - ns2
         A:
           srv001: 82.65.179.161
           ks001: 91.121.156.77
           ns1: 10.0.2.133
+          ns2: 10.0.0.36
           smtp: 10.0.3.67
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
@@ -103,7 +105,7 @@ bind:
       file: whyrl.fr.rev.txt
       soa:
         ns: ns1.whyrl.fr.
-        contact: hostmaster.whyrl.fr
+        contact: hostmaster
         serial: auto # {{ serial }}
         class: IN
         refresh: 8600
@@ -115,6 +117,7 @@ bind:
         NS:
           '@':
              - ns1.whyrl.fr.
+             - ns2.whyrl.fr.
       generate_reverse:
         net: 10.0.0.0/16
         for_zones:

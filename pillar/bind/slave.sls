@@ -15,7 +15,7 @@ bind:
   configured_acls:
     my_net:
       - 127.0.0.0/8
-      - 10.3.0.0/16
+      - 10.0.0.0/16
 
   configured_zones:
     whyrl.fr:
@@ -31,7 +31,7 @@ bind:
         {% endfor %}
         {% endfor %}
 
-    3.10.in-addr.arpa:
+    0.10.in-addr.arpa:
       type: slave
       notify: true
       masters:
@@ -48,5 +48,5 @@ bind:
   available_zones:
     whyrl.fr:
       file: whyrl.fr.txt
-    3.10.in-addr.arpa:
+    0.10.in-addr.arpa:
       file: whyrl.fr.rev.txt

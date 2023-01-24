@@ -9,6 +9,7 @@ base:
     - apt.transports.https
     - apt.unattended
     - apt.repositories
+    - apt.apt_conf
     - apt.update
     - common
     - fail2ban
@@ -74,7 +75,7 @@ base:
     - match: grain
     - systemd
     - docker
-    - docker.compose
+    #- docker.compose
     - docker.containers
 
   # Mail server, will run a stack of postfix/dovecot ta manage mail
@@ -108,3 +109,8 @@ base:
   'role:loki':
     - match: grain
     - loki
+
+  # Firezone servers
+  # 'role:firezone':
+    # - match: grain
+    # - firezone

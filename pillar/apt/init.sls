@@ -1,4 +1,8 @@
 apt:
+  apt_conf_d:
+    80PhasedUpdates:
+      'APT::Get::Always-Include-Phased-Updates': "true"
+
   unattended:
     auto_fix_interrupted_dpkg: true
     minimal_steps: false
@@ -24,7 +28,8 @@ apt:
   repositories:
     saltstack:
       distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
+      # url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
+      url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest
       comps: [main]
       keyid: 0E08A149DE57BFBE
       keyserver: hkp://pgp.mit.edu:80

@@ -2,7 +2,7 @@
  [1;90m╔═════════════════════╣[1;34m System Data [1;90m╠═════════════════════[0m
  [1;90m║ [1;31mdatacenter[0m: {{ grains['deployment']|upper }}
  [1;90m║ [1;31mhostname[0m..: {{ grains['fqdn'] }}
- [1;90m║ [1;31mdistrib[0m...: {{ grains['lsb_distrib_description'] }}
+ [1;90m║ [1;31mdistrib[0m...: {{ grains['lsb_distrib_id'] }} {{ grains['lsb_distrib_release'] }} ({{ grains['lsb_distrib_codename'] }})
  [1;90m║ [1;31mkernel[0m....: {{ grains['kernelrelease'] }}
  [1;90m║ [1;31mCPU[0m.......: {{ grains['num_cpus'] }} x {{ grains['cpuarch'] }} [{{ grains['cpu_model'] }}]
  [1;90m║ [1;31mMEM[0m.......: {{ grains['mem_total'] }} MB

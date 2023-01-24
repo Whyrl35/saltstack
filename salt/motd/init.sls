@@ -6,7 +6,7 @@ motd:
     - name: /etc/motd
     - user: root
     - group: root
-    - content: ''
+    - contents: ''
     - mode: '0644'
 
 xx-motd:

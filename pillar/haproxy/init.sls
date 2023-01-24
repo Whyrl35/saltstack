@@ -46,7 +46,6 @@ haproxy:
         refresh: "20s"
         realm: LoadBalancer
         auth: "admin:{{ secret['admin'] }}"
-    #TODO: here code specific listen !
 
   frontends:
     whyrl:
@@ -70,6 +69,8 @@ haproxy:
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_webmail hdr(host) -i webmail.whyrl.fr
         - host_loki hdr(host) -i loki.whyrl.fr
+        - host_blog hdr(host) -i blog.whyrl.fr
+        - host_www hdr(host) -i www.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
@@ -90,58 +91,32 @@ haproxy:
         - backend-vault if host_vault
         - backend-docker01 if host_grafana
         - backend-docker01 if host_warden
-      default_backend: backend-vault
-
-    webhooks:
-      name: frontend-whyrl-webhooks
-      bind:
-        - "*:9000"
-      mode: http
-      acls:
-        - http ssl_fc,not
-        - host_salt hdr(host) -i salt.whyrl.fr
-      reqadds:
-        - "X-Forwarded-Protocol http if http"
-      use_backends:
-        - backend-webhook-salt if host_salt
-      default_backend: backend-webhook-salt
-
-    saltstack-publisher:
-      name: frontend-saltstack-publisher
-      bind:
-        - "*:4505"
-      mode: tcp
-      default_backend: backend-saltstack-publisher-tcp
-
-    saltstack-request:
-      name: frontend-saltstack-request
-      bind:
-        - "*:4506"
-      mode: tcp
-      default_backend: backend-saltstack-request-tcp
+        - backend-whyrl if host_blog
+        - backend-whyrl if host_www
+      default_backend: backend-whyrl
 
   backends:
     per_ip_rates:
       sticktable: 'type ip size 1m expire 10m store http_req_rate(10s)'
 
-#    whyrl:
-#      name: backend-whyrl
-#      mode: http
-#      balance: roundrobin
-#      options:
-#        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ www.whyrl.fr'
-#        - forwardfor
-#      cookie: "SERVERUID insert indirect nocache"
-#      extra:
-#        - "http-response set-header X-Target %s"
-#      servers:
-#      { % for server, ips in webservers.items() % }
-#        { { server.split('.')[0] } }:
-#          host: { { ips[0] } }
-#          port: 443
-#          check: check check-ssl
-#          extra: "ssl verify none cookie { { server.split('.')[0] } }"
-#      { % endfor % }
+    whyrl:
+      name: backend-whyrl
+      mode: http
+      balance: roundrobin
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ blog.whyrl.fr'
+        - forwardfor
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in webservers.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
 
     loki:
       name: backend-loki
@@ -219,41 +194,4 @@ haproxy:
           port: 443
           check: check check-ssl
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
-      {% endfor %}
-
-    saltstack-webhook:
-      name: backend-webhook-salt
-      mode: http
-      balance: source
-      cookie: "SERVERUID insert indirect nocache"
-      extra:
-        - "http-response set-header X-Target %s"
-      servers:
-      {% for server, ips in saltmaster.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 9000
-          check: check
-      {% endfor %}
-
-    saltstack-publisher-tcp:
-      name: backend-saltstack-publisher-tcp
-      mode: tcp
-      balance: source
-      servers:
-      {% for server, ips in saltmaster.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 4505
-      {% endfor %}
-
-    saltstack-request-tcp:
-      name: backend-saltstack-request-tcp
-      mode: tcp
-      balance: source
-      servers:
-      {% for server, ips in saltmaster.items() %}
-        {{ server.split('.')[0] }}:
-          host: {{ ips[0] }}
-          port: 4506
       {% endfor %}

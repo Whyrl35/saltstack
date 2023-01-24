@@ -65,6 +65,11 @@ nftables:
           type: ipv4_addr
           flags: [ 'interval' ]
           # timeout: 1h
+        - name: 'rfc1918'
+          table: 'filter'
+          family: 'ip'
+          type: ipv4_addr
+          flags: [ 'interval' ]
       #
       # Fill the sets with elements
       set_elements:
@@ -78,6 +83,15 @@ nftables:
           family: 'ip'
           set: 'myhosts'
           elements: {{ ips.myhosts.static_ipv4 | unique }}
+        - name: 'rfc1918_elements'
+          table: 'filter'
+          family: 'ip'
+          set: 'rfc1918'
+          elements:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+
       #
       # create all the default rules
       # input rules

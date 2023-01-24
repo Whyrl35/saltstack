@@ -5,6 +5,9 @@
 # PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 # umask 022
 {%- set random_seed = salt['random.seed'](range=255) %}
+{%- if random_seed == 0 or random_seed > 240 %}
+{%- set random_seed = 47 %}
+{%- endif %}
 
 export PS1="\[\033[38;5;160m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;{{ random_seed }}m\]\h\[$(tput sgr0)\]:\w \[$(tput sgr0)\]\[\033[38;5;99m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\[$(tput sgr0)\] \\$ \[$(tput sgr0)\]"
 

@@ -1,4 +1,10 @@
 {%- set random_seed = salt['random.seed'](range=255) %}
+{%- if random_seed > 240 %}
+{%- set random_seed = 240 %}
+{%- endif %}
+{%- if random_seed == 0 %}
+{%- set random_seed = 47 %}
+{%- endif %}
 # see color definition here : https://jonasjacek.github.io/colors/
 # or try : spectrum_ls
 HOST_COLOR_BG='{{ random_seed }}'

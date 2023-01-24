@@ -22,7 +22,7 @@ promtail-prerequisit-service:
 promtail-service-running:
   service.running:
     - name: {{ promtail.name }}.service
-    - unmask: True
+    {# - unmask: True #}
     - enable: True
     - reload: False
     - watch:

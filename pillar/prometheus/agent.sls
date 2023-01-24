@@ -6,6 +6,9 @@ prometheus:
       {% if 'dns-master' in salt.grains.get('role', []) %}
       - bind_exporter
       {% endif %}
+      {% if 'dns-slave' in salt.grains.get('role', []) %}
+      - bind_exporter
+      {% endif %}
       {% if 'mailserver' in salt.grains.get('role', []) %}
       - postfix_exporter
       {% endif %}

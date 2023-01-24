@@ -13,7 +13,7 @@ openssh:
         enc: ssh-rsa
         comment: ludovic@srv001
         source: salt://ssh/keys/id_rsa_srv001.pub
-    {% if grains['deployment'][0:3] in ['gra'] %}
+    {% if grains['deployment'][0:3] in ['gra','bhs'] %}
     ludovic-valid-ssh-key-bastion-cloud:
       - user: ludovic
         present: True
