@@ -101,5 +101,5 @@ iptables_rules_{{ name }}:
     - watch_in:
       - service : iptables
     - defaults:
-      chain: {{ name }}
+        chain: {{ name }}
 {% endfor %}

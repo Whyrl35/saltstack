@@ -10,7 +10,7 @@ postfixadmin_config:
     - mode: "0644"
     - template: jinja
     - context:
-      config: {{ postfixadmin.config }}
+        config: {{ postfixadmin.config }}
     - require:
       - archive: postfixadmin-archive-install
 
