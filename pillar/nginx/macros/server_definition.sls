@@ -31,9 +31,11 @@ server:
       - '301 https://$server_name$request_uri'
 {%- endmacro %}
 
-{% macro server_https_443(server_name, locations, options=[]) -%}
+{% macro server_https_443(server_name, locations, options=[], www=False) -%}
+{% set ssn = server_name.split('.') %}
+{% set domainname =  ssn[-2] + '.' + ssn[-1] %}
 server:
-  - server_name: {{ server_name }}
+  - server_name: {{ server_name }}{% if www %} www.{{ server_name }}{% endif %}
   - listen:
     - '443 ssl http2'
     - '[::]:443 ssl http2'
@@ -41,8 +43,8 @@ server:
     - /var/log/nginx/{{ server_name.split('.')[0] }}_access_log.json json_analytics
     - /var/log/nginx/{{ server_name.split('.')[0] }}_access.log
   - error_log: /var/log/nginx/{{ server_name.split('.')[0] }}_error.log
-  - ssl_certificate: /etc/ssl/certs/whyrl.fr.fullchain.pem
-  - ssl_certificate_key: /etc/ssl/private/whyrl.fr.key
+  - ssl_certificate: /etc/ssl/certs/{{ domainname }}.fullchain.pem
+  - ssl_certificate_key: /etc/ssl/private/{{ domainname }}.key
   - ssl_session_timeout: {{ defaults.ssl.session_timeout }}
   - ssl_protocols: {{ defaults.ssl.protocol }}
   - ssl_prefer_server_ciphers: '{{ defaults.ssl.prefer_server_ciphers }}'

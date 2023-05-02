@@ -12,7 +12,6 @@ base:
     - apt.apt_conf
     - apt.update
     - common
-    - fail2ban
     - logrotate
     - logrotate.jobs
     - nftables
@@ -51,6 +50,16 @@ base:
     - match: grain
     - certificates
     - nginx
+  'web*':
+    - php.cli
+    - php.fpm
+    - php.mysql
+    - php.gd
+    - php.intl
+    - php.mbstring
+    - php.imagick
+    - mysql.client
+    - wordpress
 
   # DNS servers
   'role:dns-*':
@@ -114,3 +123,8 @@ base:
   # 'role:firezone':
     # - match: grain
     # - firezone
+
+  # Wireguard VPN servers
+  'role:wireguard':
+    - match: grain
+    - wireguard

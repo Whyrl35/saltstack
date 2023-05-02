@@ -1,8 +1,8 @@
 #!jinja|yaml|gpg
+{% set domain = 'whyrl.fr' %}
+{% set smtp = "smtp." ~ domain %}
 
 {% if grains['fqdn'] == 'mail.whyrl.fr' %}
-{% set domain = grains['domain'] %}
-{% set smtp = "smtp." ~ domain %}
 {% set secret = salt['vault'].read_secret('secret/salt/databases/mysql') %}
 {% from 'hosts-ips.jinja' import ips %}
 
@@ -185,16 +185,16 @@ postfix:
 
     smtpd_sasl_auth_enable: 'yes'
     smtpd_sasl_local_domain: $mydomain
-    smtpd_sasl_password_maps: hash:/etc/postfix/sasl/sasl_passwd
     smtpd_sasl_security_options: noanonymous
-    smtpd_use_tls: 'yes'
-    smtpd_enforce_tls: 'yes'
+    smtp_sasl_password_maps: hash:/etc/postfix/sasl/sasl_passwd
+    smtp_use_tls: 'yes'
+    smtp_enforce_tls: 'yes'
 
     myhostname: {{ grains['fqdn'] }}
     alias_maps: hash:/etc/aliases
     alias_database: hash:/etc/aliases
     myorigin: {{ grains['fqdn'] }}
     mydestination: $myorigin
-    relayhost: "smtp.{{ grains['domain'] }}:587"
+    relayhost: "{{ smtp }}"
     smtp_generic_maps: hash:/etc/postfix/generic
 {% endif %}

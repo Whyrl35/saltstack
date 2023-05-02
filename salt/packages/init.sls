@@ -12,3 +12,4 @@ common:
       - unattended-upgrades
       - apt-listchanges
       - ncdu
+      - gnupg

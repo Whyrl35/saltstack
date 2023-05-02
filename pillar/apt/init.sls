@@ -28,8 +28,8 @@ apt:
   repositories:
     saltstack:
       distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      # url: http://repo.saltstack.com/py3/debian/{{ grains['osrelease'] }}/amd64/latest
-      url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest
+      url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/3005 {# latest #}
       comps: [main]
       keyid: 0E08A149DE57BFBE
+      {# NEW-KEY-3006# keyid: 64CBBC8173D76B3F #}
       keyserver: hkp://pgp.mit.edu:80

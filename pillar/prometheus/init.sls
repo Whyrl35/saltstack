@@ -137,3 +137,40 @@ prometheus:
                   regex:         '(.*):.*'
                   target_label:  'instance'
                   replacement:   '${1}'
+
+            - job_name: crowdsec
+              static_configs:
+              - targets:
+                - bastion.whyrl.fr:6060
+                - srv001.whyrl.fr:6060
+                - ks001.whyrl.fr:6060
+                - mail.whyrl.fr:6060
+                - lb01.cloud.whyrl.fr:6060
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: crowdsec-bouncers-nftables
+              static_configs:
+              - targets:
+                - bastion.whyrl.fr:60601
+                - srv001.whyrl.fr:60601
+                - ks001.whyrl.fr:60601
+                - mail.whyrl.fr:60601
+                - lb01.cloud.whyrl.fr:60601
+              relabel_configs:
+                - source_labels: ['__address__']
+                  separator:     ':'
+                  regex:         '(.*):.*'
+                  target_label:  'instance'
+                  replacement:   '${1}'
+
+            - job_name: truenas
+              scrape_interval: 1m
+              metrics_path: /metrics
+              static_configs:
+              - targets:
+                - 10.0.0.196:9108

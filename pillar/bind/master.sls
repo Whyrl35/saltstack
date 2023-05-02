@@ -67,9 +67,12 @@ bind:
         A:
           srv001: 82.65.179.161
           ks001: 91.121.156.77
+          vpn-ca: 54.39.188.136
           ns1: 10.0.2.133
           ns2: 10.0.0.36
           smtp: 10.0.3.67
+          bastion: 10.0.1.184
+          truenas: 10.0.1.108
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}

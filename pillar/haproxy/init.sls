@@ -52,7 +52,7 @@ haproxy:
       name: frontend-whyrl
       bind:
         - "*:80"
-        - "*:443 ssl crt /etc/letsencrypt/live/whyrl.fr/fullcertandkey.pem alpn h2,http/1.1"
+        - "*:443 ssl crt /etc/letsencrypt/live/whyrl.fr/fullcertandkey.pem crt /etc/letsencrypt/live/madame-de-compagnie.fr/fullcertandkey.pem alpn h2,http/1.1"
       mode: http
       options:
         - forwardfor
@@ -61,15 +61,19 @@ haproxy:
       acls:
         - http ssl_fc,not
         - https ssl_fc
+        - host_alcali hdr(host) -i alcali.whyrl.fr
+        - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
+        - host_loki hdr(host) -i loki.whyrl.fr
+        - host_nadine hdr(host) -i nadine.whyrl.fr
+        - host_nadine hdr(host) -i madame-de-compagnie.fr www.madame-de-compagnie.fr
         - host_postfixadmin hdr(host) -i postfixadmin.whyrl.fr
         - host_rspamd hdr(host) -i rspamd.whyrl.fr
         - host_saltgui hdr(host) -i saltgui.whyrl.fr
+        - host_truenas hdr(host) -i truenas.whyrl.fr
         - host_vault hdr(host) -i vault.whyrl.fr
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_webmail hdr(host) -i webmail.whyrl.fr
-        - host_loki hdr(host) -i loki.whyrl.fr
-        - host_blog hdr(host) -i blog.whyrl.fr
         - host_www hdr(host) -i www.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
@@ -83,15 +87,18 @@ haproxy:
       extra:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
+        - backend-docker01 if host_alcali
+        - backend-docker01 if host_grafana
+        - backend-docker01 if host_warden
         - backend-loki if host_loki
         - backend-mail if host_postfixadmin
         - backend-mail if host_rspamd
         - backend-mail if host_webmail
+        - backend-truenas if host_truenas
         - backend-vault if host_saltgui
         - backend-vault if host_vault
-        - backend-docker01 if host_grafana
-        - backend-docker01 if host_warden
         - backend-whyrl if host_blog
+        - backend-whyrl if host_nadine
         - backend-whyrl if host_www
       default_backend: backend-whyrl
 
@@ -195,3 +202,20 @@ haproxy:
           check: check check-ssl
           extra: "ssl verify none cookie {{ server.split('.')[0] }}"
       {% endfor %}
+
+    truenas:
+      name: backend-truenas
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ truenas.whyrl.fr'
+        - forwardfor
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+        truenas:
+          host: 10.0.1.108
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie truenas"

@@ -19,7 +19,7 @@ roundcubemail-archive-install:
         - user
         - group
   cmd.run:
-    - name: curl -Lo {{ roundcubemail.package.tmp }}/{{ roundcubemail.name }}-{{ roundcubemail.package.version }}-complete.tar.gz {{ roundcubemail.package.url }}/{{ roundcubemail.package.version }}/{{ roundcubemail.name }}-{{ roundcubemail.package.version }}-complete.tar.g  # noqa: 204
+    - name: curl -Lo {{ roundcubemail.package.tmp }}/{{ roundcubemail.name }}-{{ roundcubemail.package.version }}-complete.tar.gz {{ roundcubemail.package.url }}/{{ roundcubemail.package.version }}/{{ roundcubemail.name }}-{{ roundcubemail.package.version }}-complete.tar.gz  # noqa: 204
     - retry: 3
     - creates: {{ roundcubemail.package.tmp }}/{{ roundcubemail.name }}-{{ roundcubemail.package.version }}-complete.tar.gz
 

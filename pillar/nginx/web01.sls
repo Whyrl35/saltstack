@@ -62,3 +62,31 @@ nginx:
           - {{ server_http_80(domain_name) | indent(11) }}
           # HTTPS server on port 443 for rspamd
           - {{ server_https_443(domain_name, locations) | indent(11) }}
+
+      nadine:
+        enabled: True
+        config:
+          {% set domain_name = 'madame-de-compagnie.fr' %}
+          {%- load_yaml as options %}
+            - root: /srv/www/nadine
+            - index: index.html index.htm index.php
+            - charset: {{ defaults.charset }}
+            - ssl_session_cache: shared:SSL:10m
+          {%- endload %}
+          {%- load_yaml as locations %}
+          location /:
+            - try_files: $uri $uri/ =404
+          location ~ \.php$:
+            - try_files: $uri =404
+            - include: fastcgi_params
+            - fastcgi_index: index.php
+            - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
+            - fastcgi_pass: unix:/var/run/php/php8.2-fpm.sock
+          location ~ /\.ht:
+            - deny: all
+          {%- endload %}
+
+          # HTTP server on port 80, forward to 443 for postfixadmin
+          - {{ server_http_80(domain_name) | indent(11) }}
+          # HTTPS server on port 443 for rspamd
+          - {{ server_https_443(domain_name, locations, options, www=True) | indent(11) }}

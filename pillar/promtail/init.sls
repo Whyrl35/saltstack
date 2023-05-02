@@ -1,6 +1,7 @@
 #!jinja|yaml|gpg
 {% set secret = salt['vault'].read_secret('secret/salt/web/nginx/user') %}
-{% set loki_info = salt.http.query('https://api.github.com/repos/grafana/loki/releases/latest')['body'] | load_json %}
+{% set github = salt['vault'].read_secret('secret/salt/web/github') %}
+{% set loki_info = salt.http.query('https://api.github.com/repos/grafana/loki/releases/latest', username=github['user'], password=github['token'])['body'] | load_json %}  # noqa: 204
 {% set version = loki_info.tag_name %}
 
 promtail:
