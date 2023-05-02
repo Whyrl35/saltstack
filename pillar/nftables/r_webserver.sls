@@ -29,7 +29,7 @@ nftables:
           table: 'filter'
           chain: 'prometheus'
           family: 'ip'
-          rule: 'tcp dport { 9113 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'
+          rule: 'tcp dport { 9113 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } counter accept'
 
         {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
         - name: 'jump to web'

@@ -131,7 +131,7 @@ nftables:
           table: 'filter'
           chain: 'bastion'
           family: 'ip'
-          rule: 'tcp dport 22 ip saddr @bastion log counter accept'
+          rule: 'tcp dport 22 ip saddr @bastion counter accept'
 
         - name: 'jump to prometheus scraping'
           table: 'filter'
@@ -142,7 +142,7 @@ nftables:
           table: 'filter'
           chain: 'prometheus'
           family: 'ip'
-          rule: 'tcp dport 9100 ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'
+          rule: 'tcp dport 9100 ip saddr { 10.0.3.197/32, 51.178.63.140/32 } counter accept'
 
     # Activate IPv6 Filtering only if IPv6 is in used.
     {% if ipv6 %}
@@ -248,7 +248,7 @@ nftables:
           table: 'filter'
           chain: 'input'
           family: 'ip6'
-          rule: 'tcp dport 22 ip6 saddr @bastion log counter accept'
+          rule: 'tcp dport 22 ip6 saddr @bastion counter accept'
         - name: 'drop ossec blacklist IPs'
           table: 'filter'
           chain: 'input'

@@ -33,7 +33,7 @@ nftables:
           table: 'filter'
           chain: 'prometheus'
           family: 'ip'
-          rule: 'tcp dport { 9154 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } log counter accept'
+          rule: 'tcp dport { 9154 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } counter accept'
 
       set_elements:
         - name: 'blacklist censys ipv4'
