@@ -24,6 +24,9 @@
 * https://github.com/saltstack-formulas/sudoers-formula.git
 * https://github.com/saltstack-formulas/prometheus-formula.git
 * https://github.com/saltstack-formulas/fail2ban-formula.git
+* https://github.com/saltstack-formulas/wireguard-formula.git
+* https://github.com/saltstack-formulas/php-formula.git
+* https://github.com/saltstack-formulas/wordpress-formula.git
 
 # My own
 
