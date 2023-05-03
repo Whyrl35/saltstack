@@ -35,6 +35,9 @@ restic:
     {% if 'saltmaster' in grains['role'] %}
       - /opt/vault
     {% endif %}
+    {% if 'mailserver' in grains['role'] %}
+      - /var/lib/rspamd
+    {% endif %}
     {% if grains['id'] == 'ks001.whyrl.fr' %}
     exclude:
         path:

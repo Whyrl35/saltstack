@@ -76,12 +76,14 @@ nginx:
           {%- load_yaml as locations %}
           location /:
             - try_files: $uri $uri/ =404
+            - client_max_body_size: 1024M
           location ~ \.php$:
             - try_files: $uri =404
             - include: fastcgi_params
             - fastcgi_index: index.php
             - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
-            - fastcgi_pass: unix:/var/run/php/php8.2-fpm.sock
+            - fastcgi_pass: unix:/var/run/php/php8.2-fpm-wp.sock
+            - client_max_body_size: 1024M
           location ~ /\.ht:
             - deny: all
           {%- endload %}

@@ -35,7 +35,7 @@ php:
           wordpress:
             user: www-data
             group: www-data
-            listen: /var/run/php8.2-fpm-wp.sock
+            listen: /var/run/php/php8.2-fpm-wp.sock
             listen.owner: www-data
             listen.group: www-data
             listen.mode: '0660'
