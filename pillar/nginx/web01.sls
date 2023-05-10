@@ -8,6 +8,43 @@ include:
   - .common
 
 nginx:
+  server:
+    config:
+      http:
+        gzip: 'on'
+        gzip_comp_level: 6
+        gzip_types: >
+          application/atom+xml
+          application/geo+json
+          application/javascript
+          application/x-javascript
+          application/json
+          application/ld+json
+          application/manifest+json
+          application/rdf+xml
+          application/rss+xml
+          application/vnd.ms-fontobject
+          application/wasm
+          application/x-web-app-manifest+json
+          application/xhtml+xml
+          application/xml
+          font/eot
+          font/otf
+          font/ttf
+          image/bmp
+          image/svg+xml
+          text/cache-manifest
+          text/calendar
+          text/css
+          text/javascript
+          text/markdown
+          text/plain
+          text/xml
+          text/vcard
+          text/vnd.rim.location.xloc
+          text/vtt
+          text/x-component
+          text/x-cross-domain-policy
   servers:
     managed:
       blokg:
@@ -84,6 +121,10 @@ nginx:
             - fastcgi_param: SCRIPT_FILENAME $document_root$fastcgi_script_name
             - fastcgi_pass: unix:/var/run/php/php8.2-fpm-wp.sock
             - client_max_body_size: 1024M
+          location ~* .(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|css|rss|atom|js|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$:  # noqa: 204
+            - expires: 'max'
+            - log_not_found: "'off'"
+            - access_log: "'off'"
           location ~ /\.ht:
             - deny: all
           {%- endload %}

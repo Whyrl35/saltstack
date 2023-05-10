@@ -58,6 +58,9 @@ base:
     - php.intl
     - php.mbstring
     - php.imagick
+    - php.curl
+    - php.zip
+    - php.xml
     - mysql.client
     - wordpress
 
