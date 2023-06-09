@@ -20,7 +20,7 @@ base:
     - restic
     - zsh
 
-  'not G@deployment:sac and not G@deployment:rbx':
+  'G@deployment:gra7':
     - networking
 
   # All minions but not the bastion, as the ssh and host configuration is very different

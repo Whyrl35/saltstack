@@ -5,7 +5,7 @@ nftables:
         - name: 'web'
           table: 'filter'
           family: 'ip'
-        {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
+        {% if ('deployment' in grains) and (grains['deployment'] not in ['gra7']) %}
         - name: 'web'
           table: 'filter'
           family: 'ip6'
@@ -20,7 +20,7 @@ nftables:
           table: 'filter'
           chain: 'web'
           family: 'ip'
-          {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
+          {% if ('deployment' in grains) and (grains['deployment'] not in ['gra7']) %}
           rule: 'tcp dport { 80, 443 } counter accept'
           {% else %}
           rule: 'tcp dport { 80, 443 } ip saddr @myhosts counter accept'
@@ -31,7 +31,7 @@ nftables:
           family: 'ip'
           rule: 'tcp dport { 9113 } ip saddr { 10.0.3.197/32, 51.178.63.140/32 } counter accept'
 
-        {% if ('deployment' in grains) and (grains['deployment'] in ['sac', 'rbx']) %}
+        {% if ('deployment' in grains) and (grains['deployment'] not in ['gra7']) %}
         - name: 'jump to web'
           table: 'filter'
           chain: 'input'

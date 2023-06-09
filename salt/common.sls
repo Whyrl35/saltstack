@@ -28,3 +28,19 @@ hostname_file:
     - name: /etc/hostname
     - contents:
       - {{ short_name }}
+
+# For now, set the vault configuration to remote.
+# FIXME : Won't work on new host, egg and chicken paradox
+/etc/salt/minion.d/95_vault.conf:
+  file.serialize:
+    - dataset:
+        vault:
+          config_location: master
+    - serializer: yaml
+    - serializer_opts:
+      - explicit_start: False
+      - default_flow_style: False
+      - indent: 2
+    - user: root
+    - group: root
+    - mode: "0644"
