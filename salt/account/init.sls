@@ -153,3 +153,19 @@ root_bashrc:
     - user: root
     - group: root
     - template: jinja
+
+# ------------------------------------------------------------
+# - Ansible account
+# -
+create_ansible_account:
+  user.present:
+    - name: ansible
+    - mindays: 0
+    - maxdays: 99999
+    - inactdays: -1
+    - warndays:
+    - expire: -1
+    - shell: /bin/bash
+    - usergroup: True
+    - createhome: True
+    - system: True

@@ -34,6 +34,7 @@ restic:
       - /etc
     {% if 'saltmaster' in grains['role'] %}
       - /opt/vault
+      - /home/ansible
     {% endif %}
     {% if 'mailserver' in grains['role'] %}
       - /var/lib/rspamd

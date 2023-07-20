@@ -14,6 +14,7 @@ base:
     - default
     - schedule
     - promtail
+    - sudoers
     - ignore_missing: True
 
   # All minions but not the bastion, as the ssh and host configuration is very different

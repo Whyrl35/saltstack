@@ -10,7 +10,15 @@ bastion:
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     - 10.0.1.184/32         # bastion private IP  XXX: for now only until bastion is enrolled in saltstack
     - 135.125.10.99/32      # bastion public IP   XXX: for now only until bastion is enrolled in saltstack
+    - 51.178.63.140/32      # OVH Gateway for GRA7 used by ansible
     {% for server, addrs in salt.saltutil.runner('mine.get', tgt='role:bastion', fun='network.ip_addrs', tgt_type='grain').items() %}
+    {% for addr in (addrs | ipv4)  %}
+    {% if(addr | is_ipv4) %}
+    - {{ addr }}/32
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='role:ansible', fun='network.ip_addrs', tgt_type='grain').items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ipv4) %}
     - {{ addr }}/32
@@ -26,12 +34,20 @@ bastion:
     {% endif %}
     {% endfor %}
     {% endfor %}
+    {% for server, addrs in salt.saltutil.runner('mine.get', tgt='role:ansible', fun='network.ip_addrs6', tgt_type='grain').items() %}
+    {% for addr in (addrs | ipv6)  %}
+    {% if(addr | is_ip(options='global')) %}
+    - {{ addr }}/128
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
 
 myhosts:
   ipv4:
     - 10.0.0.0/16           # vRack
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
+    - 51.178.63.140/32      # OVH Gateway for GRA7 used by ansible
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -42,6 +58,7 @@ myhosts:
   pub_ipv4:
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
+    - 51.178.63.140/32      # OVH Gateway for GRA7 used by ansible
     {% for server, addrs in minions_v4.items() %}
     {% for addr in (addrs | ipv4)  %}
     {% if(addr | is_ip(options='public')) %}
@@ -58,6 +75,7 @@ myhosts:
     - {{ home_ipv4 }}       # whyrl.fr (new IP since incident, full-stack)
     - {{ home_ipv4_4g }}    # whyrl.fr (IP outbound with 4G aggregation)
     - 91.121.156.77/32      # KS001
+    - 51.178.63.140/32      # OVH Gateway for GRA7 used by ansible
 
   ipv6:
     - 2a01:e0a:5d2:48b0::/64  # HOME (new IPs since incident)

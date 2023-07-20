@@ -4,7 +4,8 @@ docker:
     running:
       - portainer
       - cadvisor
-      - statping
+      #- statping
+      - uptime-kuma
 
     cadvisor:
       name: cadvisor
@@ -47,6 +48,19 @@ docker:
         - /srv/statping:/app
       port_bindings:
         - 8080:8080
+      start: true
+      detatch: true
+      network_disabled: false
+      network_mode: bridge
+      restart_policy: always
+
+    uptime-kuma:
+      name: uptime-kuma
+      image: "louislam/uptime-kuma"
+      binds:
+        - /srv/uptime-kuma:/app/data
+      port_bindings:
+        - 3001:3001
       start: true
       detatch: true
       network_disabled: false

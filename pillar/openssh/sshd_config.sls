@@ -48,9 +48,11 @@ sshd_config:
     - 'hmac-sha2-512'
     - 'hmac-sha2-256'
   AllowUsers:
+    - ansible
     - ludovic
     - debian
   AllowGroups:
     - wheel
     - adm
     - users
+    - ansible

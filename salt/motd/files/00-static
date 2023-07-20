@@ -1,2 +1,12 @@
 #!/bin/bash
-cat /etc/update-motd.d/xx-motd
+
+salt_status=$(grep -P '^salt_highstate_status.*' /var/lib/prometheus/node-exporter/salt_highstate.prom |awk '{print $2}')
+
+if [ $salt_status -eq 0 ]
+then
+        salt_txt='[0;42mSUCCESS[0m'
+else
+        salt_txt='[0;41mFAILED[0m'
+fi
+
+sed "s/unknown_result/${salt_txt}/" /etc/update-motd.d/xx-motd

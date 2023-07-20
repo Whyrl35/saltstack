@@ -18,6 +18,7 @@ base:
     - packages
     - prometheus
     - restic
+    - sudoers
     - zsh
 
   'G@deployment:gra7':
