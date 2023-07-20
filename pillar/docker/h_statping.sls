@@ -56,7 +56,7 @@ docker:
 
     uptime-kuma:
       name: uptime-kuma
-      image: "louislam/uptime-kuma"
+      image: "louislam/uptime-kuma:latest"
       binds:
         - /srv/uptime-kuma:/app/data
       port_bindings:
