@@ -23,7 +23,7 @@
   file.managed:
     - name: /etc/ssl/private/{{ d }}.key
     - user: root
-    - group: root
+    - group: ssl-cert
     - mode: "0600"
     - contents: {{ secret['privkey'] | yaml_encode }}
     - listen_in:

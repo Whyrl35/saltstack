@@ -9,7 +9,7 @@ include:
 nginx:
   servers:
     managed:
-      bitwarden:
+      uptime-kuma:
         enabled: True
         config:
           {% set domain_name = 'statping.whyrl.fr' %}

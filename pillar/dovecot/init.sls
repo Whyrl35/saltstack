@@ -34,11 +34,11 @@ dovecot:
           ssl = required
           ssl_cert = </etc/ssl/certs/whyrl.fr.pem
           ssl_key = </etc/ssl/private/whyrl.fr.key
-          ssl_ca = </etc/ssl/certs/whyrl.fr.fullchain.pem
+          ssl_ca = </etc/ssl/certs/whyrl.fr.chain.pem
           ssl_dh = </usr/share/dovecot/dh.pem
-          ssl_min_protocol = TLSv1.1
+          ssl_min_protocol = TLSv1.2
           ssl_cipher_list = ALL:!kRSA:!SRP:!kDHd:!DSS:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK:!RC4:!ADH:!LOW@STRENGTH
-          ssl_prefer_server_ciphers = no
+          ssl_prefer_server_ciphers = yes
         10-master: |
           service imap-login {
             inet_listener imap {

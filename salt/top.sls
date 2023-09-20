@@ -44,6 +44,7 @@ base:
   # loadbalancer servers
   'role:loadbalancer':
     - match: grain
+    - certificates
     - haproxy
 
   # Webserver

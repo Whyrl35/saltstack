@@ -33,7 +33,7 @@ nftables:
           table: 'filter'
           chain: 'container'
           family: 'ip'
-          rule: 'ip saddr 172.0.0.0/8 tcp dport 25 counter accept'
+          rule: 'ip saddr 172.16.0.0/12 tcp dport 25 counter accept'
         - name: 'allow portainer'
           table: 'filter'
           chain: 'container'
