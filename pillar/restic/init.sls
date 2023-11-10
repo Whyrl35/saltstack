@@ -32,9 +32,10 @@ restic:
     paths:
       - /srv
       - /etc
-    {% if 'saltmaster' in grains['role'] %}
+    {% if 'saltstack' in grains['role'] %}
       - /opt/vault
       - /home/ansible
+      - /opt/hashicorp
     {% endif %}
     {% if 'mailserver' in grains['role'] %}
       - /var/lib/rspamd

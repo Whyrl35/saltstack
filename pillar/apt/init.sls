@@ -27,8 +27,9 @@ apt:
 
   repositories:
     saltstack:
-      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'buster' }}
-      url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest {# latest #}
+      distro: bullseye {# {{ grains['oscodename']|lower if 'oscodename' in grains else 'bullseye' }} #}
+      {# url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest #} {# latest #}
+      url: https://repo.saltproject.io/salt/py3/debian/11/amd64/latest #} {# latest #}
       comps: [main]
       {# OLD-KEY-3005 keyid: 0E08A149DE57BFBE #}
       keyid: 64CBBC8173D76B3F

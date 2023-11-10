@@ -15,4 +15,4 @@
  [1;90m║ [1;31mipv4[0m......: {% for ip in grains['ipv4'] %}{% if ip|is_ipv4(options='public') and not ip|is_ipv4(options='loopback') %}{{ ip }} {% endif %}{% endfor %}
  [1;90m║ [1;31mipv4[0m......: {% for ip in grains['ipv4'] %}{% if ip|is_ipv4(options='private') and not ip|is_ipv4(options='loopback') %}{{ ip }} {% endif %}{% endfor %}
  [1;90m║ [1;31mipv6[0m......: {% for ip in grains['ipv6']|ipaddr %}{% if ip|is_ip(options='global') %}{{ ip }}{% endif %}{% endfor %}
- [1;90m║ [1;31mdns[0m.......: {{ grains['dns']['nameservers']|join(', ')}}
+{%if 'dns' in grains %} [1;90m║ [1;31mdns[0m.......: {{ grains['dns']['nameservers']|join(', ') }}{% endif %}

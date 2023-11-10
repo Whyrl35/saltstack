@@ -9,12 +9,7 @@ repos:
         - id: end-of-file-fixer
         - id: trailing-whitespace
 
--   repo: https://github.com/roaldnefs/salt-lint/
-    rev: v0.2.0
+-   repo: https://github.com/warpnet/salt-lint
+    rev: v0.9.2
     hooks:
-        -   id: salt-lint
-            name: Salt-lint
-            description: This hook runs salt-lint.
-            entry: salt-lint
-            language: python
-            files: \.(sls)$
+        - id: salt-lint
