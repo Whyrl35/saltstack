@@ -1,0 +1,22 @@
+[Unit]
+Description=Polemarch Service HTTP Server
+After=network.target remote-fs.target nss-lookup.target redis.service mysql.service
+
+[Service]
+Type=forking
+ExecStart={{ polemarch.path.app }}/bin/polemarchctl webserver
+ExecReload={{ polemarch.path.app }}/bin/polemarchctl webserver reload={{ polemarch.path.pid }}/{{ polemarch.name }}.pid
+ExecStop={{ polemarch.path.app }}/bin/polemarchctl webserver stop={{ polemarch.path.pid }}/{{ polemarch.name }}.pid
+PIDFile={{ polemarch.path.pid }}/{{ polemarch.name}}.pid
+User={{ polemarch.identity.user }}
+Group={{ polemarch.identity.group }}
+KillSignal=SIGCONT
+Restart=always
+WorkingDirectory={{ polemarch.path.app }}
+
+# Uncomment this if used privileged ports
+# Capabilities=CAP_NET_BIND_SERVICE+ep
+# AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

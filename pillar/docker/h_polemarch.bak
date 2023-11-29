@@ -1,0 +1,85 @@
+#!jinja|yaml|gpg
+{# set secret = salt['vault'].read_secret('secret/salt/portainer/edge/polemarch.whyrl.fr') #}
+{% set database_secret = salt['vault'].read_secret('secret/salt/databases/mysql') %}
+
+docker:
+  networks:
+    - polemarch-net
+
+  containers:
+    running:
+      #- portainer
+      - cadvisor
+      - redis
+      - polemarch
+
+    cadvisor:
+      name: cadvisor
+      image: "gcr.io/cadvisor/cadvisor:latest"
+      binds:
+        - /:/rootfs:ro
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+      port_bindings:
+        - 9102:8080
+      start: true
+      detatch: true
+      #auto_remove: true
+      privilegde: true
+      network_disabled: false
+      network_mode: bridge
+      restart_policy: always
+
+{#    portainer:
+      name: portainer_edge_agent
+      image: "portainer/agent:latest"
+      binds:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /var/lib/docker/volumes:/var/lib/docker/volumes
+        - /:/host
+        - portainer_agent_data:/data
+      env:
+        - EDGE=1
+        - EDGE_ID={{ secret['id'] }}
+        - EDGE_KEY={{ secret['key'] }}
+        - EDGE_INSECURE_POLL=1
+      start: true
+      detatch: true
+      #auto_remove: true
+      privilegde: true
+      network_disabled: false
+      network_mode: bridge
+      restart_policy: always
+#}
+
+    redis:
+      name: redis
+      image: "redis/redis-stack-server:latest"
+      port_bindings:
+        - 6379:6379
+      binds:
+        - /opt/redis:/data
+      networks:
+        - polemarch-net
+
+    polemarch:
+      name: polemarch
+      image: "vstconsulting/polemarch:latest"
+      binds:
+        - /opt/polemarch/projects:/projects
+        - /opt/polemarch/hooks:/hooks
+      port_bindings:
+        - 8080:8080
+      networks:
+        - polemarch-net
+      env:
+        - DATABASE_URL=mysql://polemarch:{{ database_secret['polemarch'] }}@mysql-caaca600-o37d65b73.database.cloud.ovh.net:20184/polemarch
+        - CACHE_URL=redis://redis:6379/1
+        - LOCKS_URL=redis://redis:6379/2
+        - RPC_URL=redis://redis:6379/3
+      start: true
+      detatch: true
+      network_disabled: false
+      network_mode: bridge
+      restart_policy: always

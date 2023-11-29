@@ -1,0 +1,96 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['osfinger'] based logic.
+# You just need to add the key:values for an `osfinger` that differ
+# from `defaults.yaml` + `os_family.yaml` + `osmap.yaml`.
+# Only add an `osfinger` which is/will be supported by the formula
+#
+# If you do not need to provide defaults via the `os_finger` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfingermap: {}
+---
+# os: Debian
+Debian-11:
+  package:
+    prerequisites:
+      - python3.9
+      - python3.9-dev
+      - python3-virtualenv
+      - gcc
+      - libffi-dev
+      - libkrb5-dev
+      - libffi7
+      - libssl-dev
+      - libyaml-dev
+      - libsasl2-dev
+      - libldap2-dev
+      - default-libmysqlclient-dev
+      - sshpass
+      - git
+  python:
+    version: 3.9
+
+Debian-12:
+  package:
+    prerequisites:
+      - python3.11
+      - python3.11-dev
+      - python3-virtualenv
+      - gcc
+      - libffi-dev
+      - libkrb5-dev
+      - libssl-dev
+      - libyaml-dev
+      - libsasl2-dev
+      - libldap2-dev
+      - default-libmysqlclient-dev
+      - sshpass
+      - git
+  python:
+    version: 3.11
+
+  # os: Ubuntu
+Ubuntu-20.04:
+  package:
+    prerequisites:
+      - python3.8
+      - python3.8-dev
+      - python3-virtualenv
+      - gcc
+      - libffi-dev
+      - libkrb5-dev
+      - libffi7
+      - libssl-dev
+      - libyaml-dev
+      - libsasl2-dev
+      - libldap2-dev
+      - default-libmysqlclient-dev
+      - sshpass
+      - git
+  python:
+    version: 3.8
+
+Ubuntu-22.04:
+  package:
+    prerequisites:
+      - python3.10
+      - python3.10-dev
+      - python3-virtualenv
+      - gcc
+      - libffi-dev
+      - libkrb5-dev
+      - libffi7
+      - libssl-dev
+      - libyaml-dev
+      - libsasl2-dev
+      - libldap2-dev
+      - default-libmysqlclient-dev
+      - sshpass
+      - git
+  python:
+    version: 3.10
+
+# os: CentOS
+CentOS-6: {}
+CentOS-7: {}

@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+
+## Variables in comment to pass salt-lint
+# {% set progname = 'polemarch' %}
+# {% set app_basedir = '/opt' %}
+# {% set conf_basedir = '/etc' %}
+
+polemarch:
+  name: "{{ progname }}"
+
+  identity:
+    user: "{{ progname }}"
+    group: "{{ progname }}"
+
+  path:
+    etc: "{{ conf_basedir}}/{{ progname }}"
+    app: "{{ app_basedir }}/{{ progname }}"
+    pid: "{{ app_basedir }}/{{ progname }}/pid"
+    log: "{{ app_basedir }}/{{ progname }}/log"
+    hooks: "{{ app_basedir }}/{{ progname }}/hooks"
+    projects: "{{ app_basedir }}/{{ progname }}/projects"
+
+  configuration:
+    main:
+      auth-cache-user: True
+      log_level: warning
+      debug: false
+      projects_dir: "{{ app_basedir }}/{{ progname }}/projects"
+      hooks_dir: "{{ app_basedir }}/{{ progname }}/hooks"
+    database:
+      engine: django.db.backends.mysql
+      name: "{{ progname }}"
+      user: "{{ progname }}"
+      password: p@ssw0rd
+      host: localhost
+      port: 3306
+    database.options:
+      connect_timeout: ~
+      init_command: ~
+    cache:
+      backend: ~
+      location: ~
+    locks:
+      backend: ~
+      location: ~
+    rpc:
+      connection: ~
+      heartbeat: ~
+      concurrency: ~
+      enable_worker: ~
+    uwsgi:
+      addrport: 0.0.0.0:8080
+      pidfile: "{{ app_basedir }}/{{ progname }}/pid/{{ progname }}.pid"
+      log_file: "{{ app_basedir }}/{{ progname }}/log/{{ progname }}_web.log"
+    worker:
+      logfile: "{{ app_basedir }}/{{ progname }}/log/{PROG_NAME}_worker.log"
+      pidfile: "{{ app_basedir }}/{{ progname }}/pid/{PROG_NAME}_worker.pid"
+      loglevel: INFO
+      autoscale: 4,1
+      beat: true
+    web:
+      session_timeout: 1w
+      rest_page_limit: 1000
+      history_metrics_window: 60
+
+  package:
+    prerequisites:
+      - python3-virtualenv
+      - gcc
+      - libffi-dev
+      - libkrb5-dev
+      - libffi7
+      - libssl-dev
+      - libyaml-dev
+      - libsasl2-dev
+      - libldap2-dev
+      - default-libmysqlclient-dev
+      - sshpass
+      - git
+
+  python:
+    version: 3.11
+    pip:
+      pkgs:
+        - "polemarch[mysql]"
