@@ -25,12 +25,12 @@ apt:
       - origin=Debian,archive=stable-security,label=Debian-Security
       - origin=Debian,archive=oldstable-security,label=Debian-Security
 
-  repositories:
-    saltstack:
-      distro: bullseye {# {{ grains['oscodename']|lower if 'oscodename' in grains else 'bullseye' }} #}
-      {# url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest #} {# latest #}
-      url: https://repo.saltproject.io/salt/py3/debian/11/amd64/latest #} {# latest #}
-      comps: [main]
-      {# OLD-KEY-3005 keyid: 0E08A149DE57BFBE #}
-      keyid: 64CBBC8173D76B3F
-      keyserver: hkp://pgp.mit.edu:80
+#  repositories:
+#    saltstack:
+#      distro: bullseye {# {{ grains['oscodename']|lower if 'oscodename' in grains else 'bullseye' }} #}
+#      {# url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest #} {# latest #}
+#      url: https://repo.saltproject.io/salt/py3/debian/11/amd64/latest #} {# latest #}
+#      comps: [main]
+#      {# OLD-KEY-3005 keyid: 0E08A149DE57BFBE #}
+#      keyid: 64CBBC8173D76B3F
+#      keyserver: hkp://pgp.mit.edu:80

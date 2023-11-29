@@ -37,6 +37,10 @@ restic:
       - /home/ansible
       - /opt/hashicorp
     {% endif %}
+    {% if 'container' in grains['role'] %}
+      - /opt/bitwarden
+      - /var/lib/docker/volumes
+    {% endif %}
     {% if 'mailserver' in grains['role'] %}
       - /var/lib/rspamd
     {% endif %}

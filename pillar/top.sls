@@ -106,3 +106,8 @@ base:
   'role:wireguard':
     - match: grain
     - wireguard
+
+  'role:polemarch':
+    - match: grain
+    - redis
+    - polemarch

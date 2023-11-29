@@ -27,6 +27,7 @@
 * https://github.com/saltstack-formulas/wireguard-formula.git
 * https://github.com/saltstack-formulas/php-formula.git
 * https://github.com/saltstack-formulas/wordpress-formula.git
+* https://github.com/saltstack-formulas/redis-formula.git
 
 # My own
 

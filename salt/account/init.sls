@@ -157,9 +157,11 @@ root_bashrc:
 # ------------------------------------------------------------
 # - Ansible account
 # -
+{% set ansible_secret = salt['vault'].read_secret('secret/salt/account/ansible') %}
 create_ansible_account:
   user.present:
     - name: ansible
+    - password: {{ ansible_secret['password_hash'] }}
     - mindays: 0
     - maxdays: 99999
     - inactdays: -1

@@ -12,6 +12,7 @@ docker:
       - cadvisor
       - alcali
       - truenas-graphite-exporter
+      - docuseal
 
     cadvisor:
       name: cadvisor
@@ -114,6 +115,17 @@ docker:
         - 9108:9108
         - 2003:9109
         - "2003:9109/udp"
+      start: true
+      detatch: true
+      restart_policy: always
+
+    docuseal:
+      name: docuseal
+      image: "docuseal/docuseal:latest"
+      port_bindings:
+        - 9110:3000
+      binds:
+        - docuseal-data:/data
       start: true
       detatch: true
       restart_policy: always

@@ -6,6 +6,7 @@
 {% from 'haproxy/webservers.jinja' import webservers %}
 {% from 'haproxy/docker01.jinja' import docker01 %}
 {% from 'haproxy/loki.jinja' import loki %}
+{% from 'haproxy/polemarch.jinja' import polemarch %}
 
 haproxy:
   global:
@@ -75,6 +76,8 @@ haproxy:
         - host_warden hdr(host) -i warden.whyrl.fr
         - host_webmail hdr(host) -i webmail.whyrl.fr
         - host_www hdr(host) -i www.whyrl.fr
+        - host_docuseal hdr(host) -i docuseal.whyrl.fr
+        - host_polemarch hdr(host) -i polemarch.whyrl.fr
       httprequests:
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
@@ -90,10 +93,12 @@ haproxy:
         - backend-docker01 if host_alcali
         - backend-docker01 if host_grafana
         - backend-docker01 if host_warden
+        - backend-docker01 if host_docuseal
         - backend-loki if host_loki
         - backend-mail if host_postfixadmin
         - backend-mail if host_rspamd
         - backend-mail if host_webmail
+        - backend-polemarch if host_polemarch
         - backend-truenas if host_truenas
         - backend-vault if host_saltgui
         - backend-vault if host_vault
@@ -158,6 +163,25 @@ haproxy:
         - "http-response set-header X-Target %s"
       servers:
       {% for server, ips in mail.items() %}
+        {{ server.split('.')[0] }}:
+          host: {{ ips[0] }}
+          port: 443
+          check: check check-ssl
+          extra: "ssl verify none cookie {{ server.split('.')[0] }}"
+      {% endfor %}
+
+    polemarch:
+      name: backend-polemarch
+      mode: http
+      balance: source
+      options:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ polemarch.whyrl.fr'
+        - forwardfor
+      cookie: "SERVERUID insert indirect nocache"
+      extra:
+        - "http-response set-header X-Target %s"
+      servers:
+      {% for server, ips in polemarch.items() %}
         {{ server.split('.')[0] }}:
           host: {{ ips[0] }}
           port: 443

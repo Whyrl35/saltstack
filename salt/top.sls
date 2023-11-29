@@ -90,6 +90,7 @@ base:
     - systemd
     - docker
     #- docker.compose
+    - docker.networks
     - docker.containers
 
   # Mail server, will run a stack of postfix/dovecot ta manage mail
@@ -133,3 +134,9 @@ base:
   'role:wireguard':
     - match: grain
     - wireguard
+
+  # polemarch
+  'role:polemarch':
+    - match: grain
+    - redis
+    - polemarch
