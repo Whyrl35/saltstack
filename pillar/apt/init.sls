@@ -25,12 +25,11 @@ apt:
       - origin=Debian,archive=stable-security,label=Debian-Security
       - origin=Debian,archive=oldstable-security,label=Debian-Security
 
-#  repositories:
-#    saltstack:
-#      distro: bullseye {# {{ grains['oscodename']|lower if 'oscodename' in grains else 'bullseye' }} #}
-#      {# url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest #} {# latest #}
-#      url: https://repo.saltproject.io/salt/py3/debian/11/amd64/latest #} {# latest #}
-#      comps: [main]
-#      {# OLD-KEY-3005 keyid: 0E08A149DE57BFBE #}
-#      keyid: 64CBBC8173D76B3F
-#      keyserver: hkp://pgp.mit.edu:80
+  repositories:
+    saltstack:
+      distro: {{ grains['oscodename']|lower if 'oscodename' in grains else 'bullseye' }}
+      url: https://repo.saltproject.io/salt/py3/debian/{{ grains['osrelease'] }}/amd64/latest
+      {# url: https://repo.saltproject.io/salt/py3/debian/11/amd64/3006 #}
+      comps: [main]
+      key_url: https://repo.saltproject.io/salt/py3/debian/11/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+      opts: "signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg"

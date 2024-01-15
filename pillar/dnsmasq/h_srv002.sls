@@ -5,7 +5,7 @@ dnsmasq:
   hosts:
     whyrl.fr:
       srv002: 192.168.0.1
-      nas: 192.168.0.2
+      nas: 192.168.0.1
       srv003: 192.168.0.3
       netatmo: 192.168.0.5
       printer: 192.168.0.6

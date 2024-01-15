@@ -20,6 +20,10 @@ haproxy:
     ssl-default-bind-options: prefer-client-ciphers no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets no-tlsv12
     ssl-default-server-ciphersuites: TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
     ssl-default-server-options: no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets #no-tlsv12
+    extra:
+      - 'lua-prepend-path /usr/lib/crowdsec/lua/haproxy/?.lua'
+      - 'lua-load /usr/lib/crowdsec/lua/haproxy/crowdsec.lua'
+      - 'setenv CROWDSEC_CONFIG /etc/crowdsec/bouncers/crowdsec-haproxy-bouncer.conf'
   defaults:
     timeouts:
       - http-request    10s
@@ -57,6 +61,7 @@ haproxy:
       mode: http
       options:
         - forwardfor
+      sticktable: type ip size 10k expire 30m
       redirects:
         - scheme https code 301 if !{ ssl_fc }
       acls:
@@ -79,6 +84,11 @@ haproxy:
         - host_docuseal hdr(host) -i docuseal.whyrl.fr
         - host_polemarch hdr(host) -i polemarch.whyrl.fr
       httprequests:
+        - 'lua.crowdsec_allow'
+        - 'track-sc0 src if { var(req.remediation) -m str "captcha-allow" }'
+        - 'redirect location %[var(req.redirect_uri)] if { var(req.remediation) -m str "captcha-allow" }'
+        - 'use-service lua.reply_captcha if { var(req.remediation) -m str "captcha" }'
+        - 'use-service lua.reply_ban if { var(req.remediation) -m str "ban" }'
         - 'track-sc0 src table per_ip_rates'
         - 'deny deny_status 429 if { sc_http_req_rate(0) gt 300 }'
         # If User-Agent is in the list, deny
@@ -109,7 +119,7 @@ haproxy:
 
   backends:
     per_ip_rates:
-      sticktable: 'type ip size 1m expire 10m store http_req_rate(10s)'
+      sticktable: 'type ip size 1m expire 30m store http_req_rate(10s)'
 
     whyrl:
       name: backend-whyrl
@@ -243,3 +253,19 @@ haproxy:
           port: 443
           check: check check-ssl
           extra: "ssl verify none cookie truenas"
+
+    captcha_verifier:
+      name: captcha_verifier
+      servers:
+        captcha_verifier:
+          host: www.recaptcha.net
+          port: 443
+          check: check
+
+    crowdsec:
+      name: crowdsec
+      servers:
+        crowdsec:
+          host: 127.0.0.1
+          port: 8080
+          check: check
