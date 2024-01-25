@@ -74,6 +74,7 @@ bind:
           smtp: 10.0.3.67
           bastion: 10.0.1.184
           truenas: 10.0.1.108
+          ingress.k8s: 162.19.118.210
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
@@ -105,6 +106,8 @@ bind:
           smtp.cloud: smtp.whyrl.fr.
           vault: saltmaster.cloud.whyrl.fr.
           vault.cloud: saltmaster.cloud.whyrl.fr.
+
+          gitea: ingress.k8s.whyrl.fr.
 
     0.10.in-addr.arpa:
       file: whyrl.fr.rev.txt
