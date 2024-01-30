@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-type: docker
+type: kubernetes
 name: lint
 
 steps:
@@ -11,7 +11,7 @@ steps:
 
 ---
 kind: pipeline
-type: docker
+type: kubernetes
 name: push
 
 steps:
@@ -29,7 +29,7 @@ depends_on:
 ---
 kind: pipeline
 name: after
-type: docker
+type: kubernetes
 
 steps:
 - name: slack
