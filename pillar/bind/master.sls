@@ -74,7 +74,7 @@ bind:
           smtp: 10.0.3.67
           bastion: 10.0.1.184
           truenas: 10.0.1.108
-          ingress.k8s: 162.19.118.210
+          ingress.k8s: 51.210.210.127
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
