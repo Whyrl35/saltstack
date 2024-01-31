@@ -92,7 +92,7 @@ bind:
           _dmarc.whyrl.fr.: 'v=DMARC1; p=none; sp=reject'
         CNAME:
           ks: ks001.whyrl.fr.
-          drone: ks001.whyrl.fr.
+          drone: drone.ingress.k8s.whyrl.fr.
           srv002: srv001.whyrl.fr.
           nas: srv001.whyrl.fr.
           hassio: srv001.whyrl.fr.
