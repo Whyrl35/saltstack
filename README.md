@@ -1,4 +1,4 @@
-![](https://github.com/Whyrl35/saltstack/workflows/salt-lint/badge.svg)
+[![Build Status](https://drone.ingress.k8s.whyrl.fr/api/badges/whyrl/saltstack/status.svg)](https://drone.ingress.k8s.whyrl.fr/whyrl/saltstack)
 
 # Saltstack repository
 
