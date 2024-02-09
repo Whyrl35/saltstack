@@ -68,13 +68,13 @@ bind:
           srv001: 82.65.179.161
           ks001: 91.121.156.77
           vpn-ca: 54.39.188.136
-          statping: 141.95.75.131
           ns1: 10.0.2.133
           ns2: 10.0.0.36
           smtp: 10.0.3.67
           bastion: 10.0.1.184
           truenas: 10.0.1.108
           ingress.k8s: 51.210.210.127
+          '*.ingress.k8s': 51.210.210.127
           {% for fqdn, ips in salt.saltutil.runner('mine.get', tgt='*', fun='network.ip_addrs').items() %}
           {% set name = fqdn | regex_replace('.whyrl.fr', '') %}
           {% for ip in ips %}
@@ -92,7 +92,6 @@ bind:
           _dmarc.whyrl.fr.: 'v=DMARC1; p=none; sp=reject'
         CNAME:
           ks: ks001.whyrl.fr.
-          drone: drone.ingress.k8s.whyrl.fr.
           srv002: srv001.whyrl.fr.
           nas: srv001.whyrl.fr.
           hassio: srv001.whyrl.fr.
@@ -107,7 +106,11 @@ bind:
           vault: saltmaster.cloud.whyrl.fr.
           vault.cloud: saltmaster.cloud.whyrl.fr.
 
-          gitea: ingress.k8s.whyrl.fr.
+          gitea: gitea.ingress.k8s.whyrl.fr.
+          drone: drone.ingress.k8s.whyrl.fr.
+          argocd: argocd.ingress.k8s.whyrl.fr.
+          alcali: alcali.ingress.k8s.whyrl.fr.
+          uptime: uptime.ingress.k8s.whyrl.fr.
 
     0.10.in-addr.arpa:
       file: whyrl.fr.rev.txt

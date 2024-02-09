@@ -67,7 +67,6 @@ haproxy:
       acls:
         - http ssl_fc,not
         - https ssl_fc
-        - host_alcali hdr(host) -i alcali.whyrl.fr
         - host_blog hdr(host) -i blog.whyrl.fr
         - host_grafana hdr(host) -i grafana.whyrl.fr
         - host_loki hdr(host) -i loki.whyrl.fr
@@ -100,7 +99,6 @@ haproxy:
       extra:
         - "http-response set-header Strict-Transport-Security max-age=63072000"
       use_backends:
-        - backend-docker01 if host_alcali
         - backend-docker01 if host_grafana
         - backend-docker01 if host_warden
         - backend-docker01 if host_docuseal

@@ -2,7 +2,6 @@
 {% set secret = salt['vault'].read_secret('secret/salt/portainer/edge/docker01.cloud.whyrl.fr') %}
 {% set grafana_secret = salt['vault'].read_secret('secret/salt/grafana') %}
 {% set database_secret = salt['vault'].read_secret('secret/salt/databases/mysql') %}
-{% set alcali_secret = salt['vault'].read_secret('secret/salt/alcali') %}
 
 docker:
   containers:
@@ -10,7 +9,6 @@ docker:
       - portainer
       - grafana
       - cadvisor
-      - alcali
       - truenas-graphite-exporter
       - docuseal
 
@@ -81,32 +79,6 @@ docker:
       start: true
       detatch: true
       restart_policy: always
-
-    alcali:
-      name: alcali
-      image: "whyrl/alcali:latest"
-      port_bindings:
-        8000:8000
-      env:
-        - DB_BACKEND=mysql
-        - DB_NAME=salt
-        - DB_USER=alcali
-        - DB_PASS={{ database_secret['alcali'] }}
-        - DB_HOST=mysql-caaca600-o37d65b73.database.cloud.ovh.net
-        - DB_PORT=20184
-        - SECRET_KEY={{ alcali_secret['secret_key'] }}
-        - ALLOWED_HOSTS=*
-        - MASTER_MINION_ID=saltmaster.cloud.whyrl.fr
-        - SALT_URL=http://10.0.1.5:3333
-        - SALT_AUTH=rest
-        - GUNICORN_CMD_ARGS=--bind 0.0.0.0:8000 --workers 9 --timeout 1200
-        # others gunicorn options: --log-level debug --log-file - --error-logfile - --capture-output --access-logfile -
-      start: true
-      detatch: true
-      restart_policy: always
-      command:
-        - /opt/alcali/.local/bin/gunicorn
-        - config.wsgi:application
 
     truenas-graphite-exporter:
       name: truenas-exporter

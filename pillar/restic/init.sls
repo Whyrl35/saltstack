@@ -33,9 +33,8 @@ restic:
       - /srv
       - /etc
     {% if 'saltstack' in grains['role'] %}
-      - /opt/vault
+      - /opt/
       - /home/ansible
-      - /opt/hashicorp
     {% endif %}
     {% if 'container' in grains['role'] %}
       - /opt/bitwarden
